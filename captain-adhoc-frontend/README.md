@@ -1,4 +1,4 @@
-# captain-ad-hoc-front-end
+# captain-adhoc-frontend
 
 ## Project setup
 ```
