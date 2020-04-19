@@ -2,7 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
+      For the a guide and recipes on how to configure / customize this project,<br>
       check out the
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
     </p>
@@ -27,16 +27,47 @@
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
+    <div>
+      <button v-on:click="mounted">Click me to test axios</button>
+      <p> {{ info }} </p>
+    </div>
+    
   </div>
+
 </template>
 
 <script>
+import {
+  HTTP
+} from '../http-common';
+
 export default {
   name: 'HelloWorld',
   props: {
-    msg: String
+    msg: String,
+  }, 
+  data () {
+    return {
+      info: "Init"
+    }
+    
+  },
+  methods: {
+    mounted: function() {
+      HTTP
+        .get('/test')
+        .then(response => {
+          this.info = response.data;
+        })
+        .error(error => {
+            console.log(error);
+        })
+    }
   }
+  
 }
+
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
