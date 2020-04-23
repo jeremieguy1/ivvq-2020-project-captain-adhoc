@@ -16,5 +16,6 @@ services:
         environment:
             POSTGRES_DB: "db"
             POSTGRES_HOST_AUTH_METHOD: "trust"
+            POSTGRES_USER: "postgres"
         ports:
             - 5432:5432
