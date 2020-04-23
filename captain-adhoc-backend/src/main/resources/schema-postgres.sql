@@ -13,3 +13,6 @@ CREATE TABLE produits(id_produit INTEGER PRIMARY KEY NOT NULL, quantite_produit 
 DROP TABLE IF EXISTS commande_produit_assoc;
 CREATE TABLE commande_produit_assoc(quantite INTEGER, id_commande INTEGER FOREIGN KEY REFERENCES commandes(id_commande), id_produit INTEGER FOREIGN KEY REFERENCES commandes(id_produit));
 
+DROP TABLE IF EXISTS test;
+CREATE TABLE test(id_acheteur INTEGER PRIMARY KEY NOT NULL, nom_acheteur VARCHAR(255), identifiant_acheteur VARCHAR(255));
+
