@@ -2,12 +2,12 @@ version: '3'
 services: 
     web:
         build: .
+        environment:
+            API_URL: '"192.168.99.100:8080"'
         ports:
             - 8080:8080
         depends_on:
             - db
-        environment:
-            API_URL: '"http://192.168.99.100:8080"'
 
     db:
         container_name: db
