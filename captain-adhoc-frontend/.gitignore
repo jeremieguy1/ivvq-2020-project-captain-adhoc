@@ -17,4 +17,4 @@ selenium-debug.log
 *.sln
 
 # Asset folder for webpack
-!/static/*
+!/static/
