@@ -1,7 +1,7 @@
 {
   "name": "captain-adhoc-frontend",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "Captain Escroc website",
   "author": "Jérémie <mine.guy09@gmail.com>",
   "private": true,
   "scripts": {
