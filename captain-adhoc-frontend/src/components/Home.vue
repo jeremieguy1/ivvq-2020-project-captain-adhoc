@@ -33,7 +33,9 @@ import router from '../router'
 export default {
   name: 'Home',
   data () {
-    return { }
+    return {
+      info: null
+    }
   },
   methods: {
     getData () {
