@@ -1,6 +1,5 @@
 package captainadhoc.captainadhocbackend.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,27 +7,25 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
 @Entity
-@Table(name = "acheteur")
-public class Acheteur {
+@Table(name = "commande_produit_assoc")
+public class CommandeProduit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id_acheteur;
+    private Long id_commandeProduit;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Produit produit;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Commande commande;
 
     @NotEmpty
-    private String nom_acheteur;
-
-    @NotEmpty
-    private String identifiant_acheteur;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "acheteur")
-    private List<Commande> commandeList;
+    private Long quantite_commade_produit;
 }
