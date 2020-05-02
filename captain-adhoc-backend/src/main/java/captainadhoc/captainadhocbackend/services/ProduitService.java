@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 @Service
 public class ProduitService {
@@ -21,5 +20,15 @@ public class ProduitService {
         });
 
         return produits;
+    }
+
+    public void saveProduit(Produit produit){
+
+        produitRepository.save(produit);
+
+    }
+
+    public void deleteAllProduit() {
+        produitRepository.deleteAll();
     }
 }
