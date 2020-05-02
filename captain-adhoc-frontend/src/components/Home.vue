@@ -11,7 +11,7 @@
         <div class="is-flex level is-vcentered">
           <div class="level-item">
             <div class="buttons is-flex">
-              <button class="button is-primary is-fullwidth"
+              <button class="button is-primary is-fullwidth login"
                 v-on:click="navigate">Login</button>
               <button class="button is-primary is-fullwidth">Sign up</button>
             </div>
