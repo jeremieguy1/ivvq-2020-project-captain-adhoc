@@ -1,40 +1,28 @@
 import Vue from 'vue'
 import Home from '@/components/Home'
-import axios from 'axios'
-import moxios from 'moxios'
-import chai from 'chai'
+
+import { mount } from '@vue/test-utils'
 
 describe('Homme.vue', () => {
-  it('should render correct contents', () => {
-    const Constructor = Vue.extend(Home)
-    const vm = new Constructor().$mount()
-    chai.expect(vm).to.have.property('info')
+  it('should have the info propertie correct contents', () => {
+    const vm = new Vue(Home).$mount()
+    expect(vm).to.have.property('info')
   })
 
-  it('just for a single spec', function (done) {
-    // const Constructor = Vue.extend(Home)
-    // const vm = new Constructor().$mount()
-    // const fakeThis = {
-    //   info: null
-    // }
-    // const getData = vm.methods.getData.bind(fakeThis)
-    moxios.withMock(function () {
-      let onFulfilled = sinon.spy()
-      // getData.then(onFulfilled)
-      axios.get('/test').then(onFulfilled)
+  it('just for a single spec', () => {
+    let wrapper = mount(Home)
 
-      moxios.wait(function () {
-        let request = moxios.requests.mostRecent()
-        request.respondWith({
-          status: 200,
-          response: [
-            ['6']
-          ]
-        }).then(function () {
-          chai.expect(onFulfilled.called).to.equal(true)
-          done()
-        })
-      })
-    })
+    const spy = sinon.spy(Home.methods, 'navigate')
+    // console.log('1 ' + spy.navigate.calledOnce)
+    expect(wrapper.vm.navigate).to.be.a('function')
+
+    wrapper.find('button.login').trigger('click')
+    console.log('2 ' + spy.calledOnce)
+    wrapper.vm.navigate()
+    Home.methods.navigate()
+    console.log('3 ' + spy.calledOnce)
+    expect(spy.calledOnce)
+
+    // Home.methods.navigate.restore()
   })
 })
