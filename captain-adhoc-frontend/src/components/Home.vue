@@ -12,7 +12,7 @@
           <div class="level-item">
             <div class="buttons is-flex">
               <button class="button is-primary is-fullwidth login"
-                v-on:click="navigate">Login</button>
+                v-on:click="navigateToLogin">Login</button>
               <button class="button is-primary is-fullwidth">Sign up</button>
             </div>
           </div>
@@ -23,29 +23,15 @@
 </template>
 
 <script>
-
-import {
-  HTTP
-} from '../http-common'
-
 import router from '../router'
 
 export default {
   name: 'Home',
   data () {
-    return {
-      info: null
-    }
+    return {}
   },
   methods: {
-    getData () {
-      HTTP
-        .get('/connect')
-        .then(response => {
-          this.info = response.data
-        })
-    },
-    navigate () {
+    navigateToLogin () {
       router.push({ name: 'Login' })
     }
   }
