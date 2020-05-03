@@ -1,9 +1,8 @@
 <template>
   <div>
-
-    <div class="hero is-small is-primary">
+    <div class="hero is-small">
       <div class="hero-body">
-        <div class="columns">
+        <div class="columns" style="position:relative">
           <div class="column ">
             <figure class="image is-4by5">
               <img src="../assets/rickH.png" />
@@ -16,6 +15,13 @@
           <div class="level-item">
             <h1 class="title is-1">Captain Escroc Market</h1>
           </div>
+          <div class="content is-medium " >
+            <div  id="container" class="column is-narrow has-text-centered " >
+              <div id="jeuxExlu" class="column is-narrow has-text-centered " >
+                <p>Le seul site où vous pouvez trouver des consoles de jeux exclusives !</p>
+              </div>
+            </div>
+          </div>
         </div>
           <div class="column ">
             <figure class="image is-4by5">
@@ -25,19 +31,13 @@
       </div>
       </div>
     </div>
-
-
-
     <div class="container">
-
       <div class="content is-medium">
         <div class="column is-narrow has-text-centered">
-
-          <p>Si vous voulez accéder à nos escroqueries, veuillez vous connecter ou alors rejoignez nous !</p>
+          <p><br/>Alors, envie d'une escroquerie ? Connectez-vous ou alors rejoignez-nous !</p>
         </div>
       </div>
     </div>
-
     <section class="section">
       <div class="container">
         <div class="is-flex level is-vcentered">
@@ -69,3 +69,14 @@ export default {
   }
 }
 </script>
+<style type ="text/css" >
+  #container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+  #jeuxExlu {
+    position:absolute;
+    bottom: 0;
+  }
+</style>
