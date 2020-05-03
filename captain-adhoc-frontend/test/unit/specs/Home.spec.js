@@ -1,28 +1,28 @@
-import Vue from 'vue'
 import Home from '@/components/Home'
-
 import { mount } from '@vue/test-utils'
 
 describe('Homme.vue', () => {
-  it('should have the info propertie correct contents', () => {
-    const vm = new Vue(Home).$mount()
-    expect(vm).to.have.property('info')
+  it("Should have the 'info' property as 'null' by default", () => {
+    let wrapper = mount(Home)
+    expect(wrapper.vm).to.have.property('info')
+
+    expect(null, wrapper.vm.info)
   })
 
-  it('just for a single spec', () => {
-    let wrapper = mount(Home)
+  it("Should call navigate method on click 'Login'", () => {
+    let navigate = sinon.spy()
+    let wrapper = mount(Home,
+      {
+        methods: {
+          navigate
+        }
+      })
 
-    const spy = sinon.spy(Home.methods, 'navigate')
-    // console.log('1 ' + spy.navigate.calledOnce)
     expect(wrapper.vm.navigate).to.be.a('function')
 
-    wrapper.find('button.login').trigger('click')
-    console.log('2 ' + spy.calledOnce)
-    wrapper.vm.navigate()
-    Home.methods.navigate()
-    console.log('3 ' + spy.calledOnce)
-    expect(spy.calledOnce)
+    expect(false, navigate.calledOnce)
 
-    // Home.methods.navigate.restore()
+    wrapper.find('button.login').trigger('click')
+    expect(true, navigate.calledOnce, 'Called once')
   })
 })
