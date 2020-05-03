@@ -1,20 +1,19 @@
 version: '3'
-services: 
+services:
+    db:
+        container_name: db
+        image: postgres:12
+        environment:
+            API_URL: '"http://192.168.99.100:8080"'
+            POSTGRES_DB: "db"
+            POSTGRES_HOST_AUTH_METHOD: "trust"
+            POSTGRES_USER: "postgres"
+        ports:
+            - 5432:5432
     web:
         build: .
-        environment:
-          API_URL: '"http://192.168.99.100:8080"'
         ports:
             - 8080:8080
         depends_on:
             - db
 
-
-    db:
-        container_name: db
-        image: postgres:12
-        environment:
-            POSTGRES_DB: "db"
-            POSTGRES_HOST_AUTH_METHOD: "trust"
-        ports:
-            - 5432:5432
