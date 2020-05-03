@@ -37,3 +37,8 @@ export default {
   }
 }
 </script>
+<style>
+h1::before {
+  size: 10rem;
+}
+</style>
