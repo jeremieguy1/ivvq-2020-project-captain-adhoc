@@ -15,7 +15,7 @@
           <div class="level-item ">
             <h1 class="title is-1">Captain Escroc Market</h1>
           </div>
-          <vueper-slides id="slides" class="no-shadow" arrows-inside bullets-outside transition-speed="250">
+          <vueper-slides id="slides" class="no-shadow" arrows-inside bullets-outside transition-speed="250" >
 
           <!--  <template v-slot:arrow-left>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="96px" height="96px"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
@@ -50,8 +50,7 @@
               :key="i"
               :image="slide.image"
               :title="slide.title"
-              :content="slide.content"
-              :style="'background-color: ' + ['#ff5252', '#42b983'][i % 2]" />
+              :content="slide.content"/>
 
           </vueper-slides>
           <div class="content is-medium " >
@@ -70,15 +69,14 @@
       </div>
       </div>
     </div>
-    <div class="container">
-      <div class="content is-medium">
-        <div class="column is-narrow has-text-centered">
-          <p><br/>Alors, envie d'une escroquerie ? Connectez-vous ou alors rejoignez-nous !</p>
+      <div class="container">
+        <div class="content is-medium">
+          <div class="column is-narrow has-text-centered">
+            <p><br/>Alors, envie d'une escroquerie ? Connectez-vous ou alors rejoignez-nous !</p>
+          </div>
         </div>
       </div>
-    </div>
-    <section class="section">
-      <div class="container">
+      <div id="buttons" class="container">
         <div class="is-flex level is-vcentered">
           <div class="level-item">
             <div class="buttons is-flex">
@@ -89,7 +87,6 @@
           </div>
         </div>
       </div>
-    </section>
   </div>
 </template>
 
@@ -137,25 +134,27 @@ export default {
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    padding-top: 60px;
   }
   #jeuxExlu {
     position:absolute;
     bottom: 0;
   }
   .columns {
-    margin: -35px 0;
+    margin:  0;
     padding: 0;
   }
   #welcome {
-    padding-top: 30px;
+    padding-top: 0px;
   }
   #templateNook {
-    padding-top: 150px;
+    padding-top: 10px;
   }
   #templateRick {
-    padding-top: 150px;
+    padding-top: 10px;
   }
+#buttons {
+  padding-top: 20px;
+}
   @keyframes slidy {
     0% {
       left: 0%;
@@ -205,19 +204,13 @@ export default {
     animation: 30s slidy infinite;
   }
 #slidesInside {
-  padding-top: 30px;
+  position: absolute; bottom: 0px
 }
-.ex--center-mode {
-  width: 600px;
-  max-width: 100%;
-  margin: auto;
-}
-.vueperslides__progress {
-  background: rgba(0, 0, 0, 0.25);
-  color: #ff5252;
-}
+
 #slides {
-  padding-top: 30px;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .vueperslides__bullet .default {
   background-color: rgba(0, 0, 0, 0.3);
@@ -236,7 +229,5 @@ export default {
   font-size: 10px;
   opacity: 0.8;
 }
-.vueperslides--fixed-height { height: border-box; }
-
 .vueperslides__arrow svg { stroke-width: 1}
 </style>
