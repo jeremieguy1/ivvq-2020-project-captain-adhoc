@@ -35,6 +35,16 @@
               </figure>
             </template>-->
 
+            <template v-slot:arrow-left>
+              <figure class="image is-32x32">
+                <img src="../assets/LeftArrow.png" />
+              </figure>
+            </template>
+            <template v-slot:arrow-right>
+              <figure class="image is-32x32">
+                <img src="../assets/RightArrow.png" />
+              </figure>
+            </template>
             <vueper-slide id="slidesInside"
               v-for="(slide, i) in slides"
               :key="i"
