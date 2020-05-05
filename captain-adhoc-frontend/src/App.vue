@@ -18,4 +18,5 @@ export default {
 <style>
   @import "../node_modules/bulma/css/bulma.css";
   @import "../node_modules/animate.css/animate.css";
+
 </style>
