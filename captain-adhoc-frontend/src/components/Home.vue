@@ -211,6 +211,7 @@ export default {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
+  margin-right: 50px;
 }
 .vueperslides__bullet .default {
   background-color: rgba(0, 0, 0, 0.3);
