@@ -16,35 +16,16 @@
               <h1 class="title is-1">Captain Escroc Market</h1>
             </div>
             <vueper-slides class="no-shadow" fade :touchable="false" autoplay arrows-inside bullets-outside transition-speed="250" >
-
-          <!--  <template v-slot:arrow-left>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="96px" height="96px"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
-              </svg>
-            </template>
-
-            <template v-slot:arrow-right>
-              <i class="icon icon-arrow-right" />
-              <figure class="image is-4by5">
-                <img src="../assets/RightArrow.png" />
-              </figure>
-            </template>
-                        <template v-slot:arrow-right>
-              <i class="icon icon-arrow-right" />
-              <figure class="image is-32x32">
-                <img src="../assets/RightArrow.png" />
-              </figure>
-            </template>-->
-
-            <template v-slot:arrow-left>
-              <figure class="image is-32x32">
-                <img src="../assets/LeftArrow.png" />
-              </figure>
-            </template>
-            <template v-slot:arrow-right>
-              <figure class="image is-32x32">
-                <img src="../assets/RightArrow.png" />
-              </figure>
-            </template>
+              <template v-slot:arrow-left>
+                <figure class="image is-32x32">
+                  <img src="../assets/LeftArrow.png" />
+                </figure>
+              </template>
+              <template v-slot:arrow-right>
+                <figure class="image is-32x32">
+                  <img src="../assets/RightArrow.png" />
+                </figure>
+              </template>
             <vueper-slide id="slidesInside"
               v-for="(slide, i) in slides"
               :key="i"
@@ -68,24 +49,24 @@
         </div>
       </div>
     </div>
-      <div class="container">
-        <div class="content is-medium">
-          <div class="column is-narrow has-text-centered">
-            <p><br/>Alors, envie d'une escroquerie ? Connectez-vous ou alors rejoignez-nous !</p>
+    <div class="container">
+      <div class="content is-medium">
+        <div class="column is-narrow has-text-centered">
+          <p><br/>Alors, envie d'une escroquerie ? Connectez-vous ou alors rejoignez-nous !</p>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="is-flex level is-vcentered">
+        <div class="level-item">
+          <div class="buttons is-flex">
+            <button class="button is-primary is-fullwidth login"
+                    v-on:click="navigate">Login</button>
+            <button class="button is-primary is-fullwidth">Sign up</button>
           </div>
         </div>
       </div>
-      <div class="container">
-        <div class="is-flex level is-vcentered">
-          <div class="level-item">
-            <div class="buttons is-flex">
-              <button class="button is-primary is-fullwidth login"
-                      v-on:click="navigate">Login</button>
-              <button class="button is-primary is-fullwidth">Sign up</button>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
   </div>
 </template>
 
