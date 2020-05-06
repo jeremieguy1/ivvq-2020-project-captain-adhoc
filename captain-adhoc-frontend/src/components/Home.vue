@@ -117,75 +117,38 @@ export default {
 
 .jeuxExlu {
   position:absolute;
-  bottom: 0;
-}
-
-.columns {
-  margin:  0;
-  padding: 0;
+  bottom: 0rem;
 }
 
 .subtitle {
-  padding-top: 0px;
+  padding-top: 0rem;
 }
 
 .columns {
-  padding-top: 10px;
-  height: 100%;
-  width: 100%;
+  padding-top: 0.625rem;
 }
 
 .buttons {
-  padding-top: 20px;
-}
-
-@keyframes slidy {
-  0% {
-    left: 0%;
-  }
-  20% {
-    left: 0%;
-  }
-  25% {
-    left: -100%;
-  }
-  45% {
-    left: -100%;
-  }
-  50% {
-    left: -200%;
-  }
-  70% {
-    left: -200%;
-  }
-  75% {
-    left: -300%;
-  }
-  95% {
-    left: -300%;
-  }
-  100% {
-    left: -400%;
-  }
+  padding-top: 1.25rem;
 }
 
 #slidesInside {
-  position: absolute; bottom: 0px
+  position: absolute; bottom: 0rem
 }
 
 .no-shadow {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  margin-right: 50px;
+  margin-right: 3.125rem;
 }
 .vueperslides__bullet .default {
   background-color: rgba(0, 0, 0, 0.3);
   border: none;
   box-shadow: none;
   transition: 0.3s;
-  width: 16px;
-  height: 16px;
+  width: 1rem;
+  height: 1rem;
 }
 
 .vueperslides__bullet--active .default {background-color: #ffffff;}
@@ -193,7 +156,7 @@ export default {
 .vueperslides__bullet span {
   display: block;
   color: #FCE1E5;
-  font-size: 10px;
+  font-size: 0.625rem;
   opacity: 0.8;
 }
 .vueperslides__arrow svg { stroke-width: 1}
