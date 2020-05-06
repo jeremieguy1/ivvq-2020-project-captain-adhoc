@@ -3,19 +3,19 @@
     <div class="hero is-small is-primary">
       <div class="hero-body">
         <div class="columns" style="position:relative">
-          <div id="templateRick" class="column ">
+          <div class="column ">
             <figure class="image is-4by5">
               <img src="../assets/rickH.png" />
             </figure>
           </div>
-        <div class="column is-half">
-          <div class="level-item">
-            <h2 id="welcome" class="subtitle is-5">Welcome to the</h2>
-          </div>
-          <div class="level-item ">
-            <h1 class="title is-1">Captain Escroc Market</h1>
-          </div>
-          <vueper-slides id="slides" class="no-shadow" fade :touchable="false" autoplay arrows-inside bullets-outside transition-speed="250" >
+          <div class="column is-half">
+            <div class="level-item">
+              <h2 class="subtitle is-5">Welcome to the</h2>
+            </div>
+            <div class="level-item ">
+              <h1 class="title is-1">Captain Escroc Market</h1>
+            </div>
+            <vueper-slides class="no-shadow" fade :touchable="false" autoplay arrows-inside bullets-outside transition-speed="250" >
 
           <!--  <template v-slot:arrow-left>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="96px" height="96px"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
@@ -51,22 +51,21 @@
               :image="slide.image"
               :title="slide.title"
               :content="slide.content"/>
-
           </vueper-slides>
           <div class="content is-medium " >
-            <div  id="container" class="column is-narrow has-text-centered " >
-              <div id="jeuxExlu" class="column is-narrow has-text-centered " >
+            <div class="containjeuxExlu column is-narrow" >
+              <div class="jeuxExlu column is-narrow has-text-centered " >
                 <p>Le seul site où vous pouvez trouver des consoles de jeux exclusives !</p>
               </div>
             </div>
           </div>
         </div>
-          <div id="templateNook" class="column ">
+          <div class="column ">
             <figure class="image is-4by5">
               <img src="../assets/Tom_Nook.png" />
             </figure>
           </div>
-      </div>
+        </div>
       </div>
     </div>
       <div class="container">
@@ -76,7 +75,7 @@
           </div>
         </div>
       </div>
-      <div id="buttons" class="container">
+      <div class="container">
         <div class="is-flex level is-vcentered">
           <div class="level-item">
             <div class="buttons is-flex">
@@ -100,27 +99,26 @@ export default {
 
   name: 'Home',
   data: () => ({
-                 pauseOnHover: false,
-                 autoPlaying: true,
-                 internalAutoPlaying: true,
-                 slides: [
-                   {
-                     title: '',
-                     content: '',
-                     // You can also provide a URL for the image'../assets/Tom_Nook.png'.
-                     image: require('@/assets/ps5_large.png')
-                   },
-                   {
-                     title: '',
-                     content: '',
-                     // You can also provide a URL for the image'../assets/Tom_Nook.png'.
-                     image: require('@/assets/cyberbox_large.png')
-                   }
-                 ]
-               }),
+    pauseOnHover: false,
+    autoPlaying: true,
+    internalAutoPlaying: true,
+    slides: [
+      {
+        title: '',
+        content: '',
+        // You can also provide a URL for the image'../assets/Tom_Nook.png'.
+        image: require('@/assets/ps5_large.png')
+      },
+      {
+        title: '',
+        content: '',
+        // You can also provide a URL for the image'../assets/Tom_Nook.png'.
+        image: require('@/assets/cyberbox_large.png')
+      }
+    ]
+  }),
   methods: {
-    navigateToLogin() {
-
+    navigateToLogin () {
       router.push({name: 'Login'})
     }
   }
@@ -130,84 +128,71 @@ export default {
 
 <style type ="text/css" >
 
-#container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-  }
-  #jeuxExlu {
-    position:absolute;
-    bottom: 0;
-  }
-  .columns {
-    margin:  0;
-    padding: 0;
-  }
-  #welcome {
-    padding-top: 0px;
-  }
-  #templateNook {
-    padding-top: 10px;
-  }
-  #templateRick {
-    padding-top: 10px;
-  }
-#buttons {
+.containjeuxExlu {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.jeuxExlu {
+  position:absolute;
+  bottom: 0;
+}
+
+.columns {
+  margin:  0;
+  padding: 0;
+}
+
+.subtitle {
+  padding-top: 0px;
+}
+
+.columns {
+  padding-top: 10px;
+  height: 100%;
+  width: 100%;
+}
+
+.buttons {
   padding-top: 20px;
 }
-  @keyframes slidy {
-    0% {
-      left: 0%;
-    }
-    20% {
-      left: 0%;
-    }
-    25% {
-      left: -100%;
-    }
-    45% {
-      left: -100%;
-    }
-    50% {
-      left: -200%;
-    }
-    70% {
-      left: -200%;
-    }
-    75% {
-      left: -300%;
-    }
-    95% {
-      left: -300%;
-    }
-    100% {
-      left: -400%;
-    }
-  }
 
-  div#slider {
-    overflow: hidden;
+@keyframes slidy {
+  0% {
+    left: 0%;
   }
+  20% {
+    left: 0%;
+  }
+  25% {
+    left: -100%;
+  }
+  45% {
+    left: -100%;
+  }
+  50% {
+    left: -200%;
+  }
+  70% {
+    left: -200%;
+  }
+  75% {
+    left: -300%;
+  }
+  95% {
+    left: -300%;
+  }
+  100% {
+    left: -400%;
+  }
+}
 
-  div#slider figure img {
-    width: 20%;
-    float: left;
-  }
-
-  div#slider figure {
-    position: relative;
-    width: 500%;
-    margin: 0;
-    left: 0;
-    text-align: left;
-    font-size: 0;
-    animation: 30s slidy infinite;
-  }
 #slidesInside {
   position: absolute; bottom: 0px
 }
 
-#slides {
+.no-shadow {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
