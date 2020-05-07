@@ -1,10 +1,10 @@
 <template>
-  <nav class="navbar is-white has-border-bottom-red" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-white" role="navigation" aria-label="main navigation">
 
     <div class="navbar-brand">
       <router-link to="/home" class="navbar-item">
         <img src="../assets/brand-icon.png" alt="go to home">
-        <span><b>Home</b></span>
+        <span><b>Accueil</b></span>
       </router-link>
 
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
@@ -16,8 +16,11 @@
 
   <div id="navbar-menu" class="navbar-menu">
     <div class="navbar-start">
-      <div v-if="isLogged" class="is-flex">
-        <router-link to="/products" class="navbar-item">
+      <div v-if="isLogged">
+        <router-link to="/products" class="navbar-item is-flex">
+          <span class="fontawesome-icon">
+            <i class="fas fa-grip-horizontal"></i>
+          </span>
           <span>Produits</span>
         </router-link>
       </div>
@@ -26,37 +29,37 @@
     <div class="navbar-end">
       <div v-if="!isLogged" class="buttons">
         <router-link to="/log-in" class="navbar-item button is-flex">
-          <span>
-            <img src="../assets/log-in.svg" alt="">
+          <span class="fontawesome-icon">
+            <i class="fas fa-sign-in-alt"></i>
           </span>
           <span>Connexion</span>
         </router-link>
-        <router-link to="/sign-up" class="navbar-item button">
-          <span>
-            <img src="../assets/log-in.svg" alt="">
+        <router-link to="/sign-up" class="navbar-item button is-flex">
+          <span class="fontawesome-icon">
+            <i class="fas fa-user-plus"></i>
           </span>
           <span>Inscription</span></router-link>
       </div>
       <div v-else class="buttons">
         <router-link to="/cart" class="navbar-item button is-flex" aria-label="Your cart">
-          <span>
-            <img src="../assets/cart.svg" alt="">
+          <span class="fontawesome-icon">
+            <i class="fas fa-cart-arrow-down"></i>
           </span>
-          <span>Cart</span>
+          <span>Panier</span>
         </router-link>
 
         <router-link to="/purchases-history" class="navbar-item button is-flex">
-          <span>
-            <img src="../assets/history.svg" alt="">
+          <span class="fontawesome-icon">
+            <i class="fas fa-history"></i>
           </span>
-          <span>History</span>
+          <span>Commandes</span>
         </router-link>
 
         <router-link to="/log-out" class="navbar-item button is-flex">
-          <span>
-            <img src="../assets/log-out.svg" alt="">
+          <span class="fontawesome-icon">
+            <i class="fas fa-sign-out-alt"></i>
           </span>
-          <span>Log out</span>
+          <span>Déconnexion</span>
         </router-link>
       </div>
     </div>
@@ -75,14 +78,17 @@ export default {
   },
   mounted () {
     const burger = document.querySelector('.burger')
-    const nav = document.querySelector('#' + burger.dataset.target)
+    const navMenu = document.querySelector('#' + burger.dataset.target)
 
     burger.addEventListener('click', function () {
       burger.classList.toggle('is-active')
-      nav.classList.toggle('is-active')
-      const buttons = nav.querySelector('.buttons')
+      navMenu.classList.toggle('is-active')
+
+      const buttons = navMenu.querySelector('.buttons')
       buttons.classList.toggle('animated')
       buttons.classList.toggle('slideInLeft')
+
+      document.querySelector('.navbar').classList.toggle('is-mobile')
     })
   }
 }
@@ -91,20 +97,26 @@ export default {
 
 <style scoped>
 img {
-  padding-right: 0.385rem;
+  padding-right: 0.325rem;
 }
 
 .buttons {
-  padding-right: 0.385rem;
+  padding-right: 0.325rem;
 }
 
-.button >>> img {
-  display: block;
+span.fontawesome-icon {
+  padding-right: 0.325rem;
+  font-size: 1.325rem;
 }
 
+nav.is-mobile  {
+  display: flex;
+  flex-direction: column;
+}
 .navbar-menu.is-active {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
 </style>
