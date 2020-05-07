@@ -2,9 +2,13 @@
   <nav class="navbar is-white" role="navigation" aria-label="main navigation">
 
     <div class="navbar-brand">
-      <router-link to="/home" class="navbar-item">
-        <img src="../assets/brand-icon.png" alt="go to home">
-        <span><b>Accueil</b></span>
+      <router-link to="/home" class="navbar-item is-flex">
+        <div>
+          <img src="../assets/brand-icon.png" alt="Accueil">
+        </div>
+        <div>
+          <span><b>Accueil</b></span>
+        </div>
       </router-link>
 
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
@@ -16,50 +20,65 @@
 
   <div id="navbar-menu" class="navbar-menu">
     <div class="navbar-start">
-      <div v-if="isLogged">
+      <div class="is-flex" v-if="isLogged">
         <router-link to="/products" class="navbar-item is-flex">
-          <span class="fontawesome-icon">
+          <div class="fontawesome-icon">
             <i class="fas fa-grip-horizontal"></i>
-          </span>
-          <span>Produits</span>
+          </div>
+          <div>
+            <span>Produits</span>
+          </div>
         </router-link>
       </div>
     </div>
 
     <div class="navbar-end">
-      <div v-if="!isLogged" class="buttons">
+      <div v-if="!isLogged" class="buttons is-flex">
         <router-link to="/log-in" class="navbar-item button is-flex">
-          <span class="fontawesome-icon">
+          <div class="fontawesome-icon">
             <i class="fas fa-sign-in-alt"></i>
-          </span>
-          <span>Connexion</span>
+          </div>
+          <div>
+            <span>Connexion</span>
+          </div>
         </router-link>
+
         <router-link to="/sign-up" class="navbar-item button is-flex">
-          <span class="fontawesome-icon">
+          <div class="fontawesome-icon">
             <i class="fas fa-user-plus"></i>
-          </span>
-          <span>Inscription</span></router-link>
+          </div>
+          <div>
+            <span>Inscription</span>
+          </div>
+        </router-link>
+
       </div>
-      <div v-else class="buttons">
+      <div v-else class="buttons is-flex">
         <router-link to="/cart" class="navbar-item button is-flex" aria-label="Your cart">
-          <span class="fontawesome-icon">
+          <div class="fontawesome-icon">
             <i class="fas fa-cart-arrow-down"></i>
-          </span>
-          <span>Panier</span>
+          </div>
+          <div>
+            <span>Panier</span>
+          </div>
         </router-link>
 
         <router-link to="/purchases-history" class="navbar-item button is-flex">
-          <span class="fontawesome-icon">
+          <div class="fontawesome-icon">
             <i class="fas fa-history"></i>
-          </span>
-          <span>Commandes</span>
+          </div>
+          <div>
+            <span>Commandes</span>
+          </div>
         </router-link>
 
         <router-link to="/log-out" class="navbar-item button is-flex">
-          <span class="fontawesome-icon">
+          <div class="fontawesome-icon">
             <i class="fas fa-sign-out-alt"></i>
-          </span>
-          <span>Déconnexion</span>
+          </div>
+          <div>
+            <span>Déconnexion</span>
+          </div>
         </router-link>
       </div>
     </div>
@@ -104,9 +123,9 @@ img {
   padding-right: 0.325rem;
 }
 
-span.fontawesome-icon {
+div.fontawesome-icon {
   padding-right: 0.325rem;
-  font-size: 1.325rem;
+  font-size: 1.175rem;
 }
 
 nav.is-mobile  {
