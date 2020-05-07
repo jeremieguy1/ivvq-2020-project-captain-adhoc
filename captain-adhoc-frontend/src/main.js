@@ -4,6 +4,12 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
+
+import '../node_modules/bulma/css/bulma.css'
+import '../node_modules/animate.css/animate.css'
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
