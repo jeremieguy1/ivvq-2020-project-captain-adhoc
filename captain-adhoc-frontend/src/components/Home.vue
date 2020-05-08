@@ -71,16 +71,13 @@
   <div v-else >
     <div class="hero is-small is-primary" >
      <div class="hero-body">
-        <div class="columns" style="position:relative">
+       <div class="columns" style="position:relative">
           <div class="column ">
             <figure class="image is-4by5">
               <img src="../assets/rickH.png" />
             </figure>
           </div>
           <div class="column is-half">
-            <div class="level-item">
-              <h2 class="subtitle is-5">Welcome to the</h2>
-            </div>
             <div class="level-item ">
               <h1 class="title is-1">Captain Escroc Market</h1>
             </div>
@@ -102,7 +99,6 @@
                 :title="slide.title"
                 :content="slide.content"/>
             </vueper-slides>
-            <p class="space">&nbsp;</p>
             <div class="content is-medium " >
               <div class="containjeuxExlu column is-narrow" >
                 <div class="jeuxExlu column is-narrow has-text-centered " >
@@ -116,8 +112,9 @@
               <img src="../assets/Tom_Nook.png" />
             </figure>
            </div>
-        </div>
-      </div>
+       </div>
+       <p class="space" >Faites votre shopping !!&nbsp;</p>
+     </div>
     </div>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
@@ -133,17 +130,26 @@ import 'vueperslides/dist/vueperslides.css'
 window.onscroll = function () { scrollFunction() }
 function scrollFunction () {
   if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+    console.log("hide")
+
     document.getElementsByClassName('no-shadow')[0].style.display = 'none'
     document.getElementsByClassName('image is-4by5')[0].style.display = 'none'
     document.getElementsByClassName('image is-4by5')[1].style.display = 'none'
     document.getElementsByClassName('jeuxExlu')[0].style.display = 'none'
-    document.getElementsByClassName('space')[0].style.fontSize = '0.625rem'
+    document.getElementsByClassName('space')[0].style.fontSize = '0rem'
+
+
   } else {
+
+    console.log("block")
     document.getElementsByClassName('space')[0].style.fontSize = '3.125rem'
     document.getElementsByClassName('image is-4by5')[0].style.display = 'block'
     document.getElementsByClassName('image is-4by5')[1].style.display = 'block'
     document.getElementsByClassName('jeuxExlu')[0].style.display = 'block'
     document.getElementsByClassName('no-shadow')[0].style.display = 'block'
+
+
+
   }
 }
 
@@ -190,6 +196,10 @@ export default {
   transition: 0.75s; /* Add a transition effect (when scrolling - and font size is decreased) */
 }
 .space {
+
+  transition: 0.75s; /* Add a transition effect (when scrolling - and font size is decreased) */
+}
+.space2 {
 
   transition: 0.75s; /* Add a transition effect (when scrolling - and font size is decreased) */
 }
