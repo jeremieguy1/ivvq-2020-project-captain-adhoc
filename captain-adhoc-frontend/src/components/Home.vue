@@ -1,10 +1,13 @@
 <template >
 <div v-if="authenticated">
-  <div id="header" class="hero is-primary" >
+  <div class="hero is-primary " >
     <div class="hero-body">
-      <div class="columns" style="position:relative">
+      <div  class="columns" style="position:relative">
         <div class="column ">
-          <figure class="image is-4by5">
+          <figure class="image is-4by5" >
+            <img src="../assets/rickH.png" />
+          </figure>
+          <figure class="image is-128x128 " style=" bottom: 2rem; margin-left: auto; display: none">
             <img src="../assets/rickH.png" />
           </figure>
         </div>
@@ -29,31 +32,26 @@
               :image="slide.image"
               :title="slide.title"
               :content="slide.content"/>
-            </vueper-slides>
+          </vueper-slides>
+          <div class="content is-medium " >
+            <div class="containjeuxExlu column is-narrow" >
+              <div class="jeuxExlu column is-narrow has-text-centered " >
+                <p>Le seul site où vous pouvez trouver des consoles de jeux exclusives !</p>
+              </div>
+            </div>
           </div>
+        </div>
           <div class="column ">
             <figure class="image is-4by5">
               <img src="../assets/Tom_Nook.png" />
             </figure>
+            <figure class="image is-128x128 " style=" bottom: 3rem; margin-right: auto; display: none">
+              <img src="../assets/Tom_Nook.png" />
+            </figure>
           </div>
-        </div>
-      <div class="columns" style="position:relative">
-        <div class="column " >
-          <figure class="image is-32x32" >
-            <img src="../assets/LeftArrow.png" />
-          </figure>
-        </div>
-        <div class="column" >
-          <p class="doShopping" >Faites votre shopping !!&nbsp;</p>
-          </div>
-        <div class="column " style="margin-right: 10rem">
-          <figure class="image is-32x32">
-            <img src="../assets/LeftArrow.png" />
-          </figure>
-        </div>
-        </div>
-        </div>
+      </div>
     </div>
+  </div>
   <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
   <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
   <div class="container">
@@ -165,12 +163,14 @@ function scrollFunction () {
       document.getElementsByClassName('no-shadow')[0].style.display = 'none'
       document.getElementsByClassName('image is-4by5')[0].style.display = 'none'
       document.getElementsByClassName('image is-4by5')[1].style.display = 'none'
-      document.getElementsByClassName('doShopping')[0].style.fontSize = '0rem'
+      document.getElementsByClassName('image image is-128x128')[0].style.display = 'block'
+      document.getElementsByClassName('image image is-128x128')[1].style.display = 'block'
     } else {
-      document.getElementsByClassName('doShopping')[0].style.fontSize = '2.125rem'
+      document.getElementsByClassName('no-shadow')[0].style.display = 'block'
       document.getElementsByClassName('image is-4by5')[0].style.display = 'block'
       document.getElementsByClassName('image is-4by5')[1].style.display = 'block'
-      document.getElementsByClassName('no-shadow')[0].style.display = 'block'
+      document.getElementsByClassName('image image is-128x128')[0].style.display = 'none'
+      document.getElementsByClassName('image image is-128x128')[1].style.display = 'none'
     }
   }
 }
@@ -226,13 +226,9 @@ export default {
   color: black;
   text-align: center;
   font-weight: bold;
-  font-size: 2.125rem;
   position: fixed; /* Fixed position - sit on top of the page */
   width: 100%; /* Full width */
-}
-.doShopping {
 
-  transition: 0.75s; /* Add a transition effect (when scrolling - and font size is decreased) */
 }
 
 .containjeuxExlu {
@@ -243,16 +239,19 @@ export default {
 
 .jeuxExlu {
   position:absolute;
+
   bottom: 0rem;
+
 }
 
 .subtitle {
   padding-top: 0rem;
+
 }
 
 .columns {
   padding-top: 0.625rem;
-    transition: height 1s ease-in-out;
+  transition: height 1s ease-in-out;
 
 }
 
@@ -261,7 +260,8 @@ export default {
 }
 
 #slidesInside {
-  position: absolute; bottom: 0rem
+  position: absolute;
+ bottom: 0rem
 }
 
 .no-shadow {
