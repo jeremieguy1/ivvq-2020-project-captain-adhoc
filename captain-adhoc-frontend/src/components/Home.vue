@@ -1,72 +1,81 @@
 <template >
 <div v-if="authenticated">
-    <div id="header" class="hero is-primary" >
-      <div class="hero-body">
-        <div class="columns" style="position:relative">
-          <div class="column ">
-            <figure class="image is-1by1">
-              <img src="../assets/rickH.png" />
-            </figure>
+  <div id="header" class="hero is-primary" >
+    <div class="hero-body">
+      <div class="columns" style="position:relative">
+        <div class="column ">
+          <figure class="image is-4by5">
+            <img src="../assets/rickH.png" />
+          </figure>
+        </div>
+        <div class="column is-half">
+          <div class="level-item ">
+            <h1 class="title is-1">Captain Escroc Market</h1>
           </div>
-          <div class="column is-half">
-            <div class="level-item">
-              <h2 class="subtitle is-5">Welcome to the</h2>
-            </div>
-            <div class="level-item ">
-              <h1 class="title is-1">Captain Escroc Market</h1>
-            </div>
-            <vueper-slides class="no-shadow" fade :touchable="false" autoplay arrows-inside bullets-outside transition-speed="250" >
-              <template v-slot:arrow-left>
-                <figure class="image is-32x32">
-                  <img src="../assets/LeftArrow.png" />
-                </figure>
-              </template>
-              <template v-slot:arrow-right>
-                <figure class="image is-32x32">
-                  <img src="../assets/RightArrow.png" />
-                </figure>
-              </template>
+          <vueper-slides class="no-shadow" fade :touchable="false" autoplay arrows-inside bullets-outside transition-speed="250" >
+            <template v-slot:arrow-left>
+              <figure class="image is-32x32">
+                <img src="../assets/LeftArrow.png" />
+              </figure>
+            </template>
+            <template v-slot:arrow-right>
+              <figure class="image is-32x32">
+                <img src="../assets/RightArrow.png" />
+              </figure>
+            </template>
             <vueper-slide id="slidesInside"
               v-for="(slide, i) in slides"
               :key="i"
               :image="slide.image"
               :title="slide.title"
               :content="slide.content"/>
-          </vueper-slides>
-          <div class="content is-medium " >
-            <div class="containjeuxExlu column is-narrow" >
-              <div class="jeuxExlu column is-narrow has-text-centered " >
-                <p>Le seul site où vous pouvez trouver des consoles de jeux exclusives !</p>
-              </div>
-            </div>
+            </vueper-slides>
+          </div>
+          <div class="column ">
+            <figure class="image is-4by5">
+              <img src="../assets/Tom_Nook.png" />
+            </figure>
           </div>
         </div>
-        <div class="column ">
-          <figure class="image is-1by1">
-            <img src="../assets/Tom_Nook.png" />
+      <div class="columns" style="position:relative">
+        <div class="column " >
+          <figure class="image is-32x32" >
+            <img src="../assets/LeftArrow.png" />
           </figure>
+        </div>
+        <div class="column" >
+          <p class="doShopping" >Faites votre shopping !!&nbsp;</p>
+          </div>
+        <div class="column " style="margin-right: 10rem">
+          <figure class="image is-32x32">
+            <img src="../assets/LeftArrow.png" />
+          </figure>
+        </div>
+        </div>
+        </div>
+    </div>
+  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+  <div class="container">
+    <div class="content is-medium">
+      <div class="column is-narrow has-text-centered">
+        <p><br/>Alors, envie d'une escroquerie ? Connectez-vous ou alors rejoignez-nous !</p>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="is-flex level is-vcentered">
+      <div class="level-item">
+        <div class="buttons is-flex">
+          <button class="button is-primary is-fullwidth login"
+                  v-on:click="navigateToLogin">Login</button>
+          <button class="button is-primary is-fullwidth">Sign up</button>
         </div>
       </div>
     </div>
   </div>
-    <div class="container">
-      <div class="content is-medium">
-        <div class="column is-narrow has-text-centered">
-          <p><br/>Alors, envie d'une escroquerie ? Connectez-vous ou alors rejoignez-nous !</p>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="is-flex level is-vcentered">
-        <div class="level-item">
-          <div class="buttons is-flex">
-            <button class="button is-primary is-fullwidth login"
-                    v-on:click="navigateToLogin">Login</button>
-            <button class="button is-primary is-fullwidth">Sign up</button>
-          </div>
-        </div>
-      </div>
-    </div>
+  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
   </div>
   <div v-else >
     <div class="hero is-small is-primary" >
@@ -78,6 +87,9 @@
             </figure>
           </div>
           <div class="column is-half">
+            <div class="level-item">
+              <h2 class="subtitle is-5">Welcome to the</h2>
+            </div>
             <div class="level-item ">
               <h1 class="title is-1">Captain Escroc Market</h1>
             </div>
@@ -111,14 +123,32 @@
             <figure class="image is-4by5">
               <img src="../assets/Tom_Nook.png" />
             </figure>
-           </div>
-       </div>
-       <p class="space" >Faites votre shopping !!&nbsp;</p>
+          </div>
+        </div>
      </div>
     </div>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <div class="container">
+      <div class="content is-medium">
+        <div class="column is-narrow has-text-centered">
+          <p><br/>Alors, envie d'une escroquerie ? Connectez-vous ou alors rejoignez-nous !</p>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="is-flex level is-vcentered">
+        <div class="level-item">
+          <div class="buttons is-flex">
+            <button class="button is-primary is-fullwidth login"
+                    v-on:click="navigateToLogin">Login</button>
+            <button class="button is-primary is-fullwidth">Sign up</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
   </div>
 </template>
 
@@ -126,41 +156,37 @@
 import router from '../router'
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
-
+var auth;
 window.onscroll = function () { scrollFunction() }
 function scrollFunction () {
-  if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-    console.log("hide")
-
-    document.getElementsByClassName('no-shadow')[0].style.display = 'none'
-    document.getElementsByClassName('image is-4by5')[0].style.display = 'none'
-    document.getElementsByClassName('image is-4by5')[1].style.display = 'none'
-    document.getElementsByClassName('jeuxExlu')[0].style.display = 'none'
-    document.getElementsByClassName('space')[0].style.fontSize = '0rem'
-
-
-  } else {
-
-    console.log("block")
-    document.getElementsByClassName('space')[0].style.fontSize = '3.125rem'
-    document.getElementsByClassName('image is-4by5')[0].style.display = 'block'
-    document.getElementsByClassName('image is-4by5')[1].style.display = 'block'
-    document.getElementsByClassName('jeuxExlu')[0].style.display = 'block'
-    document.getElementsByClassName('no-shadow')[0].style.display = 'block'
-
-
-
+  console.log( auth)
+  if (auth) {
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+      document.getElementsByClassName('no-shadow')[0].style.display = 'none'
+      document.getElementsByClassName('image is-4by5')[0].style.display = 'none'
+      document.getElementsByClassName('image is-4by5')[1].style.display = 'none'
+      document.getElementsByClassName('doShopping')[0].style.fontSize = '0rem'
+    } else {
+      document.getElementsByClassName('doShopping')[0].style.fontSize = '2.125rem'
+      document.getElementsByClassName('image is-4by5')[0].style.display = 'block'
+      document.getElementsByClassName('image is-4by5')[1].style.display = 'block'
+      document.getElementsByClassName('no-shadow')[0].style.display = 'block'
+    }
   }
 }
 
 export default {
   components: { VueperSlides, VueperSlide },
-
+  created: function () { auth = this.authenticated
+    console.log("ii")},
   name: 'Home',
+
   data: () => ({
     pauseOnHover: false,
     autoPlaying: true,
     internalAutoPlaying: true,
+    authenticated :false,
+
     slides: [
       {
         title: '',
@@ -178,7 +204,17 @@ export default {
   }),
   methods: {
     navigateToLogin () {
-      router.push({name: 'Login'})
+      if (auth) {
+        document.getElementsByClassName('no-shadow')[0].style.display = 'block'
+        auth = false
+        this.authenticated = false
+      } else {
+        document.getElementsByClassName('no-shadow')[0].style.display = 'block'
+        auth = true
+        this.authenticated = true
+
+      }
+     // router.push({name: 'Login'})
     }
   }
 }
@@ -190,19 +226,15 @@ export default {
   color: black;
   text-align: center;
   font-weight: bold;
+  font-size: 2.125rem;
   position: fixed; /* Fixed position - sit on top of the page */
   width: 100%; /* Full width */
-  font-size: 3.125rem;
-  transition: 0.75s; /* Add a transition effect (when scrolling - and font size is decreased) */
 }
-.space {
+.doShopping {
 
   transition: 0.75s; /* Add a transition effect (when scrolling - and font size is decreased) */
 }
-.space2 {
 
-  transition: 0.75s; /* Add a transition effect (when scrolling - and font size is decreased) */
-}
 .containjeuxExlu {
   display: flex;
   justify-content: center;
@@ -237,6 +269,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .vueperslides__bullet .default {
   background-color: rgba(0, 0, 0, 0.3);
   border: none;
