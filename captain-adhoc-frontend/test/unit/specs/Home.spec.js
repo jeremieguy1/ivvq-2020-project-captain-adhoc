@@ -6,7 +6,8 @@ describe('Homme.vue', () => {
     let navigateToLoginSpy = sinon.spy()
     let wrapper = mount(Home)
 
-    navigateToLoginSpy.bind(Home, 'navigate')
+    navigateToLoginSpy.bind(Home, 'navigateToLogin')
+
     expect(wrapper.vm.navigateToLogin).to.be.a('function')
 
     expect(false, navigateToLoginSpy.calledOnce)

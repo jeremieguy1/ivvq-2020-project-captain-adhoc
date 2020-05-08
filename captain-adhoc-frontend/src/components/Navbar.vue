@@ -11,7 +11,12 @@
         </div>
       </router-link>
 
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
+      <a v-on:click="burgerClick"
+          role="button"
+          class="navbar-burger burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbar-menu">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -88,18 +93,19 @@
 
 <script>
 export default {
-  name: 'NavBar',
+  name: 'Navbar',
 
   data () {
     return {
       isLogged: false
     }
   },
-  mounted () {
-    const burger = document.querySelector('.burger')
-    const navMenu = document.querySelector('#' + burger.dataset.target)
 
-    burger.addEventListener('click', function () {
+  methods: {
+    burgerClick: function () {
+      const burger = document.querySelector('.burger')
+      const navMenu = document.querySelector('#' + burger.dataset.target)
+
       burger.classList.toggle('is-active')
       navMenu.classList.toggle('is-active')
 
@@ -108,7 +114,7 @@ export default {
       buttons.classList.toggle('slideInLeft')
 
       document.querySelector('.navbar').classList.toggle('is-mobile')
-    })
+    }
   }
 }
 
