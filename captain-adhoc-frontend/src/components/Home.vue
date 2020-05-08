@@ -151,42 +151,20 @@
 </template>
 
 <script>
-import router from '../router'
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
-var auth;
-window.onscroll = function () { scrollFunction() }
-function scrollFunction () {
-  console.log( auth)
-  if (auth) {
-    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-      document.getElementsByClassName('no-shadow')[0].style.display = 'none'
-      document.getElementsByClassName('image is-4by5')[0].style.display = 'none'
-      document.getElementsByClassName('image is-4by5')[1].style.display = 'none'
-      document.getElementsByClassName('image image is-128x128')[0].style.display = 'block'
-      document.getElementsByClassName('image image is-128x128')[1].style.display = 'block'
-    } else {
-      document.getElementsByClassName('no-shadow')[0].style.display = 'block'
-      document.getElementsByClassName('image is-4by5')[0].style.display = 'block'
-      document.getElementsByClassName('image is-4by5')[1].style.display = 'block'
-      document.getElementsByClassName('image image is-128x128')[0].style.display = 'none'
-      document.getElementsByClassName('image image is-128x128')[1].style.display = 'none'
-    }
-  }
-}
 
 export default {
   components: { VueperSlides, VueperSlide },
-  created: function () { auth = this.authenticated
-    console.log("ii")},
+  created: function () {
+    window.addEventListener('scroll', this.scrollFunction)
+  },
   name: 'Home',
-
   data: () => ({
     pauseOnHover: false,
     autoPlaying: true,
     internalAutoPlaying: true,
-    authenticated :false,
-
+    authenticated: false,
     slides: [
       {
         title: '',
@@ -204,17 +182,31 @@ export default {
   }),
   methods: {
     navigateToLogin () {
-      if (auth) {
+      if (this.authenticated) {
         document.getElementsByClassName('no-shadow')[0].style.display = 'block'
-        auth = false
         this.authenticated = false
       } else {
         document.getElementsByClassName('no-shadow')[0].style.display = 'block'
-        auth = true
         this.authenticated = true
-
       }
-     // router.push({name: 'Login'})
+      // router.push({name: 'Login'})
+    },
+    scrollFunction () {
+      if (this.authenticated) {
+        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+          document.getElementsByClassName('no-shadow')[0].style.display = 'none'
+          document.getElementsByClassName('image is-4by5')[0].style.display = 'none'
+          document.getElementsByClassName('image is-4by5')[1].style.display = 'none'
+          document.getElementsByClassName('image image is-128x128')[0].style.display = 'block'
+          document.getElementsByClassName('image image is-128x128')[1].style.display = 'block'
+        } else {
+          document.getElementsByClassName('no-shadow')[0].style.display = 'block'
+          document.getElementsByClassName('image is-4by5')[0].style.display = 'block'
+          document.getElementsByClassName('image is-4by5')[1].style.display = 'block'
+          document.getElementsByClassName('image image is-128x128')[0].style.display = 'none'
+          document.getElementsByClassName('image image is-128x128')[1].style.display = 'none'
+        }
+      }
     }
   }
 }
@@ -261,10 +253,11 @@ export default {
 
 #slidesInside {
   position: absolute;
- bottom: 0rem
+  bottom: 0rem;
 }
 
 .no-shadow {
+  font-size: 3.125rem;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
