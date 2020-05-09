@@ -17,6 +17,6 @@ RUN mvn package
 FROM openjdk:8-jre-alpine
 WORKDIR /app
 COPY --from=maven /maven/target/*.jar ./app.jar
-EXPOSE 8080
+EXPOSE $PORT
 
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-XX:+PrintFlagsFinal -Xmx500m", "-jar","./app.jar"]
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-Xmx500m", "-Dserver.port=$PORT", "-jar","./app.jar"]
