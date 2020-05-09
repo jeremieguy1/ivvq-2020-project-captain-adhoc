@@ -1,9 +1,13 @@
 <template>
   <div>
-    <div v-for="tweet in tweets" class="card">
+    <h1 class="title" style="">Historique des escroqueries</h1>
+    <div v-for="tweet in tweets" class="card" style="margin-left: 20%;margin-right: 20%;margin-bottom: 2%">
       <header  class="card-header">
         <p class="card-header-title">
-          {{tweet.date_commande}} {{tweet.total}}$
+          <time> {{tweet.date_commande}}</time>
+        </p>
+        <p class="card-header-title">
+          {{tweet.total}}$
         </p>
         <a href="#" class="card-header-icon" aria-label="more options">
         <span class="icon">
@@ -13,8 +17,8 @@
       </header>
       <div class="card-content">
         <div class="content">
-          <div v-for="prod in tweet.produits" class="columns">
-            <div class="column ">
+          <div v-for="prod in tweet.produits" class="columns " >
+            <div class="column " >
               <figure class="image" >
                 <img :src="prod.image_produit" />
               </figure>
@@ -55,12 +59,12 @@ export default {
           {
             quantite_produit: '9999',
             nom_produit: 'Rick le bg',
-            image_produit:  require('@/assets/rickH.png'),
+            image_produit:  require('@/assets/cyberbox_large.png'),
           }
         ],
         date_commande: '22/02/99',
         total: '8',
-        code: true,
+        code: "M2DL2019",
       },
       {
         id: 2,
@@ -79,12 +83,12 @@ export default {
           {
             quantite_produit: '9999',
             nom_produit: 'Rick le bg',
-            image_produit:  require('@/assets/rickH.png'),
+            image_produit:  require('@/assets/LeftArrow.png'),
           }
         ],
         date_commande: '20/02/99',
         total: '25',
-        code: true,
+        code: "",
       },
       {
         id: 3,
@@ -103,12 +107,12 @@ export default {
           {
             quantite_produit: '9999',
             nom_produit: 'Rick le bg',
-            image_produit:  require('@/assets/rickH.png'),
+            image_produit:  require('@/assets/cyberbox_large.png'),
           }
         ],
         date_commande: '24/02/99',
         total: '9999',
-        code: true,
+        code: "UPSTLS3",
       }
     ]
   }),
@@ -117,5 +121,24 @@ export default {
 </script>
 
 <style scoped>
+.title {
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  width: 100%; /* Full width */
+}
 
+.column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.card-header-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
 </style>
