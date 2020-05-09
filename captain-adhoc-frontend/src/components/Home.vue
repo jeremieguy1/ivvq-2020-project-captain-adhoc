@@ -52,29 +52,7 @@
       </div>
     </div>
   </div>
-  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-  <div class="container">
-    <div class="content is-medium">
-      <div class="column is-narrow has-text-centered">
-        <p><br/>Alors, envie d'une escroquerie ? Connectez-vous ou alors rejoignez-nous !</p>
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="is-flex level is-vcentered">
-      <div class="level-item">
-        <div class="buttons is-flex">
-          <button class="button is-primary is-fullwidth login"
-                  v-on:click="navigateToLogin">Login</button>
-          <button class="button is-primary is-fullwidth">Sign up</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-  <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-  </div>
+</div>
   <div v-else >
     <div class="hero is-small is-primary" >
      <div class="hero-body">
@@ -125,28 +103,6 @@
         </div>
      </div>
     </div>
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    <div class="container">
-      <div class="content is-medium">
-        <div class="column is-narrow has-text-centered">
-          <p><br/>Alors, envie d'une escroquerie ? Connectez-vous ou alors rejoignez-nous !</p>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="is-flex level is-vcentered">
-        <div class="level-item">
-          <div class="buttons is-flex">
-            <button class="button is-primary is-fullwidth login"
-                    v-on:click="navigateToLogin">Login</button>
-            <button class="button is-primary is-fullwidth">Sign up</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-
   </div>
 </template>
 
@@ -169,28 +125,16 @@ export default {
       {
         title: '',
         content: '',
-        // You can also provide a URL for the image'../assets/Tom_Nook.png'.
         image: require('@/assets/ps5_large.png')
       },
       {
         title: '',
         content: '',
-        // You can also provide a URL for the image'../assets/Tom_Nook.png'.
         image: require('@/assets/cyberbox_large.png')
       }
     ]
   }),
   methods: {
-    navigateToLogin () {
-      if (this.authenticated) {
-        document.getElementsByClassName('no-shadow')[0].style.display = 'block'
-        this.authenticated = false
-      } else {
-        document.getElementsByClassName('no-shadow')[0].style.display = 'block'
-        this.authenticated = true
-      }
-      // router.push({name: 'Login'})
-    },
     scrollFunction () {
       if (this.authenticated) {
         if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
@@ -220,7 +164,6 @@ export default {
   font-weight: bold;
   position: fixed; /* Fixed position - sit on top of the page */
   width: 100%; /* Full width */
-
 }
 
 .containjeuxExlu {
@@ -230,25 +173,17 @@ export default {
 }
 
 .jeuxExlu {
-  position:absolute;
-
+  position: absolute;
   bottom: 0rem;
-
 }
 
 .subtitle {
   padding-top: 0rem;
-
 }
 
 .columns {
   padding-top: 0.625rem;
   transition: height 1s ease-in-out;
-
-}
-
-.buttons {
-  padding-top: 1.25rem;
 }
 
 #slidesInside {
