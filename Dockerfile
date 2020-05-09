@@ -19,4 +19,4 @@ WORKDIR /app
 COPY --from=maven /maven/target/*.jar ./app.jar
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-XX:+PrintFlagsFinal -Xmx300m", "-jar","./app.jar"]
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-XX:+PrintFlagsFinal -Xmx500m", "-jar","./app.jar"]
