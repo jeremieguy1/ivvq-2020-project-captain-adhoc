@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="title" style="">Historique des escroqueries</h1>
-    <div v-for="tweet in tweets" class="card" style="margin-left: 20%;margin-right: 20%;margin-bottom: 2%">
+    <h1 class="title">Historique des escroqueries</h1>
+    <div v-for="tweet in tweets" class="card" >
       <header  class="card-header">
         <p class="card-header-title">
           <time> {{tweet.date_commande}}</time>
@@ -31,7 +31,14 @@
             </div>
           </div>
         </div>
-        Code {{tweet.code}}
+        <div id="code">
+          <div v-if="tweet.code != ''" >
+            Code <b> {{tweet.code}} </b>
+          </div>
+          <div v-else>
+            Aucun code utilisé
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -128,6 +135,12 @@ export default {
   width: 100%; /* Full width */
 }
 
+.card {
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-bottom: 2%
+}
+
 .column {
   display: flex;
   justify-content: center;
@@ -140,5 +153,11 @@ export default {
   justify-content: center;
   align-items: center;
   font-weight: bold;
+}
+
+#code {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
