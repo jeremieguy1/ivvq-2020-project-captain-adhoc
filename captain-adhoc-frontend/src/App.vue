@@ -16,4 +16,7 @@ export default {
 </script>
 
 <style>
+  body, input, textarea, select, button, div, p, span, b {
+    font-family: Oswald, sans-serif;
+  }
 </style>
