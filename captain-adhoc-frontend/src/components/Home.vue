@@ -156,7 +156,6 @@ export default {
 }
 
 </script>
-
 <style type ="text/css" >
 .hero {
   color: black;
