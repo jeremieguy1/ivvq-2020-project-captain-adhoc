@@ -66,9 +66,9 @@
               </div>
               <div class="field is-flex">
                 <button
-                  class="button"
+                  class="button" :class="{ 'is-success': !$v.$invalid, 'is-danger': $v.$invalid && ($v.password.$dirty || $v.username.$dirty)}"
                   type="submit"
-                  value="">Se connecter</button>
+                >Se connecter</button>
               </div>
             </form>
           </div>
@@ -81,6 +81,8 @@
 <script>
 
 import { required, minLength } from 'vuelidate/lib/validators'
+import { HTTP } from '../http-common'
+import { chalk } from 'chalk'
 
 export default {
   name: 'Login',
@@ -107,7 +109,20 @@ export default {
       if (this.$v.$invalid) {
         // Send message ?
       } else {
-        // Axios call
+        HTTP
+          .get('/login', {
+            params: {
+              'username': this.username,
+              'password': this.password
+            }
+          })
+          .then(response => {
+            HTTP.defaults.headers.common['BEARER'] = response.headers['BEARER']
+          })
+          .catch(error => {
+            // Error management
+            chalk.red(error)
+          })
       }
     }
   }
