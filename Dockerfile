@@ -18,4 +18,4 @@ FROM openjdk:8-jre-alpine
 WORKDIR /app
 COPY --from=maven /maven/target/*.jar ./app.jar
 
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-Xmx500m", "-jar", "-Dserver.port=9000", "-Dhttp.port=9000", "./app.jar"]
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-Xmx500m", "-jar", "./app.jar"]
