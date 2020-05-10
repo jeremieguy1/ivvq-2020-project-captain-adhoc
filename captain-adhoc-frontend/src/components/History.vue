@@ -52,7 +52,9 @@
 </template>
 
 <script>
-export default {
+  import {HTTP} from '../http-common'
+
+  export default {
   name: 'History',
   data: () => ({
     commandes: [
@@ -139,7 +141,17 @@ export default {
         commande.display = false
       } else {
         commande.display = true
+        console.log(this.getData())
       }
+    },
+    getData () {
+      HTTP
+        .get('/commandes')
+        .then(response => {
+          this.info = response.data
+          console.log(response.data)
+
+        })
     }
   }
 }
