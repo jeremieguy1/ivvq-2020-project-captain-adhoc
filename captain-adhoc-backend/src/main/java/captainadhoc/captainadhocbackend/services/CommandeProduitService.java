@@ -11,7 +11,7 @@ public class CommandeProduitService {
     @Autowired
     private CommandeProduitRepository commandeProduitRepository;
 
-    private void saveCommandeProduit(CommandeProduit commandeProduit) {
+    public void saveCommandeProduit(CommandeProduit commandeProduit) {
         commandeProduitRepository.save(commandeProduit);
     }
 }
