@@ -17,7 +17,7 @@ docker logout
 # and https://toedter.com/2018/06/02/heroku-docker-deployment-update/
 imageId=$(docker inspect $DOCKER_IMAGE --format="{{.Id}}")
 payload="{\"updates\": [{\"type\": \"web\", \"docker_image\": \"$imageId\"}]}"
-curl -n -X PATCH https://api.heroku.com/apps/$PROJECT_NAME/formation \
+curl -n -X PATCH https://api.heroku.com/apps/"$PROJECT_NAME"/formation \
   -d "$payload" \
   -H "Content-Type: application/json" \
   -H "Accept: application/vnd.heroku+json; version=3.docker-releases" \
