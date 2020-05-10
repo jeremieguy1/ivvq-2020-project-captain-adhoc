@@ -1,23 +1,30 @@
 <template>
   <div>
     <h1 class="title">Historique des escroqueries</h1>
-    <div v-for="tweet in tweets" class="card" >
+    <div v-for="commande in commandes" class="card" >
       <header  class="card-header">
         <p class="card-header-title">
-          <time> {{tweet.date_commande}}</time>
+          <time> {{commande.date_commande}}</time>
         </p>
         <p class="card-header-title">
-          {{tweet.total}}$
+          {{commande.total}}$
         </p>
-        <a href="#" class="card-header-icon" aria-label="more options">
-        <span class="icon">
-          <i class="fas fa-angle-down" aria-hidden="true"></i>
-        </span>
+        <a v-on:click="displayContent(commande)" class="card-header-icon" aria-label="more options" >
+          <div v-if="!commande.display">
+            <span  class="icon">
+              <i class="fas fa-angle-up" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div v-if="commande.display">
+            <span class="icon">
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </div>
         </a>
       </header>
-      <div class="card-content">
+      <div v-if="commande.display" class="card-content">
         <div class="content">
-          <div v-for="prod in tweet.produits" class="columns " >
+          <div v-for="prod in commande.produits" class="columns " >
             <div class="column " >
               <figure class="image" >
                 <img :src="prod.image_produit" />
@@ -32,8 +39,8 @@
           </div>
         </div>
         <div id="code">
-          <div v-if="tweet.code != ''" >
-            Code <b> {{tweet.code}} </b>
+          <div v-if="commande.code != ''" >
+            Code <b> {{commande.code}} </b>
           </div>
           <div v-else>
             Aucun code utilisé
@@ -48,7 +55,7 @@
 export default {
   name: 'History',
   data: () => ({
-    tweets: [
+    commandes: [
       {
         id: 1,
         name: 'James',
@@ -72,6 +79,7 @@ export default {
         date_commande: '22/02/99',
         total: '8',
         code: "M2DL2019",
+        display: false
       },
       {
         id: 2,
@@ -96,6 +104,7 @@ export default {
         date_commande: '20/02/99',
         total: '25',
         code: "",
+        display: false
       },
       {
         id: 3,
@@ -120,10 +129,19 @@ export default {
         date_commande: '24/02/99',
         total: '9999',
         code: "UPSTLS3",
+        display: false
       }
     ]
   }),
-  methods: {}
+  methods: {
+    displayContent: function (commande) {
+      if (commande.display) {
+        commande.display = false;
+      } else {
+        commande.display = true;
+      }
+    }
+  }
 }
 </script>
 
