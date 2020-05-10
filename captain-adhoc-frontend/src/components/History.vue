@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="title">Historique des escroqueries</h1>
-    <div v-for="commande in commandes" class="card" >
+    <div v-for="commande in commandes" class="card animated fadeIn" >
       <header  class="card-header">
         <p class="card-header-title">
           <time> {{commande.date_commande}}</time>
