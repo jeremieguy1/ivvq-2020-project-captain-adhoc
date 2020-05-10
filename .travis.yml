@@ -9,4 +9,4 @@ deploy:
     provider: script
     script: bash docker_push
     on:
-      branch: develop
+      all_branches: true
