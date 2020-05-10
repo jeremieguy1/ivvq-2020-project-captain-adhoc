@@ -28,10 +28,14 @@ public class Commande {
     @NotEmpty
     private String code;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "commande")
     private List<CommandeProduit> commandeProduitsList;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Acheteur acheteur;
+
+    public Commande(String date_commande, String code) {
+        this.date_commande = date_commande;
+        this.code = code;
+    }
 }

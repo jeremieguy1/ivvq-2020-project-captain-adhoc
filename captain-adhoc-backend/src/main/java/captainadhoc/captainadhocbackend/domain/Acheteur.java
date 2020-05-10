@@ -28,7 +28,6 @@ public class Acheteur {
     @NotEmpty
     private String identifiant_acheteur;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "acheteur")
     private List<Commande> commandeList;
 }
