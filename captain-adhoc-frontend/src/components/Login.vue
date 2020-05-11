@@ -23,6 +23,7 @@
                     v-model.trim="$v.username.$model"
                     name="username"
                     type="text"
+                    pattern="^[a-zA-Z0-9]+"
                     placeholder="Nom...">
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
@@ -35,6 +36,7 @@
                   <span v-else class="icon is-small is-right" :class="{ 'animated wobble': username.length != ''}">
                       <i class="fas fa-times"></i>
                   </span>
+                  <p class="error has-text-danger" v-if="!$v.username.alphaNum && $v.username.$dirty">Le nom ne doit pas contenir de caractères spéciaux</p>
                   <p class="error has-text-danger" v-if="!$v.username.required && $v.username.$dirty">Le nom est obligatoire</p>
                   <p class="error has-text-danger" v-if="!$v.username.minLength">Le nom doit contenir au moins {{$v.username.$params.minLength.min}} lettres.</p>
                 </div>
@@ -80,9 +82,8 @@
 
 <script>
 
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required, minLength, alphaNum } from 'vuelidate/lib/validators'
 import { HTTP } from '../http-common'
-
 export default {
   name: 'Login',
   data () {
@@ -95,7 +96,8 @@ export default {
   validations: {
     username: {
       required,
-      minLength: minLength(3)
+      minLength: minLength(3),
+      alphaNum
     },
     password: {
       required,
@@ -108,6 +110,8 @@ export default {
       if (this.$v.$invalid) {
         // Send message ?
       } else {
+        console.log(this.username)
+
         HTTP
           .get('/login', {
             data: {
