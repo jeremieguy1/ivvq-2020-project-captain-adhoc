@@ -35,9 +35,9 @@
                   <span v-else class="icon is-small is-right" :class="{ 'animated wobble': username.length != ''}">
                       <i class="fas fa-times"></i>
                   </span>
-                  <p class="error has-text-danger" v-if="!$v.username.alphaNum && $v.username.$dirty">Le nom ne doit pas contenir de caractères spéciaux</p>
-                  <p class="error has-text-danger" v-if="!$v.username.required && $v.username.$dirty">Le nom est obligatoire</p>
-                  <p class="error has-text-danger" v-if="!$v.username.minLength">Le nom doit contenir au moins {{$v.username.$params.minLength.min}} lettres.</p>
+                  <p class="has-text-danger" v-if="!$v.username.alphaNum && $v.username.$dirty">Le nom ne doit pas contenir de caractères spéciaux</p>
+                  <p class="has-text-danger" v-if="!$v.username.required && $v.username.$dirty">Le nom est obligatoire</p>
+                  <p class="has-text-danger" v-if="!$v.username.minLength">Le nom doit contenir au moins {{$v.username.$params.minLength.min}} lettres.</p>
                 </div>
               </div>
               <div class="field">
@@ -61,8 +61,8 @@
                   <span v-else class="icon is-small is-right" :class="{ 'animated wobble': password.length != ''}">
                       <i class="fas fa-times"></i>
                   </span>
-                  <p class="error has-text-danger" v-if="!$v.password.required && $v.password.$dirty">Le mot de passe est obligatoire</p>
-                  <p class="error has-text-danger" v-if="!$v.password.minLength">Le mot de passe doit contenir au moins {{$v.password.$params.minLength.min}} caractères.</p>
+                  <p class="has-text-danger" v-if="!$v.password.required && $v.password.$dirty">Le mot de passe est obligatoire</p>
+                  <p class="has-text-danger" v-if="!$v.password.minLength">Le mot de passe doit contenir au moins {{$v.password.$params.minLength.min}} caractères.</p>
                 </div>
               </div>
               <div class="field is-flex">
@@ -88,8 +88,7 @@ export default {
   data () {
     return {
       username: '',
-      password: '',
-      submitStatus: ''
+      password: ''
     }
   },
   validations: {
@@ -107,10 +106,8 @@ export default {
     submit () {
       this.$v.$touch()
       if (this.$v.$invalid) {
-        // Send message ?
+        // Invalid form
       } else {
-        console.log(this.username)
-
         HTTP
           .get('/login', {
             data: {
@@ -121,8 +118,8 @@ export default {
           .then(response => {
             HTTP.defaults.headers.common['Autorization'] = response.headers['autorization']
           })
-          .catch(() => {
-            // Error management
+          .catch((e) => {
+            console.log(e)
           })
       }
     }
@@ -147,7 +144,7 @@ export default {
     padding-bottom: 0.325rem;
   }
 
-  .error {
+  .has-text-danger {
     padding-top: 0.325rem;
   }
 </style>
