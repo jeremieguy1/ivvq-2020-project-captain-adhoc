@@ -82,7 +82,6 @@
 
 import { required, minLength } from 'vuelidate/lib/validators'
 import { HTTP } from '../http-common'
-import { chalk } from 'chalk'
 
 export default {
   name: 'Login',
@@ -111,17 +110,16 @@ export default {
       } else {
         HTTP
           .get('/login', {
-            params: {
-              'username': this.username,
-              'password': this.password
+            data: {
+              username: this.username,
+              password: this.password
             }
           })
           .then(response => {
-            HTTP.defaults.headers.common['BEARER'] = response.headers['BEARER']
+            HTTP.defaults.headers.common['Autorization'] = response.headers['autorization']
           })
-          .catch(error => {
+          .catch(() => {
             // Error management
-            chalk.red(error)
           })
       }
     }
