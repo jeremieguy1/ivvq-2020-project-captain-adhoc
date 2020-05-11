@@ -23,7 +23,6 @@
                     v-model.trim="$v.username.$model"
                     name="username"
                     type="text"
-                    pattern="^[a-zA-Z0-9]+"
                     placeholder="Nom...">
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
