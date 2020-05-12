@@ -4,6 +4,7 @@ import Vuelidate from 'vuelidate'
 import axios from 'axios'
 import moxios from 'moxios'
 import sinon from 'sinon'
+import chai from 'chai'
 
 const localVue = createLocalVue()
 localVue.use(Vuelidate)
@@ -28,7 +29,7 @@ describe('Login.vue', () => {
     usernameField.setValue('X')
 
     // Then
-    expect(true, wrapper.vm.$v.username.$error)
+    chai.assert.strictEqual(wrapper.vm.$v.username.$error, true)
   })
 
   it('Should have no errors on username field when valid', () => {
@@ -42,7 +43,7 @@ describe('Login.vue', () => {
     usernameField.setValue('Valid')
 
     // Then
-    expect(false, wrapper.vm.$v.username.$error)
+    chai.assert.strictEqual(wrapper.vm.$v.username.$error, false)
   })
 
   it('Should be in error on password field when invalid', () => {
@@ -56,7 +57,7 @@ describe('Login.vue', () => {
     passwordField.setValue('X')
 
     // Then
-    expect(true, wrapper.vm.$v.password.$error)
+    chai.assert.strictEqual(wrapper.vm.$v.password.$error, true)
   })
 
   it('Should have no errors on password field when valid', () => {
@@ -70,7 +71,7 @@ describe('Login.vue', () => {
     passwordField.setValue('ValidPassword')
 
     // Then
-    expect(false, wrapper.vm.$v.password.$error)
+    chai.assert.strictEqual(wrapper.vm.$v.password.$error, false)
   })
 
   it('Should be invalid when a field is', () => {
@@ -85,7 +86,7 @@ describe('Login.vue', () => {
     wrapper.vm.$forceUpdate()
 
     // Then
-    expect(true, wrapper.vm.$v.$invalid)
+    chai.assert.strictEqual(wrapper.vm.$v.$invalid, true)
   })
 
   it('Should be valid when all fields are', () => {
@@ -102,7 +103,7 @@ describe('Login.vue', () => {
     wrapper.vm.$forceUpdate()
 
     // Then
-    expect(false, wrapper.vm.$v.$invalid)
+    chai.assert.strictEqual(wrapper.vm.$v.$invalid, false)
   })
 
   it('Should do an axios call on valid form', (done) => {
@@ -120,7 +121,7 @@ describe('Login.vue', () => {
 
     // Then
     moxios.wait(() => {
-      expect(true, spy.calledOnce)
+      chai.assert.strictEqual(spy.calledOnce, true)
       done()
     })
   })

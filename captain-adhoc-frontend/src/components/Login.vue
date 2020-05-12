@@ -13,56 +13,61 @@
                   <p class="heading">Accéder aux escroqueries</p>
                 </div>
               </div>
-
               <div class="field">
                 <label class="label">Nom *</label>
                 <div class="control has-icons-left has-icons-right">
-                  <input
-                    id="username"
-                    class="input" :class="{ 'is-success': !$v.username.$error && $v.username.$dirty, 'is-danger': $v.username.$error && $v.username.$dirty}"
-                    v-model.trim="$v.username.$model"
-                    name="username"
-                    type="text"
-                    placeholder="Nom...">
-                  <span class="icon is-small is-left">
-                    <i class="fas fa-user"></i>
-                  </span>
-                  <span v-if="!$v.username.$error && $v.username.$dirty">
-                    <span class="icon is-small is-right animated zoomIn">
-                      <i class="fas fa-check"></i>
+                  <div :class="{'animated headShake': $v.username.$dirty && $v.username.$error}">
+                    <input
+                      id="username"
+                      class="input" :class="{ 'is-success': !$v.username.$error && $v.username.$dirty, 'is-danger': $v.username.$error && $v.username.$dirty}"
+                      v-model.trim="$v.username.$model"
+                      name="username"
+                      type="text"
+                      placeholder="Nom...">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-user"></i>
                     </span>
-                  </span>
-                  <span v-else class="icon is-small is-right" :class="{ 'animated wobble': username.length != ''}">
-                      <i class="fas fa-times"></i>
-                  </span>
+                    <span v-if="!$v.username.$error && $v.username.$dirty">
+                      <span class="icon is-small is-right animated zoomIn">
+                        <i class="fas fa-check"></i>
+                      </span>
+                    </span>
+                    <span v-else class="icon is-small is-right">
+                        <i class="fas fa-times"></i>
+                    </span>
+                  </div>
                   <p class="has-text-danger" v-if="!$v.username.alphaNum && $v.username.$dirty">Le nom ne doit pas contenir de caractères spéciaux</p>
                   <p class="has-text-danger" v-if="!$v.username.required && $v.username.$dirty">Le nom est obligatoire</p>
-                  <p class="has-text-danger" v-if="!$v.username.minLength">Le nom doit contenir au moins {{$v.username.$params.minLength.min}} lettres.</p>
+                  <p class="has-text-danger" v-if="!$v.username.minLength">
+                    Le nom doit contenir au moins {{$v.username.$params.minLength.min}} caractères</p>
                 </div>
               </div>
               <div class="field">
                 <label class="label">Mot de passe *</label>
                 <div class="control has-icons-left has-icons-right">
-                  <input
-                    id="password"
-                    class="input" :class="{ 'is-success': !$v.password.$error && $v.password.$dirty, 'is-danger': $v.password.$error && $v.password.$dirty}"
-                    v-model.trim="$v.password.$model"
-                    name="password"
-                    type="password"
-                    placeholder="Mot de passe...">
-                  <span class="icon is-small is-left">
-                    <i class="fas fa-lock"></i>
-                  </span>
-                  <span v-if="!$v.password.$error && $v.password.$dirty">
-                    <span class="icon is-small is-right animated zoomIn">
-                      <i class="fas fa-check"></i>
+                  <div :class="{'animated headShake': $v.password.$dirty && $v.password.$error}">
+                    <input
+                      id="password"
+                      class="input" :class="{ 'is-success': !$v.password.$error && $v.password.$dirty,
+                       'is-danger': $v.password.$error && $v.password.$dirty}"
+                      v-model.trim="$v.password.$model"
+                      name="password"
+                      type="password"
+                      placeholder="Mot de passe...">
+                    <span class="icon is-small is-left">
+                      <i class="fas fa-lock"></i>
                     </span>
-                  </span>
-                  <span v-else class="icon is-small is-right" :class="{ 'animated wobble': password.length != ''}">
-                      <i class="fas fa-times"></i>
-                  </span>
+                    <span v-if="!$v.password.$error && $v.password.$dirty">
+                      <span class="icon is-small is-right animated zoomIn">
+                        <i class="fas fa-check"></i>
+                      </span>
+                    </span>
+                    <span v-else class="icon is-small is-right">
+                        <i class="fas fa-times"></i>
+                    </span>
+                  </div>
                   <p class="has-text-danger" v-if="!$v.password.required && $v.password.$dirty">Le mot de passe est obligatoire</p>
-                  <p class="has-text-danger" v-if="!$v.password.minLength">Le mot de passe doit contenir au moins {{$v.password.$params.minLength.min}} caractères.</p>
+                  <p class="has-text-danger" v-if="!$v.password.minLength">Le mot de passe doit contenir au moins {{$v.password.$params.minLength.min}} caractères</p>
                 </div>
               </div>
               <div class="field is-flex">
@@ -82,7 +87,7 @@
 <script>
 
 import { required, minLength, alphaNum } from 'vuelidate/lib/validators'
-import { HTTP } from '../http-common'
+import axios from 'axios'
 export default {
   name: 'Login',
   data () {
@@ -108,7 +113,7 @@ export default {
       if (this.$v.$invalid) {
         // Invalid form
       } else {
-        HTTP
+        axios
           .get('/login', {
             data: {
               username: this.username,
@@ -116,7 +121,7 @@ export default {
             }
           })
           .then(response => {
-            HTTP.defaults.headers.common['Autorization'] = response.headers['autorization']
+            axios.defaults.headers.common['Autorization'] = response.headers['autorization']
           })
           .catch((e) => {
             console.log(e)
