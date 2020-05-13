@@ -69,6 +69,7 @@
                   <p class="has-text-danger" v-if="!$v.password.required && $v.password.$dirty">Le mot de passe est obligatoire</p>
                   <p class="has-text-danger" v-if="!$v.password.minLength">Le mot de passe doit contenir au moins {{$v.password.$params.minLength.min}} caractères</p>
                 </div>
+                <p class="has-text-danger" v-if="submitStatus != ''">Erreur de connexion ({{submitStatus}})</p>
               </div>
               <div class="field is-flex">
                 <button
@@ -93,7 +94,8 @@ export default {
   data () {
     return {
       username: '',
-      password: ''
+      password: '',
+      submitStatus: ''
     }
   },
   validations: {
@@ -109,6 +111,7 @@ export default {
   },
   methods: {
     submit () {
+      this.submitStatus = ''
       this.$v.$touch()
       if (this.$v.$invalid) {
         // Invalid form
@@ -122,9 +125,11 @@ export default {
           })
           .then(response => {
             axios.defaults.headers.common['Autorization'] = response.headers['autorization']
+            this.$router.push('Products')
           })
           .catch((e) => {
             console.log(e)
+            this.submitStatus = e.response.status
           })
       }
     }
