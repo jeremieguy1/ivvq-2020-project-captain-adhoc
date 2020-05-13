@@ -95,8 +95,9 @@
                         <i class="fas fa-times"></i>
                   </span>
                   </div>
-                  <p class="has-text-danger" v-if="!$v.repeatPassword.sameAsPassword && $v.repeatPassword.$dirty">Les mots de passe correspondre, pas d'escroquerie !</p>
+                  <p class="has-text-danger" v-if="!$v.repeatPassword.sameAsPassword && $v.repeatPassword.$dirty">Les mots de passe doivent correspondre, pas d'escroquerie !</p>
                 </div>
+                <p class="has-text-danger has-text-centered" v-if="submitStatus != ''">Erreur d'inscription ({{submitStatus}})</p>
               </div>
               <div class="field is-flex">
                 <button
@@ -122,7 +123,8 @@ export default {
     return {
       username: '',
       password: '',
-      repeatPassword: ''
+      repeatPassword: '',
+      submitStatus: ''
     }
   },
   validations: {
@@ -142,6 +144,7 @@ export default {
   },
   methods: {
     submit () {
+      this.submitStatus = ''
       this.$v.$touch()
       if (this.$v.$invalid) {
         // Invalid form
@@ -155,9 +158,10 @@ export default {
           })
           .then(response => {
             axios.defaults.headers.common['Autorization'] = response.headers['autorization']
+            this.$router.push('Products')
           })
           .catch((e) => {
-            console.log(e)
+            this.submitStatus = e.response.status
           })
       }
     }
