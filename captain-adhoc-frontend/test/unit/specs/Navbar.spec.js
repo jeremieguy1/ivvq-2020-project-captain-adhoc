@@ -8,9 +8,26 @@ localVue.use(VueRouter)
 describe('Navbar.vue', () => {
   it("Should set attributes on click 'Burger'", () => {
     const router = new VueRouter()
-
     const spy = sinon.spy()
+
+    const divParente = document.createElement('div')
+
+    // Div burger
+    const divBurger = document.createElement('div')
+    divBurger.classList.add('burger')
+    divBurger.setAttribute('dataset', 'navbar-menu')
+
+    // Div Navbar-menu
+    const divTarget = document.createElement('div')
+    divTarget.setAttribute('id', 'navbar-menu')
+
+    divParente.appendChild(divBurger)
+    divParente.appendChild(divTarget)
+
+    document.body.appendChild(divParente)
+
     let wrapper = mount(Navbar, {
+      attachTo: divParente,
       router
     })
 
