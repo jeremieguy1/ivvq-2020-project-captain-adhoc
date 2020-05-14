@@ -71,41 +71,10 @@
 </template>
 
 <script>
-import {HTTP} from '../http-common'
-import Vuex, {mapState} from 'vuex'
-import Vue from 'vue'
-
-window.Vue = Vue
-Vue.use(Vuex)
-
-const store = new Vuex.Store({
-  state: {
-    commandes: []
-  },
-  mutations: {
-    getData (state) {
-      HTTP
-        .get('/commandes')
-        .then(response => {
-          this.info = response.data
-          response.data.forEach(commande => Vue.observable(commande.display = false))
-          state.commandes = response.data
-        })
-    },
-    displayContent (state, commande) {
-      state.commandes.forEach(com => {
-        if (com.id_commande === commande.id_commande) {
-          if (com.display) com.display = false
-          else com.display = true
-        }
-      })
-    }
-  }
-})
+import {mapState} from 'vuex'
 
 export default {
   name: 'History',
-  store,
   created () {
     this.getData()
   },
