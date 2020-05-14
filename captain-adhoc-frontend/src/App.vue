@@ -6,15 +6,11 @@
 </template>
 
 <script>
-import axios from 'axios'
 import Navbar from './components/Navbar'
 export default {
   name: 'App',
   components: {
     Navbar
-  },
-  mounted () {
-    axios.defaults.baseURL = process.env.API_URL
   }
 }
 </script>

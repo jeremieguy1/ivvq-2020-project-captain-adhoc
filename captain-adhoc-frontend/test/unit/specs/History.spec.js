@@ -123,7 +123,7 @@ describe('History.vue', () => {
             total = 15 * 1 = 15
      */
     //Then
-    expect(wrapper.find(".card-header-title.total").text()).equal("15$")
+    expect(wrapper.find('.card-header-title.total').text()).equal('15$')
 
     // When
     /*
@@ -137,7 +137,7 @@ describe('History.vue', () => {
             total = total1 + total2 = 15 + 32 = 47
      */
     //Then
-    expect(wrapper.findAll(".card-header-title.total").at(1).text()).equal("47$")
+    expect(wrapper.findAll('.card-header-title.total').at(1).text()).equal('47$')
 
     // When
     /*
@@ -147,7 +147,7 @@ describe('History.vue', () => {
            total = 16 * 2 = 32
     */
     //Then
-    expect(wrapper.findAll(".card-header-title.total").at(2).text()).equal("32$")
+    expect(wrapper.findAll('.card-header-title.total').at(2).text()).equal('32$')
   })
 
   it('Should display simple data ', () => {
@@ -160,19 +160,19 @@ describe('History.vue', () => {
       Commande 1:
         date_commande: '21/20/2020',
      */
-    expect(wrapper.findAll(".card-header-title.date").at(0).text()).equal("21/20/2020")
+    expect(wrapper.findAll('.card-header-title.date').at(0).text()).equal('21/20/2020')
 
     /*
       Commande 2:
         date_commande: '22/20/2020',
      */
-    expect(wrapper.findAll(".card-header-title.date").at(1).text()).equal("22/20/2020")
+    expect(wrapper.findAll('.card-header-title.date').at(1).text()).equal('22/20/2020')
 
     /*
       Commande 3:
         date_commande: '23/20/2020',
     */
-    expect(wrapper.findAll(".card-header-title.date").at(2).text()).equal("23/20/2020")
+    expect(wrapper.findAll('.card-header-title.date').at(2).text()).equal('23/20/2020')
 
   })
 })

@@ -1,8 +1,9 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import axios from 'axios'
+import { configs } from '../http-common'
 
 Vue.use(Vuex)
-import {HTTP} from '../http-common'
 
 export default new Vuex.Store({
   state: {
@@ -10,8 +11,8 @@ export default new Vuex.Store({
   },
   mutations: {
     getData (state) {
-      HTTP
-        .get('/commandes')
+      axios
+        .get('/commandes', configs)
         .then(response => {
           this.info = response.data
           response.data.forEach(commande => Vue.observable(commande.display = false))
@@ -21,7 +22,7 @@ export default new Vuex.Store({
     displayContent (state, commande) {
       state.commandes.forEach(com => {
         if (com.id_commande === commande.id_commande) {
-          com.display = !com.display;
+          com.display = !com.display
         }
       })
     }
