@@ -39,8 +39,8 @@ public class DataLoader implements ApplicationRunner {
         Marchand marchand1 = new Marchand("marchand1");
 
         List<Produit> produitList = new ArrayList<>();
-        Produit produit2 = new Produit(16, "produit2", "description2", "image2", 2);
-        Produit produit1 = new Produit(15, "produit1", "description1", "image1", 1);
+        Produit produit2 = new Produit(16, "produit2", "description2", "cyberbox_large.png", 2);
+        Produit produit1 = new Produit(15, "produit1", "description1", "ps5_large.png", 1);
         produitList.add(produit1);
         produitList.add(produit2);
 

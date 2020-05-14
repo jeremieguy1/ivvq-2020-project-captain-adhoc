@@ -8,17 +8,17 @@
       </div>
     </div>
     <div class="section">
-      <div v-for="commande in commandes" v-bind:key="commande.id_commande" class="card animated fadeIn" >
-        <header  class="card-header">
-          <p class="card-header-title">
+      <div v-for="commande in commandes" v-bind:key="commande.id_commande" class="card animated fadeIn">
+        <header v-on:click="displayContent(commande)" class="card-header">
+          <p class="card-header-title date">
             <time> {{commande.date_commande}}</time>
           </p>
-          <p class="card-header-title">
-            {{getTotalPrix()}}$
+          <p class="card-header-title total">
+            {{getTotalPrix(commande)}}$
           </p>
-          <a v-on:click="displayContent(commande)" class="card-header-icon" aria-label="more options" >
+          <a class="card-header-icon" aria-label="more options">
             <div v-if="!commande.display">
-              <span  class="icon">
+              <span class="icon">
                 <i class="fas fa-angle-up" aria-hidden="true"></i>
               </span>
             </div>
@@ -42,24 +42,22 @@
                 <p>{{tableHead.quantite}}</p>
               </td>
             </tr>
-            <tr v-for="prod in commande.commandeProduitsList" v-bind:key="prod.id_commandeProduit"  class="columns">
-              <td class="column" >
-                <div class="forback">
-                  <figure class="image" >
-                    <img :src="prod.image_produit" />
-                  </figure>
-                </div>
+            <tr v-for="prod in commande.commandeProduitsList" v-bind:key="prod.id_commandeProduit" class="columns">
+              <td class="column">
+                <figure class="image">
+                  <img :src="getImgUrl(prod.produit.image_produit)">
+                </figure>
               </td>
               <td class="column nom_produit">
-                <div class="nom_produit">{{prod.nom_produit}}</div>
+                <div class="nom_produit">{{prod.produit.nom_produit}}</div>
               </td>
               <td class="column">
-                {{prod.quantite_produit}}
+                {{prod.produit.quantite_produit}}
               </td>
             </tr>
           </table>
           <td class="code">
-            <div v-if="commande.code !== ''" >
+            <div v-if="commande.code !== ''">
               <p>Code <b> {{commande.code}} </b></p>
             </div>
             <div v-else>
@@ -73,148 +71,71 @@
 </template>
 
 <script>
-  import {HTTP} from '../http-common'
+import {HTTP} from '../http-common'
+import Vuex, {mapState} from 'vuex'
+import Vue from 'vue'
 
-  export default {
-    name: 'History',
-    created: function () {
+window.Vue = Vue
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+  state: {
+    commandes: []
+  },
+  mutations: {
+    getData (state) {
       HTTP
         .get('/commandes')
         .then(response => {
           this.info = response.data
-          console.log(response.data)
-          this.commandes = response.data
-          console.log(this.commandes)
-
+          response.data.forEach(commande => Vue.observable(commande.display = false))
+          state.commandes = response.data
         })
     },
-    data: () => ({
-      tableHead: {
-        image_produit: '',
-        produit: 'Produit',
-        quantite: 'Quantité'
-      },
-      commandes: [/*
-      {
-        id_commande: 1,
-        name: 'James',
-        commandeProduitsList: [
-          {
-            id_commandeProduit: '4',
-            produit: [
-              {
-                description_produit: '4',
-                id_produit: '4',
-                prix_produit: '4',
-                nom_produit: '4',
-                quantite_produit: '4',
-                image_produit: '4'
-              }
-            ],
-            quantite_produit: '4',
-            nom_produit: 'PS5',
-            image_produit: require('@/assets/ps5_large.png')
-          },
-          {
-            quantite_produit: '2',
-            nom_produit: 'cyberbox',
-            image_produit: require('@/assets/cyberbox_large.png')
-          },
-          {
-            quantite_produit: '9999',
-            nom_produit: 'Rick le bg',
-            image_produit: require('@/assets/cyberbox_large.png')
-          }
-        ],
-        date_commande: '22/02/99',
-        total: '8',
-        code: 'M2DL2019',
-        display: false
-      }/*,
-      {
-        id: 2,
-        name: 'Fatima',
-        produits: [
-          {
-            quantite_produit: '4',
-            nom_produit: 'PS5',
-            image_produit: require('@/assets/ps5_large.png')
-          },
-          {
-            quantite_produit: '2',
-            nom_produit: 'cyberbox',
-            image_produit: require('@/assets/cyberbox_large.png')
-          },
-          {
-            quantite_produit: '9999',
-            nom_produit: 'Rick le bg',
-            image_produit: require('@/assets/LeftArrow.png')
-          }
-        ],
-        date_commande: '20/02/99',
-        total: '25',
-        code: '',
-        display: false
-      },
-      {
-        id: 3,
-        name: 'Xin',
-        produits: [
-          {
-            quantite_produit: '4',
-            nom_produit: 'PS5',
-            image_produit: require('@/assets/ps5_large.png')
-          },
-          {
-            quantite_produit: '2',
-            nom_produit: 'cyberbox',
-            image_produit: require('@/assets/cyberbox_large.png')
-          },
-          {
-            quantite_produit: '9999',
-            nom_produit: 'Rick le bg',
-            image_produit: require('@/assets/cyberbox_large.png')
-          }
-        ],
-        date_commande: '24/02/99',
-        total: '9999',
-        code: 'UPSTLS3',
-        display: false
-      }*/
-      ]
-    }),
-    methods: {
-      displayContent: function(commande) {
-        if (commande.display) {
-          commande.display = false
-        } else {
-          commande.display = true
-          console.log(this.getData())
+    displayContent (state, commande) {
+      state.commandes.forEach(com => {
+        if (com.id_commande === commande.id_commande) {
+          if (com.display) com.display = false
+          else com.display = true
         }
-      },
-      getData () {
-        HTTP
-          .get('/commandes')
-          .then(response => {
-            this.info = response.data
-            console.log(response.data)
-            this.commandes = response.data
-            console.log(this.commandes)
-
-          })
-      },
-      getTotalPrix () {
-        var total = 0
-        this.commandes.forEach(commande =>
-          commande.commandeProduitsList.forEach(commandeProduit =>
-            total += commandeProduit.produit.quantite_produit * commandeProduit.produit.prix_produit
-
-          )
-        );
-        return total
-      }
+      })
     }
   }
+})
+
+export default {
+  name: 'History',
+  store,
+  created () {
+    this.getData()
+  },
+  data: () => ({
+    tableHead: {
+      image_produit: '',
+      produit: 'Produit',
+      quantite: 'Quantité'
+    }
+  }),
+  computed: mapState(['commandes']),
+  methods: {
+    getData () {
+      this.$store.commit('getData')
+    },
+    displayContent (commande) {
+      this.$store.commit('displayContent', commande)
+    },
+    getTotalPrix (commande) {
+      let total = 0
+      commande.commandeProduitsList.forEach(commandeProduit => {
+        total = total + commandeProduit.produit.quantite_produit * commandeProduit.produit.prix_produit
+      })
+      return total
+    },
+    getImgUrl (img) {
+      return require('@/assets/' + img)
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -234,10 +155,6 @@
 
   tr:nth-child(odd) {
     background-color: #eeeeee;
-  }
-
-  .historique {
-
   }
 
   .card {
@@ -262,5 +179,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  div.card.animated {
+    cursor: pointer;
   }
 </style>
