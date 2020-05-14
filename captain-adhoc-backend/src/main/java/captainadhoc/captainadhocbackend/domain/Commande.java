@@ -25,7 +25,6 @@ public class Commande {
     @NotEmpty
     private String date_commande;
 
-    @NotEmpty
     private String code;
 
     @OneToMany(mappedBy = "commande")

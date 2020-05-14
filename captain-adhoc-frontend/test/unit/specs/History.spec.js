@@ -1,29 +1,19 @@
 import History from '@/components/History'
-import { mount, createLocalVue } from "@vue/test-utils"
-import chai, { expect } from 'chai'
+import { mount, createLocalVue } from '@vue/test-utils'
+import chai from 'chai'
 import { mutations } from '@/store/index'
-import Vuex from "vuex"
+import Vuex from 'vuex'
 import Vue from 'vue'
+import sinon from 'sinon'
 
 Vue.use(Vuex)
 
-import * as jest from 'mocha';
-import sinon from 'sinon';
-
-// destructure assign `mutations`
-const { displayContent } = mutations
-
-
 const localVue = createLocalVue()
 localVue.use(Vuex)
-//let mutations = { displayContent: sinon.stub()}
-
 
 describe('History.vue', () => {
   let store
-
   beforeEach(() => {
-
     store = new Vuex.Store({
       mutations,
       state: {
@@ -96,9 +86,9 @@ describe('History.vue', () => {
           },
           {
             id_commande: 6,
-            display: false,
+            display: true,
             date_commande: '23/20/2020',
-            code: 'code',
+            code: '',
             commandeProduitsList: [
               {
                 id_commandeProduit: 10,
@@ -124,110 +114,6 @@ describe('History.vue', () => {
     })
   })
 
-
-/*    actions = {
-      actionClick: jest.fn(),
-      actionInput: jest.fn()
-    }*/
-
-      /*store = new Vuex.Store({
-        mutations: {
-          displayContent: setDataMock
-        },
-        state: {
-        commandes: [
-          {
-            id_commande: 4,
-            date_commande: '21/20/2020',
-            code: 'code',
-            commandeProduitsList: [
-              {
-                id_commandeProduit: 7,
-                produit: {
-                  id_produit: 2,
-                  quantite_produit: 15,
-                  nom_produit: 'produit1',
-                  description_produit: 'description1',
-                  image_produit: 'image1',
-                  prix_produit: 1,
-                  marchand: {
-                    id_marchand: 1,
-                    identifiant_marchand: 'marchand1'
-                  }
-                },
-                quantite_commande_produit: 4
-              }
-            ],
-            acheteur: null
-          },
-          {
-            id_commande: 5,
-            date_commande: '22/20/2020',
-            code: 'code',
-            commandeProduitsList: [
-              {
-                id_commandeProduit: 8,
-                produit: {
-                  id_produit: 2,
-                  quantite_produit: 15,
-                  nom_produit: 'produit1',
-                  description_produit: 'description1',
-                  image_produit: 'image1',
-                  prix_produit: 1,
-                  marchand: {
-                    id_marchand: 1,
-                    identifiant_marchand: 'marchand1'
-                  }
-                },
-                quantite_commande_produit: 0
-              },
-              {
-                id_commandeProduit: 9,
-                produit: {
-                  id_produit: 3,
-                  quantite_produit: 16,
-                  nom_produit: 'produit2',
-                  description_produit: 'description2',
-                  image_produit: 'image2',
-                  prix_produit: 2,
-                  marchand: {
-                    id_marchand: 1,
-                    identifiant_marchand: 'marchand1'
-                  }
-                },
-                quantite_commande_produit: 0
-              }
-            ],
-            acheteur: null
-          },
-          {
-            id_commande: 6,
-            date_commande: '23/20/2020',
-            code: 'code',
-            commandeProduitsList: [
-              {
-                id_commandeProduit: 10,
-                produit: {
-                  id_produit: 3,
-                  quantite_produit: 16,
-                  nom_produit: 'produit2',
-                  description_produit: 'description2',
-                  image_produit: 'image2',
-                  prix_produit: 2,
-                  marchand: {
-                    id_marchand: 1,
-                    identifiant_marchand: 'marchand1'
-                  }
-                },
-                quantite_commande_produit: 0
-              }
-            ],
-            acheteur: null
-          }
-        ]}
-    })
-  })*/
-
   it('Should calculate good total ', () => {
     // Given
     const wrapper = mount(History, {
@@ -241,8 +127,8 @@ describe('History.vue', () => {
             prix_produit: 1,
             total = 15 * 1 = 15
      */
-    //Then
-    expect(wrapper.find('.card-header-title.total').text()).equal('15$')
+    // Then
+    chai.assert.strictEqual(wrapper.findAll('.card-header-title.total').at(0).text(), '15$')
 
     // When
     /*
@@ -255,8 +141,8 @@ describe('History.vue', () => {
             total = 16 * 2 = 32
             total = total1 + total2 = 15 + 32 = 47
      */
-    //Then
-    expect(wrapper.findAll('.card-header-title.total').at(1).text()).equal('47$')
+    // Then
+    chai.assert.strictEqual(wrapper.findAll('.card-header-title.total').at(1).text(), '47$')
 
     // When
     /*
@@ -265,12 +151,39 @@ describe('History.vue', () => {
            prix_produit: 2,
            total = 16 * 2 = 32
     */
-    //Then
-    expect(wrapper.findAll('.card-header-title.total').at(2).text()).equal('32$')
+    // Then
+    chai.assert.strictEqual(wrapper.findAll('.card-header-title.total').at(2).text(), '32$')
+  })
+
+  it('Should getTotalPrix calculate good total ', () => {
+    // Given
+    const spy = sinon.spy(History.methods, 'getTotalPrix')
+    let commande = {
+      commandeProduitsList: [
+        {
+          produit: {
+            quantite_produit: 6,
+            prix_produit: 5
+          }
+        },
+        {
+          produit: {
+            quantite_produit: 36,
+            prix_produit: 4
+          }
+        }
+      ]
+    }
+
+    // When
+    let total = History.methods.getTotalPrix(commande)
+
+    // Then
+    chai.assert.strictEqual(total, 174)
+    chai.assert.strictEqual(spy.calledOnce, true)
   })
 
   it('Should display simple data ', () => {
-
     const wrapper = mount(History, {
       store,
       localVue
@@ -279,60 +192,103 @@ describe('History.vue', () => {
       Commande 1:
         date_commande: '21/20/2020',
      */
-    expect(wrapper.findAll('.card-header-title.date').at(0).text()).equal('21/20/2020')
+    chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(0).text(), '21/20/2020')
 
     /*
       Commande 2:
         date_commande: '22/20/2020',
      */
-    expect(wrapper.findAll('.card-header-title.date').at(1).text()).equal('22/20/2020')
+    chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(1).text(), '22/20/2020')
 
     /*
       Commande 3:
         date_commande: '23/20/2020',
     */
-    expect(wrapper.findAll('.card-header-title.date').at(2).text()).equal('23/20/2020')
-
+    chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(2).text(), '23/20/2020')
   })
 
   it('Should call store action displayContent when button is clicked', () => {
-
-    //Given
+    // Given
     const spy = sinon.spy(History.methods, 'displayContent')
     const wrapper = mount(History, { store, localVue })
 
-    //When
+    // When
     wrapper.find('header').trigger('click')
 
-    //Then
+    // Then
     chai.assert.strictEqual(spy.calledOnce, true)
-
   })
 
   it('Should be unfold after a clicked when it was fold', () => {
-    //Given
+    // Given
     const wrapper = mount(History, { store, localVue })
 
-    //When
+    // When
     wrapper.findAll('header').at(0).trigger('click')
 
-    //Then
-    expect(store.state.commandes[0].display).equals(true)
-    expect(store.state.commandes[1].display).equals(true)
-    expect(store.state.commandes[2].display).equals(false)
+    // Then
+    chai.assert.strictEqual(store.state.commandes[0].display, true)
+    chai.assert.strictEqual(store.state.commandes[1].display, true)
+    chai.assert.strictEqual(store.state.commandes[2].display, true)
   })
 
   it('Should be fold after a clicked when it was unfold', () => {
-    //Given
+    // Given
     const wrapper = mount(History, { store, localVue })
 
-    //When
+    // When
     wrapper.findAll('header').at(1).trigger('click')
 
-    //Then
-    expect(store.state.commandes[0].display).equals(false)
-    expect(store.state.commandes[1].display).equals(false)
-    expect(store.state.commandes[2].display).equals(false)
+    // Then
+    chai.assert.strictEqual(store.state.commandes[0].display, false)
+    chai.assert.strictEqual(store.state.commandes[1].display, false)
+    chai.assert.strictEqual(store.state.commandes[2].display, true)
   })
 
+  it('Should show the code when there is a code', () => {
+    // Given
+    const wrapper = mount(History, { store, localVue })
+
+    // When
+    // for commande 1 code: 'code'
+    wrapper.findAll('header').at(0).trigger('click')
+
+    // Then
+    chai.assert.strictEqual(wrapper.findAll('.codeToDisplay').at(0).text(), 'Code code')
+  })
+
+  it('Should not show the code when there is no code', () => {
+    // Given
+    const wrapper = mount(History, { store, localVue })
+
+    // When
+    // for commande 3 code: ''
+    wrapper.findAll('header').at(2).trigger('click')
+
+    // Then
+    chai.assert.strictEqual(wrapper.findAll('.noCodeToDisplay').at(0).text(), 'Aucun code utilisé')
+  })
+
+  it('Should getData called at the component creation', () => {
+    // Given
+    const spy = sinon.spy(History.methods, 'getData')
+
+    // When
+    mount(History, { store, localVue })
+
+    // Then
+    chai.assert.strictEqual(spy.calledOnce, true)
+  })
+
+  it('Should getImgUrl be called for each images to upload', () => {
+    // Given
+    const spy1 = sinon.spy(History.methods, 'getImgUrl')
+
+    // When
+    // There are 3 images to upload at the creation
+    mount(History, { store, localVue })
+
+    // Then
+    chai.assert.strictEqual(spy1.calledThrice, true)
+  })
 })

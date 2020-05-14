@@ -64,7 +64,7 @@ public class DataLoader implements ApplicationRunner {
     public void initCommandes () {
         Commande commande1 = new Commande("20/20/2020","code");
         Commande commande2 = new Commande("20/20/2020","code");
-        Commande commande3 = new Commande("20/20/2020","code");
+        Commande commande3 = new Commande("20/20/2020","");
 
         CommandeProduit commandeProduit = new CommandeProduit();
         CommandeProduit commandeProduit2 = new CommandeProduit();

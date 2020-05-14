@@ -48,20 +48,21 @@
                   <img :src="getImgUrl(prod.produit.image_produit)">
                 </figure>
               </td>
-              <td class="column nom_produit">
-                <div class="nom_produit">{{prod.produit.nom_produit}}</div>
+              <td class="column">
+                <div>
+                <p class="nom_produit">{{prod.produit.nom_produit}}</p></div>
               </td>
               <td class="column">
-                {{prod.produit.quantite_produit}}
+                <p class="quantite_produit">{{prod.produit.quantite_produit}}</p>
               </td>
             </tr>
           </table>
           <td class="code">
             <div v-if="commande.code !== ''">
-              <p>Code <b> {{commande.code}} </b></p>
+              <p class="codeToDisplay">Code<b> {{commande.code}} </b></p>
             </div>
             <div v-else>
-              <p>Aucun code utilisé</p>
+              <p class="noCodeToDisplay">Aucun code utilisé</p>
             </div>
           </td>
         </div>
