@@ -20,7 +20,7 @@ class CommandeServiceTest {
     private CommandeService commandeService;
 
     @Test
-    void findAllCommandes() {
+    public void findAllCommandesTest() {
         // when: la méthode findAllCommandes est invoquée
         commandeService.findAllCommandes();
 
@@ -29,7 +29,7 @@ class CommandeServiceTest {
     }
 
     @Test
-    void saveCommande() {
+    public void saveCommandeTest() {
         //given une Commande
         Commande commande = new Commande("20/20/2020","code");
         when(commandeService.getCommandeRepository().save(commande)).thenReturn(commande);

@@ -4,10 +4,11 @@ import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
 import captainadhoc.captainadhocbackend.domain.Marchand;
 import captainadhoc.captainadhocbackend.domain.Produit;
-import captainadhoc.captainadhocbackend.services.Interfaces.CommandeService;
-import captainadhoc.captainadhocbackend.services.Interfaces.CommandeProduitService;
-import captainadhoc.captainadhocbackend.services.Interfaces.MarchandService;
-import captainadhoc.captainadhocbackend.services.Interfaces.ProduitService;
+import captainadhoc.captainadhocbackend.services.implementations.ICommandeProduitService;
+import captainadhoc.captainadhocbackend.services.implementations.ICommandeService;
+import captainadhoc.captainadhocbackend.services.implementations.IMarchandService;
+import captainadhoc.captainadhocbackend.services.implementations.IProduitService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -19,19 +20,20 @@ import java.util.List;
 
 @Component
 @Transactional
+@AllArgsConstructor
 public class DataLoader implements ApplicationRunner {
 
     @Autowired
-    private ProduitService produitService;
+    private IProduitService produitService;
 
     @Autowired
-    private MarchandService marchandService;
+    private IMarchandService marchandService;
 
     @Autowired
-    private CommandeService commandeService;
+    private ICommandeService commandeService;
 
     @Autowired
-    private CommandeProduitService commandeProduitService;
+    private ICommandeProduitService commandeProduitService;
 
     public void initProduit(){
 
