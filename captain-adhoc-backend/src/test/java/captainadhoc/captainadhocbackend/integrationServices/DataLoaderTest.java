@@ -1,14 +1,13 @@
 package captainadhoc.captainadhocbackend.integrationServices;
 
 import captainadhoc.captainadhocbackend.DataLoader;
-import captainadhoc.captainadhocbackend.services.implementations.ICommandeProduitService;
-import captainadhoc.captainadhocbackend.services.implementations.ICommandeService;
-import captainadhoc.captainadhocbackend.services.implementations.IMarchandService;
-import captainadhoc.captainadhocbackend.services.implementations.IProduitService;
+import captainadhoc.captainadhocbackend.services.interfaces.ICommandeProduitService;
+import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
+import captainadhoc.captainadhocbackend.services.interfaces.IMarchandService;
+import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;

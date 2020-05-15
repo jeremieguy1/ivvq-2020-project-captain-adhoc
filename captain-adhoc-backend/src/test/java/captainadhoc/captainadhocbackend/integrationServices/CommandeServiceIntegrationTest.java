@@ -1,7 +1,7 @@
 package captainadhoc.captainadhocbackend.integrationServices;
 
 import captainadhoc.captainadhocbackend.domain.Commande;
-import captainadhoc.captainadhocbackend.services.implementations.ICommandeService;
+import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

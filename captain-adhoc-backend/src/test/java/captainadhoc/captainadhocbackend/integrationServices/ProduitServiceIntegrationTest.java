@@ -1,7 +1,7 @@
 package captainadhoc.captainadhocbackend.integrationServices;
 
 import captainadhoc.captainadhocbackend.domain.Produit;
-import captainadhoc.captainadhocbackend.services.implementations.IProduitService;
+import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

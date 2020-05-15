@@ -1,4 +1,4 @@
-package captainadhoc.captainadhocbackend.services.implementations;
+package captainadhoc.captainadhocbackend.services.interfaces;
 
 import captainadhoc.captainadhocbackend.domain.Acheteur;
 

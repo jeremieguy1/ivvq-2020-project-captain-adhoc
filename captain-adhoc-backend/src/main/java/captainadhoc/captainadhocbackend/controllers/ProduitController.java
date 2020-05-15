@@ -2,7 +2,7 @@ package captainadhoc.captainadhocbackend.controllers;
 
 import captainadhoc.captainadhocbackend.beans.Achat;
 import captainadhoc.captainadhocbackend.domain.Produit;
-import captainadhoc.captainadhocbackend.services.implementations.IProduitService;
+import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,8 +1,8 @@
-package captainadhoc.captainadhocbackend.services.Interfaces;
+package captainadhoc.captainadhocbackend.services.implementations;
 
 import captainadhoc.captainadhocbackend.domain.Produit;
 import captainadhoc.captainadhocbackend.repositories.ProduitRepository;
-import captainadhoc.captainadhocbackend.services.implementations.IProduitService;
+import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

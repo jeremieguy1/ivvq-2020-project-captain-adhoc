@@ -1,7 +1,7 @@
 package captainadhoc.captainadhocbackend.services;
 
 import captainadhoc.captainadhocbackend.domain.Commande;
-import captainadhoc.captainadhocbackend.services.Interfaces.CommandeService;
+import captainadhoc.captainadhocbackend.services.implementations.CommandeService;
 import org.junit.jupiter.api.Test;
 import captainadhoc.captainadhocbackend.repositories.CommandeRepository;
 import org.mockito.InjectMocks;

@@ -1,7 +1,7 @@
 package captainadhoc.captainadhocbackend.controllers;
 
 import captainadhoc.captainadhocbackend.domain.Commande;
-import captainadhoc.captainadhocbackend.services.implementations.ICommandeService;
+import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

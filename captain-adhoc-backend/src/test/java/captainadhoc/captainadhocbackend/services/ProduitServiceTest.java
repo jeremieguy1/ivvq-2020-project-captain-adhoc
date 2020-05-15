@@ -1,7 +1,7 @@
 package captainadhoc.captainadhocbackend.services;
 
 import captainadhoc.captainadhocbackend.domain.Produit;
-import captainadhoc.captainadhocbackend.services.Interfaces.ProduitService;
+import captainadhoc.captainadhocbackend.services.implementations.ProduitService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
