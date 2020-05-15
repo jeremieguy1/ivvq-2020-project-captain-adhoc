@@ -45,7 +45,7 @@
             <tr v-for="prod in commande.commandeProduitsList" v-bind:key="prod.id_commandeProduit" class="columns">
               <td class="column">
                 <figure class="image">
-                  <img :src="getImgUrl(prod.produit.image_produit)">
+                  <img :src="`${prod.produit.image_produit}`">
                 </figure>
               </td>
               <td class="column">
@@ -100,9 +100,6 @@ export default {
         total = total + commandeProduit.produit.quantite_produit * commandeProduit.produit.prix_produit
       })
       return total
-    },
-    getImgUrl (img) {
-      return require('@/assets/' + img)
     }
   }
 }

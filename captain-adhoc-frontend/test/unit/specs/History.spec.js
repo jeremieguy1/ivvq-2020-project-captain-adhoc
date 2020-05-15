@@ -419,36 +419,6 @@ describe('History.vue', () => {
       })
     })
   })
-
-  it('Should getImgUrl be called for each images to upload', () => {
-    // Given
-    moxios.withMock(function () {
-      moxios.wait(() => {
-        const spy = sinon.spy(History.methods, 'getImgUrl')
-        axios.get('/commandes').then()
-        let request = moxios.requests.mostRecent()
-        request.respondWith({
-          status: 200,
-          response: {
-            commandes: respond
-          }
-        }).then(
-          response => {
-            submit(response.data.commandes)
-
-            // When
-            // There are 3 images to upload at the creation
-            mount(History, {
-              store,
-              localVue
-            })
-
-            // Then
-            chai.assert.strictEqual(spy.calledThrice, true)
-          })
-      })
-    })
-  })
 })
 
 function submit (commandes) {
