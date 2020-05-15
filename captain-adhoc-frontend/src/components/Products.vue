@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="hero is-primary">
-      <div class="hero-body">
-        <div class="container">
+    <div class="hero-like">
+      <div class="container">
+        <div class="section">
           <div :class="{ 'margin': !shrinkHeader}">
             <p class="title">Retrouvez toutes nos escroqueries !</p>
           </div>
@@ -12,132 +12,24 @@
     <div class="container">
       <div class="section">
         <div class="columns is-multiline">
-          <div class="column is-one-third">
+          <div v-for="product in products" v-bind:key="product.id_produit" class="column is-one-third">
             <div class="card">
-              <div class="card-content">
-                <div class="card-image">
-                  <figure class="image is-4by3">
-                    <img src="../assets/cyberbox_large.png" alt="">
-                  </figure>
-                </div>
-                <div class="infos is-flex">
-                  <div class=" is-flex info">
-                    <div class="is-size-6">
-                      <p class="has-text-right">Ps5 de ses morts</p>
-                    </div>
-                    <div class="is-size-5">
-                      <p class="has-text-right">1500$</p>
-                    </div>
-                  </div>
-                  <div class="cart is-flex">
-                    <div class="fontawesome-icon">
-                      <i class="fas fa-cart-plus"></i>
-                    </div>
-                  </div>
-                </div>
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img :src="`${product.image_produit}`" alt="">
+                </figure>
               </div>
-            </div>
-          </div>
-          <div class="column is-one-third">
-            <div class="card">
-              <div class="card-content">
-                <div class="card-image">
-                  <figure class="image is-4by3">
-                    <img src="../assets/cyberbox_large.png" alt="">
-                  </figure>
-                </div>
-                <div class="infos is-flex">
-                  <div class=" is-flex info">
-                    <div class="is-size-6">
-                      <p class="has-text-right">Ps5 de ses morts</p>
-                    </div>
-                    <div class="is-size-5">
-                      <p class="has-text-right">1500$</p>
-                    </div>
+              <div class="infos is-flex">
+                <div class=" is-flex info">
+                  <div class="is-size-4">
+                    <p class="has-text-right">{{product.nom_produit}}</p>
                   </div>
-                  <div class="cart is-flex">
-                    <div class="fontawesome-icon">
-                      <i class="fas fa-cart-plus"></i>
-                    </div>
+                  <div class="is-size-5">
+                    <p class="has-text-right">{{product.prix_produit}}€</p>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div class="column is-one-third">
-            <div class="card">
-              <div class="card-content">
-                <div class="card-image">
-                  <figure class="image is-4by3">
-                    <img src="../assets/cyberbox_large.png" alt="">
-                  </figure>
-                </div>
-                <div class="infos is-flex">
-                  <div class=" is-flex info">
-                    <div class="is-size-6">
-                      <p class="has-text-right">Ps5 de ses morts</p>
-                    </div>
-                    <div class="is-size-5">
-                      <p class="has-text-right">1500$</p>
-                    </div>
-                  </div>
-                  <div class="cart is-flex">
-                    <div class="fontawesome-icon">
-                      <i class="fas fa-cart-plus"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="column is-one-third">
-            <div class="card">
-              <div class="card-content">
-                <div class="card-image">
-                  <figure class="image is-4by3">
-                    <img src="../assets/cyberbox_large.png" alt="">
-                  </figure>
-                </div>
-                <div class="infos is-flex">
-                  <div class=" is-flex info">
-                    <div class="is-size-6">
-                      <p class="has-text-right">Ps5 de ses morts</p>
-                    </div>
-                    <div class="is-size-5">
-                      <p class="has-text-right">1500$</p>
-                    </div>
-                  </div>
-                  <div class="cart is-flex">
-                    <div class="fontawesome-icon">
-                      <i class="fas fa-cart-plus"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="column is-one-third">
-            <div class="card">
-              <div class="card-content">
-                <div class="card-image">
-                  <figure class="image is-4by3">
-                    <img src="../assets/cyberbox_large.png" alt="">
-                  </figure>
-                </div>
-                <div class="infos is-flex">
-                  <div class=" is-flex info">
-                    <div class="is-size-6">
-                      <p class="has-text-right">Ps5 de ses morts</p>
-                    </div>
-                    <div class="is-size-5">
-                      <p class="has-text-right">1500$</p>
-                    </div>
-                  </div>
-                  <div class="cart is-flex">
-                    <div class="fontawesome-icon">
-                      <i class="fas fa-cart-plus"></i>
-                    </div>
-                  </div>
+                <div class="fontawesome-icon">
+                  <i class="fas fa-cart-plus"></i>
                 </div>
               </div>
             </div>
@@ -177,7 +69,7 @@ export default {
       if (currentScrollPosition < 0) {
         return
       }
-      this.shrinkHeader = currentScrollPosition === 0
+      this.shrinkHeader = currentScrollPosition <= 50
       this.lastScrollPosition = currentScrollPosition
     },
     getProducts () {
@@ -187,13 +79,18 @@ export default {
           this.products = response.data
           this.$store.commit('storeProducts', this.products)
         })
+    },
+    getImageUrl (product) {
+      return product.image_produit
     }
   }
 }
 </script>
 
 <style scoped>
-
+.hero-like {
+  background-color: hsl(204, 86%, 53%);
+}
 img {
   background-repeat: no-repeat;
 }
@@ -210,28 +107,22 @@ div.card:hover {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  padding: 0.525rem 0 0.525rem 0;
 }
 
 .info {
   flex-direction: column;
   justify-content: space-evenly;
-  padding-bottom: 0.325rem;
-}
-
-.cart {
-  justify-content: center;
 }
 
 .fontawesome-icon {
-  font-size: 1.175rem;
+  font-size: 1.825rem;
 }
 
 .title {
   margin-top: 30px;
   margin-bottom: 30px;
-  transition: margin-top 0.5s;
-  transition: margin-bottom 0.5s;
-  transition: font-size 0.6s;
+  transition: font-size 0.6s, margin-top 0.5s, margin-bottom 0.5s;
 }
 .margin >>> .title {
   margin-top: 0;
