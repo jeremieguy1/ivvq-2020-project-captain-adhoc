@@ -52,7 +52,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -69,7 +68,6 @@ export default {
     pauseOnHover: false,
     autoPlaying: true,
     internalAutoPlaying: true,
-    authenticated: false,
     slides: [
       {
         title: '',
