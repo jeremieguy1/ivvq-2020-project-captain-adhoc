@@ -149,14 +149,16 @@
 </template>
 
 <script>
-import Home from '../components/Home'
+import { mapState } from 'vuex'
+import axios from 'axios'
+import { configs } from '../http-common'
+
 export default {
   name: 'Products',
-  components: {
-    Home
-  },
+
   mounted () {
     window.addEventListener('scroll', this.onScroll)
+    this.getProducts()
   },
   beforeDestroy () {
     window.removeEventListener('scroll', this.onScroll)
@@ -164,9 +166,11 @@ export default {
   data () {
     return {
       shrinkHeader: true,
-      lastScrollPosition: 0
+      lastScrollPosition: 0,
+      products: []
     }
   },
+  computed: mapState(['produits']),
   methods: {
     onScroll () {
       const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop
@@ -175,6 +179,14 @@ export default {
       }
       this.shrinkHeader = currentScrollPosition === 0
       this.lastScrollPosition = currentScrollPosition
+    },
+    getProducts () {
+      axios
+        .get('/produits', configs)
+        .then(response => {
+          this.products = response.data
+          this.$store.commit('storeProducts', this.products)
+        })
     }
   }
 }
