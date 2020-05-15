@@ -1,29 +1,29 @@
 <template >
-  <div v-if="authenticated">
-    <div class="hero is-primary " >
+  <div>
+    <div class="hero is-info">
       <div class="hero-body">
         <div  class="columns" style="position:relative">
-          <div class="column ">
-            <figure class="image is-4by5" >
-              <img src="../assets/rickH.png" />
+          <div class="column">
+            <figure class="image is-4by5">
+              <img src="../assets/rickH.png"/>
             </figure>
-            <figure class="image is-128x128 " style=" bottom: 2rem; margin-left: auto; display: none">
-              <img src="../assets/rickH.png" />
+            <figure class="image is-128x128" style=" bottom: 2rem; margin-left: auto; display: none">
+              <img src="../assets/rickH.png"/>
             </figure>
           </div>
           <div class="column is-half">
             <div class="level-item ">
               <h1 class="title is-1">Captain Escroc Market</h1>
             </div>
-            <vueper-slides class="no-shadow" fade :touchable="false" autoplay arrows-inside bullets-outside transition-speed="250" >
+            <vueper-slides class="no-shadow" fade :touchable="false" autoplay arrows-inside bullets-outside transition-speed="250">
               <template v-slot:arrow-left>
                 <figure class="image is-32x32">
-                  <img src="../assets/LeftArrow.png" />
+                  <img src="../assets/LeftArrow.png"/>
                 </figure>
               </template>
               <template v-slot:arrow-right>
                 <figure class="image is-32x32">
-                  <img src="../assets/RightArrow.png" />
+                  <img src="../assets/RightArrow.png"/>
                 </figure>
               </template>
               <vueper-slide id="slidesInside"
@@ -33,9 +33,9 @@
                             :title="slide.title"
                             :content="slide.content"/>
             </vueper-slides>
-            <div class="content is-medium " >
-              <div class="containjeuxExlu column is-narrow" >
-                <div class="jeuxExlu column is-narrow has-text-centered " >
+            <div class="content is-medium">
+              <div class="containjeuxExlu column is-narrow">
+                <div class="jeuxExlu column is-narrow has-text-centered ">
                   <p>Le seul site où vous pouvez trouver des consoles de jeux exclusives !</p>
                 </div>
               </div>
@@ -43,61 +43,10 @@
           </div>
           <div class="column ">
             <figure class="image is-4by5">
-              <img src="../assets/Tom_Nook.png" />
+              <img src="../assets/Tom_Nook.png"/>
             </figure>
-            <figure class="image is-128x128 " style=" bottom: 3rem; margin-right: auto; display: none">
-              <img src="../assets/Tom_Nook.png" />
-            </figure>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div v-else >
-    <div class="hero is-small is-primary" >
-      <div class="hero-body">
-        <div class="columns" style="position:relative">
-          <div class="column ">
-            <figure class="image is-4by5">
-              <img src="../assets/rickH.png" />
-            </figure>
-          </div>
-          <div class="column is-half">
-            <div class="level-item">
-              <h2 class="subtitle is-5">Welcome to the</h2>
-            </div>
-            <div class="level-item ">
-              <h1 class="title is-1">Captain Escroc Market</h1>
-            </div>
-            <vueper-slides class="no-shadow" fade :touchable="false" autoplay arrows-inside bullets-outside transition-speed="250" >
-              <template v-slot:arrow-left>
-                <figure class="image is-32x32">
-                  <img src="../assets/LeftArrow.png" />
-                </figure>
-              </template>
-              <template v-slot:arrow-right>
-                <figure class="image is-32x32">
-                  <img src="../assets/RightArrow.png" />
-                </figure>
-              </template>
-              <vueper-slide id="slidesInside"
-                            v-for="(slide, i) in slides"
-                            :key="i"
-                            :image="slide.image"
-                            :title="slide.title"
-                            :content="slide.content"/>
-            </vueper-slides>
-            <div class="content is-medium " >
-              <div class="containjeuxExlu column is-narrow" >
-                <div class="jeuxExlu column is-narrow has-text-centered " >
-                  <p>Le seul site où vous pouvez trouver des consoles de jeux exclusives !</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="column ">
-            <figure class="image is-4by5">
-              <img src="../assets/Tom_Nook.png" />
+            <figure class="image is-128x128" style=" bottom: 3rem; margin-right: auto; display: none">
+              <img src="../assets/Tom_Nook.png"/>
             </figure>
           </div>
         </div>
@@ -136,20 +85,18 @@ export default {
   }),
   methods: {
     scrollFunction () {
-      if (this.authenticated) {
-        if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-          document.getElementsByClassName('no-shadow')[0].style.display = 'none'
-          document.getElementsByClassName('image is-4by5')[0].style.display = 'none'
-          document.getElementsByClassName('image is-4by5')[1].style.display = 'none'
-          document.getElementsByClassName('image image is-128x128')[0].style.display = 'block'
-          document.getElementsByClassName('image image is-128x128')[1].style.display = 'block'
-        } else {
-          document.getElementsByClassName('no-shadow')[0].style.display = 'block'
-          document.getElementsByClassName('image is-4by5')[0].style.display = 'block'
-          document.getElementsByClassName('image is-4by5')[1].style.display = 'block'
-          document.getElementsByClassName('image image is-128x128')[0].style.display = 'none'
-          document.getElementsByClassName('image image is-128x128')[1].style.display = 'none'
-        }
+      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementsByClassName('no-shadow')[0].style.display = 'none'
+        document.getElementsByClassName('image is-4by5')[0].style.display = 'none'
+        document.getElementsByClassName('image is-4by5')[1].style.display = 'none'
+        document.getElementsByClassName('image image is-128x128')[0].style.display = 'block'
+        document.getElementsByClassName('image image is-128x128')[1].style.display = 'block'
+      } else {
+        document.getElementsByClassName('no-shadow')[0].style.display = 'block'
+        document.getElementsByClassName('image is-4by5')[0].style.display = 'block'
+        document.getElementsByClassName('image is-4by5')[1].style.display = 'block'
+        document.getElementsByClassName('image image is-128x128')[0].style.display = 'none'
+        document.getElementsByClassName('image image is-128x128')[1].style.display = 'none'
       }
     }
   }
@@ -175,7 +122,6 @@ export default {
   .jeuxExlu {
     position: relative;
     padding-top: 4rem;
-
   }
 
   .subtitle {
