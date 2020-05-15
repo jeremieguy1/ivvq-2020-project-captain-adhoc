@@ -14,11 +14,10 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Getter
 @Entity
-@Table(name = "commande_produit_assoc")
 public class CommandeProduit {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id_commandeProduit;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

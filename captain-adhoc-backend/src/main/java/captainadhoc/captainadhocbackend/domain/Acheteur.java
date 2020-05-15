@@ -1,6 +1,5 @@
 package captainadhoc.captainadhocbackend.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,11 +14,10 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "acheteur")
 public class Acheteur {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id_acheteur;
 
     @NotEmpty
