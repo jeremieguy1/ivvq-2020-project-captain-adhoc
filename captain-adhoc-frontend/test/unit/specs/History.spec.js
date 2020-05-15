@@ -120,6 +120,7 @@ describe('History.vue', () => {
     // Given
     moxios.withMock(function () {
       moxios.wait(() => {
+        axios.get('/commandes').then()
         let request = moxios.requests.mostRecent()
         request.respondWith({
           status: 200,
@@ -206,6 +207,7 @@ describe('History.vue', () => {
     // Given
     moxios.withMock(function () {
       moxios.wait(() => {
+        axios.get('/commandes').then()
         let request = moxios.requests.mostRecent()
         request.respondWith({
           status: 200,
@@ -247,6 +249,7 @@ describe('History.vue', () => {
     moxios.withMock(function () {
       moxios.wait(() => {
         const spy = sinon.spy(History.methods, 'displayContent')
+        axios.get('/commandes').then()
         let request = moxios.requests.mostRecent()
         request.respondWith({
           status: 200,
@@ -276,6 +279,7 @@ describe('History.vue', () => {
     // Given
     moxios.withMock(function () {
       moxios.wait(() => {
+        axios.get('/commandes').then()
         let request = moxios.requests.mostRecent()
         request.respondWith({
           status: 200,
@@ -307,6 +311,7 @@ describe('History.vue', () => {
     // Given
     moxios.withMock(function () {
       moxios.wait(() => {
+        axios.get('/commandes').then()
         let request = moxios.requests.mostRecent()
         request.respondWith({
           status: 200,
@@ -338,6 +343,7 @@ describe('History.vue', () => {
     // Given
     moxios.withMock(function () {
       moxios.wait(() => {
+        axios.get('/commandes').then()
         let request = moxios.requests.mostRecent()
         request.respondWith({
           status: 200,
@@ -368,6 +374,7 @@ describe('History.vue', () => {
     // Given
     moxios.withMock(function () {
       moxios.wait(() => {
+        axios.get('/commandes').then()
         let request = moxios.requests.mostRecent()
         request.respondWith({
           status: 200,
@@ -399,6 +406,7 @@ describe('History.vue', () => {
     moxios.withMock(function () {
       moxios.wait(() => {
         const spy = sinon.spy(History.methods, 'getData')
+        axios.get('/commandes').then()
         let request = moxios.requests.mostRecent()
         request.respondWith({
           status: 200,
@@ -425,6 +433,7 @@ describe('History.vue', () => {
     moxios.withMock(function () {
       moxios.wait(() => {
         const spy = sinon.spy(History.methods, 'getImgUrl')
+        axios.get('/commandes').then()
         let request = moxios.requests.mostRecent()
         request.respondWith({
           status: 200,
