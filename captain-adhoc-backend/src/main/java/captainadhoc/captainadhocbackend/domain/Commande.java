@@ -1,10 +1,6 @@
 package captainadhoc.captainadhocbackend.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -15,11 +11,10 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "commande")
 public class Commande {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id_commande;
 
     @NotEmpty

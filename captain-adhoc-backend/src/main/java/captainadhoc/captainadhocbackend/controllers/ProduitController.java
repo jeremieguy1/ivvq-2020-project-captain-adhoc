@@ -2,7 +2,7 @@ package captainadhoc.captainadhocbackend.controllers;
 
 import captainadhoc.captainadhocbackend.beans.Achat;
 import captainadhoc.captainadhocbackend.domain.Produit;
-import captainadhoc.captainadhocbackend.services.ProduitService;
+import captainadhoc.captainadhocbackend.services.implementations.IProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class ProduitController {
 
     @Autowired
-    private ProduitService produitService;
+    private IProduitService produitService;
 
     @GetMapping
     public ArrayList<Produit> getAllProduit() {
@@ -25,7 +25,9 @@ public class ProduitController {
 
     @PutMapping("/modifier/quantite")
     public void modifierQuantite(@RequestParam(value="quantite") int quantite_produit,
-                               @RequestParam(value="id_produit") int id_produit) {}
+                               @RequestParam(value="id_produit") Long id_produit) {
+        produitService.modifierQuantite(id_produit, quantite_produit);
+    }
 
     @PutMapping("/achat")
     public void commander(@RequestBody Achat achat) {}
