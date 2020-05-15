@@ -117,6 +117,8 @@
 <script>
 import { required, minLength, alphaNum, sameAs } from 'vuelidate/lib/validators'
 import axios from 'axios'
+import { configs } from '../http-common'
+
 export default {
   name: 'SignUp',
   data () {
@@ -150,7 +152,7 @@ export default {
         // Invalid form
       } else {
         axios
-          .post('/signup', {
+          .post('/signup', configs, {
             data: {
               username: this.username,
               password: this.password

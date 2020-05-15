@@ -1,5 +1,3 @@
-import axios from 'axios'
-
-export const HTTP = axios.create({
+export const configs = {
   'baseURL': process.env.API_URL
-})
+}

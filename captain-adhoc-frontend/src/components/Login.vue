@@ -89,6 +89,8 @@
 
 import { required, minLength, alphaNum } from 'vuelidate/lib/validators'
 import axios from 'axios'
+import { configs } from '../http-common'
+
 export default {
   name: 'Login',
   data () {
@@ -117,7 +119,7 @@ export default {
         // Invalid form
       } else {
         axios
-          .get('/login', {
+          .get('/login', configs, {
             data: {
               username: this.username,
               password: this.password
