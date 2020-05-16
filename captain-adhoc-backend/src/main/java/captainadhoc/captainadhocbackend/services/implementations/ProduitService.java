@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -46,10 +47,21 @@ public class ProduitService implements IProduitService {
     @Override
     public void modifierQuantite(Long idProduit, int quantite) {
         Optional<Produit> produit = produitRepository.findById(idProduit);
+
         if (produit.isPresent()){
             produit.get().setQuantite_produit(quantite);
             produitRepository.save(produit.get());
         }
+    }
 
+    @Override
+    public Produit decrementQuantity(Long idProduit, int quantiteProduit) {
+        Optional<Produit> optionalProduit = produitRepository.findById(idProduit);
+        if (optionalProduit.isPresent()){
+            Produit produit = optionalProduit.get();
+            produit.setQuantite_produit(produit.getQuantite_produit() - quantiteProduit);
+            return produitRepository.save(produit);
+        }
+        return null;
     }
 }

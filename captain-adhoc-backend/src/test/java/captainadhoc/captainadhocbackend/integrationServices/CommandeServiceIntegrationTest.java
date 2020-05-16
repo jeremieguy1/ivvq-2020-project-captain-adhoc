@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,7 +22,7 @@ public class CommandeServiceIntegrationTest {
 
     @BeforeEach
     public void setup() {
-        commande = new Commande("20/20/2020","code");
+        commande = new Commande(new Date(),"code");
     }
 
     @Test

@@ -4,6 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -17,8 +19,8 @@ public class Commande {
     @GeneratedValue
     private Long id_commande;
 
-    @NotEmpty
-    private String date_commande;
+    @NotNull
+    private Date date_commande;
 
     private String code;
 
@@ -28,7 +30,7 @@ public class Commande {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Acheteur acheteur;
 
-    public Commande(String date_commande, String code) {
+    public Commande(Date date_commande, String code) {
         this.date_commande = date_commande;
         this.code = code;
     }

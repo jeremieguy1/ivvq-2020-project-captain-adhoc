@@ -7,6 +7,9 @@ import captainadhoc.captainadhocbackend.repositories.CommandeRepository;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Date;
+
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -31,7 +34,7 @@ class CommandeServiceTest {
     @Test
     public void saveCommandeTest() {
         //given une Commande
-        Commande commande = new Commande("20/20/2020","code");
+        Commande commande = new Commande(new Date(),"code");
         when(commandeService.getCommandeRepository().save(commande)).thenReturn(commande);
 
         // when: la méthode saveCommande est invoquée

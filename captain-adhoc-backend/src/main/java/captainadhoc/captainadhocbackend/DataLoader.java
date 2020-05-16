@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -81,9 +82,9 @@ public class DataLoader implements ApplicationRunner {
     }
 
     public void initCommandes () {
-        Commande commande1 = new Commande("20/20/2020","code");
-        Commande commande2 = new Commande("20/20/2020","code");
-        Commande commande3 = new Commande("20/20/2020","");
+        Commande commande1 = new Commande(new Date(),"code");
+        Commande commande2 = new Commande(new Date(),"code");
+        Commande commande3 = new Commande(new Date(),"");
 
         CommandeProduit commandeProduit = new CommandeProduit();
         CommandeProduit commandeProduit2 = new CommandeProduit();
