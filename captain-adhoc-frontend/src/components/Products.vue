@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="background is-fullheight">
     <div class="hero-like">
       <div class="container">
         <div class="section">
-          <div :class="{ 'margin': !shrinkHeader}">
+          <div class="has-text-centered" :class="{ 'margin': !shrinkHeader}">
             <p class="title">Retrouvez toutes nos escroqueries !</p>
           </div>
         </div>
@@ -13,7 +13,9 @@
       <div class="section">
         <div class="columns is-multiline">
           <div v-for="product in products" v-bind:key="product.id_produit" class="column is-one-third">
-            <div class="card">
+            <div @click="openDetails(product)"
+             @keydown.enter="openDetails(product)"
+             tabindex="0" class="card">
               <div class="card-image">
                 <figure class="image is-4by3">
                   <img :src="`${product.image_produit}`" alt="">
@@ -80,16 +82,17 @@ export default {
           this.$store.commit('storeProducts', this.products)
         })
     },
-    getImageUrl (product) {
-      return product.image_produit
+    openDetails (product) {
+      console.log('Open details on : ' + product.nom_produit)
     }
   }
 }
 </script>
 
 <style scoped>
+
 .hero-like {
-  background-color: hsl(204, 86%, 53%);
+  /* background-color: hsl(204, 86%, 53%); */
 }
 img {
   background-repeat: no-repeat;
@@ -98,8 +101,10 @@ div.card {
   outline: solid 0 #eeeeee;
   transition: outline 0.6s linear;
   margin: 0.5rem;
+  cursor: pointer;
 }
-div.card:hover {
+div .card:hover,
+div .card:focus {
   outline-width: 0.825rem;
 }
 
@@ -128,6 +133,17 @@ div.card:hover {
   margin-top: 0;
   margin-bottom: 0;
   font-size: 99%;
+}
+
+.background {
+  background-image: url('https://urlz.fr/cHWP');
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+}
+
+p.title {
+  color: white;
 }
 
 </style>
