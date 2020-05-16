@@ -40,7 +40,7 @@ public class ProduitServiceIntegrationTest {
         assertNotNull(produit.getId_produit());
 
         // then: le produit a bien été ajouté en base
-        assertEquals(3, produitService.findAllProduits().size());
+        assertEquals(6, produitService.findAllProduits().size());
     }
 
     @Test
@@ -52,7 +52,7 @@ public class ProduitServiceIntegrationTest {
         ArrayList<Produit> produits = produitService.findAllProduits();
 
         // then: on a récupérer l'ensemble des produits
-        Assert.assertEquals(3, produits.size());
+        Assert.assertEquals(6, produits.size());
     }
 
     @Test
