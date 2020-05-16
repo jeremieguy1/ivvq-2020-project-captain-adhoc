@@ -60,7 +60,6 @@ export default {
   data () {
     return {
       shrinkHeader: true,
-      lastScrollPosition: 0,
       products: []
     }
   },
@@ -72,7 +71,6 @@ export default {
         return
       }
       this.shrinkHeader = currentScrollPosition <= 50
-      this.lastScrollPosition = currentScrollPosition
     },
     getProducts () {
       axios
@@ -91,12 +89,6 @@ export default {
 
 <style scoped>
 
-.hero-like {
-  /* background-color: hsl(204, 86%, 53%); */
-}
-img {
-  background-repeat: no-repeat;
-}
 div.card {
   outline: solid 0 #eeeeee;
   transition: outline 0.6s linear;
@@ -136,10 +128,8 @@ div .card:focus {
 }
 
 .background {
-  background-image: url('https://urlz.fr/cHWP');
-  background-repeat: no-repeat;
+  background: url('../assets/background.png') no-repeat center center;
   background-size: cover;
-  object-fit: cover;
 }
 
 p.title {
