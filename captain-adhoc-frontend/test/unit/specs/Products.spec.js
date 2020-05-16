@@ -25,6 +25,18 @@ const productsResponse = [
   }
 ]
 
+const product = [
+  {
+    description_produit: 'description',
+    id_produit: '1',
+    image_produit: 'image_url',
+    marchand: {},
+    nom_produit: 'nom',
+    prix_produit: 1,
+    quantite_produit: 1
+  }
+]
+
 describe('Products.vue', () => {
   beforeEach(() => {
     moxios.install(axios)
@@ -139,6 +151,12 @@ describe('Products.vue', () => {
 
     // Then
     chai.assert.strictEqual(spy.calledOnce, true)
+  })
+
+  it('Should deplay the product in detail', () => {
+    // Given
+    const wrapper = mount(Products)
+    wrapper.vm.openDetails(product)
   })
 })
 
