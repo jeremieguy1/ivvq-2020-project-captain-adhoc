@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -31,7 +32,7 @@ public class Produit {
     @NotEmpty
     private String description_produit;
 
-    @NotEmpty
+    @URL
     private String image_produit;
 
     @NotNull
@@ -40,9 +41,6 @@ public class Produit {
     @JsonIgnore
     @OneToMany(mappedBy = "produit")
     private List<CommandeProduit> commandeProduitsList;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Marchand marchand;
 
     public Produit(int quantite_produit, String nom_produit, String description_produit, String image_produit, float prix_produit) {
         this.quantite_produit = quantite_produit;

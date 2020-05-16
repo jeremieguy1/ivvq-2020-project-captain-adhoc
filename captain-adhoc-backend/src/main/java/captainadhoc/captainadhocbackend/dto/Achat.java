@@ -1,9 +1,8 @@
-package captainadhoc.captainadhocbackend.beans;
+package captainadhoc.captainadhocbackend.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 

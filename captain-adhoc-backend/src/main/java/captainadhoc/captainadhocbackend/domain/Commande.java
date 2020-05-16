@@ -1,6 +1,9 @@
 package captainadhoc.captainadhocbackend.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -26,7 +29,7 @@ public class Commande {
     private List<CommandeProduit> commandeProduitsList;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Acheteur acheteur;
+    private Utilisateur utilisateur;
 
     public Commande(String date_commande, String code) {
         this.date_commande = date_commande;

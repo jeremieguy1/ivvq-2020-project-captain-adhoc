@@ -2,24 +2,28 @@ package captainadhoc.captainadhocbackend;
 
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
-import captainadhoc.captainadhocbackend.domain.Marchand;
 import captainadhoc.captainadhocbackend.domain.Produit;
+import captainadhoc.captainadhocbackend.domain.Utilisateur;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeProduitService;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
-import captainadhoc.captainadhocbackend.services.interfaces.IMarchandService;
 import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
+import captainadhoc.captainadhocbackend.services.interfaces.IUtilisateurService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Collections.emptyList;
+
 @Component
 @Transactional
+@Profile("dev")
 @AllArgsConstructor
 public class DataLoader implements ApplicationRunner {
 
@@ -27,7 +31,7 @@ public class DataLoader implements ApplicationRunner {
     private IProduitService produitService;
 
     @Autowired
-    private IMarchandService marchandService;
+    private IUtilisateurService utilisateurService;
 
     @Autowired
     private ICommandeService commandeService;
@@ -38,7 +42,7 @@ public class DataLoader implements ApplicationRunner {
     public void initProduit(){
 
         produitService.deleteAllProduit();
-        Marchand marchand1 = new Marchand("marchand1");
+        Utilisateur admin = new Utilisateur((long) 1, "Kevin", "Marchand", "marchand1", "mdp", true, emptyList());
 
         List<Produit> produitList = new ArrayList<>();
         Produit produit2 = new Produit(16, "CyberboX",
@@ -61,11 +65,7 @@ public class DataLoader implements ApplicationRunner {
         produitList.add(produit4);
         produitList.add(produit5);
 
-        marchand1.setProduitList(produitList);
-
-        marchandService.saveMarchand(marchand1);
-        produit1.setMarchand(marchand1);
-        produit2.setMarchand(marchand1);
+        utilisateurService.saveUtilisateur(admin);
 
         produitService.saveProduit(produit1);
         produitService.saveProduit(produit2);

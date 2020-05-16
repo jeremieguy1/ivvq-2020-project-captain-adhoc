@@ -3,8 +3,8 @@ package captainadhoc.captainadhocbackend.integrationServices;
 import captainadhoc.captainadhocbackend.DataLoader;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeProduitService;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
-import captainadhoc.captainadhocbackend.services.interfaces.IMarchandService;
 import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
+import captainadhoc.captainadhocbackend.services.interfaces.IUtilisateurService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -21,7 +21,7 @@ public class DataLoaderTest {
     private IProduitService produitService;
 
     @Mock
-    private IMarchandService marchandService;
+    private IUtilisateurService utilisateurService;
 
     @Mock
     private ICommandeService commandeService;
@@ -31,7 +31,7 @@ public class DataLoaderTest {
 
     @Before
     public void setup() {
-        dataLoader = new DataLoader(produitService, marchandService, commandeService, commandeProduitService);
+        dataLoader = new DataLoader(produitService, utilisateurService, commandeService, commandeProduitService);
     }
 
     @Test
