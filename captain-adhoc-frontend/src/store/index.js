@@ -6,7 +6,8 @@ import { configs } from '../http-common'
 Vue.use(Vuex)
 
 const state = {
-  commandes: []
+  commandes: [],
+  products: []
 }
 
 export const mutations = {
@@ -14,10 +15,12 @@ export const mutations = {
     axios
       .get('/commandes', configs)
       .then(response => {
-        this.info = response.data
         response.data.forEach(commande => Vue.observable(commande.display = false))
         state.commandes = response.data
       })
+  },
+  storeProducts (state, productsToStore) {
+    state.products = productsToStore
   },
   displayContent (state, commande) {
     state.commandes.forEach(com => {
@@ -27,7 +30,14 @@ export const mutations = {
     })
   }
 }
+
+export const getters = {
+  allProducts: state => {
+    return state.produits
+  }
+}
 export default new Vuex.Store({
   state,
+  getters,
   mutations
 })

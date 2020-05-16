@@ -169,7 +169,6 @@ describe('History.vue', () => {
             */
             // Then
             chai.assert.strictEqual(wrapper.findAll('.card-header-title.total').at(2).text(), '32$')
-            done()
           })
       })
     })
@@ -238,7 +237,6 @@ describe('History.vue', () => {
                 date_commande: '23/20/2020',
             */
             chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(2).text(), '23/20/2020')
-            done()
           })
       })
     })
@@ -269,7 +267,6 @@ describe('History.vue', () => {
 
             // Then
             chai.assert.strictEqual(spy.calledOnce, true)
-            done()
           })
       })
     })
@@ -301,7 +298,6 @@ describe('History.vue', () => {
             chai.assert.strictEqual(store.state.commandes[0].display, true)
             chai.assert.strictEqual(store.state.commandes[1].display, true)
             chai.assert.strictEqual(store.state.commandes[2].display, true)
-            done()
           })
       })
     })
@@ -333,7 +329,6 @@ describe('History.vue', () => {
             chai.assert.strictEqual(store.state.commandes[0].display, false)
             chai.assert.strictEqual(store.state.commandes[1].display, false)
             chai.assert.strictEqual(store.state.commandes[2].display, true)
-            done()
           })
       })
     })
@@ -364,7 +359,6 @@ describe('History.vue', () => {
 
             // Then
             chai.assert.strictEqual(wrapper.findAll('.codeToDisplay').at(0).text(), 'Code code')
-            done()
           })
       })
     })
@@ -395,7 +389,6 @@ describe('History.vue', () => {
 
             // Then
             chai.assert.strictEqual(wrapper.findAll('.noCodeToDisplay').at(0).text(), 'Aucun code utilisé')
-            done()
           })
       })
     })
@@ -422,38 +415,6 @@ describe('History.vue', () => {
 
             // Then
             chai.assert.strictEqual(spy.calledOnce, true)
-            done()
-          })
-      })
-    })
-  })
-
-  it('Should getImgUrl be called for each images to upload', () => {
-    // Given
-    moxios.withMock(function () {
-      moxios.wait(() => {
-        const spy = sinon.spy(History.methods, 'getImgUrl')
-        axios.get('/commandes').then()
-        let request = moxios.requests.mostRecent()
-        request.respondWith({
-          status: 200,
-          response: {
-            commandes: respond
-          }
-        }).then(
-          response => {
-            submit(response.data.commandes)
-
-            // When
-            // There are 3 images to upload at the creation
-            mount(History, {
-              store,
-              localVue
-            })
-
-            // Then
-            chai.assert.strictEqual(spy.calledThrice, true)
-            done()
           })
       })
     })

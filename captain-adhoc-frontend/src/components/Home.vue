@@ -69,7 +69,6 @@ export default {
     pauseOnHover: false,
     autoPlaying: true,
     internalAutoPlaying: true,
-    authenticated: false,
     slides: [
       {
         title: '',
