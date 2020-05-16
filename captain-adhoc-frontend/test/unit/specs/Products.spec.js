@@ -25,7 +25,7 @@ const productsResponse = [
   }
 ]
 
-const product = [
+const product =
   {
     description_produit: 'description',
     id_produit: '1',
@@ -35,7 +35,6 @@ const product = [
     prix_produit: 1,
     quantite_produit: 1
   }
-]
 
 describe('Products.vue', () => {
   beforeEach(() => {
@@ -151,12 +150,15 @@ describe('Products.vue', () => {
 
     // Then
     chai.assert.strictEqual(spy.calledOnce, true)
+    spy.restore()
   })
 
   it('Should deplay the product in detail', () => {
     // Given
+    const spy = sinon.spy(Products.methods, 'openDetails')
     const wrapper = mount(Products)
     wrapper.vm.openDetails(product)
+    chai.assert.strictEqual(spy.calledOnce, true)
   })
 })
 
