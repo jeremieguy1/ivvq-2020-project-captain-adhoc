@@ -92,15 +92,26 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'Navbar',
-
+  computed: mapState[('isLoggedStore')],
   data () {
     return {
-      isLogged: false
+      isLogged: ''
     }
   },
-
+  created () {
+    this.unwatch = this.$store.watch(
+      (state, getters) => getters.isLoggedStore,
+      (userStatus) => {
+        this.isLogged = userStatus
+      }
+    )
+  },
+  beforeDestroy () {
+    this.unwatch()
+  },
   methods: {
     burgerClick: function () {
       const burger = document.querySelector('.burger')

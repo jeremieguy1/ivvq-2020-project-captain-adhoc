@@ -1,9 +1,16 @@
 import Navbar from '@/components/Navbar'
 import { mount, createLocalVue } from '@vue/test-utils'
 import VueRouter from 'vue-router'
+import { mutations, getters } from '@/store/index'
+import Vuex from 'vuex'
+import Vue from 'vue'
+
+Vue.use(Vuex)
 
 const localVue = createLocalVue()
 localVue.use(VueRouter)
+localVue.use(Vuex)
+let store
 
 describe('Navbar.vue', () => {
   it("Should set attributes on click 'Burger'", () => {
@@ -26,9 +33,12 @@ describe('Navbar.vue', () => {
 
     document.body.appendChild(divParente)
 
+    storeTest(true)
     let wrapper = mount(Navbar, {
       attachTo: divParente,
-      router
+      localVue,
+      router,
+      store
     })
 
     spy.bind(Navbar, 'burgerClick')
@@ -71,9 +81,12 @@ describe('Navbar.vue', () => {
 
     const router = new VueRouter()
 
+    storeTest(true)
     let wrapper = mount(Navbar, {
       attachTo: divParente,
-      router
+      localVue,
+      router,
+      store
     })
 
     const burger = document.querySelector('.burger')
@@ -91,3 +104,13 @@ describe('Navbar.vue', () => {
     expect(true, navbar.classList.contains('is-mobile'))
   })
 })
+
+function storeTest (isLoggedStore) {
+  store = new Vuex.Store({
+    mutations,
+    state: {
+      isLoggedStore: isLoggedStore
+    },
+    getters
+  })
+}

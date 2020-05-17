@@ -106,7 +106,7 @@ describe('Login.vue', () => {
     chai.assert.strictEqual(wrapper.vm.$v.$invalid, false)
   })
 
-  it('Should do an axios call on valid form', (done) => {
+  it('Should do an axios call on valid form Login', (done) => {
     // Given
     const wrapper = mount(Login, {
       localVue
@@ -121,8 +121,38 @@ describe('Login.vue', () => {
 
     // Then
     moxios.wait(() => {
-      chai.assert.strictEqual(spy.calledOnce, true)
-      done()
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200
+      }).then(() => {
+        chai.assert.strictEqual(spy.calledOnce, true)
+        done()
+      })
+    })
+  })
+
+  it('Should do an axios call on valid form Login', (done) => {
+    // Given
+    const wrapper = mount(Login, {
+      localVue
+    })
+    const spy = sinon.spy(wrapper.vm, 'submit')
+    const loginForm = wrapper.find('form')
+    wrapper.find('input#username').setValue('ValidUsername')
+    wrapper.find('input#password').setValue('ValidPassword')
+    // When
+    loginForm.trigger('submit.prevent')
+    wrapper.vm.$forceUpdate()
+
+    // Then
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200
+      }).then(() => {
+        chai.assert.strictEqual(spy.calledOnce, true)
+        done()
+      })
     })
   })
 })

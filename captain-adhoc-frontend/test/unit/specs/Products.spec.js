@@ -45,12 +45,12 @@ describe('Products.vue', () => {
     moxios.uninstall(axios)
   })
 
-  it('Should be in error on username field when invalid', () => {
+  it('Should be in error on username field when invalid', (done) => {
     // Given
     moxios.withMock(function () {
+      const spy = sinon.spy()
+      axios.get('/produits').then(spy)
       moxios.wait(() => {
-        const spy = sinon.spy(Products.methods, 'getProducts')
-        axios.get('/produits').then()
         let request = moxios.requests.mostRecent()
         request.respondWith({
           status: 200,
@@ -69,6 +69,7 @@ describe('Products.vue', () => {
 
             // Then
             chai.assert.strictEqual(spy.calledOnce, true)
+            done()
           })
       })
     })

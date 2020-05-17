@@ -7,10 +7,12 @@ Vue.use(Vuex)
 
 const state = {
   commandes: [],
-  products: []
+  products: [],
+  isLoggedStore: false
 }
 
 export const mutations = {
+  /* History managment */
   getData (state) {
     axios
       .get('/commandes', configs)
@@ -19,21 +21,30 @@ export const mutations = {
         state.commandes = response.data
       })
   },
-  storeProducts (state, productsToStore) {
-    state.products = productsToStore
-  },
+
   displayContent (state, commande) {
     state.commandes.forEach(com => {
       if (com.id_commande === commande.id_commande) {
         com.display = !com.display
       }
     })
+  },
+  /* Product managment */
+  storeProducts (state, productsToStore) {
+    state.products = productsToStore
+  },
+  /* isLoggedStore managment */
+  setActiveUser (state, isLoggedStore) {
+    state.isLoggedStore = isLoggedStore
   }
 }
 
 export const getters = {
   allProducts: state => {
     return state.produits
+  },
+  isLoggedStore: state => {
+    return state.isLoggedStore
   }
 }
 export default new Vuex.Store({

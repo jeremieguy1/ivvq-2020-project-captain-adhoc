@@ -23,7 +23,7 @@ public class UtilisateurController {
     @Autowired
     UtilisateurService utilisateurService;
 
-    @PostMapping("/sign-up")
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> registerUserAccount(@RequestBody UtilisateurDto utilisateurDto) {
         Utilisateur utilisateur = null;
@@ -31,7 +31,7 @@ public class UtilisateurController {
             utilisateur = modelMapper.map(utilisateurDto, Utilisateur.class);
             utilisateurService.saveUtilisateur(utilisateur);
         } catch (UtilisateurExisteException exception) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
         return ResponseEntity.ok("Utilisateur enregistré.");
     }

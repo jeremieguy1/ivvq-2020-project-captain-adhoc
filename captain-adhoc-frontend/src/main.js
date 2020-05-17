@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import Vuelidate from 'vuelidate'
 import store from './store'
+import axios from 'axios'
 
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
@@ -24,4 +25,21 @@ new Vue({
   components: { App },
   template: '<App/>',
   store
+})
+
+Vue.prototype.$http = axios
+axios.defaults.timeout = 10000
+
+axios.interceptors.request.use((request) => {
+  if (localStorage.getItem('Authorization') !== null) {
+    request.headers['Authorization'] = localStorage.getItem('Authorization')
+    store.commit('setActiveUser', true)
+  } else {
+    store.commit('setActiveUser', false)
+  }
+  return request
+})
+
+axios.interceptors.response.use((response) => {
+  return response
 })

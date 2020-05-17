@@ -34,8 +34,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         .and()
         .addFilter(new JWTAuthenticationFilter(authenticationManager()))
         .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .cors().configurationSource(request -> {
+            CorsConfiguration config =  new CorsConfiguration().applyPermitDefaultValues();
+            config.addExposedHeader("Authorization");
+            config.addAllowedMethod(HttpMethod.POST);
 
+            return config;
+        });
     }
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {

@@ -5,17 +5,75 @@ import moxios from 'moxios'
 import axios from 'axios'
 import sinon from 'sinon'
 import chai from 'chai'
+import VueRouter from 'vue-router'
 
 const localVue = createLocalVue()
 localVue.use(Vuelidate)
+localVue.use(VueRouter)
 
 describe('SignUp.vue', () => {
   beforeEach(() => {
-    moxios.install(axios)
+    moxios.install()
   })
 
   afterEach(() => {
-    moxios.uninstall(axios)
+    moxios.uninstall()
+  })
+
+  it('Should be in error on firstname field when invalid', () => {
+    // Given
+    const wrapper = mount(SignUp, {
+      localVue
+    })
+    const firstnameField = wrapper.find('input#firstname')
+
+    // When
+    firstnameField.setValue('X')
+
+    // Then
+    chai.assert.strictEqual(wrapper.vm.$v.firstname.$error, true)
+  })
+
+  it('Should have no errors on firstname field when valid', () => {
+    // Given
+    const wrapper = mount(SignUp, {
+      localVue
+    })
+    const firstnameField = wrapper.find('input#firstname')
+
+    // When
+    firstnameField.setValue('ValidFirstnameé')
+
+    // Then
+    chai.assert.strictEqual(wrapper.vm.$v.firstname.$error, false)
+  })
+
+  it('Should be in error on lastname field when invalid', () => {
+    // Given
+    const wrapper = mount(SignUp, {
+      localVue
+    })
+    const lastnameField = wrapper.find('input#lastname')
+
+    // When
+    lastnameField.setValue('X')
+
+    // Then
+    chai.assert.strictEqual(wrapper.vm.$v.lastname.$error, true)
+  })
+
+  it('Should have no errors on lastname field when valid', () => {
+    // Given
+    const wrapper = mount(SignUp, {
+      localVue
+    })
+    const lastnameField = wrapper.find('input#lastname')
+
+    // When
+    lastnameField.setValue('ValidLastnameé')
+
+    // Then
+    chai.assert.strictEqual(wrapper.vm.$v.lastname.$error, false)
   })
 
   it('Should be in error on username field when invalid', () => {
@@ -126,26 +184,8 @@ describe('SignUp.vue', () => {
       localVue
     })
     const signUpForm = wrapper.find('form')
-    wrapper.find('input#username').setValue('ValidUsername')
-    wrapper.find('input#password').setValue('ValidPassword')
-    wrapper.find('input#repeatPassword').setValue('ValidPassword')
-
-    // When
-    signUpForm.trigger('submit.prevent')
-    wrapper.vm.$forceUpdate()
-
-    // Then
-    chai.assert.strictEqual(wrapper.vm.$v.$invalid, false)
-    done()
-  })
-
-  it('Should do an axios call on valid form', (done) => {
-    // Given
-    const wrapper = mount(SignUp, {
-      localVue
-    })
-    const spy = sinon.spy(wrapper.vm, 'submit')
-    const signUpForm = wrapper.find('form')
+    wrapper.find('input#firstname').setValue('ValidFirstname')
+    wrapper.find('input#lastname').setValue('ValidLastname')
     wrapper.find('input#username').setValue('ValidUsername')
     wrapper.find('input#password').setValue('ValidPassword')
     wrapper.find('input#repeatPassword').setValue('ValidPassword')
@@ -156,8 +196,52 @@ describe('SignUp.vue', () => {
 
     // Then
     moxios.wait(() => {
-      chai.assert.strictEqual(spy.calledOnce, true)
-      done()
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200,
+        response: {
+          data: ''
+        }
+      }).then(() => {
+        // Then
+        chai.assert.strictEqual(wrapper.vm.$v.$invalid, false)
+        done()
+      })
+    })
+  })
+
+  it('Should do an axios call on valid form', (done) => {
+    // Given
+    const wrapper = mount(SignUp, {
+      localVue
+    })
+    wrapper.setData({
+      submitStatus: ''
+    })
+    wrapper.find('input#firstname').setValue('ValidFirstname')
+    wrapper.find('input#lastname').setValue('ValidLastname')
+    wrapper.find('input#username').setValue('ValidUsername')
+    wrapper.find('input#password').setValue('ValidPassword')
+    wrapper.find('input#repeatPassword').setValue('ValidPassword')
+
+    // When
+    moxios.withMock(function () {
+      let spy = sinon.spy()
+      axios.post('/register').then(spy)
+      // Then
+      moxios.wait(() => {
+        let request = moxios.requests.mostRecent()
+        request.respondWith({
+          status: 200,
+          response: {
+            data: ''
+          }
+        }).then((response) => {
+          // Then
+          chai.assert.strictEqual(response.status, 200)
+          done()
+        })
+      })
     })
   })
 })
