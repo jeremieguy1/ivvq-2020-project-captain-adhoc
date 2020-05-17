@@ -81,6 +81,30 @@ export default {
         })
     },
     openDetails (product) {
+      var listCommandProduct = JSON.parse(window.localStorage.getItem('commandsProduct'))
+      if (listCommandProduct === null) {
+        listCommandProduct = [
+          {
+            product: product.nom_produit,
+            quantity: 0
+          }
+        ]
+      } else {
+        var find = false
+        for (var commandProduct in listCommandProduct) {
+          if (listCommandProduct[commandProduct].product === product.nom_produit) {
+            listCommandProduct[commandProduct].quantity++
+            find = true
+          }
+        }
+        if (!find) {
+          listCommandProduct.push({
+            product: product.nom_produit,
+            quantity: 0
+          })
+        }
+      }
+      window.localStorage.setItem('commandsProduct', JSON.stringify(listCommandProduct))
       console.log('Open details on : ' + product.nom_produit)
     }
   }
