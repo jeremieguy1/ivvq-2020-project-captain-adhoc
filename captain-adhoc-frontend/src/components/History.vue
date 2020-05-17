@@ -148,7 +148,7 @@ export default {
     align-items: center;
   }
 
-  div.card.animated {
+  .card-header {
     cursor: pointer;
   }
 </style>
