@@ -71,4 +71,18 @@ public class ProduitServiceIntegrationTest {
         //then: la quantite du produit a été modifiée en base
         assertEquals(20, produitService.findAllProduits().get(0).getQuantite_produit());
     }
+
+    @Test
+    public void testDecrementQuantity() {
+
+        // when: la méthode decrementQuantity est invoquée
+        Produit produit = produitService.decrementQuantity(2L, 5);
+
+        //then: la quantite du produit a été modifiée en base
+        assertEquals(10, produitService.getProduitRepository().findById(2L).get().getQuantite_produit());
+
+        //then: le produit modifié a été retourné
+        assertEquals(2L, produit.getId_produit());
+        assertEquals(10, produit.getQuantite_produit());
+    }
 }
