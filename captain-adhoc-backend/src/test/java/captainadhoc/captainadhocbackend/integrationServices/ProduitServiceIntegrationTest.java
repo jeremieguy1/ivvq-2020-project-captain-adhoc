@@ -55,7 +55,7 @@ public class ProduitServiceIntegrationTest {
         ArrayList<Produit> produits = produitService.findAllProduits();
 
         // then: on a récupérer l'ensemble des produits
-        Assert.assertEquals(6, produits.size());
+        Assert.assertEquals(5, produits.size());
     }
 
     @Test

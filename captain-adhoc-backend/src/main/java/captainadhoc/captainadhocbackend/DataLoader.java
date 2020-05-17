@@ -41,21 +41,41 @@ public class DataLoader implements ApplicationRunner {
         produitService.deleteAllProduit();
         Marchand marchand1 = new Marchand("marchand1");
 
-        List<Produit> produitList = new ArrayList<>();
-        Produit produit2 = new Produit(16, "CyberboX",
+        Produit produit1 = new Produit(
+                15,
+                "PS5",
+                "Encore une playstation de folie \\o/",
+                "https://urlz.fr/cHLz",
+                1);
+
+        Produit produit2 = new Produit(
+                16,
+                "CyberboX",
                 "Non comptant d'avoir les meilleures voitures au MONDE, Tesla propose la meilleure console de jeu grand public !",
-                "https://urlz.fr/cHLH", 100000);
-        Produit produit1 = new Produit(15, "PS5",
-                "Encore une playstation de folie \\o/", "https://urlz.fr/cHLz", 1);
-        Produit produit3 = new Produit(2, "Mad box",
+                "https://urlz.fr/cHLH",
+                100000);
+
+        Produit produit3 = new Produit(2,
+                "Mad box",
                 "Cette console va révolutionner le du la de esport !",
-                "https://urlz.fr/cHJp", 666);
-        Produit produit4 = new Produit(100, "New retro +",
+                "https://urlz.fr/cHJp",
+                666);
+
+        Produit produit4 = new Produit(100,
+                "New retro +",
                 "Elle fera tourner les jeux dernières générations tels que tetris et même Donkey kong 64 ! Et tout àa pour seulement 1399,99€",
-                "https://urlz.fr/cHJz", 10);
-        Produit produit5 = new Produit(5, "Xbox Serie X",
+                "https://urlz.fr/cHJz",
+                10);
+
+        Produit produit5 = new Produit(
+                5,
+                "Xbox Serie X",
                 "C'est partiiiii pour la console pc !",
-                "https://urlz.fr/cHLM", 200);
+                "https://urlz.fr/cHLM",
+                200);
+
+        List<Produit> produitList = new ArrayList<>();
+
         produitList.add(produit1);
         produitList.add(produit2);
         produitList.add(produit3);
