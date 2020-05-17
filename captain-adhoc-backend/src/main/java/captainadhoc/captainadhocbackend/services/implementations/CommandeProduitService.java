@@ -7,6 +7,7 @@ import captainadhoc.captainadhocbackend.domain.Produit;
 import captainadhoc.captainadhocbackend.repositories.CommandeProduitRepository;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeProduitService;
 import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +17,11 @@ import java.util.stream.Collectors;
 @Service
 public class CommandeProduitService implements ICommandeProduitService {
 
+    @Getter
     @Autowired
     private CommandeProduitRepository commandeProduitRepository;
 
+    @Getter
     @Autowired
     private IProduitService produitService;
 

@@ -99,9 +99,9 @@ public class DataLoader implements ApplicationRunner {
         commandeProduit4.setProduit(produitArrayList.get(1));
 
         commandeProduit.setQuantite_commande_produit(1);
-        commandeProduit.setQuantite_commande_produit(2);
-        commandeProduit.setQuantite_commande_produit(3);
-        commandeProduit.setQuantite_commande_produit(4);
+        commandeProduit2.setQuantite_commande_produit(2);
+        commandeProduit3.setQuantite_commande_produit(3);
+        commandeProduit4.setQuantite_commande_produit(4);
 
         commandeProduit.setCommande(commande1);
         commandeProduit2.setCommande(commande2);

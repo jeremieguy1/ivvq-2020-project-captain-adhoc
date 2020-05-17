@@ -21,6 +21,7 @@ public class CommandeService implements ICommandeService {
     @Autowired
     private CommandeRepository commandeRepository;
 
+    @Getter
     @Autowired
     private ICommandeProduitService commandeProduitService;
 

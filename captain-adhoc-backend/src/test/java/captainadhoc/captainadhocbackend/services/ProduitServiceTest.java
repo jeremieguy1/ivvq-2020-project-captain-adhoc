@@ -60,6 +60,36 @@ public class ProduitServiceTest {
 
         // then: la méthode save du ProduitRepository associé est invoquée
         verify(produitService.getProduitRepository()).save(produit);
+
+        // then: la méthode findById du ProduitRepository associé est invoquée
+        verify(produitService.getProduitRepository()).findById(produit.getId_produit());
+
+        // then: la quantite du produit a été mis à jour
         assertEquals(20, produit.getQuantite_produit());
+    }
+
+    @Test
+    public void testDecrementQuantity() {
+        //given un produit
+        Produit produit = new Produit(15, "produit", "description", "image", 1);
+        produit.setId_produit(1L);
+
+        //given: la quantité du produit acheté
+        int quantiteProduit = 5;
+
+        when(produitService.getProduitRepository().findById(produit.getId_produit())).thenReturn(Optional.of(produit));
+        when(produitService.getProduitRepository().save(produit)).thenReturn(produit);
+
+        //when: la méthode decrementQuantity est invoquée
+        produitService.decrementQuantity(produit.getId_produit(), quantiteProduit);
+
+        // then: la méthode findById du ProduitRepository associé est invoquée
+        verify(produitService.getProduitRepository()).findById(produit.getId_produit());
+
+        // then: la méthode save du ProduitRepository associé est invoquée
+        verify(produitService.getProduitRepository()).save(produit);
+
+        // then: la quantite du produit a été mis à jour
+        assertEquals(10, produit.getQuantite_produit());
     }
 }

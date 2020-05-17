@@ -3,10 +3,10 @@ package captainadhoc.captainadhocbackend.beans;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@AllArgsConstructor
 @Data
 public class Achat {
 
