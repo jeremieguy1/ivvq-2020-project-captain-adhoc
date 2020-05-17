@@ -86,7 +86,8 @@ export default {
         listCommandProduct = [
           {
             product: product.nom_produit,
-            quantity: 0
+            quantity: 0,
+            display: false
           }
         ]
       } else {
@@ -100,7 +101,8 @@ export default {
         if (!find) {
           listCommandProduct.push({
             product: product.nom_produit,
-            quantity: 0
+            quantity: 0,
+            display: false
           })
         }
       }
