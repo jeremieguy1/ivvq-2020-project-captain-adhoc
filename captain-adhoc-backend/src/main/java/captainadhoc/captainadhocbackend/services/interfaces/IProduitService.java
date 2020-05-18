@@ -13,4 +13,6 @@ public interface IProduitService {
     void deleteAllProduit();
 
     void modifierQuantite(Long idProduit, int quantite);
+
+    Produit decrementQuantity(Long idProduit, int quantiteProduit);
 }
