@@ -57,8 +57,8 @@
                         <p class="stock_quantite_produit" style="display: inline-block;">(Stock: {{product.quantite_produit}}) </p>
                         <div class="select" >
                           <select class="product.quantite">
-                            <option v-for="(value, index) in product.quantite_produit" :key="index" :id="`${product.nom_produit}`">
-                              <div>{{ index + 1 }}</div>
+                            <option v-for="(value, index) in product.quantite_produit + 1" :key="index" :id="`${product.nom_produit}`">
+                              <div>{{ index }}</div>
                             </option>
                           </select>
                         </div>
@@ -87,8 +87,6 @@ import {mapState} from 'vuex'
 export default {
   name: 'Cart',
   mounted () {
-    console.log(window.localStorage.getItem('commandsProduct'))
-    console.log('oi')
     this.getProductsCart()
   },
   data () {
@@ -102,8 +100,6 @@ export default {
       this.$store.commit('getData')
     },
     getTotalPrixProduct (product) {
-      console.log('getTotalPrixProduct')
-      console.log(product.prix_produit)
       return product.quantity * product.prix_produit
     },
     displayContentCart (commande) {
@@ -131,13 +127,19 @@ export default {
         .then(response => {
           var localProducts = JSON.parse(window.localStorage.getItem('commandsProduct'))
           for (var product in response.data) {
-            for (var localProduct in localProducts) {
-              if (response.data[product].nom_produit === localProducts[localProduct].product) {
-                response.data[product].display = false
-                response.data[product].quantity = 2
-                console.log(response.data[product])
-                this.products.push(response.data[product])
-                console.log(this.products)
+            if (response.data[product].quantite_produit > 0) {
+              for (var localProduct in localProducts) {
+                if (localProducts[localProduct].quantity > 0) {
+                  if (response.data[product].nom_produit === localProducts[localProduct].nom_produit) {
+                    response.data[product].display = false
+                    if (localProducts[localProduct].quantity < response.data[product].quantite_produit) {
+                      response.data[product].quantity = localProducts[localProduct].quantity
+                    } else {
+                      response.data[product].quantity = response.data[product].quantite_produit
+                    }
+                    this.products.push(response.data[product])
+                  }
+                }
               }
             }
           }

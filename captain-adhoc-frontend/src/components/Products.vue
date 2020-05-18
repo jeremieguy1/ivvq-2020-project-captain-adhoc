@@ -85,22 +85,22 @@ export default {
       if (listCommandProduct === null) {
         listCommandProduct = [
           {
-            product: product.nom_produit,
-            quantity: 0
+            nom_produit: product.nom_produit,
+            quantity: 1
           }
         ]
       } else {
         var find = false
         for (var commandProduct in listCommandProduct) {
-          if (listCommandProduct[commandProduct].product === product.nom_produit) {
+          if (listCommandProduct[commandProduct].nom_produit === product.nom_produit) {
             listCommandProduct[commandProduct].quantity++
             find = true
           }
         }
         if (!find) {
           listCommandProduct.push({
-            product: product.nom_produit,
-            quantity: 0
+            nom_produit: product.nom_produit,
+            quantity: 1
           })
         }
       }

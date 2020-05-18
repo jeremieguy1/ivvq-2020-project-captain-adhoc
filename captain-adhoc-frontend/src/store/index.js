@@ -46,6 +46,7 @@ export const mutations = {
         com.quantity = newQuantityProduct.quantity
       }
     })
+    window.localStorage.setItem('commandsProduct', JSON.stringify(state.cartProducts))
   }
 }
 
