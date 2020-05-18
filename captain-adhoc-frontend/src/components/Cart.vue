@@ -36,29 +36,41 @@
         </header>
         <div v-if="product.display" class="card-content">
             <div class="columns">
-              <div class="column image">
-                <figure class="image">
+              <div class="column image is-one-third">
+                <figure class="image is-3by2">
                   <img src="../assets/cyberbox_large.png">
                 </figure>
               </div>
               <div class="column corps">
-                <div>
-                  <p class="description">Description : </p>
-                </div>
-                <div>
-                  <p class="description_produit"><br>{{product.description_produit}}</p>
-                </div>
-                <div class="section quantite_produit">
-                  <p class="quantite_produit" style="display: inline-block;">Quantité : </p>
-                    <div class="select" style="display: inline-block;">
-                      <select style="display: inline-block;">
-                        <option v-for="(value, index) in product.quantite_produit + 1" :key="index">
-                          <div>{{ index }}</div>
-                        </option>
-                      </select>
-                  </div>&nbsp;{{product.prix_produit}}$/u <br>
-                  <p class="stock_quantite_produit">(Stock: {{product.quantite_produit}})</p>
-                </div>
+                  <table class="table is-fullwidth">
+                    <tr style="background-color: #eeeeee">
+                      <div>
+                        <p class="description">Description : </p>
+                      </div>
+                      <div>
+                        <p class="description_produit"><br>{{product.description_produit}}</p>
+                      </div>
+                    </tr>
+                    <tr >
+                      <div class="section quantite_produit has-text-centered">
+                        <p class="quantite_produit has-text-centered" style="">Quantité : </p> <br>
+                        <p class="stock_quantite_produit" style="display: inline-block;">(Stock: {{product.quantite_produit}}) </p>
+                        <div class="select" >
+                          <select class="product.nom_produit">
+                            <option v-for="(value, index) in product.quantite_produit + 1" :key="index" :id="`cv${product.nom_produit}`">
+                              <div>{{ index }}</div>
+                            </option>
+                          </select>
+                        </div>
+                        &nbsp;{{product.prix_produit}}$/u <br>
+                      </div>
+                    </tr>
+                    <tr >
+                      <div class="box-shadow has-text-centered">
+                      <button class="button has-text-centered">Confirmer la quantité</button>
+                      </div>
+                    </tr>
+                  </table>
               </div>
             </div>
         </div>
@@ -77,7 +89,6 @@ export default {
   mounted () {
     console.log(window.localStorage.getItem('commandsProduct'))
     console.log('oi')
-
     this.getProductsCart()
   },
   data () {
@@ -124,7 +135,6 @@ export default {
   }
   .column.corps {
     justify-content: left;
-    align-items: center;
     font-weight: bold;
   }
 
@@ -132,6 +142,9 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: bold;
+  }
+  .button {
     font-weight: bold;
   }
 
