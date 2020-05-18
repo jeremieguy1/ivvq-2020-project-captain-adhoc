@@ -38,7 +38,7 @@
             <div class="columns">
               <div class="column image is-one-third">
                 <figure class="image is-3by2">
-                  <img src="../assets/cyberbox_large.png">
+                  <img :src="`${product.image_produit}`">
                 </figure>
               </div>
               <div class="column corps">
@@ -76,28 +76,22 @@
         </div>
       </div>
     </div>
-    <section class="section">
+    <section v-if="cartProducts.length !== 0" class="section">
       <div class="container animated fadeIn">
         <div class="columns is-flex has-text-centered is-centered">
           <div class="column is-4">
             <div class="box">
               <div>
-                <div>
-                  <p class="reduction_code">
-                    Saisir un code de réduction
-                  </p>
-                </div>
                 <div class="field">
-                  <label class="label">Nom *</label>
+                  <label class="label">Saisir un code de réduction</label>
                   <div class="control has-icons-right">
                     <div :class="{'animated headShake': $v.code.$dirty && $v.code.$error}">
                       <input
-                        id="username"
+                        id="code"
                         class="input" :class="{ 'is-success': !$v.code.$error && $v.code.$dirty, 'is-danger': $v.code.$error && $v.code.$dirty}"
                         v-model.trim="$v.code.$model"
-                        name="username"
-                        type="text"
-                        placeholder="Nom...">
+                        name="code"
+                        type="text">
                       <span v-if="!$v.code.$error && $v.code.$dirty">
                       <span class="icon is-small is-right animated zoomIn">
                         <i class="fas fa-check"></i>
@@ -108,13 +102,13 @@
                     </span>
                     </div>
                     <p class="has-text-danger" v-if="!$v.code.minLength">
-                      Le nom doit contenir au moins {{$v.code.$params.minLength.min}} caractères</p>
+                      Le code doit contenir au moins {{$v.code.$params.minLength.min}} caractères</p>
                   </div>
                 </div>
               </div>
               <div>
                 <p class="to_pay total_cart">
-                  Total à payer : {{getTotalCart()}} ({{getTotalProduct()}} produits)
+                  Total à payer : {{getTotalCart()}}$ ({{getTotalProduct()}} produits)
                 </p>
               </div>
               <div class="to_pay box-shadow has-text-centered">
@@ -125,6 +119,14 @@
         </div>
       </div>
     </section>
+    <section v-else class="section is-centered">
+      <div>
+        <figure class="image is-1">
+          <img src="../assets/rick_info.png">
+        </figure>
+      </div>
+    </section>
+
   </div>
 </template>
 
@@ -173,9 +175,10 @@ export default {
       for (var localProduct in localProducts) {
         totalCart = parseInt(totalCart) + parseInt(localProducts[localProduct].quantity * localProducts[localProduct].prix_produit)
       }
-      return totalCart
+      return parseInt(totalCart)
     },
     payCart () {
+      // A voir ici si on a besoin de rajouter de données dans commandsProduct localstorage
       console.log('Go to PAYYYYY')
     },
     displayContentCart (commande) {
@@ -265,7 +268,4 @@ export default {
     padding-top: 1rem;
   }
 
-  .reduction_code {
-    padding-bottom: 0.325rem;
-  }
 </style>
