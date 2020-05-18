@@ -30,6 +30,7 @@ export default {
   methods: {
     logout () {
       localStorage.removeItem('Authorization')
+      localStorage.removeItem('commandsProduct')
       this.$store.commit('setActiveUser', false)
       this.$router.push('home')
       this.$parent.close()
