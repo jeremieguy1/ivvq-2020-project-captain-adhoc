@@ -76,6 +76,38 @@
         </div>
       </div>
     </div>
+    <section class="section">
+      <div class="container animated fadeIn">
+        <div class="columns is-flex has-text-centered is-centered">
+          <div class="column is-4">
+            <div class="box">
+              <div>
+                <div>
+                  <p class="reduction_code">
+                    Saisir un code de réduction
+                  </p>
+                </div>
+                <div class="field" >
+                  <div class="control is-loading" >
+                    <label >
+                      <input class="input" type="text" placeholder="Normal input">
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="to_pay total_cart">
+                  Total à payer : {{getTotalCart()}} ({{getTotalProduct()}} produits)
+                </p>
+              </div>
+              <div class="to_pay box-shadow has-text-centered">
+                <button v-on:click="payCart()"  class="button has-text-centered">Payez votre panier d'escroqueries</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -182,5 +214,14 @@ export default {
 
   div.fontawesome-icon {
     padding-right: 0.325rem;
+  }
+
+  .to_pay {
+    font-weight: bold;
+    padding-top: 1rem;
+  }
+
+  .reduction_code {
+    padding-bottom: 0.325rem;
   }
 </style>
