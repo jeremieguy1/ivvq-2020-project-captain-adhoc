@@ -77,14 +77,14 @@
           </div>
         </router-link>
 
-        <router-link to="/log-out" class="navbar-item button is-flex">
+        <button @click="openLogoutModal" class="navbar-item button is-flex">
           <div class="fontawesome-icon">
             <i class="fas fa-sign-out-alt"></i>
           </div>
           <div>
             <span>Déconnexion</span>
           </div>
-        </router-link>
+        </button>
       </div>
     </div>
   </div>
@@ -92,9 +92,11 @@
 </template>
 
 <script>
+import LogoutModal from '@/components/LogoutModal'
 import { mapState } from 'vuex'
 export default {
   name: 'Navbar',
+  components: { LogoutModal },
   computed: mapState[('isLoggedStore')],
   data () {
     return {
@@ -125,6 +127,14 @@ export default {
       buttons.classList.toggle('slideInLeft')
 
       document.querySelector('.navbar').classList.toggle('is-mobile')
+    },
+    openLogoutModal () {
+      this.$buefy.modal.open({
+        parent: this,
+        component: LogoutModal,
+        hasModalCard: true,
+        trapFocus: true
+      })
     }
   }
 }

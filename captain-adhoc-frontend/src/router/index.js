@@ -6,7 +6,6 @@ import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 import Cart from '@/components/Cart'
 import History from '@/components/History'
-import Logout from '@/components/Logout'
 import Products from '@/components/Products'
 
 Vue.use(Router)
@@ -43,11 +42,6 @@ export default new Router({
       path: '/purchases-history',
       name: 'History',
       component: History
-    },
-    {
-      path: '/log-out',
-      name: 'Logout',
-      component: Logout
     },
     {
       path: '/products',
