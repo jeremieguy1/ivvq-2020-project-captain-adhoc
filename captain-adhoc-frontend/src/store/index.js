@@ -26,17 +26,24 @@ export const mutations = {
   cartProducts (state, productsToCart) {
     state.cartProducts = productsToCart
   },
-  displayContentCart (state, produit) {
+  displayContentCart (state, product) {
     state.cartProducts.forEach(prod => {
-      if (prod.id_produit === produit.id_produit) {
+      if (prod.id_produit === product.id_produit) {
         prod.display = !prod.display
       }
     })
   },
-  displayContent (state, commande) {
+  displayContent (state, command) {
     state.commandes.forEach(com => {
-      if (com.id_commande === commande.id_commande) {
+      if (com.id_commande === command.id_commande) {
         com.display = !com.display
+      }
+    })
+  },
+  updateQuantity (state, newQuantityProduct) {
+    state.cartProducts.forEach(com => {
+      if (com.nom_produit === newQuantityProduct.nom_produit) {
+        com.quantity = newQuantityProduct.quantity
       }
     })
   }
