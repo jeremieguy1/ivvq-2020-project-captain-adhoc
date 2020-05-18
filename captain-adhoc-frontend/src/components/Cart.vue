@@ -87,11 +87,28 @@
                     Saisir un code de réduction
                   </p>
                 </div>
-                <div class="field" >
-                  <div class="control is-loading" >
-                    <label >
-                      <input class="input" type="text" placeholder="Normal input">
-                    </label>
+                <div class="field">
+                  <label class="label">Nom *</label>
+                  <div class="control has-icons-right">
+                    <div :class="{'animated headShake': $v.code.$dirty && $v.code.$error}">
+                      <input
+                        id="username"
+                        class="input" :class="{ 'is-success': !$v.code.$error && $v.code.$dirty, 'is-danger': $v.code.$error && $v.code.$dirty}"
+                        v-model.trim="$v.code.$model"
+                        name="username"
+                        type="text"
+                        placeholder="Nom...">
+                      <span v-if="!$v.code.$error && $v.code.$dirty">
+                      <span class="icon is-small is-right animated zoomIn">
+                        <i class="fas fa-check"></i>
+                      </span>
+                    </span>
+                      <span v-else class="icon is-small is-right">
+                        <i class="fas fa-times"></i>
+                    </span>
+                    </div>
+                    <p class="has-text-danger" v-if="!$v.code.minLength">
+                      Le nom doit contenir au moins {{$v.code.$params.minLength.min}} caractères</p>
                   </div>
                 </div>
               </div>
@@ -101,7 +118,7 @@
                 </p>
               </div>
               <div class="to_pay box-shadow has-text-centered">
-                <button v-on:click="payCart()"  class="button has-text-centered">Payez votre panier d'escroqueries</button>
+                <button v-on:click="payCart()"  class="button has-text-centered">Payez votre panier</button>
               </div>
             </div>
           </div>
@@ -115,6 +132,7 @@
 import axios from 'axios'
 import { configs } from '../http-common'
 import {mapState} from 'vuex'
+import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
   name: 'Cart',
@@ -123,7 +141,14 @@ export default {
   },
   data () {
     return {
+      code: '',
       products: []
+    }
+  },
+  validations: {
+    code: {
+      required,
+      minLength: minLength(6)
     }
   },
   computed: mapState(['cartProducts']),
@@ -133,6 +158,25 @@ export default {
     },
     getTotalPrixProduct (product) {
       return product.quantity * product.prix_produit
+    },
+    getTotalProduct () {
+      var localProducts = JSON.parse(window.localStorage.getItem('commandsProduct'))
+      var totalProduct = 0
+      for (var localProduct in localProducts) {
+        totalProduct = parseInt(totalProduct) + parseInt(localProducts[localProduct].quantity)
+      }
+      return totalProduct
+    },
+    getTotalCart () {
+      var localProducts = JSON.parse(window.localStorage.getItem('commandsProduct'))
+      var totalCart = 0
+      for (var localProduct in localProducts) {
+        totalCart = parseInt(totalCart) + parseInt(localProducts[localProduct].quantity * localProducts[localProduct].prix_produit)
+      }
+      return totalCart
+    },
+    payCart () {
+      console.log('Go to PAYYYYY')
     },
     displayContentCart (commande) {
       this.$store.commit('displayContentCart', commande)
