@@ -17,17 +17,8 @@ import 'vuelidate/dist/vuelidate.min.js'
 Vue.config.productionTip = false
 
 Vue.use(Vuelidate)
-
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>',
-  store
-})
-
 Vue.prototype.$http = axios
+
 axios.defaults.timeout = 10000
 
 axios.interceptors.request.use((request) => {
@@ -42,4 +33,13 @@ axios.interceptors.request.use((request) => {
 
 axios.interceptors.response.use((response) => {
   return response
+})
+
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  router,
+  components: { App },
+  template: '<App/>',
+  store
 })
