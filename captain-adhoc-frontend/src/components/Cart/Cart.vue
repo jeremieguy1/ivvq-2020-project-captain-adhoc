@@ -19,7 +19,7 @@
             <time> {{product.nom_produit}}</time>
           </p>
           <p class="card-header-title total">
-            {{getTotalPrixProduct(product)}}$ ({{product.quantity}} produits)
+            {{getTotalPrixProduct(product)}}€ ({{product.quantity}} produits)
           </p>
           <a class="card-header-icon" aria-label="more options">
             <div v-if="!product.display">
@@ -42,35 +42,28 @@
                 </figure>
               </div>
               <div class="column corps">
-                  <table class="table is-fullwidth">
-                    <tr style="background-color: #eeeeee">
-                      <div>
-                        <p class="description">Description : </p>
+                <table class="table is-fullwidth">
+                  <tr >
+                    <div class="section quantite_produit has-text-centered">
+                      <p class="quantite_produit has-text-centered">Quantité : </p> <br>
+                      <p class="stock_quantite_produit">(Stock: {{product.quantite_produit}}) </p>
+                      <div class="select" >
+                        <select class="product.quantite">
+                          <option disabled selected>{{product.quantity}}</option>
+                          <option v-for="(value, index) in product.quantite_produit + 1" :key="index" :id="`${product.nom_produit}`">
+                            <div>{{ index }}</div>
+                          </option>
+                        </select>
                       </div>
-                      <div>
-                        <p class="description_produit"><br>{{product.description_produit}}</p>
-                      </div>
-                    </tr>
-                    <tr >
-                      <div class="section quantite_produit has-text-centered">
-                        <p class="quantite_produit has-text-centered" style="">Quantité : </p> <br>
-                        <p class="stock_quantite_produit" style="display: inline-block;">(Stock: {{product.quantite_produit}}) </p>
-                        <div class="select" >
-                          <select class="product.quantite">
-                            <option v-for="(value, index) in product.quantite_produit + 1" :key="index" :id="`${product.nom_produit}`">
-                              <div>{{ index }}</div>
-                            </option>
-                          </select>
-                        </div>
-                        &nbsp;{{product.prix_produit}}$/u <br>
-                      </div>
-                    </tr>
-                    <tr >
-                      <div class="box-shadow has-text-centered">
-                        <button  v-on:click="updateQuantity(product)"  class="button has-text-centered">Confirmer la quantité</button>
-                      </div>
-                    </tr>
-                  </table>
+                      &nbsp;{{product.prix_produit}}€/u <br>
+                    </div>
+                  </tr>
+                  <tr >
+                    <div class="box-shadow updateQuantity has-text-centered">
+                      <button  v-on:click="updateQuantity(product)"  class="button has-text-centered">Confirmer la quantité</button>
+                    </div>
+                  </tr>
+                </table>
               </div>
             </div>
         </div>
@@ -108,7 +101,7 @@
               </div>
               <div>
                 <p class="to_pay total_cart">
-                  Total à payer : {{getTotalCart()}}$ ({{getTotalProduct()}} produits)
+                  Total à payer : {{getTotalCart(cartProducts)}}€ ({{getTotalProduct(cartProducts)}} produits)
                 </p>
               </div>
               <div class="to_pay box-shadow has-text-centered">
@@ -119,14 +112,13 @@
         </div>
       </div>
     </section>
-    <section v-else class="section info is-centered">
+    <section v-else class="section info is-centered animated fadeIn">
       <div>
         <figure class="image is-1">
           <img src="../../assets/rick_info.png">
         </figure>
       </div>
     </section>
-
   </div>
 </template>
 
@@ -161,19 +153,17 @@ export default {
     getTotalPrixProduct (product) {
       return product.quantity * product.prix_produit
     },
-    getTotalProduct () {
-      var localProducts = JSON.parse(window.localStorage.getItem('commandsProduct'))
+    getTotalProduct (products) {
       var totalProduct = 0
-      for (var localProduct in localProducts) {
-        totalProduct = parseInt(totalProduct) + parseInt(localProducts[localProduct].quantity)
+      for (var product in products) {
+        totalProduct = parseInt(totalProduct) + parseInt(products[product].quantity)
       }
       return totalProduct
     },
-    getTotalCart () {
-      var localProducts = JSON.parse(window.localStorage.getItem('commandsProduct'))
+    getTotalCart (products) {
       var totalCart = 0
-      for (var localProduct in localProducts) {
-        totalCart = parseInt(totalCart) + parseInt(localProducts[localProduct].quantity * localProducts[localProduct].prix_produit)
+      for (var product in products) {
+        totalCart = parseInt(totalCart) + parseInt(products[product].quantity * products[product].prix_produit)
       }
       return parseInt(totalCart)
     },
@@ -222,6 +212,8 @@ export default {
               }
             }
           }
+          console.log(this.products)
+          window.localStorage.setItem('commandsProduct', JSON.stringify(this.products))
           this.$store.commit('cartProducts', this.products)
         })
     }
@@ -233,6 +225,7 @@ export default {
   .card {
     margin-bottom: 2%
   }
+
   .column.corps {
     justify-content: left;
     font-weight: bold;
@@ -244,6 +237,7 @@ export default {
     align-items: center;
     font-weight: bold;
   }
+
   .button {
     font-weight: bold;
   }
@@ -266,6 +260,11 @@ export default {
   .to_pay {
     font-weight: bold;
     padding-top: 1rem;
+  }
+
+  .stock_quantite_produit {
+    display: inline-block;
+    margin-top: 1%;
   }
 
 </style>
