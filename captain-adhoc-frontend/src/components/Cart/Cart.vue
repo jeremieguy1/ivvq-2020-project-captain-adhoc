@@ -12,7 +12,7 @@
         </div>
       </div>
     </div>
-    <div class="section">
+    <div class="section showProducts">
       <div v-for="product in cartProducts" v-bind:key="product.id_produit" class="card animated fadeIn">
         <header v-on:click="displayContentCart(product)" class="card-header">
           <p class="card-header-title date">
@@ -76,7 +76,7 @@
         </div>
       </div>
     </div>
-    <section v-if="cartProducts.length !== 0" class="section">
+    <section v-if="cartProducts.length !== 0" class="section paybox">
       <div class="container animated fadeIn">
         <div class="columns is-flex has-text-centered is-centered">
           <div class="column is-4">
@@ -119,7 +119,7 @@
         </div>
       </div>
     </section>
-    <section v-else class="section is-centered">
+    <section v-else class="section info is-centered">
       <div>
         <figure class="image is-1">
           <img src="../../assets/rick_info.png">
