@@ -48,7 +48,7 @@ import { mapState } from 'vuex'
 import axios from 'axios'
 import { configs } from '../http-common'
 import ProductDetailModal from './ProductDetailModal'
-import Cart from './cart'
+import CartManagment from '../components/Cart/CartManagment'
 
 export default {
   name: 'Products',
@@ -85,7 +85,7 @@ export default {
     },
     addToCart (product) {
       var listCommandProduct = JSON.parse(window.localStorage.getItem('commandsProduct'))
-      listCommandProduct = Cart.addToCart(listCommandProduct, product)
+      listCommandProduct = CartManagment.addToCart(listCommandProduct, product)
       window.localStorage.setItem('commandsProduct', JSON.stringify(listCommandProduct))
     },
     openDetailsModal (product) {

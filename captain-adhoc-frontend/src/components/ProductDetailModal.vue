@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import Cart from './cart'
+import CartManagment from '../components/Cart/CartManagment'
 
 export default {
   name: 'ProductDetailModal',
@@ -52,7 +52,7 @@ export default {
   methods: {
     addToCart (product) {
       var listCommandProduct = JSON.parse(window.localStorage.getItem('commandsProduct'))
-      listCommandProduct = Cart.addToCart(listCommandProduct, product)
+      listCommandProduct = CartManagment.addToCart(listCommandProduct, product)
       window.localStorage.setItem('commandsProduct', JSON.stringify(listCommandProduct))
     },
     cancel () {

@@ -122,7 +122,7 @@
     <section v-else class="section is-centered">
       <div>
         <figure class="image is-1">
-          <img src="../assets/rick_info.png">
+          <img src="../../assets/rick_info.png">
         </figure>
       </div>
     </section>
@@ -132,7 +132,7 @@
 
 <script>
 import axios from 'axios'
-import { configs } from '../http-common'
+import { configs } from '../../http-common'
 import {mapState} from 'vuex'
 import { required, minLength } from 'vuelidate/lib/validators'
 
