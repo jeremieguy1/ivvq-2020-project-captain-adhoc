@@ -424,6 +424,211 @@ describe('Cart.vue', () => {
       })
     })
   })
+
+  it('Should update the quantity', () => {
+    // Given
+    moxios.withMock(function () {
+      let spy = sinon.spy()
+      axios.get('/commandes').then(spy)
+      moxios.wait(() => {
+        const spy = sinon.spy(Cart.methods, 'updateQuantity')
+        let request = moxios.requests.mostRecent()
+        request.respondWith({
+          status: 200,
+          response: {
+            commandsProduct: commandsProductResponse2
+          }
+        }).then(
+          response => {
+            storeTest(response.data.commandsProduct)
+
+            // When
+            const wrapper = mount(Cart, {
+              store,
+              localVue
+            })
+
+            const card = wrapper.find('.box-shadow.updateQuantity')
+
+            // When
+            card.trigger('click')
+
+            // Then
+            chai.assert.strictEqual(spy.calledOnce, true)
+            spy.restore()
+          })
+      })
+    })
+  })
+
+  it('Should go to pay', () => {
+    // Given
+    moxios.withMock(function () {
+      let spy = sinon.spy()
+      axios.get('/commandes').then(spy)
+      moxios.wait(() => {
+        const spy = sinon.spy(Cart.methods, 'payCart')
+        let request = moxios.requests.mostRecent()
+        request.respondWith({
+          status: 200,
+          response: {
+            commandsProduct: commandsProductResponse2
+          }
+        }).then(
+          response => {
+            storeTest(response.data.commandsProduct)
+
+            // When
+            const wrapper = mount(Cart, {
+              store,
+              localVue
+            })
+
+            const card = wrapper.find('.bto_pay.box-shadow')
+
+            // When
+            card.trigger('click')
+
+            // Then
+            chai.assert.strictEqual(spy.calledOnce, true)
+            spy.restore()
+          })
+      })
+    })
+  })
+
+  it('Should update the quantity', () => {
+    // Given
+    const spy = sinon.spy(Cart.methods, 'payCart')
+    storeTest(commandsProductResponse2)
+    const wrapper = mount(Cart, {
+      store,
+      localVue
+    })
+    wrapper.vm.payCart()
+    spy.restore()
+  })
+
+  it('Should be unfold after a clicked when it was fold', () => {
+    // Given
+    moxios.withMock(function () {
+      moxios.wait(() => {
+        axios.get('/commandes').then()
+        let request = moxios.requests.mostRecent()
+        request.respondWith({
+          status: 200,
+          response: {
+            commandsProduct: commandsProductResponse2
+          }
+        }).then(
+          response => {
+            storeTest(response.data.commandsProduct)
+            const wrapper = mount(Cart, {
+              store,
+              localVue
+            })
+
+            // When
+            wrapper.findAll('header').at(0).trigger('click')
+
+            // Then
+            chai.assert.strictEqual(store.state.cartProducts[0].display, true)
+            chai.assert.strictEqual(store.state.cartProducts[1].display, true)
+          })
+      })
+    })
+  })
+
+  it('Should be fold after a clicked when it was unfold', () => {
+    // Given
+    moxios.withMock(function () {
+      moxios.wait(() => {
+        axios.get('/commandes').then()
+        let request = moxios.requests.mostRecent()
+        request.respondWith({
+          status: 200,
+          response: {
+            commandsProduct: commandsProductResponse2
+          }
+        }).then(
+          response => {
+            storeTest(response.data.commandsProduct)
+            const wrapper = mount(Cart, {
+              store,
+              localVue
+            })
+
+            // When
+            wrapper.findAll('header').at(1).trigger('click')
+
+            // Then
+            chai.assert.strictEqual(store.state.cartProducts[0].display, false)
+            chai.assert.strictEqual(store.state.cartProducts[1].display, false)
+          })
+      })
+    })
+  })
+
+  it('Should be in error on code field when invalid', () => {
+    // Given
+    moxios.withMock(function () {
+      moxios.wait(() => {
+        axios.get('/commandes').then()
+        let request = moxios.requests.mostRecent()
+        request.respondWith({
+          status: 200,
+          response: {
+            commandsProduct: commandsProductResponse2
+          }
+        }).then(
+          response => {
+            storeTest(response.data.commandsProduct)
+            const wrapper = mount(Cart, {
+              store,
+              localVue
+            })
+
+            const usernameField = wrapper.find('input#code')
+
+            // When
+            usernameField.setValue('X')
+
+            // Then
+            chai.assert.strictEqual(wrapper.vm.$v.code.$error, true)
+          })
+      })
+    })
+  })
+
+  it('Should have no errors on code field when valid', () => {
+    // Given
+    moxios.withMock(function () {
+      moxios.wait(() => {
+        axios.get('/commandes').then()
+        let request = moxios.requests.mostRecent()
+        request.respondWith({
+          status: 200,
+          response: {
+            commandsProduct: commandsProductResponse2
+          }
+        }).then(
+          response => {
+            storeTest(response.data.commandsProduct)
+            const wrapper = mount(Cart, {
+              store,
+              localVue
+            })
+            const usernameField = wrapper.find('input#code')
+
+            // When
+            usernameField.setValue('Valid')
+
+            // Then
+            chai.assert.strictEqual(wrapper.vm.$v.code.$error, false)
+          })
+      })
+    })
+  })
 })
 function storeTest (cartProducts) {
   store = new Vuex.Store({
