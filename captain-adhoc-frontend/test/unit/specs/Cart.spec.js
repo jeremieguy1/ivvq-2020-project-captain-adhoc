@@ -1,5 +1,5 @@
 import Vuex from 'vuex'
-import Cart from '@/components/Cart'
+import Cart from '@/components/Cart/Cart'
 import { mount, createLocalVue } from '@vue/test-utils'
 import { mutations } from '@/store/index'
 import moxios from 'moxios'
@@ -394,37 +394,6 @@ describe('Cart.vue', () => {
     chai.assert.strictEqual(Cart.methods.getTotalProduct(commandsProductResponse2), 3)
   })
 
-  it('Should getData called at the component creation', () => {
-    // Given
-    moxios.withMock(function () {
-      let spy = sinon.spy()
-      axios.get('/commandes').then(spy)
-      moxios.wait(() => {
-        const spy = sinon.spy(Cart.methods, 'getData')
-        let request = moxios.requests.mostRecent()
-        request.respondWith({
-          status: 200,
-          response: {
-            commandsProduct: commandsProductResponse2
-          }
-        }).then(
-          response => {
-            storeTest(response.data.commandsProduct)
-
-            // When
-            mount(Cart, {
-              store,
-              localVue
-            })
-
-            // Then
-            chai.assert.strictEqual(spy.calledOnce, true)
-            spy.restore()
-          })
-      })
-    })
-  })
-
   it('Should update the quantity', () => {
     // Given
     moxios.withMock(function () {
@@ -533,7 +502,7 @@ describe('Cart.vue', () => {
 
             // Then
             chai.assert.strictEqual(store.state.cartProducts[0].display, true)
-            chai.assert.strictEqual(store.state.cartProducts[1].display, true)
+            chai.assert.strictEqual(store.state.cartProducts[1].display, false)
           })
       })
     })
@@ -562,8 +531,8 @@ describe('Cart.vue', () => {
             wrapper.findAll('header').at(1).trigger('click')
 
             // Then
-            chai.assert.strictEqual(store.state.cartProducts[0].display, false)
-            chai.assert.strictEqual(store.state.cartProducts[1].display, false)
+            chai.assert.strictEqual(store.state.cartProducts[0].display, true)
+            chai.assert.strictEqual(store.state.cartProducts[1].display, true)
           })
       })
     })
@@ -588,10 +557,10 @@ describe('Cart.vue', () => {
               localVue
             })
 
-            const usernameField = wrapper.find('input#code')
+            const codeField = wrapper.find('input#code')
 
             // When
-            usernameField.setValue('X')
+            codeField.setValue('X')
 
             // Then
             chai.assert.strictEqual(wrapper.vm.$v.code.$error, true)
@@ -618,10 +587,10 @@ describe('Cart.vue', () => {
               store,
               localVue
             })
-            const usernameField = wrapper.find('input#code')
+            const codeField = wrapper.find('input#code')
 
             // When
-            usernameField.setValue('Valid')
+            codeField.setValue('CODE2018')
 
             // Then
             chai.assert.strictEqual(wrapper.vm.$v.code.$error, false)

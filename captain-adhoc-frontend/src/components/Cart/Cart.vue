@@ -147,9 +147,6 @@ export default {
   },
   computed: mapState(['cartProducts']),
   methods: {
-    getData () {
-      this.$store.commit('getData')
-    },
     getTotalPrixProduct (product) {
       return product.quantity * product.prix_produit
     },
