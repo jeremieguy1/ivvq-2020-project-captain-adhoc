@@ -13,10 +13,11 @@
       <div class="section">
         <div class="columns is-multiline">
           <div v-for="product in products" v-bind:key="product.id_produit" class="column is-one-third">
-            <div @click="openDetails(product)"
-             @keydown.enter="openDetails(product)"
-             tabindex="0" class="card">
-              <div class="card-image">
+            <div class="card">
+              <div @click="openDetailsModal(product)"
+                @keydown.enter="openDetailsModal(product)"
+                class="card-image"
+                tabindex="0">
                 <figure class="image is-4by3">
                   <img :src="`${product.image_produit}`" alt="">
                 </figure>
@@ -30,7 +31,7 @@
                     <p class="has-text-right">{{product.prix_produit}}€</p>
                   </div>
                 </div>
-                <div class="fontawesome-icon">
+                <div @click="addToCart(product)" class="fontawesome-icon">
                   <i class="fas fa-cart-plus"></i>
                 </div>
               </div>
@@ -46,6 +47,8 @@
 import { mapState } from 'vuex'
 import axios from 'axios'
 import { configs } from '../http-common'
+import ProductDetailModal from './ProductDetailModal'
+import Cart from './cart'
 
 export default {
   name: 'Products',
@@ -80,32 +83,19 @@ export default {
           this.$store.commit('storeProducts', this.products)
         })
     },
-    openDetails (product) {
+    addToCart (product) {
       var listCommandProduct = JSON.parse(window.localStorage.getItem('commandsProduct'))
-      if (listCommandProduct === null) {
-        listCommandProduct = [
-          {
-            nom_produit: product.nom_produit,
-            quantity: 1
-          }
-        ]
-      } else {
-        var find = false
-        for (var commandProduct in listCommandProduct) {
-          if (listCommandProduct[commandProduct].nom_produit === product.nom_produit) {
-            listCommandProduct[commandProduct].quantity++
-            find = true
-          }
-        }
-        if (!find) {
-          listCommandProduct.push({
-            nom_produit: product.nom_produit,
-            quantity: 1
-          })
-        }
-      }
+      listCommandProduct = Cart.addToCart(listCommandProduct, product)
       window.localStorage.setItem('commandsProduct', JSON.stringify(listCommandProduct))
-      console.log('Open details on : ' + product.nom_produit)
+    },
+    openDetailsModal (product) {
+      this.$buefy.modal.open({
+        props: {'product': product},
+        parent: this,
+        component: ProductDetailModal,
+        hasModalCard: true,
+        trapFocus: true
+      })
     }
   }
 }
