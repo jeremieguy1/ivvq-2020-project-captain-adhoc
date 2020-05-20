@@ -18,8 +18,11 @@
           <p class="card-header-title date">
             <time> {{product.nom_produit}}</time>
           </p>
-          <p class="card-header-title total">
+          <p v-if="product.quantity > 1" class="card-header-title total">
             {{getTotalPrixProduct(product)}}€ ({{product.quantity}} produits)
+          </p>
+          <p v-else class="card-header-title total">
+            {{getTotalPrixProduct(product)}}€ ({{product.quantity}} produit)
           </p>
           <a class="card-header-icon" aria-label="more options">
             <div v-if="!product.display">
@@ -100,8 +103,11 @@
                 </div>
               </div>
               <div>
-                <p class="to_pay total_cart">
+                <p v-if="getTotalProduct(cartProducts) > 1" class="to_pay total_cart">
                   Total à payer : {{getTotalCart(cartProducts)}}€ ({{getTotalProduct(cartProducts)}} produits)
+                </p>
+                <p v-else class="to_pay total_cart">
+                  Total à payer : {{getTotalCart(cartProducts)}}€ ({{getTotalProduct(cartProducts)}} produit)
                 </p>
               </div>
               <div class="to_pay box-shadow has-text-centered">
