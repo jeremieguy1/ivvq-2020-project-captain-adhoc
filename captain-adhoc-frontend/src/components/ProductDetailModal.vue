@@ -54,6 +54,7 @@ export default {
       var listCommandProduct = JSON.parse(window.localStorage.getItem('commandsProduct'))
       listCommandProduct = CartManagment.addToCart(listCommandProduct, product)
       window.localStorage.setItem('commandsProduct', JSON.stringify(listCommandProduct))
+      this.$parent.close()
     },
     cancel () {
       this.$parent.close()
