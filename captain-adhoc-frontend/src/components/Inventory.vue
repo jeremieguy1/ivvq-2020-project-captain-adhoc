@@ -112,6 +112,7 @@ export default {
       this.$store.commit('displayContentInventory', commande)
     },
     getProducts () {
+      console.log(configs)
       axios
         .get('/produits', configs)
         .then(response => {
@@ -122,6 +123,25 @@ export default {
           console.log(this.products)
           this.$store.commit('inventoryProducts', this.products)
         })
+    },
+    updateInventory () {
+      console.log('Go to UPDATE')
+
+      for (var product in this.products) {
+        console.log(this.products[product].quantite_produit)
+        console.log(this.products[product].id_produit)
+        console.log(configs)
+
+        axios
+          .put(`/produits/modifier/quantite/?quantite=${this.products[product].quantite_produit}&id_produit=${this.products[product].id_produit}`, '', configs)
+          .then(response => {
+            console.log(response)
+          })
+          .catch((e) => {
+            this.submitStatus = e.response.status
+            console.log(e)
+          })
+      }
     }
   }
 }
