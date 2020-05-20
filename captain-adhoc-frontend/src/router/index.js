@@ -7,6 +7,7 @@ import SignUp from '@/components/SignUp'
 import Cart from '@/components/Cart/Cart.vue'
 import History from '@/components/History'
 import Logout from '@/components/Logout'
+import Inventory from '@/components/Inventory'
 import Products from '@/components/Products'
 
 Vue.use(Router)
@@ -53,6 +54,11 @@ export default new Router({
       path: '/products',
       name: 'Products',
       component: Products
+    },
+    {
+      path: '/inventory',
+      name: 'Inventory',
+      component: Inventory
     }
   ]
 })
