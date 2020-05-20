@@ -15,7 +15,7 @@ module.exports = function karmaConfig (config) {
     // browsers: ['Firefox'],
     browsers: ['Chrome'],
     // browsers: ['Safari'],
-    frameworks: ['mocha', 'sinon-chai', 'phantomjs-shim', 'moxios'],
+    frameworks: ['mocha', 'sinon-chai', 'phantomjs-shim'],
     reporters: ['spec', 'coverage'],
     files: ['./index.js'],
     preprocessors: {
