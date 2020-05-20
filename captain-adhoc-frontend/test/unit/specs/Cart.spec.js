@@ -253,7 +253,7 @@ describe('Cart.vue', () => {
             chai.assert.strictEqual(spy.calledOnce, true)
 
             // Then
-            chai.assert.include(wrapper.findAll('.to_pay.total_cart').at(0).text(), '11€')
+            chai.assert.include(wrapper.findAll('.to-pay.total-cart').at(0).text(), '11€')
             chai.assert.strictEqual(spy.calledOnce, true)
             spy.restore()
             done()
@@ -317,7 +317,7 @@ describe('Cart.vue', () => {
             })
 
             // Then
-            chai.assert.include(wrapper.findAll('.card-header-title.total').at(0).text(), '1 produits')
+            chai.assert.include(wrapper.findAll('.card-header-title.total').at(0).text(), '1 produit')
             chai.assert.include(wrapper.findAll('.card-header-title.total').at(1).text(), '2 produits')
 
             done()
@@ -348,12 +348,11 @@ describe('Cart.vue', () => {
               store,
               localVue
             })
-            chai.assert.strictEqual(spy.calledOnce, true)
 
             // Then
-            console.log(wrapper.findAll('.to_pay.total_cart').at(0).text())
-            chai.assert.include(wrapper.findAll('.to_pay.total_cart').at(0).text(), '3 produits')
-            chai.assert.strictEqual(spy.calledOnce, true)
+            chai.assert.include(wrapper.findAll('.to-pay.total-cart').at(0).text(), '3 produits')
+            // twice because getTotalProductis called during if
+            chai.assert.strictEqual(spy.calledTwice, true)
             spy.restore()
 
             done()
@@ -453,7 +452,7 @@ describe('Cart.vue', () => {
               localVue
             })
 
-            const card = wrapper.find('.bto_pay.box-shadow')
+            const card = wrapper.find('.to-pay.box-shadow')
 
             // When
             card.trigger('click')

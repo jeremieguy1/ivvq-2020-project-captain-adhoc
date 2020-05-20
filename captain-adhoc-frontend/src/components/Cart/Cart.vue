@@ -15,8 +15,8 @@
     <div class="section showProducts">
       <div v-for="product in cartProducts" v-bind:key="product.id_produit" class="card animated fadeIn">
         <header v-on:click="displayContentCart(product)" class="card-header">
-          <p class="card-header-title date">
-            <time> {{product.nom_produit}}</time>
+          <p class="card-header-title">
+            {{product.nom_produit}}
           </p>
           <p v-if="product.quantity > 1" class="card-header-title total">
             {{getTotalPrixProduct(product)}}€ ({{product.quantity}} produits)
@@ -103,14 +103,14 @@
                 </div>
               </div>
               <div>
-                <p v-if="getTotalProduct(cartProducts) > 1" class="to_pay total_cart">
+                <p v-if="getTotalProduct(cartProducts) > 1" class="to-pay total-cart">
                   Total à payer : {{getTotalCart(cartProducts)}}€ ({{getTotalProduct(cartProducts)}} produits)
                 </p>
-                <p v-else class="to_pay total_cart">
+                <p v-else class="to-pay total-cart">
                   Total à payer : {{getTotalCart(cartProducts)}}€ ({{getTotalProduct(cartProducts)}} produit)
                 </p>
               </div>
-              <div class="to_pay box-shadow has-text-centered">
+              <div class="to-pay box-shadow has-text-centered">
                 <button v-on:click="payCart()"  class="button has-text-centered">Payez votre panier</button>
               </div>
             </div>
@@ -260,7 +260,7 @@ export default {
     padding-right: 0.325rem;
   }
 
-  .to_pay {
+  .to-pay {
     font-weight: bold;
     padding-top: 1rem;
   }
