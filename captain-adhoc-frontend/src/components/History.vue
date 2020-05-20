@@ -14,7 +14,7 @@
             <time> {{commande.date_commande}}</time>
           </p>
           <p class="card-header-title total">
-            {{getTotalPrix(commande)}}$
+            {{getTotalPrix(commande)}}€
           </p>
           <a class="card-header-icon" aria-label="more options">
             <div v-if="!commande.display">
@@ -148,7 +148,7 @@ export default {
     align-items: center;
   }
 
-  div.card.animated {
+  .card-header {
     cursor: pointer;
   }
 </style>

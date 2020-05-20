@@ -9,13 +9,16 @@ import store from './store'
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 
-import '../node_modules/bulma/css/bulma.css'
 import '../node_modules/animate.css/animate.css'
 
 import 'vuelidate/dist/vuelidate.min.js'
+
+import Buefy from 'buefy'
+import 'buefy/dist/buefy.css'
 Vue.config.productionTip = false
 
 Vue.use(Vuelidate)
+Vue.use(Buefy)
 
 /* eslint-disable no-new */
 new Vue({

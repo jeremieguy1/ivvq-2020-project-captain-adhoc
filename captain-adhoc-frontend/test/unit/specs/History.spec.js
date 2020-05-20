@@ -144,7 +144,7 @@ describe('History.vue', () => {
                     total = 15 * 1 = 15
              */
             // Then
-            chai.assert.strictEqual(wrapper.findAll('.card-header-title.total').at(0).text(), '15$')
+            chai.assert.strictEqual(wrapper.findAll('.card-header-title.total').at(0).text(), '15€')
 
             // When
             /*
@@ -158,7 +158,7 @@ describe('History.vue', () => {
                     total = total1 + total2 = 15 + 32 = 47
              */
             // Then
-            chai.assert.strictEqual(wrapper.findAll('.card-header-title.total').at(1).text(), '47$')
+            chai.assert.strictEqual(wrapper.findAll('.card-header-title.total').at(1).text(), '47€')
 
             // When
             /*
@@ -168,7 +168,7 @@ describe('History.vue', () => {
                    total = 16 * 2 = 32
             */
             // Then
-            chai.assert.strictEqual(wrapper.findAll('.card-header-title.total').at(2).text(), '32$')
+            chai.assert.strictEqual(wrapper.findAll('.card-header-title.total').at(2).text(), '32€')
           })
       })
     })
