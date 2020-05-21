@@ -4,6 +4,7 @@ import captainadhoc.captainadhocbackend.domain.Utilisateur;
 import captainadhoc.captainadhocbackend.exceptions.UtilisateurExisteException;
 import captainadhoc.captainadhocbackend.repositories.UtilisateurRepository;
 import captainadhoc.captainadhocbackend.services.interfaces.IUtilisateurService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,7 @@ import static java.util.Collections.emptyList;
 public class UtilisateurService implements IUtilisateurService, UserDetailsService {
 
     @Autowired
+    @Getter
     private UtilisateurRepository utilisateurRepository;
 
     @Autowired
@@ -31,11 +33,11 @@ public class UtilisateurService implements IUtilisateurService, UserDetailsServi
         return utilisateurRepository.save(utilisateur);
     }
 
-    private Utilisateur findById(Long id){
+    public Utilisateur findById(Long id){
         return utilisateurRepository.findById(id).orElse(null);
     }
 
-    private Utilisateur findByNomUtilisateur(String nomUtilisateur){
+    public Utilisateur findByNomUtilisateur(String nomUtilisateur){
         return utilisateurRepository.findByNomUtilisateur(nomUtilisateur);
     }
 
