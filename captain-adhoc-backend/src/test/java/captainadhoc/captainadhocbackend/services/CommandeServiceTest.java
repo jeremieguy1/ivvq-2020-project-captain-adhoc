@@ -1,7 +1,7 @@
 package captainadhoc.captainadhocbackend.services;
 
-import captainadhoc.captainadhocbackend.beans.Achat;
-import captainadhoc.captainadhocbackend.beans.ProduitsAchat;
+import captainadhoc.captainadhocbackend.dto.Achat;
+import captainadhoc.captainadhocbackend.dto.ProduitsAchat;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
 import captainadhoc.captainadhocbackend.domain.Produit;
@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +23,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class CommandeServiceTest {
 
     @Mock

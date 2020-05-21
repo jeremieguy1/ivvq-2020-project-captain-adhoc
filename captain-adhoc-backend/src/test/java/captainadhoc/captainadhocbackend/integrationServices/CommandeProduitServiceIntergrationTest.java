@@ -1,6 +1,6 @@
 package captainadhoc.captainadhocbackend.integrationServices;
 
-import captainadhoc.captainadhocbackend.beans.ProduitsAchat;
+import captainadhoc.captainadhocbackend.dto.ProduitsAchat;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
 import captainadhoc.captainadhocbackend.domain.Produit;
@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
 @SpringBootTest
+@ActiveProfiles("test")
 public class CommandeProduitServiceIntergrationTest {
 
     @Autowired
@@ -43,7 +45,7 @@ public class CommandeProduitServiceIntergrationTest {
                 15,
                 "produit1",
                 "description1",
-                "ps5.png",
+                "https://aaa",
                 300);
 
         commande = new Commande(new Date(),"code");

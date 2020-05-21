@@ -1,6 +1,6 @@
 package captainadhoc.captainadhocbackend.services.implementations;
 
-import captainadhoc.captainadhocbackend.beans.ProduitsAchat;
+import captainadhoc.captainadhocbackend.dto.ProduitsAchat;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
 import captainadhoc.captainadhocbackend.domain.Produit;

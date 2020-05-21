@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Transactional
 @SpringBootTest
+@ActiveProfiles("test")
 public class ProduitServiceIntegrationTest {
 
     @Autowired
@@ -26,7 +28,7 @@ public class ProduitServiceIntegrationTest {
 
     @BeforeEach
     public void setup() {
-        produit = new Produit(15, "produit1", "description1", "image1", 1);
+        produit = new Produit(15, "produit1", "description1", "https://aaaa", 1);
     }
 
     @Test

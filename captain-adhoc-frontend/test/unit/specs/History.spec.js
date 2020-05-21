@@ -305,6 +305,7 @@ describe('History.vue', () => {
             // Then
             chai.assert.strictEqual(store.state.commandes[1].display, false)
             chai.assert.strictEqual(store.state.commandes[2].display, true)
+            done()
           })
       })
     })
@@ -336,6 +337,7 @@ describe('History.vue', () => {
             // Then
             chai.assert.strictEqual(store.state.commandes[1].display, true)
             chai.assert.strictEqual(store.state.commandes[2].display, true)
+            done()
           })
       })
     })

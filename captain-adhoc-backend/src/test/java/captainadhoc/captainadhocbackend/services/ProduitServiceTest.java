@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import captainadhoc.captainadhocbackend.repositories.ProduitRepository;
+import org.springframework.test.context.ActiveProfiles;
 
 
 import java.util.Optional;
@@ -15,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class ProduitServiceTest {
 
     @Mock
