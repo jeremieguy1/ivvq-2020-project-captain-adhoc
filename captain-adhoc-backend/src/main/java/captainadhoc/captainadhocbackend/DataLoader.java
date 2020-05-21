@@ -9,6 +9,7 @@ import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
 import captainadhoc.captainadhocbackend.services.interfaces.IMarchandService;
 import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -22,6 +23,7 @@ import java.util.List;
 @Component
 @Transactional
 @AllArgsConstructor
+@NoArgsConstructor
 public class DataLoader implements ApplicationRunner {
 
     @Autowired
@@ -36,7 +38,7 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     private ICommandeProduitService commandeProduitService;
 
-    public void initProduit(){
+    public void initProduit() throws InterruptedException {
 
         produitService.deleteAllProduit();
         Marchand marchand1 = new Marchand("marchand1");
@@ -93,6 +95,7 @@ public class DataLoader implements ApplicationRunner {
         produitService.saveProduit(produit3);
         produitService.saveProduit(produit4);
         produitService.saveProduit(produit5);
+
     }
 
     @Override
