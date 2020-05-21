@@ -17,7 +17,7 @@
         <header v-on:click="displayContentInventory(product)" class="card-header">
           <div class="columns is-fullwidth" style="width: 100%; position: relative">
             <div class="column">
-              <p class="card-header-title">
+              <p class="card-header-title nom-produit">
                 {{product.nom_produit}}
               </p>
             </div>
@@ -32,8 +32,8 @@
                 Rupture stock : Aucun produit disponible
               </p>
             </div>
-            <div class="column ">
-              <p class="card-header-title total">
+            <div class="column prix-produit">
+              <p class="card-header-title prix-produit">
                 {{product.prix_produit}}€ unité
               </p>
             </div>
@@ -112,7 +112,6 @@ export default {
       this.$store.commit('displayContentInventory', commande)
     },
     getProducts () {
-      console.log(configs)
       axios
         .get('/produits', configs)
         .then(response => {
@@ -120,25 +119,17 @@ export default {
             response.data[product].display = false
           }
           this.products = response.data
-          console.log(this.products)
           this.$store.commit('inventoryProducts', this.products)
         })
     },
     updateInventory () {
-      console.log('Go to UPDATE')
-
       for (var product in this.products) {
-        console.log(this.products[product].quantite_produit)
-        console.log(this.products[product].id_produit)
-        console.log(configs)
-
         axios
           .put(`/produits/modifier/quantite/?quantite=${this.products[product].quantite_produit}&id_produit=${this.products[product].id_produit}`, '', configs)
           .then(response => {
             console.log(response)
           })
           .catch((e) => {
-            this.submitStatus = e.response.status
             console.log(e)
           })
       }

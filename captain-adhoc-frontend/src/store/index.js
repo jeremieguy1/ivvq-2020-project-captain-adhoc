@@ -8,7 +8,7 @@ Vue.use(Vuex)
 const state = {
   commandes: [],
   cartProducts: [],
-  products: [],
+  produits: [],
   inventoryProducts: []
 }
 
@@ -22,7 +22,7 @@ export const mutations = {
       })
   },
   storeProducts (state, productsToStore) {
-    state.products = productsToStore
+    state.produits = productsToStore
   },
   inventoryProducts (state, productsToManage) {
     state.inventoryProducts = productsToManage

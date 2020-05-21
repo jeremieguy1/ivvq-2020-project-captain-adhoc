@@ -292,11 +292,10 @@ describe('History.vue', () => {
             })
 
             // When
-            wrapper.findAll('header').at(0).trigger('click')
+            wrapper.findAll('header').at(1).trigger('click')
 
             // Then
-            chai.assert.strictEqual(store.state.commandes[0].display, true)
-            chai.assert.strictEqual(store.state.commandes[1].display, true)
+            chai.assert.strictEqual(store.state.commandes[1].display, false)
             chai.assert.strictEqual(store.state.commandes[2].display, true)
           })
       })
@@ -326,8 +325,7 @@ describe('History.vue', () => {
             wrapper.findAll('header').at(1).trigger('click')
 
             // Then
-            chai.assert.strictEqual(store.state.commandes[0].display, false)
-            chai.assert.strictEqual(store.state.commandes[1].display, false)
+            chai.assert.strictEqual(store.state.commandes[1].display, true)
             chai.assert.strictEqual(store.state.commandes[2].display, true)
           })
       })
@@ -389,32 +387,6 @@ describe('History.vue', () => {
 
             // Then
             chai.assert.strictEqual(wrapper.findAll('.noCodeToDisplay').at(0).text(), 'Aucun code utilisé')
-          })
-      })
-    })
-  })
-
-  it('Should getData called at the component creation', () => {
-    // Given
-    moxios.withMock(function () {
-      moxios.wait(() => {
-        const spy = sinon.spy(History.methods, 'getData')
-        axios.get('/commandes').then()
-        let request = moxios.requests.mostRecent()
-        request.respondWith({
-          status: 200,
-          response: {
-            commandes: respond
-          }
-        }).then(
-          response => {
-            submit(response.data.commandes)
-
-            // When
-            mount(History, {store, localVue})
-
-            // Then
-            chai.assert.strictEqual(spy.calledOnce, true)
           })
       })
     })
