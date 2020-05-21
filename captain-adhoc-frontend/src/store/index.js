@@ -8,7 +8,8 @@ Vue.use(Vuex)
 const state = {
   commandes: [],
   products: [],
-  isLoggedStore: false
+  isLoggedStore: false,
+  isMercant: false
 }
 
 export const mutations = {
@@ -36,6 +37,9 @@ export const mutations = {
   /* isLoggedStore managment */
   setActiveUser (state, isLoggedStore) {
     state.isLoggedStore = isLoggedStore
+  },
+  setMercant (state) {
+    state.isMercant = true
   }
 }
 
@@ -45,6 +49,9 @@ export const getters = {
   },
   isLoggedStore: state => {
     return state.isLoggedStore
+  },
+  isMercant: state => {
+    return state.isMercant
   }
 }
 export default new Vuex.Store({

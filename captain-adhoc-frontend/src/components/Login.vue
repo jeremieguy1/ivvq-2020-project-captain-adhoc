@@ -126,16 +126,12 @@ export default {
           .post('/login', body, configs)
           .then(response => {
             localStorage.setItem('Authorization', response.headers['authorization'])
-            this.$router.push('Products')
+            this.$router.push('products')
           })
           .catch((e) => {
             switch (e.response.status) {
               case (403): {
                 this.submitStatus = 'Nom d\'utilisateur ou mot de passe incorrect'
-                break
-              }
-              case (409): {
-                this.submitStatus = `Le nom d'utilisateur ${this.username} est déjà utilisé`
                 break
               }
               default: {

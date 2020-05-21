@@ -97,7 +97,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'Navbar',
   components: { LogoutModal },
-  computed: mapState[('isLoggedStore')],
+  computed: mapState[('isLoggedStore', 'isMercant')],
   data () {
     return {
       isLogged: ''
