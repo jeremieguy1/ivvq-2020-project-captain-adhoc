@@ -348,7 +348,6 @@ describe('Cart.vue', () => {
               store,
               localVue
             })
-            console.log(wrapper.findAll('.to-pay.total-cart'))
 
             // Then
             chai.assert.include(wrapper.findAll('.to-pay.total-cart').at(0).text(), '3 produits')

@@ -7,6 +7,8 @@ import axios from 'axios'
 import sinon from 'sinon'
 import chai from 'chai'
 import Vuelidate from 'vuelidate'
+var MockAdapter = require('axios-mock-adapter')
+const mock = new MockAdapter(axios)
 
 const localVue = createLocalVue()
 localVue.use(Vuelidate)
@@ -74,10 +76,12 @@ const listProductsResponse = [
 describe('Inventory.vue', () => {
   beforeEach(() => {
     moxios.install(axios)
+    mock.restore()
   })
 
   afterEach(() => {
     moxios.uninstall(axios)
+    mock.reset()
   })
 
   it('Should call getProducts at the component creation', (done) => {
@@ -141,7 +145,6 @@ describe('Inventory.vue', () => {
             // Then
             chai.assert.isNotEmpty(store.state.inventoryProducts)
             chai.assert.strictEqual(spy.calledOnce, true)
-
             spy.restore()
             done()
           })
@@ -150,6 +153,7 @@ describe('Inventory.vue', () => {
   })
 
   it('Should display products info', (done) => {
+    // Given
     moxios.withMock(function () {
       let spy = sinon.spy()
       axios.get('/produits').then(spy)
@@ -231,7 +235,7 @@ describe('Inventory.vue', () => {
     })
   })
 
-  it('Should change quantity', (done) => {
+  it('Should display image', (done) => {
     // Given
     moxios.withMock(function () {
       let spy = sinon.spy()
@@ -266,14 +270,67 @@ describe('Inventory.vue', () => {
               localVue
             })
 
-            // When
+            // Then
             chai.assert.equal(wrapper.findAll('img').at(0).attributes().src, 'https://urlz.fr/cHLz')
             done()
           })
       })
     })
   })
+
+  it('Should update inventory by click', (done) => {
+    // Given
+    moxios.withMock(function () {
+      let spy = sinon.spy()
+      axios.get('/produits').then(spy)
+      moxios.wait(() => {
+        const spy = sinon.spy(Inventory.methods, 'updateInventory')
+
+        let request = moxios.requests.mostRecent()
+        request.respondWith({
+          status: 200,
+          response: {
+            listProducts: listProductsResponse
+          }
+        }).then(
+          response => {
+            storeTest(response.data.listProducts)
+
+            // When
+            const wrapper = mount(Inventory, {
+              store,
+              localVue
+            })
+
+            wrapper.find('.button.has-text-centered').trigger('click')
+
+            // Then
+            chai.assert.strictEqual(spy.calledOnce, true)
+            spy.restore()
+            done()
+          })
+      })
+    })
+  })
+
+  it('Should update inventory', () => {
+    // Given
+    const spy = sinon.spy(Inventory.methods, 'updateInventory')
+    storeTest(listProductsResponse)
+
+    // When
+    const wrapper = mount(Inventory, {
+      store,
+      localVue
+    })
+    wrapper.vm.updateInventory()
+
+    // Then
+    chai.assert.strictEqual(spy.calledOnce, true)
+    spy.restore()
+  })
 })
+
 function storeTest (InventoryProducts) {
   store = new Vuex.Store({
     mutations,

@@ -111,7 +111,7 @@
                 </p>
               </div>
               <div class="to-pay box-shadow has-text-centered">
-                <button v-on:click="payCart()"  class="button has-text-centered">Payez votre panier</button>
+                <button v-on:click="payCart()"  class="button has-text-centered to-pay">Payez votre panier</button>
               </div>
             </div>
           </div>
@@ -215,7 +215,6 @@ export default {
               }
             }
           }
-          console.log(this.products)
           window.localStorage.setItem('commandsProduct', JSON.stringify(this.products))
           this.$store.commit('cartProducts', this.products)
         })

@@ -76,7 +76,7 @@ import {mapState} from 'vuex'
 
 export default {
   name: 'History',
-  created () {
+  mounted () {
     this.getData()
   },
   data: () => ({
