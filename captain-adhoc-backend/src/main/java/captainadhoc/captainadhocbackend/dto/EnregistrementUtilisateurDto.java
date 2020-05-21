@@ -2,14 +2,12 @@ package captainadhoc.captainadhocbackend.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
-@NoArgsConstructor
-public class UtilisateurDto {
+@AllArgsConstructor
+public class EnregistrementUtilisateurDto {
+    private String prenom;
+    private String nom;
     private String nomUtilisateur;
-    private Boolean isAdmin;
+    private String motDePasse;
 }
-
