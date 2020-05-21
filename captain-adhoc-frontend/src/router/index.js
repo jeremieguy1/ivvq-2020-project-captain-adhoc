@@ -4,8 +4,9 @@ import Router from 'vue-router'
 import Home from '@/components/Home'
 import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
-import Cart from '@/components/Cart'
+import Cart from '@/components/Cart/Cart.vue'
 import History from '@/components/History'
+import Inventory from '@/components/Inventory'
 import Products from '@/components/Products'
 
 Vue.use(Router)
@@ -47,6 +48,11 @@ const router = new Router({
       path: '/products',
       name: 'Products',
       component: Products
+    },
+    {
+      path: '/inventory',
+      name: 'Inventory',
+      component: Inventory
     }
   ]
 })

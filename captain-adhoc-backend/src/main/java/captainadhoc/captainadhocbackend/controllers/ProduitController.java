@@ -29,7 +29,4 @@ public class ProduitController {
         produitService.modifierQuantite(id_produit, quantite_produit);
     }
 
-    @PutMapping("/achat")
-    public void commander(@RequestBody Achat achat) {}
-
 }

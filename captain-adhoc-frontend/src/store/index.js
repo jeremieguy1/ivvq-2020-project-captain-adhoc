@@ -10,7 +10,10 @@ const state = {
   products: [],
   userStore: '',
   isLoggedStore: false,
-  isMercant: false
+  isMercant: false,
+  cartProducts: [],
+  produits: [],
+  inventoryProducts: []
 }
 
 export const mutations = {
@@ -23,10 +26,22 @@ export const mutations = {
         state.commandes = response.data
       })
   },
-
-  displayContent (state, commande) {
+  inventoryProducts (state, productsToManage) {
+    state.inventoryProducts = productsToManage
+  },
+  cartProducts (state, productsToCart) {
+    state.cartProducts = productsToCart
+  },
+  displayContentCart (state, product) {
+    state.cartProducts.forEach(prod => {
+      if (prod.id_produit === product.id_produit) {
+        prod.display = !prod.display
+      }
+    })
+  },
+  displayContent (state, command) {
     state.commandes.forEach(com => {
-      if (com.id_commande === commande.id_commande) {
+      if (com.id_commande === command.id_commande) {
         com.display = !com.display
       }
     })
@@ -44,6 +59,21 @@ export const mutations = {
   },
   setMercant (state) {
     state.isMercant = true
+  },
+  displayContentInventory (state, product) {
+    state.inventoryProducts.forEach(prod => {
+      if (prod.id_produit === product.id_produit) {
+        prod.display = !prod.display
+      }
+    })
+  },
+  updateQuantity (state, newQuantityProduct) {
+    state.cartProducts.forEach(com => {
+      if (com.nom_produit === newQuantityProduct.nom_produit) {
+        com.quantity = newQuantityProduct.quantity
+      }
+    })
+    window.localStorage.setItem('commandsProduct', JSON.stringify(state.cartProducts))
   }
 }
 

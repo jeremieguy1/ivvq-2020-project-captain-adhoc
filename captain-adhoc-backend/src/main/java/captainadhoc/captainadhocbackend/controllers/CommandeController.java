@@ -1,11 +1,10 @@
 package captainadhoc.captainadhocbackend.controllers;
 
+import captainadhoc.captainadhocbackend.beans.Achat;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -19,5 +18,10 @@ public class CommandeController {
     @GetMapping
     public ArrayList<Commande> getCommandes() {
         return commandeService.findAllCommandes();
+    }
+
+    @PostMapping("/achat")
+    public void commander(@RequestBody Achat achat) {
+        commandeService.newCommande(achat);
     }
 }

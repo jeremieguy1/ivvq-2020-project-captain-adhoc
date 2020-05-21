@@ -1,12 +1,13 @@
 package captainadhoc.captainadhocbackend.integrationServices;
 
 import captainadhoc.captainadhocbackend.domain.Produit;
-import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
+import captainadhoc.captainadhocbackend.services.implementations.ProduitService;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
@@ -14,11 +15,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Transactional
 @SpringBootTest
 public class ProduitServiceIntegrationTest {
 
     @Autowired
-    private IProduitService produitService;
+    private ProduitService produitService;
 
     private Produit produit;
 
@@ -41,6 +43,7 @@ public class ProduitServiceIntegrationTest {
 
         // then: le produit a bien été ajouté en base
         assertEquals(6, produitService.findAllProduits().size());
+
     }
 
     @Test
@@ -52,7 +55,7 @@ public class ProduitServiceIntegrationTest {
         ArrayList<Produit> produits = produitService.findAllProduits();
 
         // then: on a récupérer l'ensemble des produits
-        Assert.assertEquals(6, produits.size());
+        Assert.assertEquals(5, produits.size());
     }
 
     @Test
@@ -67,5 +70,19 @@ public class ProduitServiceIntegrationTest {
 
         //then: la quantite du produit a été modifiée en base
         assertEquals(20, produitService.findAllProduits().get(0).getQuantite_produit());
+    }
+
+    @Test
+    public void testDecrementQuantity() {
+
+        // when: la méthode decrementQuantity est invoquée
+        Produit produit = produitService.decrementQuantity(2L, 5);
+
+        //then: la quantite du produit a été modifiée en base
+        assertEquals(10, produitService.getProduitRepository().findById(2L).get().getQuantite_produit());
+
+        //then: le produit modifié a été retourné
+        assertEquals(2L, produit.getId_produit());
+        assertEquals(10, produit.getQuantite_produit());
     }
 }

@@ -12,18 +12,17 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static java.util.Collections.emptyList;
 
 @Component
 @Transactional
-@Profile("dev")
 @AllArgsConstructor
 public class DataLoader implements ApplicationRunner {
 
@@ -44,7 +43,6 @@ public class DataLoader implements ApplicationRunner {
         produitService.deleteAllProduit();
         Utilisateur admin = new Utilisateur((long) 1, "Kevin", "Marchand", "marchand1", "mdp", true, emptyList());
 
-        List<Produit> produitList = new ArrayList<>();
         Produit produit2 = new Produit(16, "CyberboX",
                 "Non comptant d'avoir les meilleures voitures au MONDE, Tesla propose la meilleure console de jeu grand public !",
                 "https://cdn.dribbble.com/users/332589/screenshots/9955348/image.png", 100000);
@@ -59,11 +57,6 @@ public class DataLoader implements ApplicationRunner {
         Produit produit5 = new Produit(5, "Xbox Serie X",
                 "C'est partiiiii pour la console pc !",
                 "https://compass-ssl.xbox.com/assets/85/8b/858b94d4-0ca6-4e74-ac9f-38565c49f2df.jpg?n=Xbox-Series-X_Image-0_1083x1400_02.jpg", 200);
-        produitList.add(produit1);
-        produitList.add(produit2);
-        produitList.add(produit3);
-        produitList.add(produit4);
-        produitList.add(produit5);
 
         utilisateurService.saveUtilisateur(admin);
 
@@ -81,9 +74,9 @@ public class DataLoader implements ApplicationRunner {
     }
 
     public void initCommandes () {
-        Commande commande1 = new Commande("20/20/2020","code");
-        Commande commande2 = new Commande("20/20/2020","code");
-        Commande commande3 = new Commande("20/20/2020","");
+        Commande commande1 = new Commande(new Date(),"code");
+        Commande commande2 = new Commande(new Date(),"code");
+        Commande commande3 = new Commande(new Date(),"");
 
         CommandeProduit commandeProduit = new CommandeProduit();
         CommandeProduit commandeProduit2 = new CommandeProduit();
@@ -98,9 +91,9 @@ public class DataLoader implements ApplicationRunner {
         commandeProduit4.setProduit(produitArrayList.get(1));
 
         commandeProduit.setQuantite_commande_produit(1);
-        commandeProduit.setQuantite_commande_produit(2);
-        commandeProduit.setQuantite_commande_produit(3);
-        commandeProduit.setQuantite_commande_produit(4);
+        commandeProduit2.setQuantite_commande_produit(2);
+        commandeProduit3.setQuantite_commande_produit(3);
+        commandeProduit4.setQuantite_commande_produit(4);
 
         commandeProduit.setCommande(commande1);
         commandeProduit2.setCommande(commande2);

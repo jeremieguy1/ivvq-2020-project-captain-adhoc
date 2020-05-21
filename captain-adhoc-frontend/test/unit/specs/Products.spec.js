@@ -7,11 +7,14 @@ import moxios from 'moxios'
 import axios from 'axios'
 import sinon from 'sinon'
 import chai from 'chai'
+import Buefy from 'buefy'
 
 Vue.use(Vuex)
+Vue.use(Buefy)
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(Buefy)
 let store
 const productsResponse = [
   {
@@ -132,33 +135,22 @@ describe('Products.vue', () => {
     chai.assert.strictEqual(wrapper.vm.shrinkHeader, true)
   })
 
-  it('Should deplay the product in detail', () => {
+  it('Should add the product to cart', () => {
     // Given
-    const spy = sinon.spy(Products.methods, 'openDetails')
-    const wrapper = mount(Products, {
-      data () {
-        return {
-          products: productsResponse
-        }
-      },
-      store,
-      localVue
-    })
-    const card = wrapper.find('.card')
-
-    // When
-    card.trigger('click')
-
-    // Then
+    const spy = sinon.spy(Products.methods, 'addToCart')
+    const wrapper = mount(Products)
+    wrapper.vm.addToCart(product)
     chai.assert.strictEqual(spy.calledOnce, true)
     spy.restore()
   })
 
-  it('Should deplay the product in detail', () => {
+  it('Should display the product in detail method', () => {
     // Given
-    const spy = sinon.spy(Products.methods, 'openDetails')
-    const wrapper = mount(Products)
-    wrapper.vm.openDetails(product)
+    const wrapper = mount(Products, {
+      localVue
+    })
+    const spy = sinon.spy(wrapper.vm, 'openDetailsModal')
+    wrapper.vm.openDetailsModal(product)
     chai.assert.strictEqual(spy.calledOnce, true)
   })
 })

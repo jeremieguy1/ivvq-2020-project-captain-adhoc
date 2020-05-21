@@ -145,7 +145,7 @@ describe('History.vue', () => {
                     total = 15 * 1 = 15
              */
             // Then
-            chai.assert.strictEqual(wrapper.findAll('.card-header-title.total').at(0).text(), '15$')
+            chai.assert.strictEqual(wrapper.findAll('.card-header-title.total').at(0).text(), '15€')
 
             // When
             /*
@@ -159,7 +159,7 @@ describe('History.vue', () => {
                     total = total1 + total2 = 15 + 32 = 47
              */
             // Then
-            chai.assert.strictEqual(wrapper.findAll('.card-header-title.total').at(1).text(), '47$')
+            chai.assert.strictEqual(wrapper.findAll('.card-header-title.total').at(1).text(), '47€')
 
             // When
             /*
@@ -169,7 +169,7 @@ describe('History.vue', () => {
                    total = 16 * 2 = 32
             */
             // Then
-            chai.assert.strictEqual(wrapper.findAll('.card-header-title.total').at(2).text(), '32$')
+            chai.assert.strictEqual(wrapper.findAll('.card-header-title.total').at(2).text(), '32€')
             done()
           })
       })
@@ -294,19 +294,17 @@ describe('History.vue', () => {
         }).then(
           response => {
             submit(response.data.commandes)
-            /* const wrapper = mount(History, {
+            const wrapper = mount(History, {
               store,
               localVue
-            }) */
+            })
 
             // When
-            // wrapper.findAll('header').at(0).trigger('click')
+            wrapper.findAll('header').at(1).trigger('click')
 
             // Then
-            // chai.assert.strictEqual(store.state.commandes[0].display, true)
-            // chai.assert.strictEqual(store.state.commandes[1].display, true)
-            // chai.assert.strictEqual(store.state.commandes[2].display, true)
-            done()
+            chai.assert.strictEqual(store.state.commandes[1].display, false)
+            chai.assert.strictEqual(store.state.commandes[2].display, true)
           })
       })
     })
@@ -336,10 +334,8 @@ describe('History.vue', () => {
             wrapper.findAll('header').at(1).trigger('click')
 
             // Then
-            // chai.assert.strictEqual(store.state.commandes[0].display, false)
-            // chai.assert.strictEqual(store.state.commandes[1].display, false)
-            // chai.assert.strictEqual(store.state.commandes[2].display, true)
-            done()
+            chai.assert.strictEqual(store.state.commandes[1].display, true)
+            chai.assert.strictEqual(store.state.commandes[2].display, true)
           })
       })
     })
