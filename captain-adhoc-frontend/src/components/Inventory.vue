@@ -17,7 +17,7 @@
         <header v-on:click="displayContentInventory(product)" class="card-header">
           <div class="columns is-fullwidth" style="width: 100%; position: relative">
             <div class="column">
-              <p class="card-header-title">
+              <p class="card-header-title nom-produit">
                 {{product.nom_produit}}
               </p>
             </div>
@@ -32,8 +32,8 @@
                 Rupture stock : Aucun produit disponible
               </p>
             </div>
-            <div class="column ">
-              <p class="card-header-title total">
+            <div class="column prix-produit">
+              <p class="card-header-title prix-produit">
                 {{product.prix_produit}}€ unité
               </p>
             </div>

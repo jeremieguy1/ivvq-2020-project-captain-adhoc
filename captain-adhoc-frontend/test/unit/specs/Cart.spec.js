@@ -63,7 +63,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/commandes').then(spy)
+      axios.get('/produits').then(spy)
       moxios.wait(() => {
         const spy = sinon.spy(Cart.methods, 'getProductsCart')
 
@@ -97,7 +97,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/commandes').then(spy)
+      axios.get('/produits').then(spy)
       moxios.wait(() => {
         const spy = sinon.spy(Cart.methods, 'displayContentCart')
 
@@ -130,7 +130,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/commandes').then(spy)
+      axios.get('/produits').then(spy)
       moxios.wait(() => {
         const spy = sinon.spy(Cart.methods, 'displayContentCart')
 
@@ -164,7 +164,7 @@ describe('Cart.vue', () => {
   it('Should calculate good total for a product ', (done) => {
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/commandes').then(spy)
+      axios.get('/produits').then(spy)
       moxios.wait(() => {
         const spy = sinon.spy(Cart.methods, 'getTotalPrixProduct')
         let request = moxios.requests.mostRecent()
@@ -232,7 +232,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/commandes').then(spy)
+      axios.get('/produits').then(spy)
       moxios.wait(() => {
         const spy = sinon.spy(Cart.methods, 'getTotalCart')
         let request = moxios.requests.mostRecent()
@@ -298,7 +298,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/commandes').then(spy)
+      axios.get('/produits').then(spy)
       moxios.wait(() => {
         let request = moxios.requests.mostRecent()
         request.respondWith({
@@ -330,7 +330,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/commandes').then(spy)
+      axios.get('/produits').then(spy)
       moxios.wait(() => {
         const spy = sinon.spy(Cart.methods, 'getTotalProduct')
         let request = moxios.requests.mostRecent()
@@ -348,6 +348,7 @@ describe('Cart.vue', () => {
               store,
               localVue
             })
+            console.log(wrapper.findAll('.to-pay.total-cart'))
 
             // Then
             chai.assert.include(wrapper.findAll('.to-pay.total-cart').at(0).text(), '3 produits')
@@ -397,7 +398,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/commandes').then(spy)
+      axios.get('/produits').then(spy)
       moxios.wait(() => {
         const spy = sinon.spy(Cart.methods, 'updateQuantity')
         let request = moxios.requests.mostRecent()
@@ -433,7 +434,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/commandes').then(spy)
+      axios.get('/produits').then(spy)
       moxios.wait(() => {
         const spy = sinon.spy(Cart.methods, 'payCart')
         let request = moxios.requests.mostRecent()
@@ -481,7 +482,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       moxios.wait(() => {
-        axios.get('/commandes').then()
+        axios.get('/produits').then()
         let request = moxios.requests.mostRecent()
         request.respondWith({
           status: 200,
@@ -511,7 +512,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       moxios.wait(() => {
-        axios.get('/commandes').then()
+        axios.get('/produits').then()
         let request = moxios.requests.mostRecent()
         request.respondWith({
           status: 200,
@@ -541,7 +542,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       moxios.wait(() => {
-        axios.get('/commandes').then()
+        axios.get('/produits').then()
         let request = moxios.requests.mostRecent()
         request.respondWith({
           status: 200,
@@ -572,7 +573,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       moxios.wait(() => {
-        axios.get('/commandes').then()
+        axios.get('/produits').then()
         let request = moxios.requests.mostRecent()
         request.respondWith({
           status: 200,
