@@ -16,6 +16,7 @@ import 'vuelidate/dist/vuelidate.min.js'
 
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
+import UserManagment from './components/userManagment'
 Vue.config.productionTip = false
 
 Vue.use(Vuelidate)
@@ -35,6 +36,9 @@ axios.interceptors.request.use((request) => {
 })
 
 axios.interceptors.response.use((response) => {
+  if (store.getters.userStore === '' && localStorage.getItem('Authorization') !== null) {
+    UserManagment.getUser()
+  }
   return response
 })
 

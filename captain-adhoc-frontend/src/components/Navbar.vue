@@ -25,13 +25,23 @@
 
   <div id="navbar-menu" class="navbar-menu">
     <div class="navbar-start">
-      <div class="is-flex" v-if="isLogged">
+      <div class="is-flex" v-if="isLogged || user.isAdmin">
         <router-link to="/products" class="navbar-item is-flex">
           <div class="fontawesome-icon">
             <i class="fas fa-grip-horizontal"></i>
           </div>
           <div>
             <span>Produits</span>
+          </div>
+        </router-link>
+      </div>
+      <div class="is-flex" v-if="user.isAdmin">
+        <router-link to="/inventory" class="navbar-item is-flex">
+          <div class="fontawesome-icon">
+            <i class="fas fa-suitcase"></i>
+          </div>
+          <div>
+            <span>Inventaire</span>
           </div>
         </router-link>
       </div>
@@ -97,10 +107,11 @@ import { mapState } from 'vuex'
 export default {
   name: 'Navbar',
   components: { LogoutModal },
-  computed: mapState[('isLoggedStore', 'isMercant')],
+  computed: mapState[('isLoggedStore', 'userStore')],
   data () {
     return {
-      isLogged: ''
+      isLogged: '',
+      user: ''
     }
   },
   created () {
@@ -110,9 +121,17 @@ export default {
         this.isLogged = userStatus
       }
     )
+    this.unwatchUser = this.$store.watch(
+      (state, getters) => getters.userStore,
+      (userStore) => {
+        this.user = userStore
+      }
+    )
   },
+
   beforeDestroy () {
     this.unwatch()
+    this.unwatchUser()
   },
   methods: {
     burgerClick: function () {

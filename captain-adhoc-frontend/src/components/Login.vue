@@ -90,6 +90,7 @@
 import { required, minLength, alphaNum } from 'vuelidate/lib/validators'
 import axios from 'axios'
 import { configs } from '../http-common'
+import UserManagment from '../components/userManagment'
 
 export default {
   name: 'Login',
@@ -137,6 +138,10 @@ export default {
               default: {
                 this.submitStatus = `Erreur de connexion (${e.response.status})`
               }
+            }
+          }).finally(() => {
+            if (this.submitStatus === '') {
+              UserManagment.getUser()
             }
           })
       }
