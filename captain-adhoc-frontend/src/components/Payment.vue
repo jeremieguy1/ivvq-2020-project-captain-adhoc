@@ -21,7 +21,6 @@
                 </div>
                 <table class="table is-fullwidth">
                   <div class="columns is-centered">
-
                     <div class="column is-half">
                       <tr>
                         <div class="columns formulaire">
@@ -33,7 +32,7 @@
                           <div class="column is-half">
                             <div class="carte-bancaire ">
                               <b-field class="b-field  ">
-                                <b-input v-model="name"></b-input>
+                                <b-input v-model.trim="$v.numberCart.$model"></b-input>
                               </b-field>
                             </div>
                           </div>
@@ -53,7 +52,7 @@
                                   <b-field>
                                     <b-select placeholder="Mois">
                                       <option
-                                        v-for="option in mois"
+                                        v-for="option in this.mois"
                                         :value="option.id"
                                         :key="option.id">
                                         {{ option.nom }}
@@ -65,7 +64,7 @@
                                   <b-field>
                                     <b-select placeholder="Année">
                                       <option
-                                        v-for="option in range(anneeMin, anneeMax)"
+                                        v-for="option in range(this.anneeMin, this.anneeMax)"
                                         :value="option"
                                         :key="option">
                                         {{ option }}
@@ -80,17 +79,48 @@
                       </tr>
                       <tr>
                         <div class="columns formulaire">
+
                           <div class="column is-half">
                             <div class="carte-bancaire has-text-right" >
                               <p class="num-carte-bancaire">Code de sécurité</p>
                             </div>
                           </div>
                           <div class="column is-half">
-                            <div class="carte-bancaire ">
-                              <b-field class="b-field " >
-                                <b-input v-model="name"></b-input>
-                              </b-field>
-                            </div>
+                              <div class="field carte-bancaire">
+                                <div class="control has-icons-left has-icons-right">
+                                  <form @submit.prevent="submit" class="form-group">
+                                    <div class="field">
+                                      <div :class="{ 'animated headShake': $v.cvc.$dirty && $v.cvc.$error}">
+                                        <input
+                                        placeholder="CVC"
+                                        v-model.trim="$v.cvc.$model"
+                                        class="input"  :class="{ 'is-success': !$v.cvc.$error && $v.cvc.$dirty,
+                                        'is-danger': $v.cvc.$error && $v.cvc.$dirty}"
+                                        type="num"
+                                        name="cvc">
+                                        <span class="icon is-small is-left">
+                                          <i class="fas fa-lock"></i>
+                                        </span>
+                                        <span v-if="!$v.cvc.$error && $v.cvc.$dirty">
+                                        <span class="icon is-small is-right animated zoomIn">
+                                          <i class="fas fa-check"></i>
+                                        </span>
+                                      </span>
+                                        <span v-else class="icon is-small is-right" :class="{ 'animated headShake': cvc.length != ''}">
+                                          <i class="fas fa-times"></i>
+                                         </span>
+                                      </div>
+                                        <p class="has-text-danger" v-if="!$v.cvc.required && $v.cvc.$dirty">Le code de sécurité CVC est obligatoire</p>
+                                        <p class="has-text-danger" v-if="!$v.cvc.minLength">
+                                          Le code de sécurité CVC doit contenir exactement {{$v.cvc.$params.minLength.min}} chiffres</p>
+                                      <p class="has-text-danger" v-if="$v.cvc.minLength && !$v.cvc.maxLength">
+                                        Le code de sécurité CVC doit contenir exactement {{$v.cvc.$params.minLength.min}} chiffres</p>
+                                      </div>
+                                  </form>
+
+                                </div>
+                              </div>
+
                           </div>
                         </div>
                       </tr >
@@ -111,12 +141,27 @@
 import axios from 'axios'
 import { configs } from '../http-common'
 import {mapState} from 'vuex'
+import { required, minLength, numeric, maxLength, alphaNum, sameAs } from 'vuelidate/lib/validators'
 import Buefy from 'buefy'
 import Vue from 'vue'
 
 Vue.use(Buefy, {
   defaultIconPack: 'fa'
 })
+
+const moisInit = [{'id': 1, 'nom': 'Janvier'},
+  {'id': 2, 'nom': 'Février'},
+  {'id': 3, 'nom': 'Mars'},
+  {'id': 4, 'nom': 'Avril'},
+  {'id': 5, 'nom': 'Mai'},
+  {'id': 6, 'nom': 'Juin'},
+  {'id': 7, 'nom': 'Juillet'},
+  {'id': 8, 'nom': 'Août'},
+  {'id': 9, 'nom': 'Septembre'},
+  {'id': 10, 'nom': 'Octobre'},
+  {'id': 11, 'nom': 'Novembre'},
+  {'id': 12, 'nom': 'Décembre'}
+]
 
 export default {
   name: 'Payment',
@@ -125,26 +170,55 @@ export default {
   },
   data () {
     return {
-      mois: [{'id': 1, 'nom': 'Janvier'},
-        {'id': 2, 'nom': 'Février'},
-        {'id': 3, 'nom': 'Mars'},
-        {'id': 4, 'nom': 'Avril'},
-        {'id': 5, 'nom': 'Mai'},
-        {'id': 6, 'nom': 'Juin'},
-        {'id': 7, 'nom': 'Juillet'},
-        {'id': 8, 'nom': 'Août'},
-        {'id': 9, 'nom': 'Septembre'},
-        {'id': 10, 'nom': 'Octobre'},
-        {'id': 11, 'nom': 'Novembre'},
-        {'id': 12, 'nom': 'Décembre'}
-      ],
+      mois: moisInit,
       anneeMin: 2020,
-      anneeMax: 2030
+      anneeMax: 2030,
+      cvc: '',
+      submitStatus: ''
+
+    }
+  },
+  validations: {
+    cvc: {
+      required,
+      minLength: minLength(3),
+      maxlength: maxLength(3),
+      numeric
+    },
+    numberCart: {
+      required,
+      minLength: minLength(8)
+    },
+    repeatPassword: {
+      required,
+      sameAsPassword: sameAs('password')
     }
   },
   methods: {
     range: function (start, end) {
       return Array(end - start + 1).fill().map((_, idx) => start + idx)
+    },
+    submit () {
+      this.submitStatus = ''
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        // Invalid form
+      } else {
+        axios
+          .post('/signup', configs, {
+            data: {
+              username: this.username,
+              password: this.password
+            }
+          })
+          .then(response => {
+            axios.defaults.headers.common['Autorization'] = response.headers['autorization']
+            this.$router.push('Products')
+          })
+          .catch((e) => {
+            this.submitStatus = e.response.status
+          })
+      }
     }
   }
 }
