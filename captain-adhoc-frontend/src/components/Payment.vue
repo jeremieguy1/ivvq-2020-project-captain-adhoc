@@ -25,12 +25,12 @@
                     <div class="column is-half">
                       <tr>
                         <div class="columns formulaire">
-                          <div class="column">
+                          <div class="column is-half">
                             <div class="carte-bancaire has-text-right">
                               <p class="num-carte-bancaire">Numéro de la carte bancaire</p>
                             </div>
                           </div>
-                          <div class="column">
+                          <div class="column is-half">
                             <div class="carte-bancaire ">
                               <b-field class="b-field  ">
                                 <b-input v-model="name"></b-input>
@@ -41,28 +41,51 @@
                       </tr >
                       <tr>
                         <div class="columns formulaire">
-                          <div class="column">
+                          <div class="column is-half">
                             <div class="carte-bancaire has-text-right">
                               <p class="num-carte-bancaire">Date d'expiration</p>
                             </div>
                           </div>
-                          <div class="column">
+                          <div class="column is-half">
                             <div class="carte-bancaire ">
-                              <b-field class="b-field ">
-                                <b-input v-model="name"></b-input>
-                              </b-field>
+                              <div class="columns">
+                                <div class="column">
+                                  <b-field>
+                                    <b-select placeholder="Mois">
+                                      <option
+                                        v-for="option in mois"
+                                        :value="option.id"
+                                        :key="option.id">
+                                        {{ option.nom }}
+                                      </option>
+                                    </b-select>
+                                  </b-field>
+                                </div>
+                                <div class="column">
+                                  <b-field>
+                                    <b-select placeholder="Année">
+                                      <option
+                                        v-for="option in range(anneeMin, anneeMax)"
+                                        :value="option"
+                                        :key="option">
+                                        {{ option }}
+                                      </option>
+                                    </b-select>
+                                  </b-field>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </tr >
+                      </tr>
                       <tr>
                         <div class="columns formulaire">
-                          <div class="column">
+                          <div class="column is-half">
                             <div class="carte-bancaire has-text-right" >
                               <p class="num-carte-bancaire">Code de sécurité</p>
                             </div>
                           </div>
-                          <div class="column">
+                          <div class="column is-half">
                             <div class="carte-bancaire ">
                               <b-field class="b-field " >
                                 <b-input v-model="name"></b-input>
@@ -85,8 +108,45 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { configs } from '../http-common'
+import {mapState} from 'vuex'
+import Buefy from 'buefy'
+import Vue from 'vue'
+
+Vue.use(Buefy, {
+  defaultIconPack: 'fa'
+})
+
 export default {
-  name: 'Payment'
+  name: 'Payment',
+  mounted () {
+    // this.getProducts()
+  },
+  data () {
+    return {
+      mois: [{'id': 1, 'nom': 'Janvier'},
+        {'id': 2, 'nom': 'Février'},
+        {'id': 3, 'nom': 'Mars'},
+        {'id': 4, 'nom': 'Avril'},
+        {'id': 5, 'nom': 'Mai'},
+        {'id': 6, 'nom': 'Juin'},
+        {'id': 7, 'nom': 'Juillet'},
+        {'id': 8, 'nom': 'Août'},
+        {'id': 9, 'nom': 'Septembre'},
+        {'id': 10, 'nom': 'Octobre'},
+        {'id': 11, 'nom': 'Novembre'},
+        {'id': 12, 'nom': 'Décembre'}
+      ],
+      anneeMin: 2020,
+      anneeMax: 2030
+    }
+  },
+  methods: {
+    range: function (start, end) {
+      return Array(end - start + 1).fill().map((_, idx) => start + idx)
+    }
+  }
 }
 </script>
 
