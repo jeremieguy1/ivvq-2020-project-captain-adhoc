@@ -72,7 +72,7 @@
         </div>
       </div>
     </div>
-    <section v-if="cartProducts.length !== 0" class="section paybox">
+    <section v-if="cartProducts.length !== 0" class="paybox">
       <div class="container animated fadeIn">
         <div class="columns is-flex has-text-centered is-centered">
           <div class="column is-4">

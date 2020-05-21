@@ -8,7 +8,8 @@ Vue.use(Vuex)
 const state = {
   commandes: [],
   cartProducts: [],
-  products: []
+  products: [],
+  inventoryProducts: []
 }
 
 export const mutations = {
@@ -22,6 +23,9 @@ export const mutations = {
   },
   storeProducts (state, productsToStore) {
     state.products = productsToStore
+  },
+  inventoryProducts (state, productsToManage) {
+    state.inventoryProducts = productsToManage
   },
   cartProducts (state, productsToCart) {
     state.cartProducts = productsToCart
@@ -37,6 +41,13 @@ export const mutations = {
     state.commandes.forEach(com => {
       if (com.id_commande === command.id_commande) {
         com.display = !com.display
+      }
+    })
+  },
+  displayContentInventory (state, product) {
+    state.inventoryProducts.forEach(prod => {
+      if (prod.id_produit === product.id_produit) {
+        prod.display = !prod.display
       }
     })
   },

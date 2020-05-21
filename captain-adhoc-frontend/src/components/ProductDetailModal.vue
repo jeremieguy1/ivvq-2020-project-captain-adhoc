@@ -17,6 +17,9 @@
                     <p>{{product.description_produit}}</p>
                 </div>
                 <div>
+                    <p>{{product.quantite_produit}} en stock</p>
+                </div>
+                <div>
                     <p>{{product.prix_produit}}€</p>
                 </div>
             </div>
@@ -68,6 +71,7 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     font-weight: bold;
+    line-height: 1rem;
   }
 .modal-card {
   background-size: cover;
