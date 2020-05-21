@@ -47,18 +47,18 @@ public class DataLoader implements ApplicationRunner {
         List<Produit> produitList = new ArrayList<>();
         Produit produit2 = new Produit(16, "CyberboX",
                 "Non comptant d'avoir les meilleures voitures au MONDE, Tesla propose la meilleure console de jeu grand public !",
-                "https://urlz.fr/cHLH", 100000);
+                "https://cdn.dribbble.com/users/332589/screenshots/9955348/image.png", 100000);
         Produit produit1 = new Produit(15, "PS5",
-                "Encore une playstation de folie \\o/", "https://urlz.fr/cHLz", 1);
+                "Encore une playstation de folie \\o/", "https://static.mensup.fr/photo_article/209383/105703/1200-L-ps5-actualits.jpg", 1);
         Produit produit3 = new Produit(2, "Mad box",
                 "Cette console va révolutionner le du la de esport !",
-                "https://urlz.fr/cHJp", 666);
+                "https://www.unsimpleclic.com/wp-content/uploads/2019/01/190124-une-nouvelle-console-mad-box-pourrait-debarquer-sur-le-marche-01.jpg", 666);
         Produit produit4 = new Produit(100, "New retro +",
                 "Elle fera tourner les jeux dernières générations tels que tetris et même Donkey kong 64 ! Et tout àa pour seulement 1399,99€",
-                "https://urlz.fr/cHJz", 10);
+                "https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg", 10);
         Produit produit5 = new Produit(5, "Xbox Serie X",
                 "C'est partiiiii pour la console pc !",
-                "https://urlz.fr/cHLM", 200);
+                "https://compass-ssl.xbox.com/assets/85/8b/858b94d4-0ca6-4e74-ac9f-38565c49f2df.jpg?n=Xbox-Series-X_Image-0_1083x1400_02.jpg", 200);
         produitList.add(produit1);
         produitList.add(produit2);
         produitList.add(produit3);
