@@ -5,12 +5,13 @@ import captainadhoc.captainadhocbackend.services.interfaces.ICommandeProduitServ
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
 import captainadhoc.captainadhocbackend.services.interfaces.IMarchandService;
 import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.springframework.boot.DefaultApplicationArguments;
 import org.springframework.boot.test.context.SpringBootTest;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
+
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class DataLoaderTest {
@@ -29,7 +30,7 @@ public class DataLoaderTest {
     @Mock
     private ICommandeProduitService commandeProduitService;
 
-    @Before
+    @BeforeEach
     public void setup() {
         dataLoader = new DataLoader(produitService, marchandService, commandeService, commandeProduitService);
     }
@@ -37,8 +38,12 @@ public class DataLoaderTest {
     @Test
     public void testInitMethodCalls() throws Exception {
         DataLoader spy = spy(dataLoader);
+
+        doNothing().when(spy).initProduit();
+        doNothing().when(spy).initCommandes();
+
         // when: la méthode run est appelée
-        spy.run(null);
+        spy.run(new DefaultApplicationArguments());
         // then: la méthode initProduit() est invoquée
         verify(spy).initProduit();
         // then: la méthode initCommandes() est invoquée
