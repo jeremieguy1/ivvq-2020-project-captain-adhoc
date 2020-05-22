@@ -1,32 +1,35 @@
 package captainadhoc.captainadhocbackend.services;
 
-import captainadhoc.captainadhocbackend.domain.Produit;
 import captainadhoc.captainadhocbackend.domain.Utilisateur;
 import captainadhoc.captainadhocbackend.repositories.UtilisateurRepository;
 import captainadhoc.captainadhocbackend.services.implementations.UtilisateurService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import static java.util.Collections.emptyList;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 public class UtilisateurServiceTest {
 
-    @Mock
+    @MockBean
     private UtilisateurRepository utilisateurRepository;
 
-    @InjectMocks
-    private UtilisateurService utilisateurService;
+    @MockBean
+    private BCryptPasswordEncoder passwordEncoder;
 
+    private UtilisateurService utilisateurService;
     private Utilisateur utilisateur;
 
     @BeforeEach
-    public void setup() {
+    public void setupEach() {
+        utilisateurService = new UtilisateurService();
+        utilisateurService.setUtilisateurRepository(utilisateurRepository);
+        utilisateurService.setBCryptPasswordEncoder(passwordEncoder);
         utilisateur = new Utilisateur(1L, "Kevin", "Marchand", "marchand1", "mdp", true, emptyList());
     }
 
@@ -35,16 +38,17 @@ public class UtilisateurServiceTest {
     public void testSaveUtilisateur(){
         // Given: un UtilisateurService et un utilisateur
         // When: la méthode saveUtilisateur est invoquée
-        when(utilisateurService.saveUtilisateur(utilisateur)).thenReturn(utilisateur);
+        when(utilisateurService.getUtilisateurRepository().save(utilisateur)).thenReturn(utilisateur);
+        utilisateurService.saveUtilisateur(utilisateur);
         // then: la méthode findAll du Repository associé est invoquée
-        verify(utilisateurService.getUtilisateurRepository()).findAll();
+        verify(utilisateurService.getUtilisateurRepository()).save(utilisateur);
     }
 
     @Test
     public void testFindById() {
         // given: un UtilisateurService
         // when: la méthode findUtilisateurById est invoquée
-        when(utilisateurService.findById(0L)).thenReturn(utilisateur);
+        utilisateurService.findById(0L);
         // then: la méthode findById du Repository associé est invoquée
         verify(utilisateurService.getUtilisateurRepository()).findById(0L);
     }
@@ -53,7 +57,7 @@ public class UtilisateurServiceTest {
     public void testFindByNomUtilisateur() {
         // given: un UtilisateurService
         // when: la méthode findByNomUtilisateur est invoquée
-        when(utilisateurService.findByNomUtilisateur("nomUtilisateur")).thenReturn(utilisateur);
+        utilisateurService.findByNomUtilisateur("nomUtilisateur");
         // then: la méthode findById du Repository associé est invoquée
         verify(utilisateurService.getUtilisateurRepository()).findByNomUtilisateur("nomUtilisateur");
     }

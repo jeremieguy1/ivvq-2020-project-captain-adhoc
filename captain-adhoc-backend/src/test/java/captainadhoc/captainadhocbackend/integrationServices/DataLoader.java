@@ -23,7 +23,6 @@ import static java.util.Collections.emptyList;
 @Component
 @Transactional
 @AllArgsConstructor
-@Profile({"dev", "test"})
 public class DataLoader {
 
     @Autowired

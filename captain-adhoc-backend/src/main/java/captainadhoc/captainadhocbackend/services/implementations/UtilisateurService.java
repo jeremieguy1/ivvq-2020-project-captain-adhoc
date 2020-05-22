@@ -5,6 +5,7 @@ import captainadhoc.captainadhocbackend.exceptions.UtilisateurExisteException;
 import captainadhoc.captainadhocbackend.repositories.UtilisateurRepository;
 import captainadhoc.captainadhocbackend.services.interfaces.IUtilisateurService;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,9 +21,12 @@ public class UtilisateurService implements IUtilisateurService, UserDetailsServi
 
     @Autowired
     @Getter
+    @Setter
     private UtilisateurRepository utilisateurRepository;
 
     @Autowired
+    @Getter
+    @Setter
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Utilisateur saveUtilisateur(Utilisateur utilisateur) {

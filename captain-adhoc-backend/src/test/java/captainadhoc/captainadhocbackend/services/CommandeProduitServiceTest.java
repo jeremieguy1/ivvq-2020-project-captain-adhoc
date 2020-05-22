@@ -22,7 +22,6 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-@ActiveProfiles("test")
 public class CommandeProduitServiceTest {
 
     @Mock
