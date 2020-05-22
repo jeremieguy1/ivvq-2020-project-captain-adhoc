@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import static java.util.Collections.emptyList;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
@@ -30,7 +29,7 @@ public class UtilisateurServiceTest {
         utilisateurService = new UtilisateurService();
         utilisateurService.setUtilisateurRepository(utilisateurRepository);
         utilisateurService.setBCryptPasswordEncoder(passwordEncoder);
-        utilisateur = new Utilisateur(1L, "Kevin", "Marchand", "marchand1", "mdp", true, emptyList());
+        utilisateur = new Utilisateur("Kevin", "Marchand", "marchand1", "mdp", true);
     }
 
 

@@ -10,7 +10,6 @@ import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
 import captainadhoc.captainadhocbackend.services.interfaces.IUtilisateurService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static java.util.Collections.emptyList;
 
 @Component
 @Transactional
@@ -39,7 +37,7 @@ public class DataLoader {
 
     public void initProduit(){
 
-        Utilisateur admin = new Utilisateur((long) 1, "Kevin", "Marchand", "marchand1", "mdp", true, emptyList());
+        Utilisateur admin = new Utilisateur("Kevin", "Marchand", "marchand1", "mdp", true);
 
         Produit produit2 = new Produit(
                 16,

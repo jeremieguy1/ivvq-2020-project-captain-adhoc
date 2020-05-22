@@ -41,4 +41,12 @@ public class Utilisateur {
 
     @OneToMany(mappedBy = "utilisateur")
     private List<Commande> commandeList;
+
+    public Utilisateur(String nom, String prenom, String nomUtilisateur, String motDePasse, Boolean isAdmin) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.nomUtilisateur = nomUtilisateur;
+        this.motDePasse = motDePasse;
+        this.isAdmin = isAdmin;
+    }
 }
