@@ -127,7 +127,7 @@
                   </div>
                 </table>
               <div class="section to-pay box-shadow has-text-centered">
-                <button v-on:click="payCart()"  class="button has-text-centered to-pay">Payez votre panier</button>
+                <button v-on:click="validPayment()"  class="button has-text-centered to-pay">Payez votre panier</button>
               </div>
             </div>
           </div>
@@ -219,6 +219,21 @@ export default {
             this.submitStatus = e.response.status
           })
       }
+    },
+    validPayment () {
+      var cartNumber = '5132630039804863'
+      var sommeAll = 0
+      var even = false
+
+      for (var i = cartNumber.length - 1; i >= 0; i--) {
+        var temp = parseInt(cartNumber.charAt(i), 10)
+        if (even && ((temp *= 2) > 9)) {
+          temp -= 9
+        }
+        even = !even
+        sommeAll += temp
+      }
+      return (sommeAll % 10) === 0
     }
   }
 }
