@@ -31,10 +31,44 @@
                             </div>
                           </div>
                           <div class="column is-half">
-                            <div class="carte-bancaire ">
-                              <b-field class="b-field  ">
-                                <b-input v-model.trim="$v.numberCart.$model"></b-input>
-                              </b-field>
+                            <div class="field carte-bancaire ">
+                              <div class="control has-icons-left has-icons-right">
+                                <form @submit.prevent="submit" class="form-group">
+                                  <div class="field">
+                                    <div :class="{ 'animated headShake': $v.numberCart.$dirty && $v.numberCart.$error}">
+                                      <input
+                                        placeholder=""
+                                        v-model.trim="$v.numberCart.$model"
+                                        class="input"  :class="{ 'is-success': !$v.numberCart.$error && $v.numberCart.$dirty && validPayment(numberCart),
+                                        'is-danger': $v.numberCart.$error && $v.numberCart.$dirty && !validPayment(numberCart)}"
+                                        type="num"
+                                        name="cvc">
+                                      <span class="icon is-small is-left">
+                                          <i class="fas fa-credit-card"></i>
+                                        </span>
+                                      <span v-if="!$v.numberCart.$error && $v.numberCart.$dirty">
+                                        <span class="icon is-small is-right animated zoomIn">
+                                          <i class="fas fa-check"></i>
+                                        </span>
+                                      </span>
+                                      <span v-else class="icon is-small is-right" :class="{ 'animated headShake': numberCart.length != ''}">
+                                          <i class="fas fa-times"></i>
+                                         </span>
+                                    </div>
+                                    <p class="has-text-danger" v-if="!$v.numberCart.required && $v.numberCart.$dirty">Le numéro de carte bancaire est obligatoire</p>
+                                    <p class="has-text-danger" v-if="!$v.numberCart.minLength">
+                                      Doit contenir exactement {{$v.numberCart.$params.minLength.min}} chiffres</p>
+                                    <p class="has-text-danger" v-if="!$v.numberCart.numeric">
+                                      Doit contenir uniquement des chiffres</p>
+                                    <p class="has-text-danger" v-if="$v.numberCart.minLength && !$v.numberCart.maxlength">
+                                      Doit contenir exactement {{$v.numberCart.$params.minLength.min}} chiffres</p>
+                                    <p class="has-text-danger" v-if="$v.numberCart.$params.minLength.min === numberCart.length && $v.numberCart.numeric && !validPayment(numberCart)">
+                                      Votre code n'est pas conforme à la formule Luhn</p>
+                                    <p class="has-text-success" v-if="$v.numberCart.$params.minLength.min === numberCart.length && $v.numberCart.numeric && validPayment(numberCart)">
+                                      Votre code est conforme à la formule Luhn</p>
+                                  </div>
+                                </form>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -116,6 +150,8 @@
                                           Doit contenir exactement {{$v.cvc.$params.minLength.min}} chiffres</p>
                                         <p class="has-text-danger" v-if="$v.cvc.minLength && !$v.cvc.maxlength">
                                           Doit contenir exactement {{$v.cvc.$params.minLength.min}} chiffres</p>
+                                      <p class="has-text-danger" v-if="!$v.cvc.numeric">
+                                        Doit contenir uniquement des chiffres</p>
                                       </div>
                                   </form>
                                 </div>
@@ -141,7 +177,7 @@
 import axios from 'axios'
 import { configs } from '../http-common'
 import {mapState} from 'vuex'
-import { required, minLength, numeric, maxLength, alphaNum, sameAs } from 'vuelidate/lib/validators'
+import { required, minLength, numeric, maxLength } from 'vuelidate/lib/validators'
 import Buefy from 'buefy'
 import Vue from 'vue'
 
@@ -174,8 +210,8 @@ export default {
       anneeMin: 2020,
       anneeMax: 2030,
       cvc: '',
-      submitStatus: ''
-
+      submitStatus: '',
+      numberCart: ''
     }
   },
   validations: {
@@ -187,11 +223,9 @@ export default {
     },
     numberCart: {
       required,
-      minLength: minLength(8)
-    },
-    repeatPassword: {
-      required,
-      sameAsPassword: sameAs('password')
+      minLength: minLength(16),
+      maxlength: maxLength(16),
+      numeric
     }
   },
   methods: {
@@ -220,8 +254,9 @@ export default {
           })
       }
     },
-    validPayment () {
-      var cartNumber = '5132630039804863'
+    validPayment (cartNumber) {
+      //var cartNumber = '5132630039804863'
+      console.log(cartNumber)
       var sommeAll = 0
       var even = false
 
