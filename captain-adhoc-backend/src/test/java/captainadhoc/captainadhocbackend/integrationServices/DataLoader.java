@@ -1,4 +1,4 @@
-package captainadhoc.captainadhocbackend;
+package captainadhoc.captainadhocbackend.integrationServices;
 
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
@@ -10,8 +10,6 @@ import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
 import captainadhoc.captainadhocbackend.services.interfaces.IUtilisateurService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +24,7 @@ import static java.util.Collections.emptyList;
 @Transactional
 @AllArgsConstructor
 @Profile({"dev", "test"})
-public class DataLoader implements ApplicationRunner {
+public class DataLoader {
 
     @Autowired
     private IProduitService produitService;
@@ -42,7 +40,6 @@ public class DataLoader implements ApplicationRunner {
 
     public void initProduit(){
 
-        produitService.deleteAllProduit();
         Utilisateur admin = new Utilisateur((long) 1, "Kevin", "Marchand", "marchand1", "mdp", true, emptyList());
 
         Produit produit2 = new Produit(
@@ -79,8 +76,7 @@ public class DataLoader implements ApplicationRunner {
         produitService.saveProduit(produit5);
     }
 
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run() {
         initProduit();
         initCommandes();
     }

@@ -1,10 +1,14 @@
 package captainadhoc.captainadhocbackend.integrationServices;
 
+import captainadhoc.captainadhocbackend.domain.Produit;
 import captainadhoc.captainadhocbackend.dto.Achat;
 import captainadhoc.captainadhocbackend.dto.ProduitsAchat;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
+import captainadhoc.captainadhocbackend.services.interfaces.ICommandeProduitService;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
+import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
+import captainadhoc.captainadhocbackend.services.interfaces.IUtilisateurService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +30,22 @@ public class CommandeServiceIntegrationTest {
 
     private Commande commande;
 
+    private DataLoader dataLoader;
+
+    @Autowired
+    private IProduitService produitService;
+
+    @Autowired
+    private IUtilisateurService utilisateurService;
+
+    @Autowired
+    private ICommandeProduitService commandeProduitService;
+
     @BeforeEach
-    public void setup() {
+    public void setup() throws Exception {
         commande = new Commande(new Date(),"code");
+        dataLoader = new DataLoader(produitService, utilisateurService, commandeService, commandeProduitService);
+        dataLoader.run();
     }
 
     @Test
@@ -60,8 +77,13 @@ public class CommandeServiceIntegrationTest {
 
     @Test
     public void newCommandeTest() {
-        ProduitsAchat produitsAchat1 = new ProduitsAchat(2L, 2);
-        ProduitsAchat produitsAchat2 = new ProduitsAchat(3L, 3);
+
+        List<Produit> produitList = produitService.findAllProduits();
+        Long idProduitAchete1 = produitList.get(0).getId_produit();
+        Long idProduitAchete2 = produitList.get(1).getId_produit();
+
+        ProduitsAchat produitsAchat1 = new ProduitsAchat(idProduitAchete1, 2);
+        ProduitsAchat produitsAchat2 = new ProduitsAchat(idProduitAchete2, 3);
 
         List<ProduitsAchat> produitsAchats = new ArrayList<>();
         produitsAchats.add(produitsAchat1);
@@ -87,10 +109,10 @@ public class CommandeServiceIntegrationTest {
         CommandeProduit commandeProduit2 = commande.getCommandeProduitsList().get(1);
 
         //then : la bon produit avec la bonne quantite sont associés
-        assertEquals(2L, commandeProduit1.getProduit().getId_produit());
+        assertEquals(idProduitAchete1, commandeProduit1.getProduit().getId_produit());
         assertEquals(2, commandeProduit1.getQuantite_commande_produit());
 
-        assertEquals(3L, commandeProduit2.getProduit().getId_produit());
+        assertEquals(idProduitAchete2, commandeProduit2.getProduit().getId_produit());
         assertEquals(3, commandeProduit2.getQuantite_commande_produit());
 
     }
