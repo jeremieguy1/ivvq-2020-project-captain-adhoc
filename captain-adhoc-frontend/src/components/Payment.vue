@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
-      <div class="section">
-        <div class="columns">
+  <section class="section">
+    <div class="container animated fadeIn">
+      <div class="columns">
           <div class="column is-half is-offset-one-quarter cart title">
             <div class="fontawesome-icon">
               <i class="fas fa-cart-plus"></i>
@@ -13,6 +13,7 @@
         </div>
       </div>
       <div class="section">
+        <div class="container animated fadeIn">
         <div class="columns">
           <div class="column">
             <div class="box">
@@ -112,18 +113,16 @@
                                       </div>
                                         <p class="has-text-danger" v-if="!$v.cvc.required && $v.cvc.$dirty">Le code de sécurité CVC est obligatoire</p>
                                         <p class="has-text-danger" v-if="!$v.cvc.minLength">
-                                          Le code de sécurité CVC doit contenir exactement {{$v.cvc.$params.minLength.min}} chiffres</p>
-                                      <p class="has-text-danger" v-if="$v.cvc.minLength && !$v.cvc.maxLength">
-                                        Le code de sécurité CVC doit contenir exactement {{$v.cvc.$params.minLength.min}} chiffres</p>
+                                          Doit contenir exactement {{$v.cvc.$params.minLength.min}} chiffres</p>
+                                        <p class="has-text-danger" v-if="$v.cvc.minLength && !$v.cvc.maxlength">
+                                          Doit contenir exactement {{$v.cvc.$params.minLength.min}} chiffres</p>
                                       </div>
                                   </form>
-
                                 </div>
                               </div>
-
                           </div>
                         </div>
-                      </tr >
+                      </tr>
                     </div>
                   </div>
                 </table>
@@ -133,8 +132,9 @@
             </div>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+  </section>
 </template>
 
 <script>
