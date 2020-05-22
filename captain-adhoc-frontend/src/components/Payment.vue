@@ -2,138 +2,174 @@
   <section class="section">
     <div class="container animated fadeIn">
       <div class="columns">
-          <div class="column is-half is-offset-one-quarter cart title">
-            <div class="fontawesome-icon">
-              <i class="fas fa-cart-plus"></i>
-            </div>
-            <div>
-              <p>Paiement de votre panier</p>
-            </div>
+        <div class="column is-half is-offset-one-quarter cart title">
+          <div class="fontawesome-icon">
+            <i class="fas fa-cart-plus"></i>
+          </div>
+          <div>
+            <p>Paiement de votre panier</p>
           </div>
         </div>
       </div>
-      <div class="section">
-        <div class="container animated fadeIn">
+    </div>
+    <div class="section">
+      <div class="container animated fadeIn">
         <div class="columns">
           <div class="column">
             <div class="box">
-                <div class="field">
-                  <label class="section subtitle">Montant de la transaction: € pour xx produits</label>
-                </div>
-                <table class="table is-fullwidth">
-                  <div class="columns is-centered">
-                    <div class="column is-half">
-                      <tr>
-                        <div class="columns formulaire">
-                          <div class="column is-half">
-                            <div class="carte-bancaire has-text-right">
-                              <p class="num-carte-bancaire">Numéro de la carte bancaire</p>
-                            </div>
-                          </div>
-                          <div class="column is-half">
-                            <div class="carte-bancaire ">
-                              <b-field class="b-field  ">
-                                <b-input v-model.trim="$v.numberCart.$model"></b-input>
-                              </b-field>
-                            </div>
+              <div class="field">
+                <label class="section subtitle">Montant de la transaction: € pour xx produits</label>
+              </div>
+              <table class="table is-fullwidth">
+                <div class="columns is-centered">
+                  <div class="column is-half">
+                    <tr>
+                      <div class="columns formulaire">
+                        <div class="column is-half">
+                          <div class="carte-bancaire has-text-right">
+                            <p class="num-carte-bancaire">Numéro de la carte bancaire</p>
                           </div>
                         </div>
-                      </tr >
-                      <tr>
-                        <div class="columns formulaire">
-                          <div class="column is-half">
-                            <div class="carte-bancaire has-text-right">
-                              <p class="num-carte-bancaire">Date d'expiration</p>
-                            </div>
-                          </div>
-                          <div class="column is-half">
-                            <div class="carte-bancaire ">
-                              <div class="columns">
-                                <div class="column">
-                                  <b-field>
-                                    <b-select placeholder="Mois">
-                                      <option
-                                        v-for="option in this.mois"
-                                        :value="option.id"
-                                        :key="option.id">
-                                        {{ option.nom }}
-                                      </option>
-                                    </b-select>
-                                  </b-field>
-                                </div>
-                                <div class="column">
-                                  <b-field>
-                                    <b-select placeholder="Année">
-                                      <option
-                                        v-for="option in range(this.anneeMin, this.anneeMax)"
-                                        :value="option"
-                                        :key="option">
-                                        {{ option }}
-                                      </option>
-                                    </b-select>
-                                  </b-field>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </tr>
-                      <tr>
-                        <div class="columns formulaire">
-
-                          <div class="column is-half">
-                            <div class="carte-bancaire has-text-right" >
-                              <p class="num-carte-bancaire">Code de sécurité</p>
-                            </div>
-                          </div>
-                          <div class="column is-half">
-                              <div class="field carte-bancaire">
-                                <div class="control has-icons-left has-icons-right">
-                                  <form @submit.prevent="submit" class="form-group">
-                                    <div class="field">
-                                      <div :class="{ 'animated headShake': $v.cvc.$dirty && $v.cvc.$error}">
-                                        <input
-                                        placeholder="CVC"
-                                        v-model.trim="$v.cvc.$model"
-                                        class="input"  :class="{ 'is-success': !$v.cvc.$error && $v.cvc.$dirty,
-                                        'is-danger': $v.cvc.$error && $v.cvc.$dirty}"
-                                        type="num"
-                                        name="cvc">
-                                        <span class="icon is-small is-left">
-                                          <i class="fas fa-lock"></i>
+                        <div class="column is-half">
+                          <div class="field carte-bancaire ">
+                            <div class="control has-icons-left has-icons-right">
+                              <form @submit.prevent="submit" class="form-group">
+                                <div class="field">
+                                  <div :class="{ 'animated headShake': $v.numberCart.$dirty && $v.numberCart.$error}">
+                                    <input
+                                      placeholder=""
+                                      v-model.trim="$v.numberCart.$model"
+                                      class="input"  :class="{ 'is-success': !$v.numberCart.$error && $v.numberCart.$dirty && validPayment(numberCart),
+                                        'is-danger': $v.numberCart.$error && $v.numberCart.$dirty && !validPayment(numberCart)}"
+                                      type="num"
+                                      name="cvc">
+                                    <span class="icon is-small is-left">
+                                          <i class="fas fa-credit-card"></i>
                                         </span>
-                                        <span v-if="!$v.cvc.$error && $v.cvc.$dirty">
+                                    <span v-if="!$v.numberCart.$error && $v.numberCart.$dirty">
                                         <span class="icon is-small is-right animated zoomIn">
                                           <i class="fas fa-check"></i>
                                         </span>
                                       </span>
-                                        <span v-else class="icon is-small is-right" :class="{ 'animated headShake': cvc.length != ''}">
+                                    <span v-else class="icon is-small is-right" :class="{ 'animated headShake': numberCart.length != ''}">
                                           <i class="fas fa-times"></i>
                                          </span>
-                                      </div>
-                                        <p class="has-text-danger" v-if="!$v.cvc.required && $v.cvc.$dirty">Le code de sécurité CVC est obligatoire</p>
-                                        <p class="has-text-danger" v-if="!$v.cvc.minLength">
-                                          Doit contenir exactement {{$v.cvc.$params.minLength.min}} chiffres</p>
-                                        <p class="has-text-danger" v-if="$v.cvc.minLength && !$v.cvc.maxlength">
-                                          Doit contenir exactement {{$v.cvc.$params.minLength.min}} chiffres</p>
-                                      </div>
-                                  </form>
+                                  </div>
+                                  <p class="has-text-danger" v-if="!$v.numberCart.required && $v.numberCart.$dirty">Le numéro de carte bancaire est obligatoire</p>
+                                  <p class="has-text-danger" v-if="!$v.numberCart.minLength">
+                                    Doit contenir exactement {{$v.numberCart.$params.minLength.min}} chiffres</p>
+                                  <p class="has-text-danger" v-if="!$v.numberCart.numeric">
+                                    Doit contenir uniquement des chiffres</p>
+                                  <p class="has-text-danger" v-if="$v.numberCart.minLength && !$v.numberCart.maxlength">
+                                    Doit contenir exactement {{$v.numberCart.$params.minLength.min}} chiffres</p>
+                                  <p class="has-text-danger" v-if="$v.numberCart.$params.minLength.min === numberCart.length && $v.numberCart.numeric && !validPayment(numberCart)">
+                                    Votre code n'est pas conforme à la formule Luhn</p>
+                                  <p class="has-text-success" v-if="$v.numberCart.$params.minLength.min === numberCart.length && $v.numberCart.numeric && validPayment(numberCart)">
+                                    Votre code est conforme à la formule Luhn</p>
                                 </div>
-                              </div>
+                              </form>
+                            </div>
                           </div>
                         </div>
-                      </tr>
-                    </div>
+                      </div>
+                    </tr >
+                    <tr>
+                      <div class="columns formulaire">
+                        <div class="column is-half">
+                          <div class="carte-bancaire has-text-right">
+                            <p class="num-carte-bancaire">Date d'expiration</p>
+                          </div>
+                        </div>
+                        <div class="column is-half">
+                          <div class="carte-bancaire ">
+                            <div class="columns">
+                              <div class="column">
+                                <b-field>
+                                  <b-select placeholder="Mois">
+                                    <option
+                                      v-for="option in this.mois"
+                                      :value="option.id"
+                                      :key="option.id">
+                                      {{ option.nom }}
+                                    </option>
+                                  </b-select>
+                                </b-field>
+                              </div>
+                              <div class="column">
+                                <b-field>
+                                  <b-select placeholder="Année">
+                                    <option
+                                      v-for="option in range(this.anneeMin, this.anneeMax)"
+                                      :value="option"
+                                      :key="option">
+                                      {{ option }}
+                                    </option>
+                                  </b-select>
+                                </b-field>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="columns formulaire">
+
+                        <div class="column is-half">
+                          <div class="carte-bancaire has-text-right" >
+                            <p class="num-carte-bancaire">Code de sécurité</p>
+                          </div>
+                        </div>
+                        <div class="column is-half">
+                          <div class="field carte-bancaire">
+                            <div class="control has-icons-left has-icons-right">
+                              <form @submit.prevent="submit" class="form-group">
+                                <div class="field">
+                                  <div :class="{ 'animated headShake': $v.cvc.$dirty && $v.cvc.$error}">
+                                    <input
+                                      placeholder="CVC"
+                                      v-model.trim="$v.cvc.$model"
+                                      class="input"  :class="{ 'is-success': !$v.cvc.$error && $v.cvc.$dirty,
+                                        'is-danger': $v.cvc.$error && $v.cvc.$dirty}"
+                                      type="num"
+                                      name="cvc">
+                                    <span class="icon is-small is-left">
+                                          <i class="fas fa-lock"></i>
+                                        </span>
+                                    <span v-if="!$v.cvc.$error && $v.cvc.$dirty">
+                                        <span class="icon is-small is-right animated zoomIn">
+                                          <i class="fas fa-check"></i>
+                                        </span>
+                                      </span>
+                                    <span v-else class="icon is-small is-right" :class="{ 'animated headShake': cvc.length != ''}">
+                                          <i class="fas fa-times"></i>
+                                         </span>
+                                  </div>
+                                  <p class="has-text-danger" v-if="!$v.cvc.required && $v.cvc.$dirty">Le code de sécurité CVC est obligatoire</p>
+                                  <p class="has-text-danger" v-if="!$v.cvc.minLength">
+                                    Doit contenir exactement {{$v.cvc.$params.minLength.min}} chiffres</p>
+                                  <p class="has-text-danger" v-if="$v.cvc.minLength && !$v.cvc.maxlength">
+                                    Doit contenir exactement {{$v.cvc.$params.minLength.min}} chiffres</p>
+                                  <p class="has-text-danger" v-if="!$v.cvc.numeric">
+                                    Doit contenir uniquement des chiffres</p>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </tr>
                   </div>
-                </table>
+                </div>
+              </table>
               <div class="section to-pay box-shadow has-text-centered">
                 <button v-on:click="validPayment()"  class="button has-text-centered to-pay">Payez votre panier</button>
               </div>
             </div>
           </div>
         </div>
-        </div>
       </div>
+    </div>
   </section>
 </template>
 
@@ -141,7 +177,7 @@
 import axios from 'axios'
 import { configs } from '../http-common'
 import {mapState} from 'vuex'
-import { required, minLength, numeric, maxLength, alphaNum, sameAs } from 'vuelidate/lib/validators'
+import { required, minLength, numeric, maxLength } from 'vuelidate/lib/validators'
 import Buefy from 'buefy'
 import Vue from 'vue'
 
@@ -174,8 +210,8 @@ export default {
       anneeMin: 2020,
       anneeMax: 2030,
       cvc: '',
-      submitStatus: ''
-
+      submitStatus: '',
+      numberCart: ''
     }
   },
   validations: {
@@ -187,11 +223,9 @@ export default {
     },
     numberCart: {
       required,
-      minLength: minLength(8)
-    },
-    repeatPassword: {
-      required,
-      sameAsPassword: sameAs('password')
+      minLength: minLength(16),
+      maxlength: maxLength(16),
+      numeric
     }
   },
   methods: {
@@ -220,8 +254,8 @@ export default {
           })
       }
     },
-    validPayment () {
-      var cartNumber = '5132630039804863'
+    validPayment (cartNumber) {
+      console.log(cartNumber)
       var sommeAll = 0
       var even = false
 
