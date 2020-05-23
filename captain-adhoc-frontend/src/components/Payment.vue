@@ -33,13 +33,12 @@
                         <div class="column is-half">
                           <div class="field carte-bancaire ">
                             <div class="control has-icons-left has-icons-right">
-                              <form @submit.prevent="submit" class="form-group">
                                 <div class="field">
                                   <div :class="{ 'animated headShake': $v.numberCart.$dirty && $v.numberCart.$error}">
                                     <input
                                       placeholder=""
                                       v-model.trim="$v.numberCart.$model"
-                                      class="input"  :class="{ 'is-success': !$v.numberCart.$error && $v.numberCart.$dirty && validPayment(numberCart),
+                                      class="input"  :class="{ 'is-success': !$v.numberCart.$error && $v.numberCart.$dirty && validPayment(numberCart) ,
                                         'is-danger': $v.numberCart.$error && $v.numberCart.$dirty && !validPayment(numberCart)}"
                                       type="num"
                                       name="cvc">
@@ -67,7 +66,6 @@
                                   <p class="has-text-success" v-if="$v.numberCart.$params.minLength.min === numberCart.length && $v.numberCart.numeric && validPayment(numberCart)">
                                     Votre code est conforme à la formule Luhn</p>
                                 </div>
-                              </form>
                             </div>
                           </div>
                         </div>
@@ -85,7 +83,7 @@
                             <div class="columns">
                               <div class="column">
                                 <b-field>
-                                  <b-select placeholder="Mois">
+                                  <b-select  id="select-Month" class="select-Month" placeholder="Mois">
                                     <option
                                       v-for="option in this.mois"
                                       :value="option.id"
@@ -97,7 +95,7 @@
                               </div>
                               <div class="column">
                                 <b-field>
-                                  <b-select placeholder="Année">
+                                  <b-select  id="select-Year" placeholder="Année">
                                     <option
                                       v-for="option in range(this.anneeMin, this.anneeMax)"
                                       :value="option"
@@ -107,14 +105,20 @@
                                   </b-select>
                                 </b-field>
                               </div>
+
                             </div>
+
                           </div>
+                          <div>
+                            <p class="expiration-date has-text-danger" style="display: none">
+                              La date d'expiration est obligatoire</p>
+                          </div>
+
                         </div>
                       </div>
                     </tr>
                     <tr>
                       <div class="columns formulaire">
-
                         <div class="column is-half">
                           <div class="carte-bancaire has-text-right" >
                             <p class="num-carte-bancaire">Code de sécurité</p>
@@ -123,7 +127,6 @@
                         <div class="column is-half">
                           <div class="field carte-bancaire">
                             <div class="control has-icons-left has-icons-right">
-                              <form @submit.prevent="submit" class="form-group">
                                 <div class="field">
                                   <div :class="{ 'animated headShake': $v.cvc.$dirty && $v.cvc.$error}">
                                     <input
@@ -153,7 +156,6 @@
                                   <p class="has-text-danger" v-if="!$v.cvc.numeric">
                                     Doit contenir uniquement des chiffres</p>
                                 </div>
-                              </form>
                             </div>
                           </div>
                         </div>
@@ -163,7 +165,7 @@
                 </div>
               </table>
               <div class="section to-pay box-shadow has-text-centered">
-                <button v-on:click="validPayment()"  class="button has-text-centered to-pay">Payez votre panier</button>
+                <button v-on:click="submitPayment()"  class="button has-text-centered to-pay">Payez votre panier</button>
               </div>
             </div>
           </div>
@@ -209,6 +211,7 @@ export default {
       mois: moisInit,
       anneeMin: 2020,
       anneeMax: 2030,
+      annee: 5,
       cvc: '',
       submitStatus: '',
       numberCart: ''
@@ -232,13 +235,35 @@ export default {
     range: function (start, end) {
       return Array(end - start + 1).fill().map((_, idx) => start + idx)
     },
-    submit () {
+    submitPayment () {
       this.submitStatus = ''
       this.$v.$touch()
+      var monthElement = document.getElementById('select-Month')
+      var month = monthElement.options[monthElement.selectedIndex].text
+      var yearElement = document.getElementById('select-Year')
+      var year = yearElement.options[yearElement.selectedIndex].text
+      var expirationElement = document.getElementsByClassName('expiration-date')[0]
+      expirationElement.onchange = (event) => {
+        var inputText = event.target.value
+        console.log(inputText)
+      }
       if (this.$v.$invalid) {
         // Invalid form
+        if (month === 'Mois' || year === 'Année') {
+          expirationElement.style.display = 'block'
+          console.log('non2')
+        }
+        console.log('non')
       } else {
-        axios
+        if (month === 'Mois' || year === 'Année') {
+          expirationElement.style.display = 'block'
+          console.log('non3')
+        }
+        console.log(this.numberCart)
+        console.log(this.cvc)
+        console.log(month)
+        console.log(year)
+        /* axios
           .post('/signup', configs, {
             data: {
               username: this.username,
@@ -251,11 +276,13 @@ export default {
           })
           .catch((e) => {
             this.submitStatus = e.response.status
-          })
+          }) */
       }
     },
     validPayment (cartNumber) {
-      console.log(cartNumber)
+      if (cartNumber.length !== 16) {
+        return false
+      }
       var sommeAll = 0
       var even = false
 
@@ -280,6 +307,7 @@ export default {
     align-items: center;
     font-weight: bold;
   }
+
   .b-field {
     display: flex;
     justify-content: left;
