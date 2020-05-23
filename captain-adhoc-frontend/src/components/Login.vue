@@ -4,7 +4,7 @@
       <div class="columns is-flex is-centered">
         <div class="column is-4">
           <div class="box">
-            <form @submit.prevent="submit" class="form-group">
+            <form id="login" @submit.prevent="submit" class="form-group">
               <div class="levels">
                 <div class="level-item">
                   <p class="title">Connexion</p>

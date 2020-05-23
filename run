@@ -1,0 +1,3 @@
+#!/bin/sh
+cd captain-adhoc-backend
+mvn deploy

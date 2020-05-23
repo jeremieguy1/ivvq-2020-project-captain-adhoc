@@ -6,8 +6,15 @@ COPY captain-adhoc-frontend/ ./
 RUN apk update && apk upgrade && \
     echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
     echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
+<<<<<<< HEAD
     apk add bash chromium@edge nss@edge
 ENV CHROME_BIN chromium-browser
+=======
+    apk add --no-cache bash chromium@edge nss@edge
+ENV CHROME_BIN /usr/bin/chromium-browser
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+ENV SASS_BINARY_NAME=linux-x64-67
+>>>>>>> 72db28f... [Front] - Ajoute des tests e2e
 RUN npm run unit
 RUN npm run build
 
@@ -18,7 +25,6 @@ RUN mvn dependency:go-offline -B
 COPY captain-adhoc-backend/src/ ./src
 COPY --from=node /node/dist/ ./src/main/resources/static
 RUN mvn package
-
 
 FROM openjdk:8-jre-alpine
 WORKDIR /app

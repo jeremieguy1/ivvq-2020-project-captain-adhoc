@@ -6,7 +6,7 @@ services:
 script:
   - docker build -t captain-adhoc .
 deploy:
-    provider: script
-    script: bash docker_push
-    on:
-      branch: master
+  provider: script
+  script: bash docker_push
+  on:
+    branch: master

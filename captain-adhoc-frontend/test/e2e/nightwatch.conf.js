@@ -29,6 +29,11 @@ module.exports = {
 
     chrome: {
       desiredCapabilities: {
+        chromeOptions: {
+          args: [
+              'start-maximized'
+          ]
+      },
         browserName: 'chrome',
         javascriptEnabled: true,
         acceptSslCerts: true
