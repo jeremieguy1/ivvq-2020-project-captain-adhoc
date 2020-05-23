@@ -11,9 +11,12 @@ module.exports = {
     browser
       .url(devServer)
       .waitForElementVisible('#app', 5000)
-      .assert.elementPresent('.hello')
-      .assert.containsText('h1', 'Welcome to Your Vue.js App')
-      .assert.elementCount('img', 1)
+      .assert.elementPresent('.navbar')
+      .assert.elementPresent('.hero')
+      .assert.elementPresent('.no-shadow')
+      .assert.containsText('div.jeuxExlu', 'Le seul site où vous pouvez trouver des consoles de jeux exclusives !')
+      .assert.containsText('h1', 'Captain Escroc Market')
+      .assert.elementCount('figure.image.is-4by5', 2)
       .end()
   }
 }
