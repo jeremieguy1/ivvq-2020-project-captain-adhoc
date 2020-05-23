@@ -1,4 +1,4 @@
-package captainadhoc.captainadhocbackend.beans;
+package captainadhoc.captainadhocbackend.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;

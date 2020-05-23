@@ -1,12 +1,15 @@
 package captainadhoc.captainadhocbackend.integrationServices;
 
-import captainadhoc.captainadhocbackend.beans.ProduitsAchat;
+import captainadhoc.captainadhocbackend.dto.ProduitsAchat;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
 import captainadhoc.captainadhocbackend.domain.Produit;
 import captainadhoc.captainadhocbackend.repositories.CommandeRepository;
 import captainadhoc.captainadhocbackend.services.implementations.CommandeProduitService;
-import org.junit.jupiter.api.BeforeAll;
+import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
+import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
+import captainadhoc.captainadhocbackend.services.interfaces.IUtilisateurService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,22 +31,40 @@ public class CommandeProduitServiceIntergrationTest {
     @Autowired
     private CommandeRepository commandeRepository;
 
-    private static CommandeProduit commandeProduit;
+    private  CommandeProduit commandeProduit;
 
-    private static Commande commande;
+    private  Commande commande;
 
-    private static List<ProduitsAchat> produitsAchats;
+    private  List<ProduitsAchat> produitsAchats;
 
-    private static List<CommandeProduit> commandeProduits;
+    private  List<CommandeProduit> commandeProduits;
 
-    @BeforeAll
-    public static void setup() {
+    private Long idProduit1;
+
+    private Long idProduit2;
+
+    private  DataLoader dataLoader;
+
+    @Autowired
+    private  IProduitService produitService;
+
+    @Autowired
+    private  IUtilisateurService utilisateurService;
+
+    @Autowired
+    private  ICommandeService commandeService;
+
+    @BeforeEach
+    public void setup() {
+
+        dataLoader = new DataLoader(produitService, utilisateurService, commandeService, commandeProduitService);
+        dataLoader.run();
 
         Produit produit = new Produit(
                 15,
                 "produit1",
                 "description1",
-                "ps5.png",
+                "https://aaa",
                 300);
 
         commande = new Commande(new Date(),"code");
@@ -53,9 +74,12 @@ public class CommandeProduitServiceIntergrationTest {
         commandeProduit.setQuantite_commande_produit(5);
         commandeProduit.setCommande(commande);
 
+        List<Produit> produitList = produitService.findAllProduits();
+        idProduit1 = produitList.get(0).getId_produit();
+        idProduit2 = produitList.get(1).getId_produit();
 
-        ProduitsAchat produitsAchat1 = new ProduitsAchat(2L, 2);
-        ProduitsAchat produitsAchat2 = new ProduitsAchat(3L, 5);
+        ProduitsAchat produitsAchat1 = new ProduitsAchat(idProduit1, 2);
+        ProduitsAchat produitsAchat2 = new ProduitsAchat(idProduit2, 5);
         produitsAchats = new ArrayList<>();
         produitsAchats.add(produitsAchat1);
         produitsAchats.add(produitsAchat2);
@@ -113,8 +137,8 @@ public class CommandeProduitServiceIntergrationTest {
 
         assertEquals(2, commandeProduits.size());
 
-        assertEquals(2L, commandeProduits.get(0).getProduit().getId_produit());
-        assertEquals(3L, commandeProduits.get(1).getProduit().getId_produit());
+        assertEquals(idProduit1, commandeProduits.get(0).getProduit().getId_produit());
+        assertEquals(idProduit2, commandeProduits.get(1).getProduit().getId_produit());
 
         assertEquals(2, commandeProduits.get(0).getQuantite_commande_produit());
         assertEquals(5, commandeProduits.get(1).getQuantite_commande_produit());

@@ -64,6 +64,9 @@ export default {
   created: function () {
     window.addEventListener('scroll', this.scrollFunction)
   },
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.scrollFunction)
+  },
   name: 'Home',
   data: () => ({
     pauseOnHover: false,

@@ -2,6 +2,9 @@ package captainadhoc.captainadhocbackend.integrationServices;
 
 import captainadhoc.captainadhocbackend.domain.Produit;
 import captainadhoc.captainadhocbackend.services.implementations.ProduitService;
+import captainadhoc.captainadhocbackend.services.interfaces.ICommandeProduitService;
+import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
+import captainadhoc.captainadhocbackend.services.interfaces.IUtilisateurService;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,11 +25,24 @@ public class ProduitServiceIntegrationTest {
     @Autowired
     private ProduitService produitService;
 
+    @Autowired
+    private IUtilisateurService utilisateurService;
+
+    @Autowired
+    private ICommandeProduitService commandeProduitService;
+
+    @Autowired
+    private ICommandeService commandeService;
+
+    private DataLoader dataLoader;
+
     private Produit produit;
 
     @BeforeEach
-    public void setup() {
-        produit = new Produit(15, "produit1", "description1", "image1", 1);
+    public void setup() throws Exception {
+        produit = new Produit(15, "produit1", "description1", "https://aaaa", 1);
+        dataLoader = new DataLoader(produitService, utilisateurService, commandeService, commandeProduitService);
+        dataLoader.run();
     }
 
     @Test
@@ -75,14 +91,16 @@ public class ProduitServiceIntegrationTest {
     @Test
     public void testDecrementQuantity() {
 
+        Long idProduitToDecrement = produitService.findAllProduits().get(0).getId_produit();
+
         // when: la méthode decrementQuantity est invoquée
-        Produit produit = produitService.decrementQuantity(2L, 5);
+        Produit produit = produitService.decrementQuantity(idProduitToDecrement, 5);
 
         //then: la quantite du produit a été modifiée en base
-        assertEquals(10, produitService.getProduitRepository().findById(2L).get().getQuantite_produit());
+        assertEquals(10, produitService.getProduitRepository().findById(idProduitToDecrement).get().getQuantite_produit());
 
         //then: le produit modifié a été retourné
-        assertEquals(2L, produit.getId_produit());
+        assertEquals(idProduitToDecrement, produit.getId_produit());
         assertEquals(10, produit.getQuantite_produit());
     }
 }

@@ -25,13 +25,23 @@
 
   <div id="navbar-menu" class="navbar-menu">
     <div class="navbar-start">
-      <div class="is-flex" v-if="isLogged">
+      <div class="is-flex" v-if="isLogged || user.isAdmin">
         <router-link to="/products" class="navbar-item is-flex">
           <div class="fontawesome-icon">
             <i class="fas fa-grip-horizontal"></i>
           </div>
           <div>
             <span>Produits</span>
+          </div>
+        </router-link>
+      </div>
+      <div class="is-flex" v-if="user.isAdmin">
+        <router-link to="/inventory" class="navbar-item is-flex">
+          <div class="fontawesome-icon">
+            <i class="fas fa-suitcase"></i>
+          </div>
+          <div>
+            <span>Inventaire</span>
           </div>
         </router-link>
       </div>
@@ -77,14 +87,14 @@
           </div>
         </router-link>
 
-        <router-link to="/log-out" class="navbar-item button is-flex">
+        <button @click="openLogoutModal" class="navbar-item button is-flex">
           <div class="fontawesome-icon">
             <i class="fas fa-sign-out-alt"></i>
           </div>
           <div>
             <span>Déconnexion</span>
           </div>
-        </router-link>
+        </button>
       </div>
     </div>
   </div>
@@ -92,15 +102,37 @@
 </template>
 
 <script>
+import LogoutModal from '@/components/LogoutModal'
+import { mapState } from 'vuex'
 export default {
   name: 'Navbar',
-
+  components: { LogoutModal },
+  computed: mapState[('isLoggedStore', 'userStore')],
   data () {
     return {
-      isLogged: false
+      isLogged: '',
+      user: ''
     }
   },
+  created () {
+    this.unwatch = this.$store.watch(
+      (state, getters) => getters.isLoggedStore,
+      (userStatus) => {
+        this.isLogged = userStatus
+      }
+    )
+    this.unwatchUser = this.$store.watch(
+      (state, getters) => getters.userStore,
+      (userStore) => {
+        this.user = userStore
+      }
+    )
+  },
 
+  beforeDestroy () {
+    this.unwatch()
+    this.unwatchUser()
+  },
   methods: {
     burgerClick: function () {
       const burger = document.querySelector('.burger')
@@ -114,6 +146,14 @@ export default {
       buttons.classList.toggle('slideInLeft')
 
       document.querySelector('.navbar').classList.toggle('is-mobile')
+    },
+    openLogoutModal () {
+      this.$buefy.modal.open({
+        parent: this,
+        component: LogoutModal,
+        hasModalCard: true,
+        trapFocus: true
+      })
     }
   }
 }

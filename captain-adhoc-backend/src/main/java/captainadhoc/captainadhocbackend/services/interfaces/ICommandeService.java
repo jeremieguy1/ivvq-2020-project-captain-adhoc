@@ -1,6 +1,6 @@
 package captainadhoc.captainadhocbackend.services.interfaces;
 
-import captainadhoc.captainadhocbackend.beans.Achat;
+import captainadhoc.captainadhocbackend.dto.Achat;
 import captainadhoc.captainadhocbackend.domain.Commande;
 
 import java.util.ArrayList;

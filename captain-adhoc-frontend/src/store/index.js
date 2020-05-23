@@ -7,12 +7,17 @@ Vue.use(Vuex)
 
 const state = {
   commandes: [],
+  products: [],
+  userStore: '',
+  isLoggedStore: false,
+  isMercant: false,
   cartProducts: [],
   produits: [],
   inventoryProducts: []
 }
 
 export const mutations = {
+  /* History managment */
   getData (state) {
     axios
       .get('/commandes', configs)
@@ -20,9 +25,6 @@ export const mutations = {
         response.data.forEach(commande => Vue.observable(commande.display = false))
         state.commandes = response.data
       })
-  },
-  storeProducts (state, productsToStore) {
-    state.produits = productsToStore
   },
   inventoryProducts (state, productsToManage) {
     state.inventoryProducts = productsToManage
@@ -44,6 +46,20 @@ export const mutations = {
       }
     })
   },
+  /* Product managment */
+  storeProducts (state, productsToStore) {
+    state.products = productsToStore
+  },
+  /* isLoggedStore managment */
+  setActiveUser (state, isLoggedStore) {
+    state.isLoggedStore = isLoggedStore
+  },
+  setCurrentUser (state, userStore) {
+    state.userStore = userStore
+  },
+  setMercant (state) {
+    state.isMercant = true
+  },
   displayContentInventory (state, product) {
     state.inventoryProducts.forEach(prod => {
       if (prod.id_produit === product.id_produit) {
@@ -64,6 +80,15 @@ export const mutations = {
 export const getters = {
   allProducts: state => {
     return state.produits
+  },
+  isLoggedStore: state => {
+    return state.isLoggedStore
+  },
+  isMercant: state => {
+    return state.isMercant
+  },
+  userStore: state => {
+    return state.userStore
   }
 }
 export default new Vuex.Store({

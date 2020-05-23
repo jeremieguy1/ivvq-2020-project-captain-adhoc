@@ -14,7 +14,7 @@
                 </div>
               </div>
               <div class="field">
-                <label class="label">Nom *</label>
+                <label class="label">Nom d'utilisateur *</label>
                 <div class="control has-icons-left has-icons-right">
                   <div :class="{'animated headShake': $v.username.$dirty && $v.username.$error}">
                     <input
@@ -23,7 +23,7 @@
                       v-model.trim="$v.username.$model"
                       name="username"
                       type="text"
-                      placeholder="Nom...">
+                      placeholder="Nom d'utilisateur...">
                     <span class="icon is-small is-left">
                       <i class="fas fa-user"></i>
                     </span>
@@ -69,7 +69,7 @@
                   <p class="has-text-danger" v-if="!$v.password.required && $v.password.$dirty">Le mot de passe est obligatoire</p>
                   <p class="has-text-danger" v-if="!$v.password.minLength">Le mot de passe doit contenir au moins {{$v.password.$params.minLength.min}} caractères</p>
                 </div>
-                <p class="has-text-danger" v-if="submitStatus != ''">Erreur de connexion ({{submitStatus}})</p>
+                <p class="has-text-danger" v-if="submitStatus != ''">{{submitStatus}}</p>
               </div>
               <div class="field is-flex">
                 <button
@@ -90,6 +90,7 @@
 import { required, minLength, alphaNum } from 'vuelidate/lib/validators'
 import axios from 'axios'
 import { configs } from '../http-common'
+import UserManagment from '../components/userManagment'
 
 export default {
   name: 'Login',
@@ -118,20 +119,30 @@ export default {
       if (this.$v.$invalid) {
         // Invalid form
       } else {
+        const body = {
+          nomUtilisateur: this.username,
+          motDePasse: this.password
+        }
         axios
-          .get('/login', configs, {
-            data: {
-              username: this.username,
-              password: this.password
-            }
-          })
+          .post('/login', body, configs)
           .then(response => {
-            axios.defaults.headers.common['Autorization'] = response.headers['autorization']
-            this.$router.push('Products')
+            localStorage.setItem('Authorization', response.headers['authorization'])
+            this.$router.push('products')
           })
           .catch((e) => {
-            console.log(e)
-            this.submitStatus = e.response.status
+            switch (e.response.status) {
+              case (403): {
+                this.submitStatus = 'Nom d\'utilisateur ou mot de passe incorrect'
+                break
+              }
+              default: {
+                this.submitStatus = `Erreur de connexion (${e.response.status})`
+              }
+            }
+          }).finally(() => {
+            if (this.submitStatus === '') {
+              UserManagment.getUser()
+            }
           })
       }
     }

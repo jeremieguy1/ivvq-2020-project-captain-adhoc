@@ -1,18 +1,15 @@
-package captainadhoc.captainadhocbackend;
+package captainadhoc.captainadhocbackend.integrationServices;
 
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
-import captainadhoc.captainadhocbackend.domain.Marchand;
 import captainadhoc.captainadhocbackend.domain.Produit;
+import captainadhoc.captainadhocbackend.domain.Utilisateur;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeProduitService;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
-import captainadhoc.captainadhocbackend.services.interfaces.IMarchandService;
 import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
+import captainadhoc.captainadhocbackend.services.interfaces.IUtilisateurService;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,17 +17,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 @Component
 @Transactional
 @AllArgsConstructor
-@NoArgsConstructor
-public class DataLoader implements ApplicationRunner {
+public class DataLoader {
 
     @Autowired
     private IProduitService produitService;
 
     @Autowired
-    private IMarchandService marchandService;
+    private IUtilisateurService utilisateurService;
 
     @Autowired
     private ICommandeService commandeService;
@@ -38,68 +35,45 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     private ICommandeProduitService commandeProduitService;
 
-    public void initProduit() throws InterruptedException {
+    public void initProduit(){
 
-        produitService.deleteAllProduit();
-        Marchand marchand1 = new Marchand("marchand1");
-
-        Produit produit1 = new Produit(
-                15,
-                "PS5",
-                "Encore une playstation de folie \\o/",
-                "https://urlz.fr/cHLz",
-                1);
+        Utilisateur admin = new Utilisateur("Kevin", "Marchand", "marchand1", "mdp", true);
 
         Produit produit2 = new Produit(
                 16,
                 "CyberboX",
                 "Non comptant d'avoir les meilleures voitures au MONDE, Tesla propose la meilleure console de jeu grand public !",
-                "https://urlz.fr/cHLH",
-                100000);
-
-        Produit produit3 = new Produit(2,
-                "Mad box",
+                "https://cdn.dribbble.com/users/332589/screenshots/9955348/image.png", 100000);
+        Produit produit1 = new Produit(
+                15,
+                "PS5",
+                "Encore une playstation de folie \\o/", "https://static.mensup.fr/photo_article/209383/105703/1200-L-ps5-actualits.jpg", 1);
+        Produit produit3 = new Produit(
+                2
+                , "Mad box",
                 "Cette console va révolutionner le du la de esport !",
-                "https://urlz.fr/cHJp",
-                666);
-
-        Produit produit4 = new Produit(100,
+                "https://www.unsimpleclic.com/wp-content/uploads/2019/01/190124-une-nouvelle-console-mad-box-pourrait-debarquer-sur-le-marche-01.jpg", 666);
+        Produit produit4 = new Produit(
+                100,
                 "New retro +",
                 "Elle fera tourner les jeux dernières générations tels que tetris et même Donkey kong 64 ! Et tout àa pour seulement 1399,99€",
-                "https://urlz.fr/cHJz",
-                10);
-
+                "https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg", 10);
         Produit produit5 = new Produit(
                 5,
                 "Xbox Serie X",
                 "C'est partiiiii pour la console pc !",
-                "https://urlz.fr/cHLM",
-                200);
+                "https://compass-ssl.xbox.com/assets/85/8b/858b94d4-0ca6-4e74-ac9f-38565c49f2df.jpg?n=Xbox-Series-X_Image-0_1083x1400_02.jpg", 200);
 
-        List<Produit> produitList = new ArrayList<>();
-
-        produitList.add(produit1);
-        produitList.add(produit2);
-        produitList.add(produit3);
-        produitList.add(produit4);
-        produitList.add(produit5);
-
-        marchand1.setProduitList(produitList);
-
-        marchandService.saveMarchand(marchand1);
-        produit1.setMarchand(marchand1);
-        produit2.setMarchand(marchand1);
+        utilisateurService.saveUtilisateur(admin);
 
         produitService.saveProduit(produit1);
         produitService.saveProduit(produit2);
         produitService.saveProduit(produit3);
         produitService.saveProduit(produit4);
         produitService.saveProduit(produit5);
-
     }
 
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run() {
         initProduit();
         initCommandes();
     }

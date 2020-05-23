@@ -6,13 +6,12 @@ import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 import Cart from '@/components/Cart/Cart.vue'
 import History from '@/components/History'
-import Logout from '@/components/Logout'
 import Inventory from '@/components/Inventory'
 import Products from '@/components/Products'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -46,11 +45,6 @@ export default new Router({
       component: History
     },
     {
-      path: '/log-out',
-      name: 'Logout',
-      component: Logout
-    },
-    {
       path: '/products',
       name: 'Products',
       component: Products
@@ -62,3 +56,13 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if ((to.name !== 'Login' && to.name !== 'SignUp' && to.name !== 'Home') && !localStorage.getItem('Authorization')) {
+    next({ name: 'Login' })
+  } else {
+    next()
+  }
+})
+
+export default router

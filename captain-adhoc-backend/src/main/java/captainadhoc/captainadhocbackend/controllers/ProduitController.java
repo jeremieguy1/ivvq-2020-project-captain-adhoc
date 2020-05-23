@@ -1,6 +1,6 @@
 package captainadhoc.captainadhocbackend.controllers;
 
-import captainadhoc.captainadhocbackend.beans.Achat;
+import captainadhoc.captainadhocbackend.dto.Achat;
 import captainadhoc.captainadhocbackend.domain.Produit;
 import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
