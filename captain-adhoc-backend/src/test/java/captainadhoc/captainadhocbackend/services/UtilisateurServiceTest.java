@@ -5,6 +5,7 @@ import captainadhoc.captainadhocbackend.repositories.UtilisateurRepository;
 import captainadhoc.captainadhocbackend.services.implementations.UtilisateurService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,6 +14,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 public class UtilisateurServiceTest {
 
     @MockBean
