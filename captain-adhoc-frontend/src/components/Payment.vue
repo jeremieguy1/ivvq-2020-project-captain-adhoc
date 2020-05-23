@@ -178,7 +178,6 @@
 <script>
 import axios from 'axios'
 import { configs } from '../http-common'
-import {mapState} from 'vuex'
 import { required, minLength, numeric, maxLength } from 'vuelidate/lib/validators'
 import Buefy from 'buefy'
 import Vue from 'vue'
@@ -245,43 +244,43 @@ export default {
       var yearElement = document.getElementById('select-Year')
       var year = yearElement.options[yearElement.selectedIndex].text
       var expirationElement = document.getElementsByClassName('expiration-date')[0]
-      expirationElement.onchange = (event) => {
-        var inputText = event.target.value
-        console.log(inputText)
-      }
+
       if (this.$v.$invalid) {
         // Invalid form
         if (month === 'Mois' || year === 'Année') {
           expirationElement.style.display = 'block'
-          console.log('non2')
         }
-        console.log('non')
       } else {
         if (month === 'Mois' || year === 'Année') {
           expirationElement.style.display = 'block'
-          console.log('non3')
         } else {
-          console.log(this.numberCart)
-          console.log(this.cvc)
-          console.log(month)
-          console.log(year)
-          var localProducts = JSON.parse(window.localStorage.getItem('commandsProduct'))
-          console.log(localProducts)
-        }
-        /* axios
-          .post('/signup', configs, {
-            data: {
-              username: this.username,
-              password: this.password
+          var productToPay = []
+          var productToPush
+          for (var product in this.productsToPay.products) {
+            productToPush = {
+              id_produit: this.productsToPay.products[product].id_produit,
+              quantite: this.productsToPay.products[product].quantity
             }
-          })
-          .then(response => {
-            axios.defaults.headers.common['Autorization'] = response.headers['autorization']
-            this.$router.push('Products')
-          })
-          .catch((e) => {
-            this.submitStatus = e.response.status
-          }) */
+            productToPay.push(productToPush)
+          }
+          var pay = {
+            code: this.productsToPay.code,
+            produitsAchat: productToPay
+          }
+          console.log(pay)
+          axios
+            .post('/commandes/achat',
+              pay
+              , configs)
+            .then(response => {
+              // clean localStorage
+              window.localStorage.setItem('commandsProduct', JSON.stringify([]))
+              window.localStorage.setItem('commandToPay', JSON.stringify({}))
+            })
+            .catch((e) => {
+              this.submitStatus = e.response.status
+            })
+        }
       }
     },
     validPayment (cartNumber) {
@@ -309,13 +308,6 @@ export default {
   .subtitle {
     display: flex;
     justify-content: center;
-    align-items: center;
-    font-weight: bold;
-  }
-
-  .b-field {
-    display: flex;
-    justify-content: left;
     align-items: center;
     font-weight: bold;
   }

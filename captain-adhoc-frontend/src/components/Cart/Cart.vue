@@ -197,7 +197,7 @@ export default {
       }
       var newQuantityProduct = {
         nom_produit: product.nom_produit,
-        quantity: select[index].value
+        quantity: parseInt(select[index].value)
       }
       this.$store.commit('updateQuantity', newQuantityProduct)
     },
