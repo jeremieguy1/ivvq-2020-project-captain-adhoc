@@ -18,7 +18,7 @@
           <div class="column">
             <div class="box">
               <div class="field">
-                <label class="section subtitle">Montant de la transaction: € pour xx produits</label>
+                <label class="section subtitle">Montant de la transaction: {{productsToPay.totalPrice}}€ pour {{productsToPay.totalProducts}} produits</label>
               </div>
               <table class="table is-fullwidth">
                 <div class="columns is-centered">
@@ -204,7 +204,8 @@ const moisInit = [{'id': 1, 'nom': 'Janvier'},
 export default {
   name: 'Payment',
   mounted () {
-    // this.getProducts()
+    this.productsToPay = JSON.parse(window.localStorage.getItem('commandToPay'))
+    console.log(this.productsToPay)
   },
   data () {
     return {
@@ -214,7 +215,8 @@ export default {
       annee: 5,
       cvc: '',
       submitStatus: '',
-      numberCart: ''
+      numberCart: '',
+      productsToPay: []
     }
   },
   validations: {
@@ -258,11 +260,14 @@ export default {
         if (month === 'Mois' || year === 'Année') {
           expirationElement.style.display = 'block'
           console.log('non3')
+        } else {
+          console.log(this.numberCart)
+          console.log(this.cvc)
+          console.log(month)
+          console.log(year)
+          var localProducts = JSON.parse(window.localStorage.getItem('commandsProduct'))
+          console.log(localProducts)
         }
-        console.log(this.numberCart)
-        console.log(this.cvc)
-        console.log(month)
-        console.log(year)
         /* axios
           .post('/signup', configs, {
             data: {

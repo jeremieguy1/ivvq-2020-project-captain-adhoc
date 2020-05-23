@@ -172,6 +172,14 @@ export default {
     },
     payCart () {
       // A voir ici si on a besoin de rajouter de données dans commandsProduct localstorage
+      var commandToPAy = {
+        code: this.code,
+        products: this.products,
+        totalPrice: this.getTotalCart(this.products),
+        totalProducts: this.getTotalProduct(this.products)
+      }
+      window.localStorage.setItem('commandToPay', JSON.stringify(commandToPAy))
+
       console.log('Go to PAYYYYY')
     },
     displayContentCart (commande) {
@@ -182,7 +190,7 @@ export default {
       var index = 0
       for (var element in select) {
         if (Number.isInteger(parseInt(element))) {
-          if (select[element].options[0].id === product.nom_produit) {
+          if (select[element].selectedOptions[0].id === product.nom_produit) {
             index = element
           }
         }
