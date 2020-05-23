@@ -28,7 +28,7 @@
       <div class="is-flex" v-if="isLogged">
         <router-link to="/products" class="navbar-item is-flex">
           <div class="fontawesome-icon">
-            <i class="fas fa-grip-horizontal"></i>
+            <span class="fas fa-grip-horizontal"></span>
           </div>
           <div>
             <span>Produits</span>
@@ -51,7 +51,7 @@
       <div v-if="!isLogged" class="buttons is-flex">
         <router-link to="/log-in" class="navbar-item button is-flex">
           <div class="fontawesome-icon">
-            <i class="fas fa-sign-in-alt"></i>
+            <span class="fas fa-sign-in-alt"></span>
           </div>
           <div>
             <span>Connexion</span>
@@ -60,7 +60,7 @@
 
         <router-link to="/sign-up" class="navbar-item button is-flex">
           <div class="fontawesome-icon">
-            <i class="fas fa-user-plus"></i>
+            <span class="fas fa-user-plus"></span>
           </div>
           <div>
             <span>Inscription</span>
@@ -71,7 +71,7 @@
       <div v-else class="buttons is-flex">
         <router-link to="/cart" class="navbar-item button is-flex" aria-label="Your cart">
           <div class="fontawesome-icon">
-            <i class="fas fa-cart-arrow-down"></i>
+            <span class="fas fa-cart-arrow-down"></span>
           </div>
           <div>
             <span>Panier</span>
@@ -80,7 +80,7 @@
 
         <router-link to="/purchases-history" class="navbar-item button is-flex">
           <div class="fontawesome-icon">
-            <i class="fas fa-history"></i>
+            <span class="fas fa-history"></span>
           </div>
           <div>
             <span>Commandes</span>
@@ -89,7 +89,7 @@
 
         <button @click="openLogoutModal" class="navbar-item button is-flex">
           <div class="fontawesome-icon">
-            <i class="fas fa-sign-out-alt"></i>
+            <span class="fas fa-sign-out-alt"></span>
           </div>
           <div>
             <span>Déconnexion</span>
