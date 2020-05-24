@@ -1,5 +1,6 @@
 package captainadhoc.captainadhocbackend.services.implementations;
 
+import captainadhoc.captainadhocbackend.domain.Utilisateur;
 import captainadhoc.captainadhocbackend.dto.AchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
@@ -9,6 +10,8 @@ import captainadhoc.captainadhocbackend.services.interfaces.ICommandeProduitServ
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,6 +28,10 @@ public class CommandeService implements ICommandeService {
     @Getter
     @Autowired
     private ICommandeProduitService commandeProduitService;
+
+    @Getter
+    @Autowired
+    private UtilisateurService utilisateurService;
 
     @Override
     public ArrayList<Commande> findAllCommandes() {
@@ -46,12 +53,12 @@ public class CommandeService implements ICommandeService {
     }
 
     @Override
-    public void newCommande(AchatDto achat) throws InsufficientQuantityException {
+    public void newCommande(AchatDto achat, Utilisateur utilisateur) throws InsufficientQuantityException {
 
-        Date date = new Date();
         Commande commande = Commande.builder()
-                .date_commande(date)
+                .date_commande(new Date())
                 .code(achat.getCode())
+                .utilisateur(utilisateur)
                 .build();
 
         List<CommandeProduit> commandeProduits =

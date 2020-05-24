@@ -1,5 +1,6 @@
 package captainadhoc.captainadhocbackend.services;
 
+import captainadhoc.captainadhocbackend.domain.Utilisateur;
 import captainadhoc.captainadhocbackend.dto.AchatDto;
 import captainadhoc.captainadhocbackend.dto.ProduitsAchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
@@ -13,6 +14,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -61,6 +64,14 @@ class CommandeServiceTest {
 
     @Test
     public void newCommandeTest() {
+
+        Utilisateur utilisateur = Utilisateur.builder()
+                .nom("Kevin")
+                .prenom("Marchand")
+                .nomUtilisateur("marchand1")
+                .motDePasse("mdp")
+                .isAdmin(true)
+                .build();
 
         ProduitsAchatDto produitsAchat1 = new ProduitsAchatDto(1L, 2);
         ProduitsAchatDto produitsAchat2 = new ProduitsAchatDto(2L, 3);
@@ -111,7 +122,7 @@ class CommandeServiceTest {
 
         when(commandeService.getCommandeProduitService().createCommandeProduit(Mockito.any(List.class), Mockito.any(Commande.class))).thenReturn(commandeProduits);
 
-        commandeService.newCommande(achat);
+        commandeService.newCommande(achat, utilisateur);
 
         // then: la méthode saveAllCommandeProduit du CommandeProduitService associé est invoquée
         verify(commandeService.getCommandeProduitService()).createCommandeProduit(Mockito.eq(produitsAchats), Mockito.any(Commande.class));

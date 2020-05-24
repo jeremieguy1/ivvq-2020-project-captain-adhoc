@@ -1,6 +1,7 @@
 package captainadhoc.captainadhocbackend.integrationServices;
 
 import captainadhoc.captainadhocbackend.domain.Produit;
+import captainadhoc.captainadhocbackend.domain.Utilisateur;
 import captainadhoc.captainadhocbackend.dto.AchatDto;
 import captainadhoc.captainadhocbackend.dto.ProduitsAchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
@@ -47,6 +48,7 @@ public class CommandeServiceIntegrationTest {
 
     @BeforeEach
     public void setup() {
+
         commande = Commande.builder()
                 .date_commande(new Date())
                 .code("code")
@@ -99,7 +101,9 @@ public class CommandeServiceIntegrationTest {
 
         AchatDto achat = new AchatDto("CODETEST", produitsAchats);
 
-        commandeService.newCommande(achat);
+        commandeService.newCommande(
+                achat,
+                utilisateurService.findByNomUtilisateur("Kevin"));
 
         ArrayList<Commande> commandes = commandeService.findAllCommandes();
 
@@ -145,7 +149,9 @@ public class CommandeServiceIntegrationTest {
         // when: la méthode newCommande est invoquée
         // then: une exception est levé
         assertThrows(InsufficientQuantityException.class, () ->
-                commandeService.newCommande(achat)
+                commandeService.newCommande(
+                        achat,
+                        utilisateurService.findByNomUtilisateur("Kevin"))
         );
     }
 }
