@@ -1,8 +1,19 @@
 package captainadhoc.captainadhocbackend.domain;
 
-import lombok.*;
 
-import javax.persistence.*;
+import lombok.ToString;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.Builder;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Column;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -12,6 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 @Setter
 @Getter
+@Builder
 @Entity
 @ToString(of = {"prenom", "nom", "nomUtilisateur"})
 public class Utilisateur {
@@ -42,11 +54,4 @@ public class Utilisateur {
     @OneToMany(mappedBy = "utilisateur")
     private List<Commande> commandeList;
 
-    public Utilisateur(String nom, String prenom, String nomUtilisateur, String motDePasse, Boolean isAdmin) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.nomUtilisateur = nomUtilisateur;
-        this.motDePasse = motDePasse;
-        this.isAdmin = isAdmin;
-    }
 }

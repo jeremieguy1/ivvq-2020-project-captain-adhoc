@@ -20,24 +20,27 @@ import static captainadhoc.captainadhocbackend.configuration.SecurityConstants.S
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    UtilisateurService utilisateurService;
+    private UtilisateurService utilisateurService;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.cors().and().csrf().disable().authorizeRequests()
         .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
         .anyRequest().authenticated()
         .and()
         .addFilter(new JWTAuthenticationFilter(authenticationManager()))
         .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .cors().configurationSource(request -> {
-            CorsConfiguration config =  new CorsConfiguration().applyPermitDefaultValues();
+            CorsConfiguration config =  new CorsConfiguration()
+                    .applyPermitDefaultValues();
             config.addExposedHeader("Authorization");
             config.addAllowedMethod(HttpMethod.POST);
 
@@ -46,13 +49,17 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(utilisateurService).passwordEncoder(bCryptPasswordEncoder);
+        auth.userDetailsService(utilisateurService)
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        final UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration(
+                "/**",
+                new CorsConfiguration().applyPermitDefaultValues());
         return source;
     }
 }

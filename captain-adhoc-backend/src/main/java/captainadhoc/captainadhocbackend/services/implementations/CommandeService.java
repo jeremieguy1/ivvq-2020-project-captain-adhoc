@@ -1,6 +1,6 @@
 package captainadhoc.captainadhocbackend.services.implementations;
 
-import captainadhoc.captainadhocbackend.dto.Achat;
+import captainadhoc.captainadhocbackend.dto.AchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
 import captainadhoc.captainadhocbackend.repositories.CommandeRepository;
@@ -45,11 +45,19 @@ public class CommandeService implements ICommandeService {
     }
 
     @Override
-    public void newCommande(Achat achat) {
+    public void newCommande(AchatDto achat) {
 
         Date date = new Date();
-        Commande commande = new Commande(date, achat.getCode());
-        List<CommandeProduit> commandeProduits = commandeProduitService.createCommandeProduit(achat.getProduitsAchat(), commande);
+        Commande commande = Commande.builder()
+                .date_commande(date)
+                .code(achat.getCode())
+                .build();
+
+        List<CommandeProduit> commandeProduits =
+                commandeProduitService.createCommandeProduit(
+                        achat.getProduitsAchat(),
+                        commande);
+
         commande.setCommandeProduitsList(commandeProduits);
 
         saveCommande(commande);

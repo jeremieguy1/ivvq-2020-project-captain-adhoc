@@ -1,6 +1,6 @@
 package captainadhoc.captainadhocbackend.services.implementations;
 
-import captainadhoc.captainadhocbackend.dto.ProduitsAchat;
+import captainadhoc.captainadhocbackend.dto.ProduitsAchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
 import captainadhoc.captainadhocbackend.domain.Produit;
@@ -11,7 +11,6 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,23 +31,34 @@ public class CommandeProduitService implements ICommandeProduitService {
     }
 
     @Override
-    public List<CommandeProduit> createCommandeProduit (List<ProduitsAchat> produitsAchats, Commande commande) {
+    public List<CommandeProduit> createCommandeProduit(
+            List<ProduitsAchatDto> produitsAchats,
+            Commande commande) {
 
         return produitsAchats.stream().map(produitsAchat -> {
-            CommandeProduit commandeProduit = new CommandeProduit();
-            Produit produit = produitService.decrementQuantity(produitsAchat.getId_produit(), produitsAchat.getQuantite());
-            commandeProduit.setProduit(produit);
-            commandeProduit.setQuantite_commande_produit(produitsAchat.getQuantite());
-            commandeProduit.setCommande(commande);
+
+            Produit produit = produitService.decrementQuantity(
+                    produitsAchat.getId_produit(),
+                    produitsAchat.getQuantite());
+
+            CommandeProduit commandeProduit = CommandeProduit.builder()
+                    .produit(produit)
+                    .quantite_commande_produit(produitsAchat.getQuantite())
+                    .commande(commande)
+                    .build();
+
             return commandeProduit;
+
         }).collect(Collectors.toList());
 
     }
 
     @Override
-    public void saveAllCommandeProduit(List<CommandeProduit> commandeProduits) {
-        commandeProduits.forEach(commandeProduit -> {
-            saveCommandeProduit(commandeProduit);
-        });
+    public void saveAllCommandeProduit(
+            List<CommandeProduit> commandeProduits) {
+
+        commandeProduits.forEach(commandeProduit ->
+            saveCommandeProduit(commandeProduit)
+        );
     }
 }

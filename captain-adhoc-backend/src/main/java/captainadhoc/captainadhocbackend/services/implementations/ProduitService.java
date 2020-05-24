@@ -32,7 +32,7 @@ public class ProduitService implements IProduitService {
     }
 
     @Override
-    public void saveProduit(Produit produit){
+    public void saveProduit(Produit produit) {
 
         produitRepository.save(produit);
 
@@ -47,7 +47,7 @@ public class ProduitService implements IProduitService {
     public void modifierQuantite(Long idProduit, int quantite) {
         Optional<Produit> produit = produitRepository.findById(idProduit);
 
-        if (produit.isPresent()){
+        if (produit.isPresent()) {
             produit.get().setQuantite_produit(quantite);
             produitRepository.save(produit.get());
         }
@@ -55,12 +55,18 @@ public class ProduitService implements IProduitService {
 
     @Override
     public Produit decrementQuantity(Long idProduit, int quantiteProduit) {
-        Optional<Produit> optionalProduit = produitRepository.findById(idProduit);
-        if (optionalProduit.isPresent()){
+
+        Optional<Produit> optionalProduit =
+                produitRepository.findById(idProduit);
+
+        if (optionalProduit.isPresent()) {
             Produit produit = optionalProduit.get();
-            produit.setQuantite_produit(produit.getQuantite_produit() - quantiteProduit);
+            produit.setQuantite_produit(
+                    produit.getQuantite_produit() - quantiteProduit);
+
             return produitRepository.save(produit);
         }
+
         return null;
     }
 }

@@ -11,7 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -21,27 +25,40 @@ public class UtilisateurController {
     private ModelMapper modelMapper;
 
     @Autowired
-    UtilisateurService utilisateurService;
+    private UtilisateurService utilisateurService;
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<String> registerUserAccount(@RequestBody EnregistrementUtilisateurDto enregistrementUtilisateurDto) {
-        Utilisateur utilisateur = null;
+    public ResponseEntity<String> registerUserAccount(
+            @RequestBody EnregistrementUtilisateurDto enregistrementUtilisateurDto) {
+
         try {
-            utilisateur = modelMapper.map(enregistrementUtilisateurDto, Utilisateur.class);
+            Utilisateur utilisateur = modelMapper.map(
+                    enregistrementUtilisateurDto,
+                    Utilisateur.class);
+
             utilisateurService.saveUtilisateur(utilisateur);
+
         } catch (UtilisateurExisteException exception) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
+
         return ResponseEntity.ok("Utilisateur enregistré.");
     }
 
     @GetMapping("/current-user")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<UtilisateurDto> getUtilisateur() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Utilisateur utilisateur = utilisateurService.findByNomUtilisateur(auth.getName());
-        UtilisateurDto utilisateurDto = modelMapper.map(utilisateur, UtilisateurDto.class);
+
+        Authentication auth =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        Utilisateur utilisateur =
+                utilisateurService.findByNomUtilisateur(auth.getName());
+
+        UtilisateurDto utilisateurDto =
+                modelMapper.map(utilisateur, UtilisateurDto.class);
+
         return ResponseEntity.ok(utilisateurDto);
     }
 }

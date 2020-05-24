@@ -1,6 +1,6 @@
 package captainadhoc.captainadhocbackend.services;
 
-import captainadhoc.captainadhocbackend.dto.ProduitsAchat;
+import captainadhoc.captainadhocbackend.dto.ProduitsAchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
 import captainadhoc.captainadhocbackend.domain.Produit;
@@ -34,50 +34,37 @@ public class CommandeProduitServiceTest {
 
     private static List<CommandeProduit> commandeProduits;
 
-    private static List<ProduitsAchat> produitsAchats;
+    private static List<ProduitsAchatDto> produitsAchats;
 
     private Commande commande;
 
     @BeforeAll
     public static void setup() {
 
-        Produit produit = new Produit(
-                15,
-                "produit1",
-                "description1",
-                "ps5.png",
-                300);
-
-        produit.setId_produit(1L);
-
-        Produit produit2 = new Produit(
-                10,
-                "produit2",
-                "description2",
-                "ps5_large.png",
-                600);
-
-        produit.setId_produit(2L);
-
-        Produit produit3 = new Produit(
-                1,
-                "produit3",
-                "description3",
-                "ps5_limited_edition.png",
-                1500);
+        Produit produit = Produit.builder()
+                .id_produit(1L)
+                .quantite_produit(15)
+                .nom_produit("produit1")
+                .description_produit("description1")
+                .image_produit("ps5.png")
+                .prix_produit(300)
+                .build();
 
         produit.setId_produit(3L);
 
-        ProduitsAchat produitsAchat1 = new ProduitsAchat(1L, 2);
-        ProduitsAchat produitsAchat2 = new ProduitsAchat(2L, 5);
-        ProduitsAchat produitsAchat3 = new ProduitsAchat(3L, 1);
+        ProduitsAchatDto produitsAchat1 = new ProduitsAchatDto(1L, 2);
+        ProduitsAchatDto produitsAchat2 = new ProduitsAchatDto(2L, 5);
+        ProduitsAchatDto produitsAchat3 = new ProduitsAchatDto(3L, 1);
 
         produitsAchats = new ArrayList<>();
         produitsAchats.add(produitsAchat1);
         produitsAchats.add(produitsAchat2);
         produitsAchats.add(produitsAchat3);
 
-        Commande commande = new Commande(new Date(),"code");
+        Commande commande = Commande.builder()
+                .date_commande(new Date())
+                .code("code")
+                .build();
 
         CommandeProduit commandeProduit1 = new CommandeProduit();
         commandeProduit1.setProduit(produit);

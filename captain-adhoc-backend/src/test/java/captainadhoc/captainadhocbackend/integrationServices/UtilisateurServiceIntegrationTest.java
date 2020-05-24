@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 
 @SpringBootTest
 @Transactional
@@ -16,22 +18,38 @@ public class UtilisateurServiceIntegrationTest {
 
     @Autowired
     IUtilisateurService utilisateurService;
-    private Utilisateur utilisateur;
-
 
     @BeforeEach
     public void setupEach() {
-        Utilisateur utilisateur = new Utilisateur("Kevin", "Marchand", "marchand1", "mdp", true);
-        utilisateurService.saveUtilisateur(utilisateur);
+
+        Utilisateur utilisateur = Utilisateur.builder()
+                .nom("Kevin")
+                .prenom("Marchand")
+                .nomUtilisateur("marchand1")
+                .motDePasse("mdp")
+                .isAdmin(true)
+                .build();
+
+       utilisateurService.saveUtilisateur(utilisateur);
     }
 
     @Test
     public void testSaveUtilisateur() {
+
         // given: un Uilisateur non persisté
-        Utilisateur util = new Utilisateur("Test", "Utilisateur", "UtilisateurTest", "mdp", true);
+        Utilisateur util = Utilisateur.builder()
+                .nom("Test")
+                .prenom("Utilisateur")
+                .nomUtilisateur("UtilisateurTest")
+                .motDePasse("mdp")
+                .isAdmin(true)
+                .build();
+
         assertNull(util.getId());
+
         // when: l'utilisateur est persisté
         utilisateurService.saveUtilisateur(util);
+
         // then: l'utilisateur a un id
         assertNotNull(util.getId());
     }
