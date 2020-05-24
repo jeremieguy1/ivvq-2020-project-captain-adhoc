@@ -5,6 +5,7 @@ import captainadhoc.captainadhocbackend.dto.AchatDto;
 import captainadhoc.captainadhocbackend.dto.ProduitsAchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
+import captainadhoc.captainadhocbackend.exceptions.InsufficientQuantityException;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeProduitService;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
 import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
@@ -19,7 +20,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Transactional
 @SpringBootTest
@@ -119,5 +123,29 @@ public class CommandeServiceIntegrationTest {
         assertEquals(idProduitAchete2, commandeProduit2.getProduit().getId_produit());
         assertEquals(3, commandeProduit2.getQuantite_commande_produit());
 
+    }
+
+    @Test
+    public void newCommandeTestException() {
+
+        List<Produit> produitList = produitService.findAllProduits();
+        Long idProduitAchete1 = produitList.get(0).getId_produit();
+        Long idProduitAchete2 = produitList.get(1).getId_produit();
+
+        ProduitsAchatDto produitsAchat1 = new ProduitsAchatDto(idProduitAchete1, 200);
+        ProduitsAchatDto produitsAchat2 = new ProduitsAchatDto(idProduitAchete2, 300);
+
+        List<ProduitsAchatDto> produitsAchats = new ArrayList<>();
+        produitsAchats.add(produitsAchat1);
+        produitsAchats.add(produitsAchat2);
+
+        AchatDto achat = new AchatDto("CODETEST", produitsAchats);
+
+
+        // when: la méthode newCommande est invoquée
+        // then: une exception est levé
+        assertThrows(InsufficientQuantityException.class, () ->
+                commandeService.newCommande(achat)
+        );
     }
 }

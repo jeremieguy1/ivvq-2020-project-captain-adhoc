@@ -4,6 +4,7 @@ import captainadhoc.captainadhocbackend.dto.ProduitsAchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
 import captainadhoc.captainadhocbackend.domain.Produit;
+import captainadhoc.captainadhocbackend.exceptions.InsufficientQuantityException;
 import captainadhoc.captainadhocbackend.repositories.CommandeRepository;
 import captainadhoc.captainadhocbackend.services.implementations.CommandeProduitService;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
@@ -19,7 +20,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Transactional
 @SpringBootTest
@@ -149,6 +153,23 @@ public class CommandeProduitServiceIntergrationTest {
 
         assertEquals(commande, commandeProduits.get(0).getCommande());
         assertEquals(commande, commandeProduits.get(1).getCommande());
+    }
+
+    @Test
+    public void createCommandeProduitTestException() {
+
+        ProduitsAchatDto produitsAchat1 = new ProduitsAchatDto(idProduit1, 200);
+        List<ProduitsAchatDto> produitsAchatList = new ArrayList<>();
+        produitsAchatList.add(produitsAchat1);
+
+        Commande newCommande = Commande.builder()
+                .date_commande(new Date())
+                .code("code")
+                .build();
+
+        assertThrows(InsufficientQuantityException.class, () ->
+                commandeProduitService.createCommandeProduit(produitsAchatList, newCommande)
+        );
     }
 
     @Test

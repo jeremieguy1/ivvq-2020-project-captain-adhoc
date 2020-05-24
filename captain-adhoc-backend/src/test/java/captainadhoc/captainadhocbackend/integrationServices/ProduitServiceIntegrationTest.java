@@ -1,6 +1,7 @@
 package captainadhoc.captainadhocbackend.integrationServices;
 
 import captainadhoc.captainadhocbackend.domain.Produit;
+import captainadhoc.captainadhocbackend.exceptions.InsufficientQuantityException;
 import captainadhoc.captainadhocbackend.services.implementations.ProduitService;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeProduitService;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Transactional
 @SpringBootTest
@@ -108,5 +110,19 @@ public class ProduitServiceIntegrationTest {
         //then: le produit modifié a été retourné
         assertEquals(idProduitToDecrement, produit.getId_produit());
         assertEquals(10, produit.getQuantite_produit());
+    }
+
+    @Test
+    public void testExceptionDecrementQuantity() {
+
+        //given un produit
+        Long idProduitToDecrement = produitService.findAllProduits().get(0).getId_produit();
+
+        // when: la méthode decrementQuantity est invoquée
+        // then: une exception est levé
+        assertThrows(InsufficientQuantityException.class, () ->
+                produitService.decrementQuantity(idProduitToDecrement, 100)
+        );
+
     }
 }
