@@ -53,7 +53,7 @@
                                       </span>
                                     <span v-else class="icon is-small is-right" :class="{ 'animated headShake': numberCart.length != ''}">
                                           <i class="fas fa-times"></i>
-                                         </span>
+                                     </span>
                                   </div>
                                   <p class="has-text-danger" v-if="!$v.numberCart.required && $v.numberCart.$dirty">Le numéro de carte bancaire est obligatoire</p>
                                   <p class="has-text-danger" v-if="!$v.numberCart.minLength">
@@ -82,7 +82,7 @@
                             <div class="columns">
                               <div class="column">
                                 <b-field>
-                                  <b-select  id="select-Month" class="select-Month" placeholder="Mois">
+                                  <b-select id="select-Month" class="select-Month"  v-model="year" placeholder="Mois">
                                     <option
                                       v-for="option in this.mois"
                                       :value="option.id"
@@ -94,7 +94,7 @@
                               </div>
                               <div class="column">
                                 <b-field>
-                                  <b-select  id="select-Year" placeholder="Année">
+                                  <b-select  id="select-Year" class="select-Year"  v-model="month" placeholder="Année">
                                     <option
                                       v-for="option in range(this.anneeMin, this.anneeMax)"
                                       :value="option"
@@ -126,6 +126,7 @@
                                 <div class="field">
                                   <div :class="{ 'animated headShake': $v.cvc.$dirty && $v.cvc.$error}">
                                     <input
+                                      id="cvc"
                                       placeholder="CVC"
                                       v-model.trim="$v.cvc.$model"
                                       class="input"  :class="{ 'is-success': !$v.cvc.$error && $v.cvc.$dirty,
@@ -210,7 +211,8 @@ export default {
       mois: moisInit,
       anneeMin: 2020,
       anneeMax: 2030,
-      annee: 5,
+      year: null,
+      month: null,
       cvc: '',
       submitStatus: '',
       numberCart: '',
@@ -238,19 +240,17 @@ export default {
     submitPayment () {
       this.submitStatus = ''
       this.$v.$touch()
-      let monthElement = document.getElementById('select-Month')
-      let month = monthElement.options[monthElement.selectedIndex].text
-      let yearElement = document.getElementById('select-Year')
-      let year = yearElement.options[yearElement.selectedIndex].text
+      console.log(this.year)
+
       let expirationElement = document.getElementsByClassName('expiration-date-alert')[0]
 
       if (this.$v.$invalid) {
         // Invalid form
-        if (month === 'Mois' || year === 'Année') {
+        if (this.month === null || this.year === null) {
           expirationElement.style.display = 'block'
         }
       } else {
-        if (month === 'Mois' || year === 'Année') {
+        if (this.month === null || this.year === null) {
           expirationElement.style.display = 'block'
         } else {
           var productToPay = []
