@@ -1,7 +1,6 @@
 package captainadhoc.captainadhocbackend.integrationServices;
 
 import captainadhoc.captainadhocbackend.domain.Produit;
-import captainadhoc.captainadhocbackend.domain.Utilisateur;
 import captainadhoc.captainadhocbackend.dto.AchatDto;
 import captainadhoc.captainadhocbackend.dto.ProduitsAchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
