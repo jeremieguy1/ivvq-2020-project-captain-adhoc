@@ -70,7 +70,7 @@ export default {
   methods: {
     onScroll () {
       const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop
-      if (currentScrollPosition < 0) {
+      if (currentScrollPosition < 10) {
         return
       }
       this.shrinkHeader = currentScrollPosition <= 50
