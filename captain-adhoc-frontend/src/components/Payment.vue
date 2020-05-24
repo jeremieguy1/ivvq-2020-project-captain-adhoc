@@ -1,5 +1,5 @@
 <template>
-  <section v-if="productsToPay" class="section">
+  <section  class="section">
     <div class="container animated fadeIn">
       <div class="columns">
         <div class="column is-half is-offset-one-quarter cart title">
@@ -26,22 +26,23 @@
                     <tr>
                       <div class="columns formulaire">
                         <div class="column is-half">
-                          <div class="carte-bancaire has-text-right">
-                            <p class="num-carte-bancaire">Numéro de la carte bancaire</p>
+                          <div class="credit-card has-text-right">
+                            <p class="num-credit-card">Numéro de la carte bancaire</p>
                           </div>
                         </div>
                         <div class="column is-half">
-                          <div class="field carte-bancaire ">
+                          <div class="field credit-card ">
                             <div class="control has-icons-left has-icons-right">
                                 <div class="field">
                                   <div :class="{ 'animated headShake': $v.numberCart.$dirty && $v.numberCart.$error}">
                                     <input
+                                      id="credit-card"
                                       placeholder=""
                                       v-model.trim="$v.numberCart.$model"
                                       class="input"  :class="{ 'is-success': !$v.numberCart.$error && $v.numberCart.$dirty && validPayment(numberCart) ,
                                         'is-danger': $v.numberCart.$error && $v.numberCart.$dirty && !validPayment(numberCart)}"
                                       type="num"
-                                      name="cvc">
+                                      name="credit-card">
                                     <span class="icon is-small is-left">
                                           <i class="fas fa-credit-card"></i>
                                         </span>
@@ -72,12 +73,12 @@
                     <tr>
                       <div class="columns formulaire">
                         <div class="column is-half">
-                          <div class="carte-bancaire has-text-right">
-                            <p class="num-carte-bancaire">Date d'expiration</p>
+                          <div class="expiration-date has-text-right">
+                            <p class="num-expiration-date">Date d'expiration</p>
                           </div>
                         </div>
                         <div class="column is-half">
-                          <div class="carte-bancaire ">
+                          <div class="expiration-date">
                             <div class="columns">
                               <div class="column">
                                 <b-field>
@@ -103,27 +104,24 @@
                                   </b-select>
                                 </b-field>
                               </div>
-
                             </div>
-
                           </div>
                           <div>
-                            <p class="expiration-date has-text-danger" style="display: none">
+                            <p class="expiration-date-alert has-text-danger" style="display: none">
                               La date d'expiration est obligatoire</p>
                           </div>
-
                         </div>
                       </div>
                     </tr>
                     <tr>
                       <div class="columns formulaire">
                         <div class="column is-half">
-                          <div class="carte-bancaire has-text-right" >
-                            <p class="num-carte-bancaire">Code de sécurité</p>
+                          <div class="security-code has-text-right" >
+                            <p class="num-security-code">Code de sécurité</p>
                           </div>
                         </div>
                         <div class="column is-half">
-                          <div class="field carte-bancaire">
+                          <div class="field security-code">
                             <div class="control has-icons-left has-icons-right">
                                 <div class="field">
                                   <div :class="{ 'animated headShake': $v.cvc.$dirty && $v.cvc.$error}">
@@ -171,23 +169,7 @@
       </div>
     </div>
   </section>
-  <section v-else class="section">
-    <div class="container animated fadeIn">
-      <div class="columns">
-        <div class="column cart title is-fourth-fifths">
-          <div>
-            <p class="no-products">Veuillez ajouter une escroquerie avant de payer, les dons ne sont pas acceptés !</p>
-          </div>
-          <button @click="goToProducts" class="button">
-            <span class="fontawesome-icon">
-              <i class="fas fa-arrow-left"></i>
-            </span>
-            <span>Retour à la liste des escroqueries</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
+
 </template>
 
 <script>
@@ -217,8 +199,11 @@ const moisInit = [{'id': 1, 'nom': 'Janvier'},
 
 export default {
   name: 'Payment',
-  mounted () {
+  created () {
     this.productsToPay = JSON.parse(window.localStorage.getItem('commandToPay'))
+    console.log('this.productsToPay')
+
+    console.log(this.productsToPay)
   },
   data () {
     return {
@@ -253,11 +238,11 @@ export default {
     submitPayment () {
       this.submitStatus = ''
       this.$v.$touch()
-      var monthElement = document.getElementById('select-Month')
-      var month = monthElement.options[monthElement.selectedIndex].text
-      var yearElement = document.getElementById('select-Year')
-      var year = yearElement.options[yearElement.selectedIndex].text
-      var expirationElement = document.getElementsByClassName('expiration-date')[0]
+      let monthElement = document.getElementById('select-Month')
+      let month = monthElement.options[monthElement.selectedIndex].text
+      let yearElement = document.getElementById('select-Year')
+      let year = yearElement.options[yearElement.selectedIndex].text
+      let expirationElement = document.getElementsByClassName('expiration-date-alert')[0]
 
       if (this.$v.$invalid) {
         // Invalid form
