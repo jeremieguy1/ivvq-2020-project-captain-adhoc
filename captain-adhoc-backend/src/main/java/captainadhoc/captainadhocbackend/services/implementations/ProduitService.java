@@ -1,6 +1,7 @@
 package captainadhoc.captainadhocbackend.services.implementations;
 
 import captainadhoc.captainadhocbackend.domain.Produit;
+import captainadhoc.captainadhocbackend.exceptions.InsufficientQuantityException;
 import captainadhoc.captainadhocbackend.repositories.ProduitRepository;
 import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
 import lombok.Getter;
@@ -61,6 +62,11 @@ public class ProduitService implements IProduitService {
 
         if (optionalProduit.isPresent()) {
             Produit produit = optionalProduit.get();
+
+            if (produit.getQuantite_produit() - quantiteProduit < 0) {
+                throw new InsufficientQuantityException(produit);
+            }
+
             produit.setQuantite_produit(
                     produit.getQuantite_produit() - quantiteProduit);
 

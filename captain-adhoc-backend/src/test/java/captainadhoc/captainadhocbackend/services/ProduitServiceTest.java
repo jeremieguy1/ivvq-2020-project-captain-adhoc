@@ -1,6 +1,7 @@
 package captainadhoc.captainadhocbackend.services;
 
 import captainadhoc.captainadhocbackend.domain.Produit;
+import captainadhoc.captainadhocbackend.exceptions.InsufficientQuantityException;
 import captainadhoc.captainadhocbackend.services.implementations.ProduitService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -12,7 +13,9 @@ import captainadhoc.captainadhocbackend.repositories.ProduitRepository;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest
 public class ProduitServiceTest {
@@ -110,5 +113,28 @@ public class ProduitServiceTest {
 
         // then: la quantite du produit a été mis à jour
         assertEquals(10, produit.getQuantite_produit());
+    }
+
+    @Test
+    public void testExceptionDecrementQuantity() {
+
+        //given un produit
+        Produit produit = Produit.builder()
+                .id_produit(1L)
+                .quantite_produit(1)
+                .nom_produit("produit")
+                .description_produit("description")
+                .image_produit("image")
+                .prix_produit(1)
+                .build();
+
+        //given: la quantité du produit acheté
+        int quantiteProduit = 5;
+
+        when(produitService.getProduitRepository().findById(produit.getId_produit())).thenReturn(Optional.of(produit));
+
+        assertThrows(InsufficientQuantityException.class, () ->
+                produitService.decrementQuantity(produit.getId_produit(), quantiteProduit)
+        );
     }
 }

@@ -1,8 +1,10 @@
 package captainadhoc.captainadhocbackend.services.implementations;
 
+import captainadhoc.captainadhocbackend.domain.Utilisateur;
 import captainadhoc.captainadhocbackend.dto.AchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
+import captainadhoc.captainadhocbackend.exceptions.InsufficientQuantityException;
 import captainadhoc.captainadhocbackend.repositories.CommandeRepository;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeProduitService;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
@@ -25,6 +27,10 @@ public class CommandeService implements ICommandeService {
     @Autowired
     private ICommandeProduitService commandeProduitService;
 
+    @Getter
+    @Autowired
+    private UtilisateurService utilisateurService;
+
     @Override
     public ArrayList<Commande> findAllCommandes() {
         ArrayList<Commande> commandes = new ArrayList<>();
@@ -45,12 +51,12 @@ public class CommandeService implements ICommandeService {
     }
 
     @Override
-    public void newCommande(AchatDto achat) {
+    public void newCommande(AchatDto achat, Utilisateur utilisateur) throws InsufficientQuantityException {
 
-        Date date = new Date();
         Commande commande = Commande.builder()
-                .date_commande(date)
+                .date_commande(new Date())
                 .code(achat.getCode())
+                .utilisateur(utilisateur)
                 .build();
 
         List<CommandeProduit> commandeProduits =
