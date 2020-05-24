@@ -4,6 +4,7 @@ import captainadhoc.captainadhocbackend.dto.ProduitsAchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
 import captainadhoc.captainadhocbackend.domain.Produit;
+import captainadhoc.captainadhocbackend.exceptions.InsufficientQuantityException;
 import captainadhoc.captainadhocbackend.repositories.CommandeProduitRepository;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeProduitService;
 import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
@@ -33,7 +34,7 @@ public class CommandeProduitService implements ICommandeProduitService {
     @Override
     public List<CommandeProduit> createCommandeProduit(
             List<ProduitsAchatDto> produitsAchats,
-            Commande commande) {
+            Commande commande) throws InsufficientQuantityException {
 
         return produitsAchats.stream().map(produitsAchat -> {
 

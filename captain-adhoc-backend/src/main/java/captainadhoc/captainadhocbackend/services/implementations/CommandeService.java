@@ -3,6 +3,7 @@ package captainadhoc.captainadhocbackend.services.implementations;
 import captainadhoc.captainadhocbackend.dto.AchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
+import captainadhoc.captainadhocbackend.exceptions.InsufficientQuantityException;
 import captainadhoc.captainadhocbackend.repositories.CommandeRepository;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeProduitService;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
@@ -45,7 +46,7 @@ public class CommandeService implements ICommandeService {
     }
 
     @Override
-    public void newCommande(AchatDto achat) {
+    public void newCommande(AchatDto achat) throws InsufficientQuantityException {
 
         Date date = new Date();
         Commande commande = Commande.builder()
