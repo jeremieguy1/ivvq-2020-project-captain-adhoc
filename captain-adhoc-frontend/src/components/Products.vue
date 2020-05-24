@@ -12,7 +12,7 @@
     <div class="container">
       <div class="section">
         <div class="columns is-multiline">
-          <div v-for="product in products" v-bind:key="product.id_produit" class="column is-one-third">
+          <div v-for="product in products" v-bind:key="product.id_produit" class="column is-one-third animated fadeIn">
             <div class="card">
               <div @click="openDetailsModal(product)"
                 @keydown.enter="openDetailsModal(product)"

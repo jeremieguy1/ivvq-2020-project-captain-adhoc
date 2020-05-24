@@ -1,5 +1,5 @@
 <template>
-  <section class="section">
+  <section v-if="productsToPay" class="section">
     <div class="container animated fadeIn">
       <div class="columns">
         <div class="column is-half is-offset-one-quarter cart title">
@@ -63,8 +63,6 @@
                                     Doit contenir exactement {{$v.numberCart.$params.minLength.min}} chiffres</p>
                                   <p class="has-text-danger" v-if="$v.numberCart.$params.minLength.min === numberCart.length && $v.numberCart.numeric && !validPayment(numberCart)">
                                     Votre code n'est pas conforme à la formule Luhn</p>
-                                  <p class="has-text-success" v-if="$v.numberCart.$params.minLength.min === numberCart.length && $v.numberCart.numeric && validPayment(numberCart)">
-                                    Votre code est conforme à la formule Luhn</p>
                                 </div>
                             </div>
                           </div>
@@ -173,6 +171,23 @@
       </div>
     </div>
   </section>
+  <section v-else class="section">
+    <div class="container animated fadeIn">
+      <div class="columns">
+        <div class="column cart title is-fourth-fifths">
+          <div>
+            <p class="no-products">Veuillez ajouter une escroquerie avant de payer, les dons ne sont pas acceptés !</p>
+          </div>
+          <button @click="goToProducts" class="button">
+            <span class="fontawesome-icon">
+              <i class="fas fa-arrow-left"></i>
+            </span>
+            <span>Retour à la liste des escroqueries</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -204,7 +219,6 @@ export default {
   name: 'Payment',
   mounted () {
     this.productsToPay = JSON.parse(window.localStorage.getItem('commandToPay'))
-    console.log(this.productsToPay)
   },
   data () {
     return {
@@ -215,7 +229,7 @@ export default {
       cvc: '',
       submitStatus: '',
       numberCart: '',
-      productsToPay: []
+      productsToPay: null
     }
   },
   validations: {
@@ -267,15 +281,14 @@ export default {
             code: this.productsToPay.code,
             produitsAchat: productToPay
           }
-          console.log(pay)
           axios
             .post('/commandes/achat',
               pay
               , configs)
             .then(response => {
-              // clean localStorage
-              window.localStorage.setItem('commandsProduct', JSON.stringify([]))
-              window.localStorage.setItem('commandToPay', JSON.stringify({}))
+              localStorage.removeItem('commandsProduct')
+              localStorage.removeItem('commandToPay')
+              // TODO : Ouvrir une modale de remerciement qui redirige vers la liste des escroqueries
             })
             .catch((e) => {
               this.submitStatus = e.response.status
@@ -299,6 +312,9 @@ export default {
         sommeAll += temp
       }
       return (sommeAll % 10) === 0
+    },
+    goToProducts () {
+      this.$router.push('products')
     }
   }
 }
@@ -327,8 +343,17 @@ export default {
     font-weight: bold;
   }
 
-  div.fontawesome-icon {
+  span.fontawesome-icon {
     padding-right: 0.325rem;
+  }
+
+  .cart {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .no-products {
+    padding-bottom: 0.875rem;
   }
 
 </style>

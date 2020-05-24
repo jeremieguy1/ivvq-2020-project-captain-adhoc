@@ -111,7 +111,9 @@
                 </p>
               </div>
               <div class="to-pay box-shadow has-text-centered">
-                <button v-on:click="payCart()"  class="button has-text-centered to-pay">Payez votre panier</button>
+                <button v-on:click="payCart()" class="button has-text-centered">
+                  <p>Payez votre panier</p>
+                </button>
               </div>
             </div>
           </div>
@@ -178,9 +180,9 @@ export default {
         totalPrice: this.getTotalCart(this.products),
         totalProducts: this.getTotalProduct(this.products)
       }
-      window.localStorage.setItem('commandToPay', JSON.stringify(commandToPAy))
+      localStorage.setItem('commandToPay', JSON.stringify(commandToPAy))
 
-      console.log('Go to PAYYYYY')
+      this.$router.push('payment')
     },
     displayContentCart (commande) {
       this.$store.commit('displayContentCart', commande)
@@ -205,7 +207,7 @@ export default {
       axios
         .get('/produits', configs)
         .then(response => {
-          var localProducts = JSON.parse(window.localStorage.getItem('commandsProduct'))
+          var localProducts = JSON.parse(localStorage.getItem('commandsProduct'))
           for (var product in response.data) {
             if (response.data[product].quantite_produit > 0) {
               for (var localProduct in localProducts) {
@@ -223,7 +225,7 @@ export default {
               }
             }
           }
-          window.localStorage.setItem('commandsProduct', JSON.stringify(this.products))
+          localStorage.setItem('commandsProduct', JSON.stringify(this.products))
           this.$store.commit('cartProducts', this.products)
         })
     }
