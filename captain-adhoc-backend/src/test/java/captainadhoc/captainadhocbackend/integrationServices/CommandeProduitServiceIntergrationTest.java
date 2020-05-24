@@ -1,6 +1,6 @@
 package captainadhoc.captainadhocbackend.integrationServices;
 
-import captainadhoc.captainadhocbackend.dto.ProduitsAchat;
+import captainadhoc.captainadhocbackend.dto.ProduitsAchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
 import captainadhoc.captainadhocbackend.domain.Produit;
@@ -35,7 +35,7 @@ public class CommandeProduitServiceIntergrationTest {
 
     private  Commande commande;
 
-    private  List<ProduitsAchat> produitsAchats;
+    private  List<ProduitsAchatDto> produitsAchats;
 
     private  List<CommandeProduit> commandeProduits;
 
@@ -82,8 +82,8 @@ public class CommandeProduitServiceIntergrationTest {
         idProduit1 = produitList.get(0).getId_produit();
         idProduit2 = produitList.get(1).getId_produit();
 
-        ProduitsAchat produitsAchat1 = new ProduitsAchat(idProduit1, 2);
-        ProduitsAchat produitsAchat2 = new ProduitsAchat(idProduit2, 5);
+        ProduitsAchatDto produitsAchat1 = new ProduitsAchatDto(idProduit1, 2);
+        ProduitsAchatDto produitsAchat2 = new ProduitsAchatDto(idProduit2, 5);
         produitsAchats = new ArrayList<>();
         produitsAchats.add(produitsAchat1);
         produitsAchats.add(produitsAchat2);

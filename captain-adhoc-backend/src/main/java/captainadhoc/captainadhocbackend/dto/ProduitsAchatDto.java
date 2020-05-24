@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Builder
 @Data
-public class ProduitsAchat {
+public class ProduitsAchatDto {
 
     @ApiModelProperty(notes = "identifiant du produit")
     @NotNull

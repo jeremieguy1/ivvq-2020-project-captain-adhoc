@@ -1,8 +1,8 @@
 package captainadhoc.captainadhocbackend.integrationServices;
 
 import captainadhoc.captainadhocbackend.domain.Produit;
-import captainadhoc.captainadhocbackend.dto.Achat;
-import captainadhoc.captainadhocbackend.dto.ProduitsAchat;
+import captainadhoc.captainadhocbackend.dto.AchatDto;
+import captainadhoc.captainadhocbackend.dto.ProduitsAchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeProduitService;
@@ -86,14 +86,14 @@ public class CommandeServiceIntegrationTest {
         Long idProduitAchete1 = produitList.get(0).getId_produit();
         Long idProduitAchete2 = produitList.get(1).getId_produit();
 
-        ProduitsAchat produitsAchat1 = new ProduitsAchat(idProduitAchete1, 2);
-        ProduitsAchat produitsAchat2 = new ProduitsAchat(idProduitAchete2, 3);
+        ProduitsAchatDto produitsAchat1 = new ProduitsAchatDto(idProduitAchete1, 2);
+        ProduitsAchatDto produitsAchat2 = new ProduitsAchatDto(idProduitAchete2, 3);
 
-        List<ProduitsAchat> produitsAchats = new ArrayList<>();
+        List<ProduitsAchatDto> produitsAchats = new ArrayList<>();
         produitsAchats.add(produitsAchat1);
         produitsAchats.add(produitsAchat2);
 
-        Achat achat = new Achat("CODETEST", produitsAchats);
+        AchatDto achat = new AchatDto("CODETEST", produitsAchats);
 
         commandeService.newCommande(achat);
 

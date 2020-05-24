@@ -1,7 +1,7 @@
 package captainadhoc.captainadhocbackend.services;
 
-import captainadhoc.captainadhocbackend.dto.Achat;
-import captainadhoc.captainadhocbackend.dto.ProduitsAchat;
+import captainadhoc.captainadhocbackend.dto.AchatDto;
+import captainadhoc.captainadhocbackend.dto.ProduitsAchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
 import captainadhoc.captainadhocbackend.domain.Produit;
@@ -62,14 +62,14 @@ class CommandeServiceTest {
     @Test
     public void newCommandeTest() {
 
-        ProduitsAchat produitsAchat1 = new ProduitsAchat(1L, 2);
-        ProduitsAchat produitsAchat2 = new ProduitsAchat(2L, 3);
+        ProduitsAchatDto produitsAchat1 = new ProduitsAchatDto(1L, 2);
+        ProduitsAchatDto produitsAchat2 = new ProduitsAchatDto(2L, 3);
 
-        List<ProduitsAchat> produitsAchats = new ArrayList<>();
+        List<ProduitsAchatDto> produitsAchats = new ArrayList<>();
         produitsAchats.add(produitsAchat1);
         produitsAchats.add(produitsAchat2);
 
-        Achat achat = new Achat("CODE", produitsAchats);
+        AchatDto achat = new AchatDto("CODE", produitsAchats);
 
         Date date = new Date();
         Commande commande = Commande.builder()

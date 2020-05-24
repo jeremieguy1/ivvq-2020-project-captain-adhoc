@@ -29,28 +29,45 @@ public class UtilisateurService implements IUtilisateurService, UserDetailsServi
     @Setter
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Override
     public Utilisateur saveUtilisateur(Utilisateur utilisateur) {
-        if(findByNomUtilisateur(utilisateur.getNomUtilisateur()) != null){
-            throw new UtilisateurExisteException(utilisateur.getNomUtilisateur());
+
+        if (findByNomUtilisateur(utilisateur.getNomUtilisateur()) != null) {
+
+            throw new UtilisateurExisteException(
+                    utilisateur.getNomUtilisateur());
         }
-        utilisateur.setMotDePasse(bCryptPasswordEncoder.encode(utilisateur.getMotDePasse()));
+
+        utilisateur.setMotDePasse(
+                bCryptPasswordEncoder.encode(utilisateur.getMotDePasse()));
+
         return utilisateurRepository.save(utilisateur);
     }
 
-    public Utilisateur findById(Long id){
+    @Override
+    public Utilisateur findById(Long id) {
         return utilisateurRepository.findById(id).orElse(null);
     }
 
-    public Utilisateur findByNomUtilisateur(String nomUtilisateur){
+    @Override
+    public Utilisateur findByNomUtilisateur(String nomUtilisateur) {
         return utilisateurRepository.findByNomUtilisateur(nomUtilisateur);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String nomUtilisateur) throws UsernameNotFoundException {
-        Utilisateur utilisateur = utilisateurRepository.findByNomUtilisateur(nomUtilisateur);
+    public UserDetails loadUserByUsername(String nomUtilisateur)
+            throws UsernameNotFoundException {
+
+        Utilisateur utilisateur =
+                utilisateurRepository.findByNomUtilisateur(nomUtilisateur);
+
         if (utilisateur == null) {
             throw new UsernameNotFoundException(nomUtilisateur);
         }
-        return new User(utilisateur.getNomUtilisateur(), utilisateur.getMotDePasse(), emptyList());
+
+        return new User(
+                utilisateur.getNomUtilisateur(),
+                utilisateur.getMotDePasse(),
+                emptyList());
     }
 }

@@ -1,6 +1,6 @@
 package captainadhoc.captainadhocbackend.controllers;
 
-import captainadhoc.captainadhocbackend.dto.Achat;
+import captainadhoc.captainadhocbackend.dto.AchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class CommandeController {
     }
 
     @PostMapping("/achat")
-    public void commander(@RequestBody Achat achat) {
+    public void commander(@RequestBody AchatDto achat) {
         commandeService.newCommande(achat);
     }
 }

@@ -1,6 +1,6 @@
 package captainadhoc.captainadhocbackend.services;
 
-import captainadhoc.captainadhocbackend.dto.ProduitsAchat;
+import captainadhoc.captainadhocbackend.dto.ProduitsAchatDto;
 import captainadhoc.captainadhocbackend.domain.Commande;
 import captainadhoc.captainadhocbackend.domain.CommandeProduit;
 import captainadhoc.captainadhocbackend.domain.Produit;
@@ -34,7 +34,7 @@ public class CommandeProduitServiceTest {
 
     private static List<CommandeProduit> commandeProduits;
 
-    private static List<ProduitsAchat> produitsAchats;
+    private static List<ProduitsAchatDto> produitsAchats;
 
     private Commande commande;
 
@@ -52,9 +52,9 @@ public class CommandeProduitServiceTest {
 
         produit.setId_produit(3L);
 
-        ProduitsAchat produitsAchat1 = new ProduitsAchat(1L, 2);
-        ProduitsAchat produitsAchat2 = new ProduitsAchat(2L, 5);
-        ProduitsAchat produitsAchat3 = new ProduitsAchat(3L, 1);
+        ProduitsAchatDto produitsAchat1 = new ProduitsAchatDto(1L, 2);
+        ProduitsAchatDto produitsAchat2 = new ProduitsAchatDto(2L, 5);
+        ProduitsAchatDto produitsAchat3 = new ProduitsAchatDto(3L, 1);
 
         produitsAchats = new ArrayList<>();
         produitsAchats.add(produitsAchat1);

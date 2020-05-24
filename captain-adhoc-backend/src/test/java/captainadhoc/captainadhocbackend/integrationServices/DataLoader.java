@@ -37,7 +37,13 @@ public class DataLoader {
 
     public void initProduit() {
 
-        Utilisateur admin = new Utilisateur("Kevin", "Marchand", "marchand1", "mdp", true);
+        Utilisateur admin = Utilisateur.builder()
+                .nom("Kevin")
+                .prenom("Marchand")
+                .nomUtilisateur("marchand1")
+                .motDePasse("mdp")
+                .isAdmin(true)
+                .build();
 
         Produit produit1 = Produit.builder()
                 .quantite_produit(15)
