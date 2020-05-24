@@ -26,7 +26,14 @@ public class ProduitServiceTest {
     @Test
     public void testSaveProduit() {
         //given un produit
-        Produit produit = new Produit(15, "produit", "description", "image", 1);
+        Produit produit = Produit.builder()
+                .quantite_produit(15)
+                .nom_produit("produit")
+                .description_produit("description")
+                .image_produit("image")
+                .prix_produit(1)
+                .build();
+
         when(produitService.getProduitRepository().save(produit)).thenReturn(produit);
 
         // when: la méthode saveProduit est invoquée
@@ -49,8 +56,14 @@ public class ProduitServiceTest {
     @Test
     public void testModifierQuantite() {
         //given un produit
-        Produit produit = new Produit(15, "produit", "description", "image", 1);
-        produit.setId_produit(1L);
+        Produit produit = Produit.builder()
+                .id_produit(1L)
+                .quantite_produit(15)
+                .nom_produit("produit")
+                .description_produit("description")
+                .image_produit("image")
+                .prix_produit(1)
+                .build();
 
         when(produitService.getProduitRepository().save(produit)).thenReturn(produit);
         when(produitService.getProduitRepository().findById(1L)).thenReturn(Optional.of(produit));
@@ -71,8 +84,14 @@ public class ProduitServiceTest {
     @Test
     public void testDecrementQuantity() {
         //given un produit
-        Produit produit = new Produit(15, "produit", "description", "image", 1);
-        produit.setId_produit(1L);
+        Produit produit = Produit.builder()
+                .id_produit(1L)
+                .quantite_produit(15)
+                .nom_produit("produit")
+                .description_produit("description")
+                .image_produit("image")
+                .prix_produit(1)
+                .build();
 
         //given: la quantité du produit acheté
         int quantiteProduit = 5;

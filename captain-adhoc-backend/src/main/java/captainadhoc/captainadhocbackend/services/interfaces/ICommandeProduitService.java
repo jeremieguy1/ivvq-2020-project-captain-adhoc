@@ -10,7 +10,9 @@ public interface ICommandeProduitService {
 
     void saveCommandeProduit(CommandeProduit commandeProduit);
 
-    List<CommandeProduit> createCommandeProduit(List<ProduitsAchat> produitsAchats, Commande commande);
+    List<CommandeProduit> createCommandeProduit(
+            List<ProduitsAchat> produitsAchats,
+            Commande commande);
 
     void saveAllCommandeProduit(List<CommandeProduit> commandeProduits);
 }

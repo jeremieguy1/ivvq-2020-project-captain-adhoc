@@ -45,7 +45,11 @@ class CommandeServiceTest {
     @Test
     public void saveCommandeTest() {
         //given une Commande
-        Commande commande = new Commande(new Date(),"code");
+        Commande commande = Commande.builder()
+                .date_commande(new Date())
+                .code("code")
+                .build();
+
         when(commandeService.getCommandeRepository().save(commande)).thenReturn(commande);
 
         // when: la méthode saveCommande est invoquée
@@ -68,12 +72,29 @@ class CommandeServiceTest {
         Achat achat = new Achat("CODE", produitsAchats);
 
         Date date = new Date();
-        Commande commande = new Commande(date, achat.getCode());
+        Commande commande = Commande.builder()
+                .date_commande(date)
+                .code(achat.getCode())
+                .build();
 
-        Produit produit1 = new Produit(15, "produit1", "description1", "ps5_large.png", 1);
-        produit1.setId_produit(1L);
-        Produit produit2 = new Produit(16, "produit2", "description2", "cyberbox_large.png", 2);
-        produit2.setId_produit(2L);
+        //given un produit
+        Produit produit1 = Produit.builder()
+                .id_produit(1L)
+                .quantite_produit(15)
+                .nom_produit("produit1")
+                .description_produit("description1")
+                .image_produit("ps5_large.png")
+                .prix_produit(1)
+                .build();
+
+        Produit produit2 = Produit.builder()
+                .id_produit(2L)
+                .quantite_produit(16)
+                .nom_produit("produit2")
+                .description_produit("description2")
+                .image_produit("cyberbox_large.png")
+                .prix_produit(2)
+                .build();
 
         List<CommandeProduit> commandeProduits = new ArrayList<>();
 

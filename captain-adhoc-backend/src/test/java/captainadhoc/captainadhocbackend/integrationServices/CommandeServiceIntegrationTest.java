@@ -42,8 +42,12 @@ public class CommandeServiceIntegrationTest {
     private ICommandeProduitService commandeProduitService;
 
     @BeforeEach
-    public void setup() throws Exception {
-        commande = new Commande(new Date(),"code");
+    public void setup() {
+        commande = Commande.builder()
+                .date_commande(new Date())
+                .code("code")
+                .build();
+
         dataLoader = new DataLoader(produitService, utilisateurService, commandeService, commandeProduitService);
         dataLoader.run();
     }

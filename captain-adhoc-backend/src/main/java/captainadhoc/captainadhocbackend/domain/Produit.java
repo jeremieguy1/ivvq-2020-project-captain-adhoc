@@ -5,9 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Builder;
 import org.hibernate.validator.constraints.URL;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -17,6 +23,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
+@Builder
 public class Produit {
 
     @Id
@@ -42,11 +49,4 @@ public class Produit {
     @OneToMany(mappedBy = "produit")
     private List<CommandeProduit> commandeProduitsList;
 
-    public Produit(int quantite_produit, String nom_produit, String description_produit, String image_produit, float prix_produit) {
-        this.quantite_produit = quantite_produit;
-        this.nom_produit = nom_produit;
-        this.description_produit = description_produit;
-        this.image_produit = image_produit;
-        this.prix_produit = prix_produit;
-    }
 }

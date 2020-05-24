@@ -41,30 +41,14 @@ public class CommandeProduitServiceTest {
     @BeforeAll
     public static void setup() {
 
-        Produit produit = new Produit(
-                15,
-                "produit1",
-                "description1",
-                "ps5.png",
-                300);
-
-        produit.setId_produit(1L);
-
-        Produit produit2 = new Produit(
-                10,
-                "produit2",
-                "description2",
-                "ps5_large.png",
-                600);
-
-        produit.setId_produit(2L);
-
-        Produit produit3 = new Produit(
-                1,
-                "produit3",
-                "description3",
-                "ps5_limited_edition.png",
-                1500);
+        Produit produit = Produit.builder()
+                .id_produit(1L)
+                .quantite_produit(15)
+                .nom_produit("produit1")
+                .description_produit("description1")
+                .image_produit("ps5.png")
+                .prix_produit(300)
+                .build();
 
         produit.setId_produit(3L);
 
@@ -77,7 +61,10 @@ public class CommandeProduitServiceTest {
         produitsAchats.add(produitsAchat2);
         produitsAchats.add(produitsAchat3);
 
-        Commande commande = new Commande(new Date(),"code");
+        Commande commande = Commande.builder()
+                .date_commande(new Date())
+                .code("code")
+                .build();
 
         CommandeProduit commandeProduit1 = new CommandeProduit();
         commandeProduit1.setProduit(produit);

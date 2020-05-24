@@ -60,14 +60,18 @@ public class CommandeProduitServiceIntergrationTest {
         dataLoader = new DataLoader(produitService, utilisateurService, commandeService, commandeProduitService);
         dataLoader.run();
 
-        Produit produit = new Produit(
-                15,
-                "produit1",
-                "description1",
-                "https://aaa",
-                300);
+        Produit produit = Produit.builder()
+                .quantite_produit(15)
+                .nom_produit("produit1")
+                .description_produit("description1")
+                .image_produit("https://urlz.fr/cHLz")
+                .prix_produit(300)
+                .build();
 
-        commande = new Commande(new Date(),"code");
+        commande = Commande.builder()
+                .date_commande(new Date())
+                .code("code")
+                .build();
 
         commandeProduit = new CommandeProduit();
         commandeProduit.setProduit(produit);

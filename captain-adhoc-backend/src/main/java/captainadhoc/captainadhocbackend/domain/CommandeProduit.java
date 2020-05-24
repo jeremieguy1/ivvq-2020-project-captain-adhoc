@@ -5,8 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Builder;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.CascadeType;
 import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
@@ -14,6 +19,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Getter
 @Entity
+@Builder
 public class CommandeProduit {
 
     @Id
@@ -29,4 +35,5 @@ public class CommandeProduit {
 
     @NotNull
     private int quantite_commande_produit;
+
 }

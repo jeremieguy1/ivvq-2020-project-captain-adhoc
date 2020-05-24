@@ -48,8 +48,16 @@ public class CommandeService implements ICommandeService {
     public void newCommande(Achat achat) {
 
         Date date = new Date();
-        Commande commande = new Commande(date, achat.getCode());
-        List<CommandeProduit> commandeProduits = commandeProduitService.createCommandeProduit(achat.getProduitsAchat(), commande);
+        Commande commande = Commande.builder()
+                .date_commande(date)
+                .code(achat.getCode())
+                .build();
+
+        List<CommandeProduit> commandeProduits =
+                commandeProduitService.createCommandeProduit(
+                        achat.getProduitsAchat(),
+                        commande);
+
         commande.setCommandeProduitsList(commandeProduits);
 
         saveCommande(commande);

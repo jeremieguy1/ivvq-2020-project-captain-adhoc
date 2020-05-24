@@ -11,7 +11,6 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,15 +31,23 @@ public class CommandeProduitService implements ICommandeProduitService {
     }
 
     @Override
-    public List<CommandeProduit> createCommandeProduit (List<ProduitsAchat> produitsAchats, Commande commande) {
+    public List<CommandeProduit> createCommandeProduit(
+            List<ProduitsAchat> produitsAchats,
+            Commande commande) {
 
         return produitsAchats.stream().map(produitsAchat -> {
+
             CommandeProduit commandeProduit = new CommandeProduit();
-            Produit produit = produitService.decrementQuantity(produitsAchat.getId_produit(), produitsAchat.getQuantite());
+
+            Produit produit = produitService.decrementQuantity(
+                    produitsAchat.getId_produit(),
+                    produitsAchat.getQuantite());
+
             commandeProduit.setProduit(produit);
             commandeProduit.setQuantite_commande_produit(produitsAchat.getQuantite());
             commandeProduit.setCommande(commande);
             return commandeProduit;
+
         }).collect(Collectors.toList());
 
     }

@@ -39,8 +39,14 @@ public class ProduitServiceIntegrationTest {
     private Produit produit;
 
     @BeforeEach
-    public void setup() throws Exception {
-        produit = new Produit(15, "produit1", "description1", "https://aaaa", 1);
+    public void setup() {
+        produit = Produit.builder()
+                .quantite_produit(15)
+                .nom_produit("produit1")
+                .description_produit("description1")
+                .image_produit("https://aaaa")
+                .prix_produit(1)
+                .build();
         dataLoader = new DataLoader(produitService, utilisateurService, commandeService, commandeProduitService);
         dataLoader.run();
     }

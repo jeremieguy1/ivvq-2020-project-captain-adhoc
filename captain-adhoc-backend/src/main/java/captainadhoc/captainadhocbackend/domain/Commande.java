@@ -4,9 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Builder;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +21,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
+@Builder
 public class Commande {
 
     @Id
@@ -33,8 +39,4 @@ public class Commande {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Utilisateur utilisateur;
 
-    public Commande(Date date_commande, String code) {
-        this.date_commande = date_commande;
-        this.code = code;
-    }
 }
