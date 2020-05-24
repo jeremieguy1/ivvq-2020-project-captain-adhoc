@@ -1,5 +1,5 @@
 <template>
-  <section  class="section">
+  <section v-if="productsToPay" class="section">
     <div class="container animated fadeIn">
       <div class="columns">
         <div class="column is-half is-offset-one-quarter cart title">
@@ -33,38 +33,38 @@
                         <div class="column is-half">
                           <div class="field credit-card ">
                             <div class="control has-icons-left has-icons-right">
-                                <div class="field">
-                                  <div :class="{ 'animated headShake': $v.numberCart.$dirty && $v.numberCart.$error}">
-                                    <input
-                                      id="credit-card"
-                                      placeholder=""
-                                      v-model.trim="$v.numberCart.$model"
-                                      class="input"  :class="{ 'is-success': !$v.numberCart.$error && $v.numberCart.$dirty && validPayment(numberCart) ,
-                                        'is-danger': $v.numberCart.$error && $v.numberCart.$dirty && !validPayment(numberCart)}"
-                                      type="num"
-                                      name="credit-card">
-                                    <span class="icon is-small is-left">
-                                          <i class="fas fa-credit-card"></i>
-                                        </span>
-                                    <span v-if="!$v.numberCart.$error && $v.numberCart.$dirty">
-                                        <span class="icon is-small is-right animated zoomIn">
-                                          <i class="fas fa-check"></i>
-                                        </span>
-                                      </span>
-                                    <span v-else class="icon is-small is-right" :class="{ 'animated headShake': numberCart.length != ''}">
-                                          <i class="fas fa-times"></i>
-                                     </span>
-                                  </div>
-                                  <p class="has-text-danger" v-if="!$v.numberCart.required && $v.numberCart.$dirty">Le numéro de carte bancaire est obligatoire</p>
-                                  <p class="has-text-danger" v-if="!$v.numberCart.minLength">
-                                    Doit contenir exactement {{$v.numberCart.$params.minLength.min}} chiffres</p>
-                                  <p class="has-text-danger" v-if="!$v.numberCart.numeric">
-                                    Doit contenir uniquement des chiffres</p>
-                                  <p class="has-text-danger" v-if="$v.numberCart.minLength && !$v.numberCart.maxlength">
-                                    Doit contenir exactement {{$v.numberCart.$params.minLength.min}} chiffres</p>
-                                  <p class="has-text-danger" v-if="$v.numberCart.$params.minLength.min === numberCart.length && $v.numberCart.numeric && !validPayment(numberCart)">
-                                    Votre code n'est pas conforme à la formule Luhn</p>
+                              <div class="field">
+                                <div :class="{ 'animated headShake': $v.numberCart.$dirty && $v.numberCart.$error}">
+                                  <input
+                                    id="credit-card"
+                                    placeholder=""
+                                    v-model.trim="$v.numberCart.$model"
+                                    class="input"  :class="{ 'is-success': !$v.numberCart.$error && $v.numberCart.$dirty && validPayment(numberCart) ,
+                                      'is-danger': $v.numberCart.$error && $v.numberCart.$dirty && !validPayment(numberCart)}"
+                                    type="num"
+                                    name="credit-card">
+                                  <span class="icon is-small is-left">
+                                    <i class="fas fa-credit-card"></i>
+                                  </span>
+                                  <span v-if="!$v.numberCart.$error && $v.numberCart.$dirty">
+                                    <span class="icon is-small is-right animated zoomIn">
+                                      <i class="fas fa-check"></i>
+                                    </span>
+                                  </span>
+                                  <span v-else class="icon is-small is-right" :class="{ 'animated headShake': numberCart.length != ''}">
+                                    <i class="fas fa-times"></i>
+                                  </span>
                                 </div>
+                                <p class="has-text-danger" v-if="!$v.numberCart.required && $v.numberCart.$dirty">Le numéro de carte bancaire est obligatoire</p>
+                                <p class="has-text-danger" v-if="!$v.numberCart.minLength">
+                                  Doit contenir exactement {{$v.numberCart.$params.minLength.min}} chiffres</p>
+                                <p class="has-text-danger" v-if="!$v.numberCart.numeric">
+                                  Doit contenir uniquement des chiffres</p>
+                                <p class="has-text-danger" v-if="$v.numberCart.minLength && !$v.numberCart.maxlength">
+                                  Doit contenir exactement {{$v.numberCart.$params.minLength.min}} chiffres</p>
+                                <p class="has-text-danger" v-if="$v.numberCart.$params.minLength.min === numberCart.length && $v.numberCart.numeric && !validPayment(numberCart)">
+                                  Votre code n'est pas conforme à la formule Luhn</p>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -123,36 +123,36 @@
                         <div class="column is-half">
                           <div class="field security-code">
                             <div class="control has-icons-left has-icons-right">
-                                <div class="field">
-                                  <div :class="{ 'animated headShake': $v.cvc.$dirty && $v.cvc.$error}">
-                                    <input
-                                      id="cvc"
-                                      placeholder="CVC"
-                                      v-model.trim="$v.cvc.$model"
-                                      class="input"  :class="{ 'is-success': !$v.cvc.$error && $v.cvc.$dirty,
-                                        'is-danger': $v.cvc.$error && $v.cvc.$dirty}"
-                                      type="num"
-                                      name="cvc">
-                                    <span class="icon is-small is-left">
-                                          <i class="fas fa-lock"></i>
-                                        </span>
-                                    <span v-if="!$v.cvc.$error && $v.cvc.$dirty">
-                                        <span class="icon is-small is-right animated zoomIn">
-                                          <i class="fas fa-check"></i>
-                                        </span>
-                                      </span>
-                                    <span v-else class="icon is-small is-right" :class="{ 'animated headShake': cvc.length != ''}">
-                                          <i class="fas fa-times"></i>
-                                         </span>
-                                  </div>
-                                  <p class="has-text-danger" v-if="!$v.cvc.required && $v.cvc.$dirty">Le code de sécurité CVC est obligatoire</p>
-                                  <p class="has-text-danger" v-if="!$v.cvc.minLength">
-                                    Doit contenir exactement {{$v.cvc.$params.minLength.min}} chiffres</p>
-                                  <p class="has-text-danger" v-if="$v.cvc.minLength && !$v.cvc.maxlength">
-                                    Doit contenir exactement {{$v.cvc.$params.minLength.min}} chiffres</p>
-                                  <p class="has-text-danger" v-if="!$v.cvc.numeric">
-                                    Doit contenir uniquement des chiffres</p>
+                              <div class="field">
+                                <div :class="{ 'animated headShake': $v.cvc.$dirty && $v.cvc.$error}">
+                                  <input
+                                    id="cvc"
+                                    placeholder="CVC"
+                                    v-model.trim="$v.cvc.$model"
+                                    class="input"  :class="{ 'is-success': !$v.cvc.$error && $v.cvc.$dirty,
+                                      'is-danger': $v.cvc.$error && $v.cvc.$dirty}"
+                                    type="num"
+                                    name="cvc">
+                                  <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                  </span>
+                                  <span v-if="!$v.cvc.$error && $v.cvc.$dirty">
+                                    <span class="icon is-small is-right animated zoomIn">
+                                      <i class="fas fa-check"></i>
+                                    </span>
+                                  </span>
+                                  <span v-else class="icon is-small is-right" :class="{ 'animated headShake': cvc.length != ''}">
+                                    <i class="fas fa-times"></i>
+                                  </span>
                                 </div>
+                                <p class="has-text-danger" v-if="!$v.cvc.required && $v.cvc.$dirty">Le code de sécurité CVC est obligatoire</p>
+                                <p class="has-text-danger" v-if="!$v.cvc.minLength">
+                                  Doit contenir exactement {{$v.cvc.$params.minLength.min}} chiffres</p>
+                                <p class="has-text-danger" v-if="$v.cvc.minLength && !$v.cvc.maxlength">
+                                  Doit contenir exactement {{$v.cvc.$params.minLength.min}} chiffres</p>
+                                <p class="has-text-danger" v-if="!$v.cvc.numeric">
+                                  Doit contenir uniquement des chiffres</p>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -170,7 +170,23 @@
       </div>
     </div>
   </section>
-
+  <section v-else class="section">
+    <div class="container animated fadeIn">
+      <div class="columns">
+        <div class="column cart title is-fourth-fifths">
+          <div>
+            <p class="no-products">Veuillez ajouter une escroquerie avant de payer, les dons ne sont pas acceptés !</p>
+          </div>
+          <button @click="goToProducts" class="button">
+            <span class="fontawesome-icon">
+              <i class="fas fa-arrow-left"></i>
+            </span>
+            <span>Retour à la liste des escroqueries</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -202,9 +218,6 @@ export default {
   name: 'Payment',
   created () {
     this.productsToPay = JSON.parse(window.localStorage.getItem('commandToPay'))
-    console.log('this.productsToPay')
-
-    console.log(this.productsToPay)
   },
   data () {
     return {
@@ -240,8 +253,6 @@ export default {
     submitPayment () {
       this.submitStatus = ''
       this.$v.$touch()
-      console.log(this.year)
-
       let expirationElement = document.getElementsByClassName('expiration-date-alert')[0]
 
       if (this.$v.$invalid) {
@@ -274,6 +285,7 @@ export default {
               localStorage.removeItem('commandsProduct')
               localStorage.removeItem('commandToPay')
               // TODO : Ouvrir une modale de remerciement qui redirige vers la liste des escroqueries
+              this.$router.push('products')
             })
             .catch((e) => {
               this.submitStatus = e.response.status
@@ -297,9 +309,6 @@ export default {
         sommeAll += temp
       }
       return (sommeAll % 10) === 0
-    },
-    goToProducts () {
-      this.$router.push('products')
     }
   }
 }

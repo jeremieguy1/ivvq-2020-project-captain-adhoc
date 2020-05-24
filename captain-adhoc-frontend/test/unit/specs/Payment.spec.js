@@ -225,4 +225,19 @@ describe('Payment.vue', () => {
       done()
     })
   })
+
+  it('Should give range', () => {
+    // Given
+    const wrapper = mount(Payment, {
+      localVue
+    })
+    const spy = sinon.spy(wrapper.vm, 'range')
+
+    // When
+    const rangeResult = wrapper.vm.range(2020, 2022)
+
+    // Then
+    chai.assert.strictEqual(spy.calledOnce, true)
+    chai.assert.sameMembers(rangeResult, [ 2020, 2021, 2022 ])
+  })
 })
