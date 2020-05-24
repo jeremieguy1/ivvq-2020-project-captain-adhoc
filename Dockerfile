@@ -3,6 +3,12 @@ WORKDIR /node
 COPY captain-adhoc-frontend/package.json ./
 RUN npm install
 COPY captain-adhoc-frontend/ ./
+RUN apk update && apk upgrade && \
+    echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
+    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
+    apk add bash chromium@edge nss@edge
+ENV CHROME_BIN chromium-browser
+RUN npm run unit
 RUN npm run build
 
 FROM maven:3-jdk-8-alpine AS maven
