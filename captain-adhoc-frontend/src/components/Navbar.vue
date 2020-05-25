@@ -25,7 +25,7 @@
 
   <div id="navbar-menu" class="navbar-menu">
     <div class="navbar-start">
-      <div class="is-flex" v-if="isLogged || user.isAdmin">
+      <div class="is-flex" v-if="isLogged">
         <router-link to="/products" class="navbar-item is-flex">
           <div class="fontawesome-icon">
             <i class="fas fa-grip-horizontal"></i>
@@ -35,7 +35,7 @@
           </div>
         </router-link>
       </div>
-      <div class="is-flex" v-if="user.isAdmin">
+      <div class="is-flex" v-if="isLogged && user.isAdmin">
         <router-link to="/inventory" class="navbar-item is-flex">
           <div class="fontawesome-icon">
             <i class="fas fa-suitcase"></i>
