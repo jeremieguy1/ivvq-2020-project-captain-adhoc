@@ -1,10 +1,10 @@
 package captainadhoc.captainadhocbackend.exceptions;
 
-import captainadhoc.captainadhocbackend.domain.Produit;
+import captainadhoc.captainadhocbackend.domain.Product;
 
 public class InsufficientQuantityException extends RuntimeException {
 
-    public InsufficientQuantityException(Produit produit) {
-        super("Quantité diponible insuffisante pour le produit " + produit.getNom_produit());
+    public InsufficientQuantityException(Product product) {
+        super("Quantité diponible insuffisante pour le produit " + product.getProductName());
     }
 }
