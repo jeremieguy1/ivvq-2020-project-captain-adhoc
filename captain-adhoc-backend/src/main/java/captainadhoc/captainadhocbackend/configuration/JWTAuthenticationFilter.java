@@ -1,13 +1,12 @@
 package captainadhoc.captainadhocbackend.configuration;
 
-import captainadhoc.captainadhocbackend.domain.Utilisateur;
+import captainadhoc.captainadhocbackend.domain.Member;
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -36,14 +35,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             HttpServletResponse res) throws AuthenticationException {
 
         try {
-            Utilisateur utilisateur = new ObjectMapper().readValue(
+            Member user = new ObjectMapper().readValue(
                     req.getInputStream(),
-                    Utilisateur.class);
+                    Member.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            utilisateur.getNomUtilisateur(),
-                            utilisateur.getMotDePasse(),
+                            user.getUserName(),
+                            user.getPassword(),
                             new ArrayList<>())
             );
 
@@ -60,7 +59,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             Authentication auth) throws IOException, ServletException {
 
         String token = JWT.create()
-                .withSubject(((User) auth.getPrincipal()).getUsername())
+                .withSubject(((org.springframework.security.core.userdetails.User) auth.getPrincipal()).getUsername())
                 .withExpiresAt(
                         new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));

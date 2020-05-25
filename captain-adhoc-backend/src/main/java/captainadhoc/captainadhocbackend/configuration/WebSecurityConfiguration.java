@@ -1,6 +1,6 @@
 package captainadhoc.captainadhocbackend.configuration;
 
-import captainadhoc.captainadhocbackend.services.implementations.UtilisateurService;
+import captainadhoc.captainadhocbackend.services.implementations.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -20,7 +20,7 @@ import static captainadhoc.captainadhocbackend.configuration.SecurityConstants.S
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UtilisateurService utilisateurService;
+    private MemberService userService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -49,7 +49,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(utilisateurService)
+        auth.userDetailsService(userService)
                 .passwordEncoder(bCryptPasswordEncoder);
     }
 
