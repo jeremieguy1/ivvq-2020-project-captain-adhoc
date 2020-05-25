@@ -51,6 +51,7 @@ public class ProductServiceIntegrationTest {
                 .build();
 
         dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
+
         dataLoader.run();
     }
 
@@ -85,6 +86,7 @@ public class ProductServiceIntegrationTest {
 
     @Test
     public void modifyQuantityTest() {
+
         //given un produit
         Product product = productService.findAllProducts().get(0);
 

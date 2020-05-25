@@ -54,6 +54,7 @@ public class PurchaseServiceIntegrationTest {
                 .build();
 
         dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
+
         dataLoader.run();
     }
 

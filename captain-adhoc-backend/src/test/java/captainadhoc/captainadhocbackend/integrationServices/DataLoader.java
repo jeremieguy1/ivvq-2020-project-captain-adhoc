@@ -115,6 +115,7 @@ public class DataLoader {
 
     public void initPurchases() {
 
+
         Purchase purchase1 = Purchase.builder()
                 .purchaseDate(new Date())
                 .code("code")

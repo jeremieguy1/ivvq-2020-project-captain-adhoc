@@ -52,5 +52,6 @@ public class MemberServiceIntegrationTest {
 
         // then: le member a un id
         assertNotNull(member.getIdMember());
+
     }
 }

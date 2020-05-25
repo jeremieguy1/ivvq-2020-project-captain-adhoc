@@ -31,7 +31,18 @@ public class PurchaseController {
 
     @GetMapping
     public ArrayList<Purchase> getPurchases() {
-        return purchaseService.findAllPurchases();
+
+        Authentication auth =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        Member member =
+                memberService.findByUserName(auth.getName());
+
+        if (member.getIsAdmin()) {
+            return purchaseService.findAllPurchases();
+        } else {
+            return new ArrayList<>(member.getPurchaseList());
+        }
     }
 
     @PostMapping("/order")
@@ -42,12 +53,12 @@ public class PurchaseController {
             Authentication auth =
                     SecurityContextHolder.getContext().getAuthentication();
 
-            Member member =
+            Member user =
                     memberService.findByUserName(auth.getName());
 
-            purchaseService.newPurchase(purchaseDto, member);
+            purchaseService.newPurchase(purchaseDto, user);
 
-        } catch (InsufficientQuantityException e) {
+        } catch(InsufficientQuantityException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
     }

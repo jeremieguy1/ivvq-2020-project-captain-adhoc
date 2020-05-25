@@ -30,6 +30,7 @@ public class MemberController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> registerMemberAccount(
+
             @RequestBody UserRegistrationDto memberRegistrationDto) {
 
         try {
