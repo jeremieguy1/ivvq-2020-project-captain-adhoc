@@ -153,6 +153,46 @@ describe('Products.vue', () => {
     wrapper.vm.openDetailsModal(product)
     chai.assert.strictEqual(spy.calledOnce, true)
   })
+
+  it('Should not detect scroll', () => {
+    // Given
+    const spy = sinon.spy(Products.methods, 'onScroll')
+    const wrapper = mount(Products)
+
+    // When
+    wrapper.vm.$destroy()
+    window.pageYOffset = 60
+
+    // Then
+    chai.assert.strictEqual(spy.called, false)
+    spy.restore()
+  })
+
+  it('Should axios get products', (done) => {
+    // Given
+    const wrapper = mount(Products, {
+      store,
+      localVue
+    })
+    const spy = sinon.spy(wrapper.vm, 'getProducts')
+
+    // When
+    wrapper.vm.getProducts()
+
+    // Then
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200,
+        response: {
+          data: productsResponse
+        }
+      }).then(() => {
+        chai.assert.strictEqual(spy.calledOnce, true)
+        done()
+      })
+    })
+  })
 })
 
 function storeTest (product) {
