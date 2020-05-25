@@ -1,5 +1,6 @@
 package captainadhoc.captainadhocbackend.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,7 @@ public class Commande {
     @OneToMany(mappedBy = "commande")
     private List<CommandeProduit> commandeProduitsList;
 
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Utilisateur utilisateur;
 

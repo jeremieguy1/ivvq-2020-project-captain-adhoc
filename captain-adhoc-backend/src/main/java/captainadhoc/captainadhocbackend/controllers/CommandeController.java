@@ -31,7 +31,19 @@ public class CommandeController {
 
     @GetMapping
     public ArrayList<Commande> getCommandes() {
-        return commandeService.findAllCommandes();
+
+        Authentication auth =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        Utilisateur user =
+                utilisateurService.findByNomUtilisateur(auth.getName());
+
+        if (user.getIsAdmin()) {
+            return commandeService.findAllCommandes();
+        } else {
+            return new ArrayList<>(user.getCommandeList());
+        }
+
     }
 
     @PostMapping("/achat")
