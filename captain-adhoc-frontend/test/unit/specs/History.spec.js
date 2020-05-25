@@ -406,6 +406,36 @@ describe('History.vue', () => {
       })
     })
   })
+
+  it('Should give (n/a) from null date', () => {
+    // Given
+    submit(respond)
+    const wrapper = mount(History, {
+      store,
+      localVue
+    })
+    // When
+    const dateReturn = wrapper.vm.date('')
+    wrapper.vm.$forceUpdate()
+
+    // Then
+    chai.assert.strictEqual(dateReturn, '(n/a)')
+  })
+
+  it('Should give a date from conform date', () => {
+    // Given
+    submit(respond)
+    const wrapper = mount(History, {
+      store,
+      localVue
+    })
+    // When
+    const dateReturn = wrapper.vm.date('2020-10-09T13:12:20.918+0000')
+    wrapper.vm.$forceUpdate()
+
+    // Then
+    chai.assert.strictEqual(dateReturn, '2020-10-09 13:12')
+  })
 })
 
 function submit (commandes) {
