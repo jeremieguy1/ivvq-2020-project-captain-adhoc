@@ -31,6 +31,7 @@ export default {
     logout () {
       localStorage.removeItem('Authorization')
       localStorage.removeItem('commandsProduct')
+      localStorage.removeItem('commandToPay')
       this.$store.commit('setActiveUser', false)
       this.$router.push('home')
       this.$parent.close()
