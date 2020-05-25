@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-white" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-white" role="navigation" aria-label="main navigation" :key="navKey">
 
     <div class="navbar-brand">
       <router-link to="/home" class="navbar-item is-flex">
@@ -25,7 +25,7 @@
 
   <div id="navbar-menu" class="navbar-menu">
     <div class="navbar-start">
-      <div class="is-flex" v-if="isLogged || user.isAdmin">
+      <div class="is-flex" v-if="isLogged">
         <router-link to="/products" class="navbar-item is-flex">
           <div class="fontawesome-icon">
             <i class="fas fa-grip-horizontal"></i>
@@ -35,7 +35,7 @@
           </div>
         </router-link>
       </div>
-      <div class="is-flex" v-if="user.isAdmin">
+      <div class="is-flex" v-if="isLogged && user.isAdmin">
         <router-link to="/inventory" class="navbar-item is-flex">
           <div class="fontawesome-icon">
             <i class="fas fa-suitcase"></i>
@@ -103,15 +103,14 @@
 
 <script>
 import LogoutModal from '@/components/LogoutModal'
-import { mapState } from 'vuex'
 export default {
   name: 'Navbar',
   components: { LogoutModal },
-  computed: mapState[('isLoggedStore', 'userStore')],
   data () {
     return {
       isLogged: '',
-      user: ''
+      user: '',
+      navKey: 0
     }
   },
   created () {
@@ -119,6 +118,7 @@ export default {
       (state, getters) => getters.isLoggedStore,
       (userStatus) => {
         this.isLogged = userStatus
+        this.forceRerender()
       }
     )
     this.unwatchUser = this.$store.watch(
@@ -154,6 +154,10 @@ export default {
         hasModalCard: true,
         trapFocus: true
       })
+    },
+    forceRerender () {
+      this.$forceUpdate()
+      this.navKey += 1
     }
   }
 }

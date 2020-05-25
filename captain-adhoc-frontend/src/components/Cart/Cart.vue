@@ -225,7 +225,9 @@ export default {
               }
             }
           }
-          localStorage.setItem('commandsProduct', JSON.stringify(this.products))
+          if (this.products.length !== 0) {
+            localStorage.setItem('commandsProduct', JSON.stringify(this.products))
+          }
           this.$store.commit('cartProducts', this.products)
         })
     }
