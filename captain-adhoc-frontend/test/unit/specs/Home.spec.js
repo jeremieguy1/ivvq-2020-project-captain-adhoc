@@ -53,4 +53,22 @@ describe('Home.vue', () => {
     chai.assert.strictEqual(spy.calledOnce, true)
     spy.restore()
   })
+
+  it('Should scroll', () => {
+    // Given
+    const wrapper = mount(Home)
+
+    // When
+    window.pageYOffset = 55
+    wrapper.vm.scrollFunction()
+
+    // Then
+    chai.assert.equal(wrapper.findAll('.image.is-4by5').at(0).selector, '.image.is-4by5')
+    chai.assert.equal(wrapper.findAll('.image.is-4by5').at(1).selector, '.image.is-4by5')
+    chai.assert.equal(wrapper.findAll('.image.is-128x128').at(0).selector, '.image.is-128x128')
+    chai.assert.equal(wrapper.findAll('.image.is-128x128').at(1).selector, '.image.is-128x128')
+    chai.assert.equal(wrapper.find('.no-shadow').selector, '.no-shadow')
+    chai.assert.equal(wrapper.find('.content.is-medium').selector, '.content.is-medium')
+  })
+
 })
