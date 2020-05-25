@@ -18,7 +18,7 @@ const commandsProductResponse1 = [
   {
     description_produit: 'description',
     id_produit: '1',
-    image_produit: 'image_url',
+    image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
     marchand: {},
     nom_produit: 'CyberboX',
     prix_produit: 1,
@@ -32,7 +32,7 @@ const commandsProductResponse2 = [
   {
     description_produit: 'description',
     id_produit: '2',
-    image_produit: 'image_url',
+    image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
     marchand: {},
     nom_produit: 'PS5',
     prix_produit: 1,
@@ -43,7 +43,7 @@ const commandsProductResponse2 = [
   {
     description_produit: 'description',
     id_produit: '1',
-    image_produit: 'image_url',
+    image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
     marchand: {},
     nom_produit: 'CyberboX',
     prix_produit: 5,
