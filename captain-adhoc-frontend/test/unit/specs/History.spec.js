@@ -17,14 +17,14 @@ let respond = [
   {
     id_commande: 4,
     display: false,
-    date_commande: '21/20/2020',
+    date_commande: '2020-05-21T13:12:09.918+0000',
     code: 'code',
     commandeProduitsList: [
       {
         id_commandeProduit: 7,
         produit: {
           id_produit: 2,
-          quantite_produit: 15,
+          quantite_produit: 25,
           nom_produit: 'produit1',
           description_produit: 'description1',
           image_produit: 'cyberbox_large.png',
@@ -34,7 +34,7 @@ let respond = [
             identifiant_marchand: 'marchand1'
           }
         },
-        quantite_commande_produit: 4
+        quantite_commande_produit: 15
       }
     ],
     acheteur: null
@@ -42,14 +42,14 @@ let respond = [
   {
     id_commande: 5,
     display: true,
-    date_commande: '22/20/2020',
+    date_commande: '2020-05-22T13:12:09.918+0000',
     code: 'code',
     commandeProduitsList: [
       {
         id_commandeProduit: 8,
         produit: {
           id_produit: 2,
-          quantite_produit: 15,
+          quantite_produit: 20,
           nom_produit: 'produit1',
           description_produit: 'description1',
           image_produit: 'cyberbox_large.png',
@@ -59,7 +59,7 @@ let respond = [
             identifiant_marchand: 'marchand1'
           }
         },
-        quantite_commande_produit: 0
+        quantite_commande_produit: 15
       },
       {
         id_commandeProduit: 9,
@@ -75,7 +75,7 @@ let respond = [
             identifiant_marchand: 'marchand1'
           }
         },
-        quantite_commande_produit: 0
+        quantite_commande_produit: 16
       }
     ],
     acheteur: null
@@ -83,14 +83,14 @@ let respond = [
   {
     id_commande: 6,
     display: true,
-    date_commande: '23/20/2020',
+    date_commande: '2020-05-23T13:12:09.918+0000',
     code: '',
     commandeProduitsList: [
       {
         id_commandeProduit: 10,
         produit: {
           id_produit: 3,
-          quantite_produit: 16,
+          quantite_produit: 20,
           nom_produit: 'produit2',
           description_produit: 'description2',
           image_produit: 'ps5_large.png',
@@ -100,7 +100,7 @@ let respond = [
             identifiant_marchand: 'marchand1'
           }
         },
-        quantite_commande_produit: 0
+        quantite_commande_produit: 16
       }
     ],
     acheteur: null
@@ -140,7 +140,7 @@ describe('History.vue', () => {
             // When
             /*
               Commande 1:
-                    quantite_produit: 15,
+                    quantite_commande_produit: 15,
                     prix_produit: 1,
                     total = 15 * 1 = 15
              */
@@ -150,10 +150,10 @@ describe('History.vue', () => {
             // When
             /*
               Commande 2:
-                    quantite_produit: 15,
+                    quantite_commande_produit: 15,
                     prix_produit: 1,
                     total1 = 15 * 1 = 15
-                    quantite_produit: 16,
+                    quantite_commande_produit: 16,
                     prix_produit: 2,
                     total = 16 * 2 = 32
                     total = total1 + total2 = 15 + 32 = 47
@@ -164,7 +164,7 @@ describe('History.vue', () => {
             // When
             /*
                 Commande 3:
-                   quantite_produit: 16,
+                   quantite_commande_produit: 16,
                    prix_produit: 2,
                    total = 16 * 2 = 32
             */
@@ -183,15 +183,15 @@ describe('History.vue', () => {
       commandeProduitsList: [
         {
           produit: {
-            quantite_produit: 6,
             prix_produit: 5
-          }
+          },
+          quantite_commande_produit: 6
         },
         {
           produit: {
-            quantite_produit: 36,
             prix_produit: 4
-          }
+          },
+          quantite_commande_produit: 36
         }
       ]
     }
@@ -225,21 +225,21 @@ describe('History.vue', () => {
             })
             /*
               Commande 1:
-                date_commande: '21/20/2020',
+                date_commande: '2020-05-21T13:12:09.918+0000',
              */
-            chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(0).text(), '21/20/2020')
+            chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(0).text(), '2020-05-21 13:12')
 
             /*
               Commande 2:
-                date_commande: '22/20/2020',
+                date_commande: '2020-05-22T13:12:09.918+0000',
              */
-            chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(1).text(), '22/20/2020')
+            chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(1).text(), '2020-05-22 13:12')
 
             /*
               Commande 3:
-                date_commande: '23/20/2020',
+                date_commande: '2020-05-23T13:12:09.918+0000',
             */
-            chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(2).text(), '23/20/2020')
+            chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(2).text(), '2020-05-23 13:12')
             done()
           })
       })
@@ -401,33 +401,6 @@ describe('History.vue', () => {
 
             // Then
             chai.assert.strictEqual(wrapper.findAll('.noCodeToDisplay').at(0).text(), 'Aucun code utilisé')
-            done()
-          })
-      })
-    })
-  })
-
-  it('Should getData called at the component creation', (done) => {
-    // Given
-    moxios.withMock(function () {
-      let spy = sinon.spy()
-      axios.get('/commandes').then(spy)
-      moxios.wait(() => {
-        let request = moxios.requests.mostRecent()
-        request.respondWith({
-          status: 200,
-          response: {
-            commandes: respond
-          }
-        }).then(
-          response => {
-            submit(response.data.commandes)
-
-            // When
-            mount(History, {store, localVue})
-
-            // Then
-            chai.assert.strictEqual(spy.calledOnce, true)
             done()
           })
       })

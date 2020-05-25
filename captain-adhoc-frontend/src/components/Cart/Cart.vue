@@ -111,7 +111,9 @@
                 </p>
               </div>
               <div class="to-pay box-shadow has-text-centered">
-                <button v-on:click="payCart()"  class="button has-text-centered to-pay">Payez votre panier</button>
+                <button v-on:click="payCart()" class="button has-text-centered">
+                  <p>Payez votre panier</p>
+                </button>
               </div>
             </div>
           </div>
@@ -172,7 +174,15 @@ export default {
     },
     payCart () {
       // A voir ici si on a besoin de rajouter de données dans commandsProduct localstorage
-      console.log('Go to PAYYYYY')
+      var commandToPAy = {
+        code: this.code,
+        products: this.products,
+        totalPrice: this.getTotalCart(this.products),
+        totalProducts: this.getTotalProduct(this.products)
+      }
+      localStorage.setItem('commandToPay', JSON.stringify(commandToPAy))
+
+      this.$router.push('payment')
     },
     displayContentCart (commande) {
       this.$store.commit('displayContentCart', commande)
@@ -182,14 +192,14 @@ export default {
       var index = 0
       for (var element in select) {
         if (Number.isInteger(parseInt(element))) {
-          if (select[element].options[0].id === product.nom_produit) {
+          if (select[element].selectedOptions[0].id === product.nom_produit) {
             index = element
           }
         }
       }
       var newQuantityProduct = {
         nom_produit: product.nom_produit,
-        quantity: select[index].value
+        quantity: parseInt(select[index].value)
       }
       this.$store.commit('updateQuantity', newQuantityProduct)
     },
@@ -197,7 +207,7 @@ export default {
       axios
         .get('/produits', configs)
         .then(response => {
-          var localProducts = JSON.parse(window.localStorage.getItem('commandsProduct'))
+          var localProducts = JSON.parse(localStorage.getItem('commandsProduct'))
           for (var product in response.data) {
             if (response.data[product].quantite_produit > 0) {
               for (var localProduct in localProducts) {
@@ -215,7 +225,7 @@ export default {
               }
             }
           }
-          window.localStorage.setItem('commandsProduct', JSON.stringify(this.products))
+          localStorage.setItem('commandsProduct', JSON.stringify(this.products))
           this.$store.commit('cartProducts', this.products)
         })
     }

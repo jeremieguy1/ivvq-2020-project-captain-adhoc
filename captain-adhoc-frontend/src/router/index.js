@@ -8,6 +8,7 @@ import Cart from '@/components/Cart/Cart.vue'
 import History from '@/components/History'
 import Inventory from '@/components/Inventory'
 import Products from '@/components/Products'
+import Payment from '@/components/Payment'
 
 Vue.use(Router)
 
@@ -53,6 +54,11 @@ const router = new Router({
       path: '/inventory',
       name: 'Inventory',
       component: Inventory
+    },
+    {
+      path: '/payment',
+      name: 'Payment',
+      component: Payment
     }
   ]
 })

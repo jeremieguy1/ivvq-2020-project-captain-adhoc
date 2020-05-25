@@ -11,7 +11,7 @@
       <div v-for="commande in commandes" v-bind:key="commande.id_commande" class="card animated fadeIn">
         <header v-on:click="displayContent(commande)" class="card-header">
           <p class="card-header-title date">
-            <time> {{commande.date_commande}}</time>
+            <time> {{date(commande.date_commande)}}</time>
           </p>
           <p class="card-header-title total">
             {{getTotalPrix(commande)}}€
@@ -53,7 +53,7 @@
                 <p class="nom_produit">{{prod.produit.nom_produit}}</p></div>
               </td>
               <td class="column">
-                <p class="quantite_produit">{{prod.produit.quantite_produit}}</p>
+                <p class="quantite_produit">{{prod.quantite_commande_produit}}</p>
               </td>
             </tr>
           </table>
@@ -97,9 +97,17 @@ export default {
     getTotalPrix (commande) {
       let total = 0
       commande.commandeProduitsList.forEach(commandeProduit => {
-        total = total + commandeProduit.produit.quantite_produit * commandeProduit.produit.prix_produit
+        total = total + commandeProduit.produit.prix_produit * commandeProduit.quantite_commande_produit
       })
       return total
+    },
+    date: function (str) {
+      if (!str) {
+        return '(n/a)'
+      }
+      str = new Date(str)
+      return str.getFullYear() + '-' + ((str.getMonth() < 9) ? '0' : '') + (str.getMonth() + 1) + '-' +
+        ((str.getDate() < 10) ? '0' : '') + str.getDate() + ' ' + str.getUTCHours() + ':' + str.getUTCMinutes()
     }
   }
 }

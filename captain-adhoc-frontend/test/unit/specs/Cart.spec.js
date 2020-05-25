@@ -7,9 +7,11 @@ import axios from 'axios'
 import sinon from 'sinon'
 import chai from 'chai'
 import Vuelidate from 'vuelidate'
+import VueRouter from 'vue-router'
 
 const localVue = createLocalVue()
 localVue.use(Vuelidate)
+localVue.use(VueRouter)
 
 let store
 const commandsProductResponse1 = [
@@ -431,6 +433,7 @@ describe('Cart.vue', () => {
 
   it('Should go to pay', () => {
     // Given
+    const router = new VueRouter()
     moxios.withMock(function () {
       let spy = sinon.spy()
       axios.get('/produits').then(spy)
@@ -449,6 +452,7 @@ describe('Cart.vue', () => {
             // When
             const wrapper = mount(Cart, {
               store,
+              router,
               localVue
             })
 
@@ -467,11 +471,13 @@ describe('Cart.vue', () => {
 
   it('Should update the quantity', () => {
     // Given
+    const router = new VueRouter()
     const spy = sinon.spy(Cart.methods, 'payCart')
     storeTest(commandsProductResponse2)
     const wrapper = mount(Cart, {
       store,
-      localVue
+      localVue,
+      router
     })
     wrapper.vm.payCart()
     spy.restore()
