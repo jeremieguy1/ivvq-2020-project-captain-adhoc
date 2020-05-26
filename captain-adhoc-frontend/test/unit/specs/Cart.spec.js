@@ -420,7 +420,7 @@ describe('Cart.vue', () => {
 
     // When
     wrapper.vm.getProductsCart()
-    console.log('AXIOX')
+
     // Then
     moxios.wait(() => {
       let request = moxios.requests.mostRecent()
@@ -460,7 +460,7 @@ describe('Cart.vue', () => {
 
     // When
     wrapper.vm.getProductsCart()
-    console.log('AXIOX')
+
     // Then
     moxios.wait(() => {
       let request = moxios.requests.mostRecent()
