@@ -205,7 +205,7 @@ export default {
     },
     getProductsCart () {
       axios
-        .get('/produits', configs)
+        .get('/products', configs)
         .then(response => {
           var localProducts = JSON.parse(localStorage.getItem('commandsProduct'))
           for (var product in response.data) {

@@ -113,7 +113,7 @@ export default {
     },
     getProducts () {
       axios
-        .get('/produits', configs)
+        .get('/products', configs)
         .then(response => {
           for (var product in response.data) {
             response.data[product].display = false
@@ -125,7 +125,7 @@ export default {
     updateInventory () {
       for (var product in this.products) {
         axios
-          .put(`/produits/modifier/quantite/?quantite=${this.products[product].quantite_produit}&id_produit=${this.products[product].id_produit}`, '', configs)
+          .put(`/products/modify/quantity/?quantity=${this.products[product].quantite_produit}&idProduct=${this.products[product].id_produit}`, '', configs)
       }
     }
   }

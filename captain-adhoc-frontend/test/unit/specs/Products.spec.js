@@ -63,7 +63,7 @@ describe('Products.vue', () => {
     // Given
     moxios.withMock(function () {
       const spy = sinon.spy()
-      axios.get('/produits').then(spy)
+      axios.get('/products').then(spy)
       moxios.wait(() => {
         let request = moxios.requests.mostRecent()
         request.respondWith({

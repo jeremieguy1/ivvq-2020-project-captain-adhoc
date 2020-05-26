@@ -65,7 +65,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/produits').then(spy)
+      axios.get('/products').then(spy)
       moxios.wait(() => {
         const spy = sinon.spy(Cart.methods, 'displayContentCart')
 
@@ -98,7 +98,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/produits').then(spy)
+      axios.get('/products').then(spy)
       moxios.wait(() => {
         const spy = sinon.spy(Cart.methods, 'displayContentCart')
 
@@ -132,7 +132,7 @@ describe('Cart.vue', () => {
   it('Should calculate good total for a product ', (done) => {
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/produits').then(spy)
+      axios.get('/products').then(spy)
       moxios.wait(() => {
         const spy = sinon.spy(Cart.methods, 'getTotalPrixProduct')
         let request = moxios.requests.mostRecent()
@@ -200,7 +200,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/produits').then(spy)
+      axios.get('/products').then(spy)
       moxios.wait(() => {
         const spy = sinon.spy(Cart.methods, 'getTotalCart')
         let request = moxios.requests.mostRecent()

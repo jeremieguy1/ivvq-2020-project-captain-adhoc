@@ -279,7 +279,7 @@ export default {
             produitsAchat: productToPay
           }
           axios
-            .post('/commandes/achat',
+            .post('/purchases/order',
               pay
               , configs)
             .then(response => {

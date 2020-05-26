@@ -20,7 +20,7 @@ export const mutations = {
   /* History managment */
   getData (state) {
     axios
-      .get('/commandes', configs)
+      .get('/purchases', configs)
       .then(response => {
         response.data.forEach(commande => Vue.observable(commande.display = false))
         state.commandes = response.data

@@ -124,7 +124,7 @@ export default {
           motDePasse: this.password
         }
         axios
-          .post('/login', body, configs)
+          .post('/register', body, configs)
           .then(response => {
             localStorage.setItem('Authorization', response.headers['authorization'])
             this.$router.push('products')
