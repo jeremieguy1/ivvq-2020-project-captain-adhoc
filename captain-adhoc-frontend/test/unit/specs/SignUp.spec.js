@@ -215,14 +215,16 @@ describe('SignUp.vue', () => {
     const wrapper = mount(SignUp, {
       localVue
     })
-    wrapper.setData({
-      submitStatus: ''
-    })
+    const signUpForm = wrapper.find('form')
     wrapper.find('input#firstname').setValue('ValidFirstname')
     wrapper.find('input#lastname').setValue('ValidLastname')
     wrapper.find('input#username').setValue('ValidUsername')
     wrapper.find('input#password').setValue('ValidPassword')
     wrapper.find('input#repeatPassword').setValue('ValidPassword')
+
+    // When
+    signUpForm.trigger('submit.prevent')
+    wrapper.vm.$forceUpdate()
 
     // When
     moxios.withMock(function () {
@@ -241,6 +243,102 @@ describe('SignUp.vue', () => {
           chai.assert.strictEqual(response.status, 200)
           done()
         })
+      })
+    })
+  })
+
+  it('Should axios get catch with 403 error', (done) => {
+    // Given
+    const wrapper = mount(SignUp, {
+      localVue
+    })
+    const spy = sinon.spy(wrapper.vm, 'submit')
+    const signUpForm = wrapper.find('form')
+    wrapper.find('input#firstname').setValue('ValidFirstname')
+    wrapper.find('input#lastname').setValue('ValidLastname')
+    wrapper.find('input#username').setValue('ValidUsername')
+    wrapper.find('input#password').setValue('ValidPassword')
+    wrapper.find('input#repeatPassword').setValue('ValidPassword')
+
+    // When
+    signUpForm.trigger('submit.prevent')
+    wrapper.vm.$forceUpdate()
+
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 403,
+        response: {
+          data: ''
+        }
+      }).then(() => {
+        chai.assert.strictEqual(spy.calledOnce, true)
+        spy.restore()
+        done()
+      })
+    })
+  })
+
+  it('Should axios get catch with 409 error', (done) => {
+    // Given
+    const wrapper = mount(SignUp, {
+      localVue
+    })
+    const spy = sinon.spy(wrapper.vm, 'submit')
+    const signUpForm = wrapper.find('form')
+    wrapper.find('input#firstname').setValue('ValidFirstname')
+    wrapper.find('input#lastname').setValue('ValidLastname')
+    wrapper.find('input#username').setValue('ValidUsername')
+    wrapper.find('input#password').setValue('ValidPassword')
+    wrapper.find('input#repeatPassword').setValue('ValidPassword')
+
+    // When
+    signUpForm.trigger('submit.prevent')
+    wrapper.vm.$forceUpdate()
+
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 409,
+        response: {
+          data: ''
+        }
+      }).then(() => {
+        chai.assert.strictEqual(spy.calledOnce, true)
+        spy.restore()
+        done()
+      })
+    })
+  })
+
+  it('Should axios get default catch with error code', (done) => {
+    // Given
+    const wrapper = mount(SignUp, {
+      localVue
+    })
+    const spy = sinon.spy(wrapper.vm, 'submit')
+    const signUpForm = wrapper.find('form')
+    wrapper.find('input#firstname').setValue('ValidFirstname')
+    wrapper.find('input#lastname').setValue('ValidLastname')
+    wrapper.find('input#username').setValue('ValidUsername')
+    wrapper.find('input#password').setValue('ValidPassword')
+    wrapper.find('input#repeatPassword').setValue('ValidPassword')
+
+    // When
+    signUpForm.trigger('submit.prevent')
+    wrapper.vm.$forceUpdate()
+
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 400,
+        response: {
+          data: ''
+        }
+      }).then(() => {
+        chai.assert.strictEqual(spy.calledOnce, true)
+        spy.restore()
+        done()
       })
     })
   })
