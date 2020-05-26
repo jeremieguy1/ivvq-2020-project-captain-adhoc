@@ -313,21 +313,82 @@ describe('Inventory.vue', () => {
     })
   })
 
-  it('Should update inventory', () => {
+  it('Should update inventory by call updateInventory', (done) => {
     // Given
     const spy = sinon.spy(Inventory.methods, 'updateInventory')
     storeTest(listProductsResponse)
-
-    // When
     const wrapper = mount(Inventory, {
       store,
       localVue
     })
-    wrapper.vm.updateInventory()
 
-    // Then
-    chai.assert.strictEqual(spy.calledOnce, true)
-    spy.restore()
+    wrapper.vm.getProducts()
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200,
+        response: {
+          data: listProductsResponse
+        }
+      }).then(() => {
+        // Then
+        // When
+        wrapper.vm.updateInventory()
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent()
+          request.respondWith({
+            status: 200,
+            response: {
+              data: listProductsResponse
+            }
+          }).then(() => {
+            // Then
+            chai.assert.strictEqual(spy.calledOnce, true)
+            spy.restore()
+            done()
+          })
+        })
+      })
+    })
+  })
+
+  it('Should axios be catch with error code', (done) => {
+    // Given
+    const spy = sinon.spy(Inventory.methods, 'updateInventory')
+    storeTest(listProductsResponse)
+    const wrapper = mount(Inventory, {
+      store,
+      localVue
+    })
+
+    wrapper.vm.getProducts()
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200,
+        response: {
+          data: listProductsResponse
+        }
+      }).then(() => {
+        // Then
+        // When
+        wrapper.vm.updateInventory()
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent()
+          request.respondWith({
+            status: 400,
+            response: {
+              data: ''
+            }
+          }).then(() => {
+            // Then
+            chai.assert.strictEqual(spy.calledOnce, true)
+            spy.restore()
+            done()
+          })
+        })
+      })
+    })
   })
 })
 

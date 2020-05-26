@@ -123,7 +123,10 @@ describe('Login.vue', () => {
     moxios.wait(() => {
       let request = moxios.requests.mostRecent()
       request.respondWith({
-        status: 200
+        status: 200,
+        headers: {
+          authorization: 'authorization'
+        }
       }).then(() => {
         chai.assert.strictEqual(spy.calledOnce, true)
         done()
@@ -131,7 +134,7 @@ describe('Login.vue', () => {
     })
   })
 
-  it('Should do an axios call on valid form Login', (done) => {
+  it('Should axios get catch with 403 error', (done) => {
     // Given
     const wrapper = mount(Login, {
       localVue
@@ -140,6 +143,7 @@ describe('Login.vue', () => {
     const loginForm = wrapper.find('form')
     wrapper.find('input#username').setValue('ValidUsername')
     wrapper.find('input#password').setValue('ValidPassword')
+
     // When
     loginForm.trigger('submit.prevent')
     wrapper.vm.$forceUpdate()
@@ -148,7 +152,39 @@ describe('Login.vue', () => {
     moxios.wait(() => {
       let request = moxios.requests.mostRecent()
       request.respondWith({
-        status: 200
+        status: 403,
+        headers: {
+          authorization: 'authorization'
+        }
+      }).then(() => {
+        chai.assert.strictEqual(spy.calledOnce, true)
+        done()
+      })
+    })
+  })
+
+  it('Should axios get default catch with error code', (done) => {
+    // Given
+    const wrapper = mount(Login, {
+      localVue
+    })
+    const spy = sinon.spy(wrapper.vm, 'submit')
+    const loginForm = wrapper.find('form')
+    wrapper.find('input#username').setValue('ValidUsername')
+    wrapper.find('input#password').setValue('ValidPassword')
+
+    // When
+    loginForm.trigger('submit.prevent')
+    wrapper.vm.$forceUpdate()
+
+    // Then
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 400,
+        headers: {
+          authorization: 'authorization'
+        }
       }).then(() => {
         chai.assert.strictEqual(spy.calledOnce, true)
         done()

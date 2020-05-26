@@ -20,7 +20,7 @@ const productsResponse = [
   {
     description_produit: 'description',
     id_produit: '1',
-    image_produit: 'image_url',
+    image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
     marchand: {},
     nom_produit: 'nom',
     prix_produit: 1,
@@ -32,9 +32,20 @@ const product =
   {
     description_produit: 'description',
     id_produit: '1',
-    image_produit: 'image_url',
+    image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
     marchand: {},
     nom_produit: 'nom',
+    prix_produit: 1,
+    quantite_produit: 1
+  }
+
+const productDifferent =
+  {
+    description_produit: 'description',
+    id_produit: '3',
+    image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+    marchand: {},
+    nom_produit: 'OtherName',
     prix_produit: 1,
     quantite_produit: 1
   }
@@ -116,7 +127,26 @@ describe('Products.vue', () => {
     chai.assert.strictEqual(wrapper.vm.shrinkHeader, false)
   })
 
-  it('Should not shrink header on scroll if scroll is already on top', () => {
+  it('Should not shrink header on scroll if scroll is near on top', () => {
+    // Given
+    const wrapper = mount(Products, {
+      store,
+      localVue
+    })
+
+    wrapper.setData({
+      shrinkHeader: true
+    })
+    window.pageYOffset = 9
+
+    // When
+    wrapper.vm.onScroll()
+
+    // Then
+    chai.assert.strictEqual(wrapper.vm.shrinkHeader, true)
+  })
+
+  it('Should not shrink header on scroll if scroll is on top', () => {
     // Given
     const wrapper = mount(Products, {
       store,
@@ -132,7 +162,7 @@ describe('Products.vue', () => {
     wrapper.vm.onScroll()
 
     // Then
-    chai.assert.strictEqual(wrapper.vm.shrinkHeader, true)
+    expect(true, wrapper.vm.shrinkHeader)
   })
 
   it('Should add the product to cart', () => {
@@ -140,6 +170,15 @@ describe('Products.vue', () => {
     const spy = sinon.spy(Products.methods, 'addToCart')
     const wrapper = mount(Products)
     wrapper.vm.addToCart(product)
+    chai.assert.strictEqual(spy.calledOnce, true)
+    spy.restore()
+  })
+
+  it('Should add the product not find to cart', () => {
+    // Given
+    const spy = sinon.spy(Products.methods, 'addToCart')
+    const wrapper = mount(Products)
+    wrapper.vm.addToCart(productDifferent)
     chai.assert.strictEqual(spy.calledOnce, true)
     spy.restore()
   })
@@ -152,6 +191,47 @@ describe('Products.vue', () => {
     const spy = sinon.spy(wrapper.vm, 'openDetailsModal')
     wrapper.vm.openDetailsModal(product)
     chai.assert.strictEqual(spy.calledOnce, true)
+  })
+
+  it('Should not detect scroll', () => {
+    // Given
+    const spy = sinon.spy(Products.methods, 'onScroll')
+    const wrapper = mount(Products, {localVue})
+
+    // When
+    wrapper.vm.$destroy()
+    window.pageYOffset = 60
+
+    // Then
+    chai.assert.strictEqual(spy.called, false)
+    spy.restore()
+  })
+
+  it('Should axios get products', (done) => {
+    // Given
+    storeTest(productsResponse)
+    const wrapper = mount(Products, {
+      store,
+      localVue
+    })
+    const spy = sinon.spy(wrapper.vm, 'getProducts')
+
+    // When
+    wrapper.vm.getProducts()
+
+    // Then
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200,
+        response: {
+          data: productsResponse
+        }
+      }).then(() => {
+        chai.assert.strictEqual(spy.calledOnce, true)
+        done()
+      })
+    })
   })
 })
 

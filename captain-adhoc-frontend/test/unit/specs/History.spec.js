@@ -27,7 +27,7 @@ let respond = [
           quantite_produit: 25,
           nom_produit: 'produit1',
           description_produit: 'description1',
-          image_produit: 'cyberbox_large.png',
+          image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
           prix_produit: 1,
           marchand: {
             id_marchand: 1,
@@ -52,7 +52,7 @@ let respond = [
           quantite_produit: 20,
           nom_produit: 'produit1',
           description_produit: 'description1',
-          image_produit: 'cyberbox_large.png',
+          image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
           prix_produit: 1,
           marchand: {
             id_marchand: 1,
@@ -68,7 +68,7 @@ let respond = [
           quantite_produit: 16,
           nom_produit: 'produit2',
           description_produit: 'description2',
-          image_produit: 'ps5_large.png',
+          image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
           prix_produit: 2,
           marchand: {
             id_marchand: 1,
@@ -93,7 +93,7 @@ let respond = [
           quantite_produit: 20,
           nom_produit: 'produit2',
           description_produit: 'description2',
-          image_produit: 'ps5_large.png',
+          image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
           prix_produit: 2,
           marchand: {
             id_marchand: 1,
@@ -405,6 +405,36 @@ describe('History.vue', () => {
           })
       })
     })
+  })
+
+  it('Should give (n/a) from null date', () => {
+    // Given
+    submit(respond)
+    const wrapper = mount(History, {
+      store,
+      localVue
+    })
+    // When
+    const dateReturn = wrapper.vm.date('')
+    wrapper.vm.$forceUpdate()
+
+    // Then
+    chai.assert.strictEqual(dateReturn, '(n/a)')
+  })
+
+  it('Should give a date from conform date', () => {
+    // Given
+    submit(respond)
+    const wrapper = mount(History, {
+      store,
+      localVue
+    })
+    // When
+    const dateReturn = wrapper.vm.date('2020-10-09T13:12:20.918+0000')
+    wrapper.vm.$forceUpdate()
+
+    // Then
+    chai.assert.strictEqual(dateReturn, '2020-10-09 13:12')
   })
 })
 

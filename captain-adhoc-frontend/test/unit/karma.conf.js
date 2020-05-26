@@ -21,7 +21,7 @@ module.exports = function karmaConfig (config) {
         flags: ['--no-sandbox']
       }
     },
-    frameworks: ['mocha', 'sinon-chai', 'phantomjs-shim'],
+    frameworks: ['mocha', 'sinon-chai'],
     reporters: ['spec', 'coverage'],
     files: ['./index.js'],
     preprocessors: {

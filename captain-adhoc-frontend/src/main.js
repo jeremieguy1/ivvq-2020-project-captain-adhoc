@@ -17,10 +17,13 @@ import 'vuelidate/dist/vuelidate.min.js'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import UserManagment from './components/userManagment'
+import CircularCountDownTimer from 'vue-circular-count-down-timer'
 Vue.config.productionTip = false
 
 Vue.use(Vuelidate)
 Vue.use(Buefy)
+Vue.use(CircularCountDownTimer)
+
 Vue.prototype.$http = axios
 
 axios.defaults.timeout = 10000

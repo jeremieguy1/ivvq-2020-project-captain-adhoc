@@ -87,7 +87,7 @@ export default {
   }),
   methods: {
     scrollFunction () {
-      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50 || window.pageYOffset > 50) {
         document.getElementsByClassName('no-shadow')[0].style.display = 'none'
         document.getElementsByClassName('image is-4by5')[0].style.display = 'none'
         document.getElementsByClassName('image is-4by5')[1].style.display = 'none'

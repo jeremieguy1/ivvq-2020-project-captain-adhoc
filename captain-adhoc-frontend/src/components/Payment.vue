@@ -161,6 +161,7 @@
                   </div>
                 </div>
               </table>
+              <p class="has-text-danger has-text-centered" v-if="submitStatus != ''">{{submitStatus}}</p>
               <div class="section to-pay box-shadow has-text-centered">
                 <button v-on:click="submitPayment()"  class="button has-text-centered to-pay">Payez votre panier</button>
               </div>
@@ -195,7 +196,7 @@ import { configs } from '../http-common'
 import { required, minLength, numeric, maxLength } from 'vuelidate/lib/validators'
 import Buefy from 'buefy'
 import Vue from 'vue'
-
+import PaymentCompleteModal from './PaymentCompleteModal'
 Vue.use(Buefy, {
   defaultIconPack: 'fa'
 })
@@ -284,11 +285,23 @@ export default {
             .then(response => {
               localStorage.removeItem('commandsProduct')
               localStorage.removeItem('commandToPay')
-              // TODO : Ouvrir une modale de remerciement qui redirige vers la liste des escroqueries
-              this.$router.push('products')
+              this.$buefy.modal.open({
+                parent: this,
+                component: PaymentCompleteModal,
+                hasModalCard: true,
+                trapFocus: true
+              })
             })
             .catch((e) => {
-              this.submitStatus = e.response.status
+              switch (e.response.status) {
+                case (409): {
+                  this.submitStatus = 'Le produit n\'est plus en stock !'
+                  break
+                }
+                default: {
+                  this.submitStatus = `Erreur de soumission (${e.response.status})`
+                }
+              }
             })
         }
       }

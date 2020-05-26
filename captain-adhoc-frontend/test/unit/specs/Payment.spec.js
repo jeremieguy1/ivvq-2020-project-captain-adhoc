@@ -152,8 +152,13 @@ describe('Payment.vue', () => {
   })
 
   it('Should do an axios call on valid form', (done) => {
+    const divTarget = document.createElement('p')
+    divTarget.setAttribute('id', 'expiration-date-alert')
+    document.body.appendChild(divTarget)
+
     // Given
     const wrapper = mount(Payment, {
+      attachTo: divTarget,
       localVue
     })
     const spy = sinon.spy(wrapper.vm, 'submitPayment')
@@ -188,6 +193,31 @@ describe('Payment.vue', () => {
     wrapper.setData({
       year: null,
       month: null
+    })
+
+    // When
+    paymentSection.trigger('click')
+    wrapper.vm.$forceUpdate()
+
+    // Then
+    moxios.wait(() => {
+      chai.assert.strictEqual(spy.calledOnce, true)
+      done()
+    })
+  })
+
+  it('Should not do an axios call on invalid expiration date form', (done) => {
+    // Given
+    const wrapper = mount(Payment, {
+      localVue
+    })
+    const spy = sinon.spy(wrapper.vm, 'submitPayment')
+    const paymentSection = wrapper.find('.button.to-pay')
+    wrapper.find('input#credit-card').setValue('4984421209470250')
+    wrapper.find('input#cvc').setValue('33')
+    wrapper.setData({
+      year: null,
+      month: 'Janvier'
     })
 
     // When
@@ -239,5 +269,39 @@ describe('Payment.vue', () => {
     // Then
     chai.assert.strictEqual(spy.calledOnce, true)
     chai.assert.sameMembers(rangeResult, [ 2020, 2021, 2022 ])
+  })
+
+  it('Should be valid when all fields are', (done) => {
+    // Given
+    const wrapper = mount(Payment, {
+      localVue
+    })
+    // const spy = sinon.spy(wrapper.vm, 'submitPayment')
+    const paymentSection = wrapper.find('.button.to-pay')
+    wrapper.find('input#credit-card').setValue('4984421209470251')
+    wrapper.find('input#cvc').setValue('323')
+    wrapper.setData({
+      year: 2020,
+      month: 'Janvier'
+    })
+
+    // When
+    paymentSection.trigger('click')
+    wrapper.vm.$forceUpdate()
+
+    // Then
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200,
+        response: {
+          data: ''
+        }
+      }).then(() => {
+        // Then
+        chai.assert.strictEqual(wrapper.vm.$v.$invalid, false)
+        done()
+      })
+    })
   })
 })

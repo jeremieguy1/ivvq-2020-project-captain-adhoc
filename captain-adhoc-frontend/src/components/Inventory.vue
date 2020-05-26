@@ -126,12 +126,6 @@ export default {
       for (var product in this.products) {
         axios
           .put(`/produits/modifier/quantite/?quantite=${this.products[product].quantite_produit}&id_produit=${this.products[product].id_produit}`, '', configs)
-          .then(response => {
-            console.log(response)
-          })
-          .catch((e) => {
-            console.log(e)
-          })
       }
     }
   }
