@@ -8,7 +8,6 @@ import captainadhoc.captainadhocbackend.exceptions.InsufficientQuantityException
 import captainadhoc.captainadhocbackend.repositories.PurchaseRepository;
 import captainadhoc.captainadhocbackend.services.interfaces.IPurchaseProductService;
 import captainadhoc.captainadhocbackend.services.interfaces.IPurchaseService;
-import captainadhoc.captainadhocbackend.services.interfaces.IMemberService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

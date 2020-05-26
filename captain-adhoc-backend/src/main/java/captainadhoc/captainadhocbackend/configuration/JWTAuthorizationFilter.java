@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static captainadhoc.captainadhocbackend.configuration.SecurityConstants.*;
+import static captainadhoc.captainadhocbackend.configuration.SecurityConstants.HEADER_STRING;
+import static captainadhoc.captainadhocbackend.configuration.SecurityConstants.TOKEN_PREFIX;
+import static captainadhoc.captainadhocbackend.configuration.SecurityConstants.SECRET;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 

@@ -43,7 +43,7 @@ public class MemberServiceTest {
 
 
     @Test
-    public void testSaveMember() {
+    public void saveMemberTest() {
 
         // Given: un MemberService et un member
         // When: la méthode saveMember est invoquée
@@ -55,7 +55,7 @@ public class MemberServiceTest {
     }
 
     @Test
-    public void testFindById() {
+    public void findByIdTest() {
 
         // given: un MemberService
         // when: la méthode findById est invoquée
@@ -66,7 +66,7 @@ public class MemberServiceTest {
     }
 
     @Test
-    public void testFindByMemberName() {
+    public void findByUserNameTest() {
 
         // given: un MemberService
         // when: la méthode findByUserName est invoquée
@@ -77,15 +77,15 @@ public class MemberServiceTest {
     }
 
     @Test
-    public void testLoadUserByUsername() {
+    public void loadUserByUsernameTest() {
 
-        // given: un UserService
+        // given: un MemberService
         when(memberService.getMemberRepository().findByUserName("nomUtilisateur")).thenReturn(member);
 
         // when: la méthode loadUserByUsername est invoquée
         memberService.loadUserByUsername("nomUtilisateur");
 
-        // then: la méthode findById du Repository associé est invoquée
+        // then: la méthode findByUserName du Repository associé est invoquée
         verify(memberService.getMemberRepository()).findByUserName("nomUtilisateur");
     }
 }
