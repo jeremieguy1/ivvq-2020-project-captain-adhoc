@@ -17,7 +17,11 @@ module.exports = function karmaConfig (config) {
     customLaunchers: {
       ChromeHeadlessCustom: {
         base: 'ChromeHeadless',
-        flags: ['--no-sandbox']
+        flags: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-gpu'
+        ]
       }
     },
     frameworks: ['mocha', 'sinon-chai'],
