@@ -53,7 +53,7 @@ public class PurchaseProductServiceIntergrationTest {
     private IProductService productService;
 
     @Autowired
-    private IMemberService userService;
+    private IMemberService memberService;
 
     @Autowired
     private IPurchaseService purchaseService;
@@ -61,7 +61,7 @@ public class PurchaseProductServiceIntergrationTest {
     @BeforeEach
     public void setup() {
 
-        dataLoader = new DataLoader(productService, userService, purchaseService, purchaseProductService);
+        dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
         dataLoader.run();
 
         Product product = Product.builder()
@@ -127,7 +127,7 @@ public class PurchaseProductServiceIntergrationTest {
         // l'objet PurchaseProduct n'a pas d'ID
         assertNull(purchaseProduct.getIdPurchaseProduct());
 
-        // when: purchaseProduct est persistée
+        // when: purchaseProduct est persisté
         purchaseProductService.savePurchaseProduct(purchaseProduct);
 
         // then: purchaseProduct a un id
@@ -156,7 +156,7 @@ public class PurchaseProductServiceIntergrationTest {
     }
 
     @Test
-    public void createPurchaseProductTestException() {
+    public void createPurchaseProductExceptionTest() {
 
         ProductPurchaseDto productPurchase = new ProductPurchaseDto(idProduct1, 200);
         List<ProductPurchaseDto> productPurchaseList = new ArrayList<>();

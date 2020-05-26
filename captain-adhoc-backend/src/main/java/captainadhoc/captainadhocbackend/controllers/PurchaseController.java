@@ -42,12 +42,12 @@ public class PurchaseController {
             Authentication auth =
                     SecurityContextHolder.getContext().getAuthentication();
 
-            Member user =
+            Member member =
                     memberService.findByUserName(auth.getName());
 
-            purchaseService.newPurchase(purchaseDto, user);
+            purchaseService.newPurchase(purchaseDto, member);
 
-        } catch(InsufficientQuantityException e) {
+        } catch (InsufficientQuantityException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
     }

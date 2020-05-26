@@ -29,7 +29,7 @@ public class MemberController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<String> registerUserAccount(
+    public ResponseEntity<String> registerMemberAccount(
             @RequestBody UserRegistrationDto memberRegistrationDto) {
 
         try {
@@ -48,7 +48,7 @@ public class MemberController {
 
     @GetMapping("/current-member")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<UserDto> getUser() {
+    public ResponseEntity<UserDto> getMember() {
 
         Authentication auth =
                 SecurityContextHolder.getContext().getAuthentication();

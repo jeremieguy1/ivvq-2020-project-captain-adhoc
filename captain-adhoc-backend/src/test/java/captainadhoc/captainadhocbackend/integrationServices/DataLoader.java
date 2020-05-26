@@ -26,7 +26,7 @@ public class DataLoader {
     private IProductService productService;
 
     @Autowired
-    private IMemberService userService;
+    private IMemberService memberService;
 
     @Autowired
     private IPurchaseService purchaseService;
@@ -99,7 +99,7 @@ public class DataLoader {
         productList.add(product4);
         productList.add(product5);
 
-        userService.saveMember(admin);
+        memberService.saveMember(admin);
 
         productService.saveProduct(product1);
         productService.saveProduct(product2);
@@ -110,10 +110,10 @@ public class DataLoader {
 
     public void run() {
         initProducts();
-        initpurchases();
+        initPurchases();
     }
 
-    public void initpurchases() {
+    public void initPurchases() {
 
         Purchase purchase1 = Purchase.builder()
                 .purchaseDate(new Date())

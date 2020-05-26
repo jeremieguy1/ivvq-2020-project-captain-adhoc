@@ -13,6 +13,6 @@ public interface IPurchaseService {
 
     void savePurchase(Purchase purchase);
 
-    void newPurchase(PurchaseDto purchaseDto, Member user)
+    void newPurchase(PurchaseDto purchaseDto, Member member)
             throws InsufficientQuantityException;
 }
