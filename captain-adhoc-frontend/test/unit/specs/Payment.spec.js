@@ -152,8 +152,13 @@ describe('Payment.vue', () => {
   })
 
   it('Should do an axios call on valid form', (done) => {
+    const divTarget = document.createElement('p')
+    divTarget.setAttribute('id', 'expiration-date-alert')
+    document.body.appendChild(divTarget)
+
     // Given
     const wrapper = mount(Payment, {
+      attachTo: divTarget,
       localVue
     })
     const spy = sinon.spy(wrapper.vm, 'submitPayment')

@@ -127,7 +127,45 @@ describe('Products.vue', () => {
     chai.assert.strictEqual(wrapper.vm.shrinkHeader, false)
   })
 
-  it('Should not shrink header on scroll if scroll is already on top', () => {
+  it('Should not shrink header on scroll if scroll is near on top', () => {
+    // Given
+    const wrapper = mount(Products, {
+      store,
+      localVue
+    })
+
+    wrapper.setData({
+      shrinkHeader: true
+    })
+    window.pageYOffset = 9
+
+    // When
+    wrapper.vm.onScroll()
+
+    // Then
+    chai.assert.strictEqual(wrapper.vm.shrinkHeader, true)
+  })
+
+  it('Should not shrink header on scroll if scroll is near on top', () => {
+    // Given
+    const wrapper = mount(Products, {
+      store,
+      localVue
+    })
+
+    wrapper.setData({
+      shrinkHeader: true
+    })
+    window.pageYOffset = 9
+
+    // When
+    wrapper.vm.onScroll()
+
+    // Then
+    chai.assert.strictEqual(wrapper.vm.shrinkHeader, true)
+  })
+
+  it('Should not shrink header on scroll if scroll is near on top', () => {
     // Given
     const wrapper = mount(Products, {
       store,
@@ -177,7 +215,7 @@ describe('Products.vue', () => {
   it('Should not detect scroll', () => {
     // Given
     const spy = sinon.spy(Products.methods, 'onScroll')
-    const wrapper = mount(Products)
+    const wrapper = mount(Products, {localVue})
 
     // When
     wrapper.vm.$destroy()
@@ -190,6 +228,7 @@ describe('Products.vue', () => {
 
   it('Should axios get products', (done) => {
     // Given
+    storeTest(productsResponse)
     const wrapper = mount(Products, {
       store,
       localVue

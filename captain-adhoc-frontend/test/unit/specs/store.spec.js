@@ -1,14 +1,11 @@
 import Vuex from 'vuex'
-import Inventory from '@/components/Inventory'
-import Products from '@/components/Products'
-import Cart from '@/components/Cart/Cart'
-import UserManagment from '@/components/userManagment'
 import { mount, createLocalVue } from '@vue/test-utils'
 import { mutations, getters } from '@/store/index'
 import moxios from 'moxios'
 import axios from 'axios'
 import chai from 'chai'
 import Vuelidate from 'vuelidate'
+import sinon from 'sinon'
 var MockAdapter = require('axios-mock-adapter')
 const mock = new MockAdapter(axios)
 
@@ -72,6 +69,20 @@ const listProductsResponse = [
     prix_produit: 200,
     marchand: null,
     display: false
+  }
+]
+
+const commandsProductResponse = [
+  {
+    description_produit: 'description',
+    id_produit: '1',
+    image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+    marchand: {},
+    nom_produit: 'CyberboX',
+    prix_produit: 1,
+    quantite_produit: 1,
+    quantity: 1,
+    display: true
   }
 ]
 
@@ -151,6 +162,11 @@ const user = [{
   prenom: 'citoyen'
 }]
 
+const stubComponent = {
+  name: 'parentStub',
+  template: '<div></div>'
+}
+
 describe('Store.js', () => {
   beforeEach(() => {
     moxios.install(axios)
@@ -165,7 +181,7 @@ describe('Store.js', () => {
   it('Should update products', () => {
     // Given
     storeTest(listProductsResponse)
-    const wrapper = mount(Products, {
+    const wrapper = mount(stubComponent, {
       store,
       localVue
     })
@@ -179,7 +195,7 @@ describe('Store.js', () => {
   it('Should update cartProducts', () => {
     // Given
     storeTest(listProductsResponse)
-    const wrapper = mount(Cart, {
+    const wrapper = mount(stubComponent, {
       store,
       localVue
     })
@@ -190,25 +206,10 @@ describe('Store.js', () => {
     chai.assert.equal(wrapper.vm.$store.state.cartProducts, listProductsResponse)
   })
 
-  it('Should update inventoryProducts', () => {
-    // Given
-    storeTest(listProductsResponse)
-    const wrapper = mount(Inventory, {
-      store,
-      localVue
-    })
-
-    // When
-    wrapper.vm.$store.commit('inventoryProducts', listProductsResponse)
-
-    // Then
-    chai.assert.equal(wrapper.vm.$store.state.inventoryProducts, listProductsResponse)
-  })
-
   it('Should update userStore', () => {
     // Given
     storeTest(listProductsResponse, user)
-    const wrapper = mount(UserManagment, {
+    const wrapper = mount(stubComponent, {
       store,
       localVue
     })
@@ -223,7 +224,7 @@ describe('Store.js', () => {
   it('Should update isMercant', () => {
     // Given
     storeTest(listProductsResponse, user)
-    const wrapper = mount(UserManagment, {
+    const wrapper = mount(stubComponent, {
       store,
       localVue
     })
@@ -238,7 +239,7 @@ describe('Store.js', () => {
   it('Should update quantity products', () => {
     // Given
     storeTest(quantityListProducts, user)
-    const wrapper = mount(Cart, {
+    const wrapper = mount(stubComponent, {
       store,
       localVue
     })
@@ -253,7 +254,7 @@ describe('Store.js', () => {
   it('Should get allProducts', () => {
     // Given
     storeTest(listProductsResponse, user)
-    const wrapper = mount(Cart, {
+    const wrapper = mount(stubComponent, {
       store,
       localVue
     })
@@ -268,7 +269,7 @@ describe('Store.js', () => {
   it('Should get isMercant', () => {
     // Given
     storeTest(listProductsResponse, user)
-    const wrapper = mount(Cart, {
+    const wrapper = mount(stubComponent, {
       store,
       localVue
     })
@@ -278,6 +279,30 @@ describe('Store.js', () => {
 
     // Then
     chai.assert.equal(getisMercant, false)
+  })
+
+  it('Should getProductsCart and update quantity to display when quantity local > quantity get', (done) => {
+    // Given
+    storeTest(commandsProductResponse, user)
+
+    const { getData } = mutations
+    const spy = sinon.spy(mutations, 'getData')
+
+    // When
+    getData({})
+
+    // Then
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200,
+        response: commandsProductResponse
+      }).then(() => {
+        chai.assert.strictEqual(spy.calledOnce, true)
+      }).finally(() => {
+        done()
+      })
+    })
   })
 })
 
