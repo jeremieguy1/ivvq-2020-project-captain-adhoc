@@ -77,7 +77,7 @@ module.exports = {
   'step heigh: Pay our basket': function (browser) {
     browser
       .useXpath()
-      .click('//button[text()="Payez votre panier"]')
+      .click('//p[text()="Payez votre panier"]')
       .useCss()
       .end()
   }
