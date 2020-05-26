@@ -62,7 +62,6 @@ public class PurchaseProductServiceIntergrationTest {
     public void setup() {
 
         dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
-
         dataLoader.run();
 
         Product product = Product.builder()
