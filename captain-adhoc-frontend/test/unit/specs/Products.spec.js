@@ -39,6 +39,17 @@ const product =
     quantite_produit: 1
   }
 
+const productDifferent =
+  {
+    description_produit: 'description',
+    id_produit: '3',
+    image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+    marchand: {},
+    nom_produit: 'OtherName',
+    prix_produit: 1,
+    quantite_produit: 1
+  }
+
 describe('Products.vue', () => {
   beforeEach(() => {
     moxios.install(axios)
@@ -140,6 +151,15 @@ describe('Products.vue', () => {
     const spy = sinon.spy(Products.methods, 'addToCart')
     const wrapper = mount(Products)
     wrapper.vm.addToCart(product)
+    chai.assert.strictEqual(spy.calledOnce, true)
+    spy.restore()
+  })
+
+  it('Should add the product not find to cart', () => {
+    // Given
+    const spy = sinon.spy(Products.methods, 'addToCart')
+    const wrapper = mount(Products)
+    wrapper.vm.addToCart(productDifferent)
     chai.assert.strictEqual(spy.calledOnce, true)
     spy.restore()
   })
