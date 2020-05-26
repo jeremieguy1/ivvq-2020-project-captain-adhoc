@@ -10,7 +10,7 @@ const user = [{
   prenom: 'citoyen'
 }]
 
-describe('UserManagment.vue', () => {
+describe('UserManagment.js', () => {
   beforeEach(() => {
     moxios.install()
   })

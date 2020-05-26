@@ -151,7 +151,7 @@ const user = [{
   prenom: 'citoyen'
 }]
 
-describe('Store.vue', () => {
+describe('Store.js', () => {
   beforeEach(() => {
     moxios.install(axios)
     mock.restore()
