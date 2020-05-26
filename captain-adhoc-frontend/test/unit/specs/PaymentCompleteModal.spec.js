@@ -1,11 +1,11 @@
 import PaymentCompleteModal from '@/components/PaymentCompleteModal'
 import { mount, createLocalVue } from '@vue/test-utils'
 import VueRouter from 'vue-router'
+import sinon from 'sinon'
+import chai from 'chai'
 
 const localVue = createLocalVue()
 localVue.use(VueRouter)
-import sinon from 'sinon'
-import chai from 'chai'
 
 const parentComponentStub = {
   name: 'parentStub',
