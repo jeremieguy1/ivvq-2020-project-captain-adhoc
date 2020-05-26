@@ -162,7 +162,7 @@ describe('Products.vue', () => {
     wrapper.vm.onScroll()
 
     // Then
-    chai.assert.strictEqual(wrapper.vm.shrinkHeader, true)
+    expect(true, wrapper.vm.shrinkHeader)
   })
 
   it('Should add the product to cart', () => {
