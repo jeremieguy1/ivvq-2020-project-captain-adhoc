@@ -20,7 +20,7 @@ import static captainadhoc.captainadhocbackend.configuration.SecurityConstants.S
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private MemberService userService;
+    private MemberService memberService;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -49,7 +49,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService)
+        auth.userDetailsService(memberService)
                 .passwordEncoder(bCryptPasswordEncoder);
     }
 

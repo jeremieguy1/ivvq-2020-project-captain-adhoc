@@ -63,7 +63,7 @@ class PurchaseServiceTest {
     @Test
     public void newPurchaseTest() {
 
-        Member utilisateur = Member.builder()
+        Member member = Member.builder()
                 .lastName("Kevin")
                 .firstName("Marchand")
                 .userName("marchand1")
@@ -80,9 +80,8 @@ class PurchaseServiceTest {
 
         PurchaseDto purchaseDto = new PurchaseDto("CODE", productPurchaseDtoList);
 
-        Date date = new Date();
         Purchase purchase = Purchase.builder()
-                .purchaseDate(date)
+                .purchaseDate(new Date())
                 .code(purchaseDto.getCode())
                 .build();
 
@@ -120,7 +119,7 @@ class PurchaseServiceTest {
 
         when(purchaseService.getPurchaseProductService().createPurchaseProduct(Mockito.any(List.class), Mockito.any(Purchase.class))).thenReturn(purchaseProducts);
 
-        purchaseService.newPurchase(purchaseDto, utilisateur);
+        purchaseService.newPurchase(purchaseDto, member);
 
         // then: la méthode createPurchaseProduct du PurchaseProductService associé est invoquée
         verify(purchaseService.getPurchaseProductService()).createPurchaseProduct(Mockito.eq(productPurchaseDtoList), Mockito.any(Purchase.class));

@@ -22,7 +22,7 @@ public class MemberServiceIntegrationTest {
     @BeforeEach
     public void setupEach() {
 
-        Member user = Member.builder()
+        Member member = Member.builder()
                 .lastName("Kevin")
                 .firstName("Marchand")
                 .userName("marchand1")
@@ -30,14 +30,14 @@ public class MemberServiceIntegrationTest {
                 .isAdmin(true)
                 .build();
 
-        memberService.saveMember(user);
+        memberService.saveMember(member);
     }
 
     @Test
-    public void testSaveUser() {
+    public void saveMemberTest() {
 
-        // given: un User non persisté
-        Member util = Member.builder()
+        // given: un Member non persisté
+        Member member = Member.builder()
                 .lastName("Test")
                 .firstName("Utilisateur")
                 .userName("UtilisateurTest")
@@ -45,12 +45,12 @@ public class MemberServiceIntegrationTest {
                 .isAdmin(true)
                 .build();
 
-        assertNull(util.getIdMember());
+        assertNull(member.getIdMember());
 
-        // when: le user est persisté
-        memberService.saveMember(util);
+        // when: le member est persisté
+        memberService.saveMember(member);
 
-        // then: le user a un id
-        assertNotNull(util.getIdMember());
+        // then: le member a un id
+        assertNotNull(member.getIdMember());
     }
 }

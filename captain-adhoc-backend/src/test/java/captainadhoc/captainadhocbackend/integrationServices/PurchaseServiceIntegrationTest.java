@@ -40,7 +40,7 @@ public class PurchaseServiceIntegrationTest {
     private IProductService productService;
 
     @Autowired
-    private IMemberService userService;
+    private IMemberService memberService;
 
     @Autowired
     private IPurchaseProductService purchaseProductService;
@@ -53,34 +53,34 @@ public class PurchaseServiceIntegrationTest {
                 .code("code")
                 .build();
 
-        dataLoader = new DataLoader(productService, userService, purchaseService, purchaseProductService);
+        dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
         dataLoader.run();
     }
 
     @Test
     void findAllPurchasesTest() {
-        // given: un DataLoader initialisant la base des commandes
+        // given: un DataLoader initialisant la base des purchases
 
-        // when: la liste des commandes est récupérée
-        ArrayList<Purchase> commandes = purchaseService.findAllPurchases();
+        // when: la liste des purchases est récupérée
+        ArrayList<Purchase> purchaseList = purchaseService.findAllPurchases();
 
-        // then: on a récupérer l'ensemble des commandes
-        assertEquals(3, commandes.size());
+        // then: on a récupérer l'ensemble des purchases
+        assertEquals(3, purchaseList.size());
     }
 
     @Test
     void savePurchaseTest() {
 
-        // la commande n'a pas d'ID
+        // purchase n'a pas d'ID
         assertNull(purchase.getIdPurchase());
 
-        // when: util est persistée
+        // when: purchase est persistée
         purchaseService.savePurchase(purchase);
 
-        // then: util a id
+        // then: purchase a id
         assertNotNull(purchase.getIdPurchase());
 
-        // then: on a récupérer l'ensemble des produits
+        // then: on a récupérer l'ensemble des purchases
         assertEquals(4, purchaseService.findAllPurchases().size());
     }
 
@@ -102,24 +102,24 @@ public class PurchaseServiceIntegrationTest {
 
         purchaseService.newPurchase(
                 purchaseDto,
-                userService.findByUserName("Kevin"));
+                memberService.findByUserName("Kevin"));
 
         ArrayList<Purchase> purchaseList = purchaseService.findAllPurchases();
 
-        //then : une nouvelle commande a été ajoutée en base
+        //then : une nouvelle entité Purchase a été ajoutée en base
         assertEquals(4, purchaseList.size());
 
-        Purchase commande = purchaseList.get(3);
+        Purchase purchase = purchaseList.get(3);
         //then : le bon code est associé à la commande
-        assertEquals("CODETEST", commande.getCode());
+        assertEquals("CODETEST", purchase.getCode());
 
-        //then : le bon nombre de ProduitCommande est associé à la commande
-        assertEquals(2, commande.getPurchaseProductList().size());
+        //then : le bon nombre de PurchaseProduct est associé à la commande
+        assertEquals(2, purchase.getPurchaseProductList().size());
 
-        PurchaseProduct purchaseProduct1 = commande.getPurchaseProductList().get(0);
-        PurchaseProduct purchaseProduct2 = commande.getPurchaseProductList().get(1);
+        PurchaseProduct purchaseProduct1 = purchase.getPurchaseProductList().get(0);
+        PurchaseProduct purchaseProduct2 = purchase.getPurchaseProductList().get(1);
 
-        //then : la bon produit avec la bonne quantite sont associés
+        //then : la bon produit avec la bonne quantité sont associés
         assertEquals(idPurchasedProduct1, purchaseProduct1.getProduct().getIdProduct());
         assertEquals(2, purchaseProduct1.getPurchaseProductQuantity());
 
@@ -129,7 +129,7 @@ public class PurchaseServiceIntegrationTest {
     }
 
     @Test
-    public void newPurchaseTestException() {
+    public void newPurchaseExceptionTest() {
 
         List<Product> productList = productService.findAllProducts();
         Long idPurchasedProduct1 = productList.get(0).getIdProduct();
@@ -146,11 +146,11 @@ public class PurchaseServiceIntegrationTest {
 
 
         // when: la méthode newPurchase est invoquée
-        // then: une exception est levé
+        // then: une exception est levée
         assertThrows(InsufficientQuantityException.class, () ->
                 purchaseService.newPurchase(
                         purchaseDto,
-                        userService.findByUserName("Kevin"))
+                        memberService.findByUserName("Kevin"))
         );
     }
 }

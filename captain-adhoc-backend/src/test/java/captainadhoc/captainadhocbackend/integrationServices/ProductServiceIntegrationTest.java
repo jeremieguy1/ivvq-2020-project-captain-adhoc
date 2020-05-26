@@ -27,7 +27,7 @@ public class ProductServiceIntegrationTest {
     private ProductService productService;
 
     @Autowired
-    private IMemberService userService;
+    private IMemberService memberService;
 
     @Autowired
     private IPurchaseProductService purchaseProductService;
@@ -50,12 +50,12 @@ public class ProductServiceIntegrationTest {
                 .productPrice(1)
                 .build();
 
-        dataLoader = new DataLoader(productService, userService, purchaseService, purchaseProductService);
+        dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
         dataLoader.run();
     }
 
     @Test
-    public void testSaveProduct() {
+    public void saveProductTest() {
 
         // le produit n'a pas d'ID
         assertNull(product.getIdProduct());
@@ -72,7 +72,7 @@ public class ProductServiceIntegrationTest {
     }
 
     @Test
-    public void testFindAllProducts() {
+    public void findAllProductsTest() {
 
         // given: un DataLoader initialisant la base des produits
 
@@ -84,7 +84,7 @@ public class ProductServiceIntegrationTest {
     }
 
     @Test
-    public void testModifyQuantity() {
+    public void modifyQuantityTest() {
         //given un produit
         Product product = productService.findAllProducts().get(0);
 
@@ -98,7 +98,7 @@ public class ProductServiceIntegrationTest {
     }
 
     @Test
-    public void testDecrementQuantity() {
+    public void decrementQuantityTest() {
 
         Long idProductToDecrement = productService.findAllProducts().get(0).getIdProduct();
 
@@ -114,7 +114,7 @@ public class ProductServiceIntegrationTest {
     }
 
     @Test
-    public void testExceptionDecrementQuantity() {
+    public void DecrementQuantityTestException() {
 
         //given un produit
         Long idProductToDecrement = productService.findAllProducts().get(0).getIdProduct();

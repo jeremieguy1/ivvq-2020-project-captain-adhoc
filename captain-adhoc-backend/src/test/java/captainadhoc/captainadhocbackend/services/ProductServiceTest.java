@@ -27,7 +27,8 @@ public class ProductServiceTest {
     private ProductService productService;
 
     @Test
-    public void testSaveProduct() {
+    public void saveProductTest() {
+
         //given un product
         Product product = Product.builder()
                 .productQuantity(15)
@@ -47,7 +48,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void testFindAllProducts() {
+    public void findAllProductsTest() {
         // given: un ProductService
         // when: la méthode findAllProducts est invoquée
         productService.findAllProducts();
@@ -57,7 +58,8 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void testModifyQuantity() {
+    public void modifyQuantityTest() {
+
         //given un product
         Product product = Product.builder()
                 .idProduct(1L)
@@ -71,7 +73,7 @@ public class ProductServiceTest {
         when(productService.getProductRepository().save(product)).thenReturn(product);
         when(productService.getProductRepository().findById(1L)).thenReturn(Optional.of(product));
 
-        // when: la méthode modifierQuantite est invoquée
+        // when: la méthode modifyQuantity est invoquée
         productService.modifyQuantity(product.getIdProduct(),20);
 
         // then: la méthode save du ProductRepository associé est invoquée
@@ -85,7 +87,8 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void testDecrementQuantity() {
+    public void decrementQuantityTest() {
+
         //given un product
         Product product = Product.builder()
                 .idProduct(1L)
@@ -116,7 +119,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void testExceptionDecrementQuantity() {
+    public void decrementQuantityExceptionTest() {
 
         //given un product
         Product product = Product.builder()
