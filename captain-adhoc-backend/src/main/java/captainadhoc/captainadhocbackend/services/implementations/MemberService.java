@@ -29,7 +29,6 @@ public class MemberService implements IMemberService, UserDetailsService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-<<<<<<< HEAD
     public Member saveMember(Member member) {
 
         if (findByUserName(member.getUserName()) != null) {
@@ -47,25 +46,6 @@ public class MemberService implements IMemberService, UserDetailsService {
     @Override
     public Member findById(Long idMember) {
         return memberRepository.findById(idMember).orElse(null);
-=======
-    public Member saveMember(Member user) {
-
-        if (findByUserName(user.getUserName()) != null) {
-
-            throw new ExistingUserException(
-                    user.getUserName());
-        }
-
-        user.setPassword(
-                bCryptPasswordEncoder.encode(user.getPassword()));
-
-        return memberRepository.save(user);
-    }
-
-    @Override
-    public Member findById(Long idUser) {
-        return memberRepository.findById(idUser).orElse(null);
->>>>>>> [Back] english translation #72
     }
 
     @Override
@@ -77,28 +57,16 @@ public class MemberService implements IMemberService, UserDetailsService {
     public UserDetails loadUserByUsername(String userName)
             throws UsernameNotFoundException {
 
-<<<<<<< HEAD
         Member member =
                 memberRepository.findByUserName(userName);
 
         if (member == null) {
-=======
-        Member user =
-                memberRepository.findByUserName(userName);
-
-        if (user == null) {
->>>>>>> [Back] english translation #72
             throw new UsernameNotFoundException(userName);
         }
 
         return new org.springframework.security.core.userdetails.User(
-<<<<<<< HEAD
                 member.getUserName(),
                 member.getPassword(),
-=======
-                user.getUserName(),
-                user.getPassword(),
->>>>>>> [Back] english translation #72
                 emptyList());
     }
 }
