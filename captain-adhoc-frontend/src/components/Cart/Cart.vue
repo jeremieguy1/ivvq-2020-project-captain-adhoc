@@ -50,10 +50,10 @@
                     <div class="section quantite_produit has-text-centered">
                       <p class="quantite_produit has-text-centered">Quantité : </p> <br>
                       <p class="stock_quantite_produit">(Stock: {{product.quantite_produit}}) </p>
-                      <div class="select" >
-                        <select class="product.quantite">
+                      <div class="select">
+                        <select class="product-quantite">
                           <option disabled selected>{{product.quantity}}</option>
-                          <option v-for="(value, index) in product.quantite_produit + 1" :key="index" :id="`${product.nom_produit}`">
+                          <option v-for="(value, index) in product.quantite_produit + 1" :key="index" :id="`${product.nom_produit}-${index}`">
                             <div>{{ index }}</div>
                           </option>
                         </select>
@@ -188,11 +188,11 @@ export default {
       this.$store.commit('displayContentCart', commande)
     },
     updateQuantity (product) {
-      var select = document.getElementsByClassName('product.quantite')
+      var select = document.getElementsByClassName('product-quantite')
       var index = 0
       for (var element in select) {
         if (Number.isInteger(parseInt(element))) {
-          if (select[element].selectedOptions[0].id === product.nom_produit) {
+          if (select[element].selectedOptions[0].id.includes(product.nom_produit)) {
             index = element
           }
         }
