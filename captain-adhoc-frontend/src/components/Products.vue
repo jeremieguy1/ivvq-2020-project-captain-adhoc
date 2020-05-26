@@ -32,7 +32,7 @@
                   </div>
                 </div>
                 <div @click="addToCart(product)" class="fontawesome-icon">
-                  <i class="fas fa-cart-plus"></i>
+                  <span class="fas fa-cart-plus"></span>
                 </div>
               </div>
             </div>

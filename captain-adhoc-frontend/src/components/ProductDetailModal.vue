@@ -36,7 +36,7 @@
       </button>
       <button @click="addToCart(product)"
         class="button is-success"
-        name="Déconnexion">
+        name="Ajouter au panier">
         <p>Ajouter au panier</p>
         <span class="fontawesome-icon">
             <i class="fas fa-cart-plus"></i>
