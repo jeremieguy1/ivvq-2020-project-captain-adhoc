@@ -28,8 +28,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable();
-
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .antMatchers(HttpMethod.GET, "/").permitAll()
@@ -42,11 +40,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .cors().configurationSource(request -> {
-            CorsConfiguration config =  new CorsConfiguration()
-                    .applyPermitDefaultValues();
-            config.addExposedHeader("Authorization");
-            return config;
-        });
+                    CorsConfiguration config =  new CorsConfiguration()
+                            .applyPermitDefaultValues();
+                    config.addExposedHeader("Authorization");
+                    return config;
+                });
     }
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
