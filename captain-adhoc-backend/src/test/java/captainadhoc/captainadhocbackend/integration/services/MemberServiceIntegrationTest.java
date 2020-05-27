@@ -1,4 +1,4 @@
-package captainadhoc.captainadhocbackend.integrationServices;
+package captainadhoc.captainadhocbackend.integration.services;
 
 import captainadhoc.captainadhocbackend.domain.Member;
 import captainadhoc.captainadhocbackend.services.interfaces.IMemberService;

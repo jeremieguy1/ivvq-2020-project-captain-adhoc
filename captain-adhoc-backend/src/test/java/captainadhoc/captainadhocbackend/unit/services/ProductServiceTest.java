@@ -1,4 +1,4 @@
-package captainadhoc.captainadhocbackend.services;
+package captainadhoc.captainadhocbackend.unit.services;
 
 import captainadhoc.captainadhocbackend.domain.Product;
 import captainadhoc.captainadhocbackend.exceptions.InsufficientQuantityException;

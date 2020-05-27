@@ -1,10 +1,11 @@
-package captainadhoc.captainadhocbackend.integrationServices;
+package captainadhoc.captainadhocbackend.integration.services;
 
 import captainadhoc.captainadhocbackend.dto.ProductPurchaseDto;
 import captainadhoc.captainadhocbackend.domain.Purchase;
 import captainadhoc.captainadhocbackend.domain.PurchaseProduct;
 import captainadhoc.captainadhocbackend.domain.Product;
 import captainadhoc.captainadhocbackend.exceptions.InsufficientQuantityException;
+import captainadhoc.captainadhocbackend.integration.DataLoader;
 import captainadhoc.captainadhocbackend.repositories.PurchaseRepository;
 import captainadhoc.captainadhocbackend.services.implementations.PurchaseProductService;
 import captainadhoc.captainadhocbackend.services.interfaces.IPurchaseService;
