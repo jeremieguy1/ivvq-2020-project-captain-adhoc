@@ -27,7 +27,9 @@ import java.util.List;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
 @Transactional
@@ -55,8 +57,6 @@ public class PurchaseControllerIntegrationTest {
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype());
 
-    private DataLoader dataLoader;
-
     @BeforeEach
     public void setup() {
 
@@ -67,7 +67,7 @@ public class PurchaseControllerIntegrationTest {
                 .apply(springSecurity())
                 .build();
 
-        dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
+        DataLoader dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
         dataLoader.run();
     }
 

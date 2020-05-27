@@ -48,8 +48,6 @@ public class PurchaseProductServiceIntergrationTest {
 
     private Long idProduct2;
 
-    private DataLoader dataLoader;
-
     @Autowired
     private IProductService productService;
 
@@ -62,7 +60,7 @@ public class PurchaseProductServiceIntergrationTest {
     @BeforeEach
     public void setup() {
 
-        dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
+        DataLoader dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
         dataLoader.run();
 
         Product product = Product.builder()

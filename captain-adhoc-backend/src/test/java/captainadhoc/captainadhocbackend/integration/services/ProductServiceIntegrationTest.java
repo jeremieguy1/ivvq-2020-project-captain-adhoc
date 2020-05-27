@@ -36,8 +36,6 @@ public class ProductServiceIntegrationTest {
     @Autowired
     private IPurchaseService purchaseService;
 
-    private DataLoader dataLoader;
-
     private Product product;
 
     @BeforeEach
@@ -51,7 +49,7 @@ public class ProductServiceIntegrationTest {
                 .productPrice(1)
                 .build();
 
-        dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
+        DataLoader dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
         dataLoader.run();
     }
 

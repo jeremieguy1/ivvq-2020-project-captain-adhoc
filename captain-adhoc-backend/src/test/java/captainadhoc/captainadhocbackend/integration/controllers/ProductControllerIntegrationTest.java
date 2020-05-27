@@ -6,7 +6,7 @@ import captainadhoc.captainadhocbackend.services.implementations.ProductService;
 import captainadhoc.captainadhocbackend.services.interfaces.IMemberService;
 import captainadhoc.captainadhocbackend.services.interfaces.IPurchaseProductService;
 import captainadhoc.captainadhocbackend.services.interfaces.IPurchaseService;
-import org.json.JSONArray;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +18,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
 @Transactional
@@ -51,10 +50,6 @@ public class ProductControllerIntegrationTest {
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype());
 
-    private String jsonResult;
-
-    private DataLoader dataLoader;
-
     @BeforeEach
     public void setup() {
 
@@ -63,7 +58,7 @@ public class ProductControllerIntegrationTest {
                 .apply(springSecurity())
                 .build();
 
-        dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
+        DataLoader dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
         dataLoader.run();
     }
 
@@ -77,17 +72,13 @@ public class ProductControllerIntegrationTest {
                 .andExpect(status().isOk())
                 // then: la réponse est au format JSON
                 .andExpect(content().contentType(contentType))
-                .andDo(mvcResult -> {
-                    jsonResult = mvcResult.getResponse().getContentAsString();
-                });
+                // then: le résultat obtenu contient 5 produits
+                .andExpect(jsonPath("$.length()", Matchers.is(5)))
+                // then: le résultat obtenu contient le produit Mad box avec ses caractéristiques
+                .andExpect(jsonPath("$.[2].productName", Matchers.is("Mad box")))
+                .andExpect(jsonPath("$.[2].productQuantity", Matchers.is(2)))
+                .andExpect(jsonPath("$.[2].productPrice", Matchers.is(666.)));
 
-        JSONArray jsonArray = new JSONArray(jsonResult);
-
-        // then: le résultat obtenu contient 5 produits
-        assertEquals(5, jsonArray.length());
-
-        // then: le résultat obtenu contient le produit Mad box
-        assertThat(jsonResult, containsString("Mad box"));
     }
 
     @WithMockUser("marchand1")
