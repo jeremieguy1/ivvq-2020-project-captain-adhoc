@@ -14,12 +14,12 @@ localVue.use(Vuelidate)
 let store
 const listProductsResponse = [
   {
-    id_produit: 2,
-    quantite_produit: 15,
-    nom_produit: 'PS5',
-    description_produit: 'Encore une playstation de folie \\o/',
-    image_produit: 'https://urlz.fr/cHLz',
-    prix_produit: 1,
+    idProduct: 2,
+    productQuantity: 15,
+    productName: 'PS5',
+    productDescription: 'Encore une playstation de folie \\o/',
+    productPicture: 'https://urlz.fr/cHLz',
+    productPrice: 1,
     marchand: {
       id_marchand: 1,
       identifiant_marchand: 'marchand1'
@@ -27,12 +27,12 @@ const listProductsResponse = [
     display: false
   },
   {
-    id_produit: 3,
-    quantite_produit: 16,
-    nom_produit: 'CyberboX',
-    description_produit: "Non comptant d'avoir les meilleures voitures au MONDE, Tesla propose la meilleure console de jeu grand public !",
-    image_produit: 'https://urlz.fr/cHLH',
-    prix_produit: 100000,
+    idProduct: 3,
+    productQuantity: 16,
+    productName: 'CyberboX',
+    productDescription: "Non comptant d'avoir les meilleures voitures au MONDE, Tesla propose la meilleure console de jeu grand public !",
+    productPicture: 'https://urlz.fr/cHLH',
+    productPrice: 100000,
     marchand: {
       id_marchand: 1,
       identifiant_marchand: 'marchand1'
@@ -40,32 +40,32 @@ const listProductsResponse = [
     display: false
   },
   {
-    id_produit: 4,
-    quantite_produit: 2,
-    nom_produit: 'Mad box',
-    description_produit: 'Cette console va révolutionner le du la de esport !',
-    image_produit: 'https://urlz.fr/cHJp',
-    prix_produit: 666,
+    idProduct: 4,
+    productQuantity: 2,
+    productName: 'Mad box',
+    productDescription: 'Cette console va révolutionner le du la de esport !',
+    productPicture: 'https://urlz.fr/cHJp',
+    productPrice: 666,
     marchand: null,
     display: false
   },
   {
-    id_produit: 5,
-    quantite_produit: 100,
-    nom_produit: 'New retro +',
-    description_produit: 'Elle fera tourner les jeux dernières générations tels que tetris et même Donkey kong 64 ! Et tout àa pour seulement 1399,99€',
-    image_produit: 'https://urlz.fr/cHJz',
-    prix_produit: 10,
+    idProduct: 5,
+    productQuantity: 100,
+    productName: 'New retro +',
+    productDescription: 'Elle fera tourner les jeux dernières générations tels que tetris et même Donkey kong 64 ! Et tout àa pour seulement 1399,99€',
+    productPicture: 'https://urlz.fr/cHJz',
+    productPrice: 10,
     marchand: null,
     display: false
   },
   {
-    id_produit: 6,
-    quantite_produit: 5,
-    nom_produit: 'Xbox Serie X',
-    description_produit: "C'est partiiiii pour la console pc !",
-    image_produit: 'https://urlz.fr/cHLM',
-    prix_produit: 200,
+    idProduct: 6,
+    productQuantity: 5,
+    productName: 'Xbox Serie X',
+    productDescription: "C'est partiiiii pour la console pc !",
+    productPicture: 'https://urlz.fr/cHLM',
+    productPrice: 200,
     marchand: null,
     display: false
   }
@@ -73,25 +73,25 @@ const listProductsResponse = [
 
 const commandsProductResponse = [
   {
-    description_produit: 'description',
-    id_produit: '1',
-    image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+    productDescription: 'description',
+    idProduct: '1',
+    productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
     marchand: {},
-    nom_produit: 'CyberboX',
-    prix_produit: 1,
-    quantite_produit: 1,
+    productName: 'CyberboX',
+    productPrice: 1,
+    productQuantity: 1,
     quantity: 1
   }
 ]
 
 const quantityListProducts = [
   {
-    id_produit: 2,
-    quantite_produit: 15,
-    nom_produit: 'PS5',
-    description_produit: 'Encore une playstation de folie \\o/',
-    image_produit: 'https://urlz.fr/cHLz',
-    prix_produit: 1,
+    idProduct: 2,
+    productQuantity: 15,
+    productName: 'PS5',
+    productDescription: 'Encore une playstation de folie \\o/',
+    productPicture: 'https://urlz.fr/cHLz',
+    productPrice: 1,
     marchand: {
       id_marchand: 1,
       identifiant_marchand: 'marchand1'
@@ -100,12 +100,12 @@ const quantityListProducts = [
     quantity: 0
   },
   {
-    id_produit: 3,
-    quantite_produit: 16,
-    nom_produit: 'CyberboX',
-    description_produit: "Non comptant d'avoir les meilleures voitures au MONDE, Tesla propose la meilleure console de jeu grand public !",
-    image_produit: 'https://urlz.fr/cHLH',
-    prix_produit: 100000,
+    idProduct: 3,
+    productQuantity: 16,
+    productName: 'CyberboX',
+    productDescription: "Non comptant d'avoir les meilleures voitures au MONDE, Tesla propose la meilleure console de jeu grand public !",
+    productPicture: 'https://urlz.fr/cHLH',
+    productPrice: 100000,
     marchand: {
       id_marchand: 1,
       identifiant_marchand: 'marchand1'
@@ -117,12 +117,12 @@ const quantityListProducts = [
 
 const quantityListProductsChange = [
   {
-    id_produit: 2,
-    quantite_produit: 15,
-    nom_produit: 'PS5',
-    description_produit: 'Encore une playstation de folie \\o/',
-    image_produit: 'https://urlz.fr/cHLz',
-    prix_produit: 1,
+    idProduct: 2,
+    productQuantity: 15,
+    productName: 'PS5',
+    productDescription: 'Encore une playstation de folie \\o/',
+    productPicture: 'https://urlz.fr/cHLz',
+    productPrice: 1,
     marchand: {
       id_marchand: 1,
       identifiant_marchand: 'marchand1'
@@ -131,12 +131,12 @@ const quantityListProductsChange = [
     quantity: 0
   },
   {
-    id_produit: 3,
-    quantite_produit: 16,
-    nom_produit: 'CyberboX',
-    description_produit: "Non comptant d'avoir les meilleures voitures au MONDE, Tesla propose la meilleure console de jeu grand public !",
-    image_produit: 'https://urlz.fr/cHLH',
-    prix_produit: 100000,
+    idProduct: 3,
+    productQuantity: 16,
+    productName: 'CyberboX',
+    productDescription: "Non comptant d'avoir les meilleures voitures au MONDE, Tesla propose la meilleure console de jeu grand public !",
+    productPicture: 'https://urlz.fr/cHLH',
+    productPrice: 100000,
     marchand: {
       id_marchand: 1,
       identifiant_marchand: 'marchand1'
@@ -147,17 +147,17 @@ const quantityListProductsChange = [
 ]
 
 const quantityProduct = {
-  nom_produit: 'CyberboX',
+  productName: 'CyberboX',
   quantity: 50
 }
 
 const user = [{
-  id: 1,
-  is_admin: false,
-  mot_de_passe: 'motDepasse2',
-  nom: "'mister'",
-  nom_utilisateur: 'Hmister',
-  prenom: 'citoyen'
+  idMember: 1,
+  isAdmin: false,
+  password: 'motDepasse2',
+  lastName: "'mister'",
+  userName: 'Hmister',
+  firstName: 'citoyen'
 }]
 
 const stubComponent = {

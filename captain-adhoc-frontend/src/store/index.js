@@ -34,14 +34,14 @@ export const mutations = {
   },
   displayContentCart (state, product) {
     state.cartProducts.forEach(prod => {
-      if (prod.id_produit === product.id_produit) {
+      if (prod.idProduct === product.idProduct) {
         prod.display = !prod.display
       }
     })
   },
   displayContent (state, command) {
     state.commandes.forEach(com => {
-      if (com.id_commande === command.id_commande) {
+      if (com.idPurchase === command.idPurchase) {
         com.display = !com.display
       }
     })
@@ -62,14 +62,14 @@ export const mutations = {
   },
   displayContentInventory (state, product) {
     state.inventoryProducts.forEach(prod => {
-      if (prod.id_produit === product.id_produit) {
+      if (prod.idProduct === product.idProduct) {
         prod.display = !prod.display
       }
     })
   },
   updateQuantity (state, newQuantityProduct) {
     state.cartProducts.forEach(com => {
-      if (com.nom_produit === newQuantityProduct.nom_produit) {
+      if (com.productName === newQuantityProduct.productName) {
         com.quantity = newQuantityProduct.quantity
       }
     })

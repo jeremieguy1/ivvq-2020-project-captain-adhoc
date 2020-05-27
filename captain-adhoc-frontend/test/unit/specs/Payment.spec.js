@@ -16,8 +16,8 @@ describe('Payment.vue', () => {
       code: 'CODE2020',
       products: [
         {
-          id_produit: 1,
-          nom_produit: 'PS5',
+          idProduct: 1,
+          productName: 'PS5',
           quantity: 5
         }
       ],

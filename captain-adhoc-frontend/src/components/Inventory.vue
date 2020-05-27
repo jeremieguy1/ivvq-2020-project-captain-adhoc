@@ -13,28 +13,28 @@
       </div>
     </div>
     <div class="section showProducts">
-      <div v-for="product in inventoryProducts" v-bind:key="product.id_produit" class="card animated fadeIn">
+      <div v-for="product in inventoryProducts" v-bind:key="product.idProduct" class="card animated fadeIn">
         <header v-on:click="displayContentInventory(product)" class="card-header">
           <div class="columns is-fullwidth" style="width: 100%; position: relative">
             <div class="column">
               <p class="card-header-title nom-produit">
-                {{product.nom_produit}}
+                {{product.productName}}
               </p>
             </div>
             <div class="column">
-              <p v-if="product.quantite_produit > 1" class="card-header-title quantiteMulti">
-                En stock : {{product.quantite_produit}} produits disponibles
+              <p v-if="product.productQuantity > 1" class="card-header-title quantiteMulti">
+                En stock : {{product.productQuantity}} produits disponibles
               </p>
-              <p v-if="product.quantite_produit === 1" class="card-header-title quantiteUni">
-                En stock : {{product.quantite_produit}} produit disponible
+              <p v-if="product.productQuantity === 1" class="card-header-title quantiteUni">
+                En stock : {{product.productQuantity}} produit disponible
               </p>
-              <p v-else-if="product.quantite_produit === 0" class="card-header-title quantiteNull">
+              <p v-else-if="product.productQuantity === 0" class="card-header-title quantiteNull">
                 Rupture stock : Aucun produit disponible
               </p>
             </div>
             <div class="column prix-produit">
               <p class="card-header-title prix-produit">
-                {{product.prix_produit}}€ unité
+                {{product.productPrice}}€ unité
               </p>
             </div>
             <div class="column is-1">
@@ -57,7 +57,7 @@
           <div class="columns">
             <div class="column image is-one-third">
               <figure class="image is-3by2">
-                <img :src="`${product.image_produit}`">
+                <img :src="`${product.productPicture}`">
               </figure>
             </div>
             <div class="column corps">
@@ -65,7 +65,7 @@
                 <p class="quantite_produit has-text-centered">Mettre à jour la quantité disponible : </p>
                 <div>
                   <b-field class="section numberinput">
-                    <b-numberinput min="0" :max="`${Number.MAX_SAFE_INTEGER}`" v-model="product.quantite_produit"
+                    <b-numberinput min="0" :max="`${Number.MAX_SAFE_INTEGER}`" v-model="product.productQuantity"
                                    controls-rounded controls-position="compact" type="is-success" ></b-numberinput>
                   </b-field>
                 </div>
@@ -108,8 +108,8 @@ export default {
   },
   computed: mapState(['inventoryProducts']),
   methods: {
-    displayContentInventory (commande) {
-      this.$store.commit('displayContentInventory', commande)
+    displayContentInventory (purchase) {
+      this.$store.commit('displayContentInventory', purchase)
     },
     getProducts () {
       axios
@@ -125,7 +125,7 @@ export default {
     updateInventory () {
       for (var product in this.products) {
         axios
-          .put(`/products/modify/quantity/?quantity=${this.products[product].quantite_produit}&idProduct=${this.products[product].id_produit}`, '', configs)
+          .put(`/products/modify/quantity/?quantity=${this.products[product].productQuantity}&idProduct=${this.products[product].idProduct}`, '', configs)
       }
     }
   }

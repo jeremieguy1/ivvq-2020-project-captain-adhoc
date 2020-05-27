@@ -4,14 +4,14 @@ import { mount } from '@vue/test-utils'
 import sinon from 'sinon'
 import chai from 'chai'
 
-const productToAdd = {
-  description_produit: 'description',
-  id_produit: '1',
-  image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+const productToAdd =  {
+  productDescription: 'description',
+  idProduct: '1',
+  productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
   marchand: {},
-  nom_produit: 'nom',
-  prix_produit: 1,
-  quantite_produit: 1
+  productName: 'nom',
+  productPrice: 1,
+  productQuantity: 1
 }
 
 const parentComponentStub = {

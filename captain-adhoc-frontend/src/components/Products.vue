@@ -12,23 +12,23 @@
     <div class="container">
       <div class="section">
         <div class="columns is-multiline">
-          <div v-for="product in products" v-bind:key="product.id_produit" class="column is-one-third animated fadeIn">
+          <div v-for="product in products" v-bind:key="product.idProduct" class="column is-one-third animated fadeIn">
             <div class="card">
               <div @click="openDetailsModal(product)"
                 @keydown.enter="openDetailsModal(product)"
                 class="card-image"
                 tabindex="0">
                 <figure class="image is-4by3">
-                  <img :src="`${product.image_produit}`" alt="">
+                  <img :src="`${product.productPicture}`" alt="">
                 </figure>
               </div>
               <div class="infos is-flex">
                 <div class=" is-flex info">
                   <div class="is-size-4">
-                    <p class="has-text-right">{{product.nom_produit}}</p>
+                    <p class="has-text-right">{{product.productName}}</p>
                   </div>
                   <div class="is-size-5">
-                    <p class="has-text-right">{{product.prix_produit}}€</p>
+                    <p class="has-text-right">{{product.productPrice}}€</p>
                   </div>
                 </div>
                 <div @click="addToCart(product)" class="fontawesome-icon">

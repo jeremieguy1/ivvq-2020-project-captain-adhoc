@@ -223,10 +223,10 @@ export default {
         // Invalid form
       } else {
         const body = {
-          prenom: this.firstname,
-          nom: this.lastname,
-          nomUtilisateur: this.username,
-          motDePasse: this.password
+          firstName: this.firstname,
+          lastName: this.lastname,
+          userName: this.username,
+          password: this.password
         }
         axios
           .post('/register', body, configs)

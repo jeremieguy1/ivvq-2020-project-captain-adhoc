@@ -269,14 +269,14 @@ export default {
           var productToPush
           for (var product in this.productsToPay.products) {
             productToPush = {
-              id_produit: this.productsToPay.products[product].id_produit,
-              quantite: this.productsToPay.products[product].quantity
+              idProduct: this.productsToPay.products[product].idProduct,
+              quantity: this.productsToPay.products[product].quantity
             }
             productToPay.push(productToPush)
           }
           var pay = {
             code: this.productsToPay.code,
-            produitsAchat: productToPay
+            productPurchaseList: productToPay
           }
           axios
             .post('/purchases/order',

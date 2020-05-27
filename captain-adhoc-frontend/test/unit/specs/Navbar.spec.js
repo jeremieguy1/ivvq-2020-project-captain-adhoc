@@ -15,21 +15,21 @@ localVue.use(Vuex)
 let store
 
 const user = [{
-  id: 1,
-  is_admin: false,
-  mot_de_passe: 'motDepasse2',
-  nom: "'mister'",
-  nom_utilisateur: 'Hmister',
-  prenom: 'citoyen'
+  idMember: 1,
+  isAdmin: false,
+  password: 'motDepasse2',
+  lastName: "'mister'",
+  userName: 'Hmister',
+  firstName: 'citoyen'
 }]
 
 const userModify = [{
-  id: 2,
-  is_admin: true,
-  mot_de_passe: 'motDepasse1',
-  nom: "'mister'",
-  nom_utilisateur: 'Hmister',
-  prenom: 'citoyen'
+  idMember: 2,
+  isAdmin: true,
+  password: 'motDepasse1',
+  lastName: "'mister'",
+  userName: 'Hmister',
+  firstName: 'citoyen'
 }]
 
 describe('Navbar.vue', () => {
@@ -46,7 +46,7 @@ describe('Navbar.vue', () => {
 
     // Div Navbar-menu
     const divTarget = document.createElement('div')
-    divTarget.setAttribute('id', 'navbar-menu')
+    divTarget.setAttribute('idMember', 'navbar-menu')
 
     divParente.appendChild(divBurger)
     divParente.appendChild(divTarget)
@@ -81,7 +81,7 @@ describe('Navbar.vue', () => {
 
     // Div Navbar-menu
     const divTarget = document.createElement('div')
-    divTarget.setAttribute('id', 'navbar-menu')
+    divTarget.setAttribute('idMember', 'navbar-menu')
 
     // Div buttons (child of menu)
     const divButtons = document.createElement('div')
@@ -120,7 +120,7 @@ describe('Navbar.vue', () => {
     expect(true, burger.classList.contains('is-active'))
     expect(true, navMenu.classList.contains('is-active'))
     expect(true, buttons.classList.contains('animated'))
-    expect(true, buttons.classList.contains('slideInLeft'))
+    expect(true, buttons.classList.contains('slidMembereInLeft'))
     expect(true, navbar.classList.contains('is-mobile'))
   })
 
@@ -137,7 +137,7 @@ describe('Navbar.vue', () => {
 
     // Div Navbar-menu
     const divTarget = document.createElement('div')
-    divTarget.setAttribute('id', 'navbar-menu')
+    divTarget.setAttribute('idMember', 'navbar-menu')
 
     divParente.appendChild(divBurger)
     divParente.appendChild(divTarget)
@@ -168,7 +168,7 @@ describe('Navbar.vue', () => {
 
     // Div Navbar-menu
     const divTarget = document.createElement('div')
-    divTarget.setAttribute('id', 'navbar-menu')
+    divTarget.setAttribute('idMember', 'navbar-menu')
 
     divParente.appendChild(divBurger)
     divParente.appendChild(divTarget)
@@ -205,7 +205,7 @@ describe('Navbar.vue', () => {
 
     // Div Navbar-menu
     const divTarget = document.createElement('div')
-    divTarget.setAttribute('id', 'navbar-menu')
+    divTarget.setAttribute('idMember', 'navbar-menu')
 
     divParente.appendChild(divBurger)
     divParente.appendChild(divTarget)
@@ -241,7 +241,7 @@ describe('Navbar.vue', () => {
 
     // Div Navbar-menu
     const divTarget = document.createElement('div')
-    divTarget.setAttribute('id', 'navbar-menu')
+    divTarget.setAttribute('idMember', 'navbar-menu')
 
     divParente.appendChild(divBurger)
     divParente.appendChild(divTarget)

@@ -3,21 +3,21 @@ export default {
     if (listCommandProduct === null) {
       listCommandProduct = [
         {
-          nom_produit: product.nom_produit,
+          productName: product.productName,
           quantity: 1
         }
       ]
     } else {
       var find = false
       for (var commandProduct in listCommandProduct) {
-        if (listCommandProduct[commandProduct].nom_produit === product.nom_produit) {
+        if (listCommandProduct[commandProduct].productName === product.productName) {
           listCommandProduct[commandProduct].quantity++
           find = true
         }
       }
       if (!find) {
         listCommandProduct.push({
-          nom_produit: product.nom_produit,
+          productName: product.productName,
           quantity: 1
         })
       }

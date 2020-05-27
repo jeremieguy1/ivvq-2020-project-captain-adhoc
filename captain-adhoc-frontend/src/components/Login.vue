@@ -120,11 +120,11 @@ export default {
         // Invalid form
       } else {
         const body = {
-          nomUtilisateur: this.username,
-          motDePasse: this.password
+          userName: this.username,
+          password: this.password
         }
         axios
-          .post('/register', body, configs)
+          .post('/login', body, configs)
           .then(response => {
             localStorage.setItem('Authorization', response.headers['authorization'])
             this.$router.push('products')
