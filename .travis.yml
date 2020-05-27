@@ -5,8 +5,15 @@ services:
   - docker
 script:
   - docker build -t captain-adhoc .
+  - sonar-scanner
 deploy:
   provider: script
   script: bash docker_push
   on:
     branch: master
+addons:
+  sonarcloud:
+    organization: "m2dl"
+    token:
+      secure: "x0dWTHdfbbMgGLgyayMuiAB7yagq8CDS7rK3Fo1PzplGNujaV3dEpNE1jhrUwWE3JEuROzP9SiVoF0U2j4c4FrXcIN3kjgL9guosOvIPb11MIMYqjXmAyoJjqBUgYfvQ958ZuPvYad0fm5xxio6R4YxVSOkTV7glc/rYsAONU4s8YCLM6GOLgDQvlP860JDp+eRz6yZvYDjzf4i03i2mykmmIsvvDVzKWTdbv6g4X1hbSslsTeSQNj+MtQR41rEOV1JKZa1mr9u+gXuzkOaliYhECa9qWHVYyzlatnTz/HekWDuWI/bxPWxbJkBhZjnQa1Mg3GLJ3cS+xFQFYYkPgSkN6YWXKU5F32/pxJMmRhcy1eNl3MfLoKA9AlRYo3Xss3N3E5xBvMaDRnybDUNbAfBTBvySWCbGLE3PJQkkNgSy806yP7Hh5XT9tb64zh4hJHOifLOoFS4RRAhS+DnAxuG07fRXO8wgCHlD2QcOQkKVX+gk21tZwMUCMLjN0OPEUxiEPwEN1s37wl9Lxf8c+jYXQHEBM6exA4q0DPek3okudg/vF4JCJQCBSjtaO9vLk9ZUNCJzKR8T0OiAIVVegv6ju497HIPk6MS/XiMeu41Bh30IbA65voMslPjpAq9gafRC3XqPAsaDDpM7Km9fWL2h90EYU3MntD0Ie49Mj9o="
+
