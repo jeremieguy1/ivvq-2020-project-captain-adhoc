@@ -46,6 +46,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     config.addAllowedMethod(HttpMethod.PUT);
                     return config;
                 });
+
     }
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
