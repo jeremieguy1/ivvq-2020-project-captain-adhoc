@@ -13,10 +13,10 @@
       </div>
     </div>
     <div class="section showProducts">
-      <div v-for="product in cartProducts" v-bind:key="product.id_produit" class="card animated fadeIn">
+      <div v-for="product in cartProducts" v-bind:key="product.idProduct" class="card animated fadeIn">
         <header v-on:click="displayContentCart(product)" class="card-header">
           <p class="card-header-title">
-            {{product.nom_produit}}
+            {{product.productName}}
           </p>
           <p v-if="product.quantity > 1" class="card-header-title total">
             {{getTotalPrixProduct(product)}}€ ({{product.quantity}} produits)
@@ -41,7 +41,7 @@
             <div class="columns">
               <div class="column image is-one-third">
                 <figure class="image is-3by2">
-                  <img :src="`${product.image_produit}`">
+                  <img :src="`${product.productPicture}`">
                 </figure>
               </div>
               <div class="column corps">
@@ -49,16 +49,16 @@
                   <tr >
                     <div class="section quantite_produit has-text-centered">
                       <p class="quantite_produit has-text-centered">Quantité : </p> <br>
-                      <p class="stock_quantite_produit">(Stock: {{product.quantite_produit}}) </p>
+                      <p class="stock_quantite_produit">(Stock: {{product.productQuantity}}) </p>
                       <div class="select">
                         <select class="product-quantite">
                           <option disabled selected>{{product.quantity}}</option>
-                          <option v-for="(value, index) in product.quantite_produit + 1" :key="index" :id="`${product.nom_produit}-${index}`">
+                          <option v-for="(value, index) in product.productQuantity + 1" :key="index" :id="`${product.productName}-${index}`">
                             <div>{{ index }}</div>
                           </option>
                         </select>
                       </div>
-                      &nbsp;{{product.prix_produit}}€/u <br>
+                      &nbsp;{{product.productPrice}}€/u <br>
                     </div>
                   </tr>
                   <tr >
@@ -156,7 +156,7 @@ export default {
   computed: mapState(['cartProducts']),
   methods: {
     getTotalPrixProduct (product) {
-      return product.quantity * product.prix_produit
+      return product.quantity * product.productPrice
     },
     getTotalProduct (products) {
       var totalProduct = 0
@@ -168,7 +168,7 @@ export default {
     getTotalCart (products) {
       var totalCart = 0
       for (var product in products) {
-        totalCart = parseInt(totalCart) + parseInt(products[product].quantity * products[product].prix_produit)
+        totalCart = parseInt(totalCart) + parseInt(products[product].quantity * products[product].productPrice)
       }
       return parseInt(totalCart)
     },
@@ -184,40 +184,40 @@ export default {
 
       this.$router.push('payment')
     },
-    displayContentCart (commande) {
-      this.$store.commit('displayContentCart', commande)
+    displayContentCart (purchase) {
+      this.$store.commit('displayContentCart', purchase)
     },
     updateQuantity (product) {
       var select = document.getElementsByClassName('product-quantite')
       var index = 0
       for (var element in select) {
         if (Number.isInteger(parseInt(element))) {
-          if (select[element].selectedOptions[0].id.includes(product.nom_produit)) {
+          if (select[element].selectedOptions[0].id.includes(product.productName)) {
             index = element
           }
         }
       }
       var newQuantityProduct = {
-        nom_produit: product.nom_produit,
+        productName: product.productName,
         quantity: parseInt(select[index].value)
       }
       this.$store.commit('updateQuantity', newQuantityProduct)
     },
     getProductsCart () {
       axios
-        .get('/produits', configs)
+        .get('/products', configs)
         .then(response => {
           var localProducts = JSON.parse(localStorage.getItem('commandsProduct'))
           for (var product in response.data) {
-            if (response.data[product].quantite_produit > 0) {
+            if (response.data[product].productQuantity > 0) {
               for (var localProduct in localProducts) {
                 if (localProducts[localProduct].quantity > 0) {
-                  if (response.data[product].nom_produit === localProducts[localProduct].nom_produit) {
+                  if (response.data[product].productName === localProducts[localProduct].productName) {
                     response.data[product].display = false
-                    if (localProducts[localProduct].quantity < response.data[product].quantite_produit) {
+                    if (localProducts[localProduct].quantity < response.data[product].productQuantity) {
                       response.data[product].quantity = localProducts[localProduct].quantity
                     } else {
-                      response.data[product].quantity = response.data[product].quantite_produit
+                      response.data[product].quantity = response.data[product].productQuantity
                     }
                     this.products.push(response.data[product])
                   }

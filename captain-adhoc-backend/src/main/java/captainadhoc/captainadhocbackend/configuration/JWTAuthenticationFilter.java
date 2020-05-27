@@ -1,6 +1,6 @@
 package captainadhoc.captainadhocbackend.configuration;
 
-import captainadhoc.captainadhocbackend.domain.Utilisateur;
+import captainadhoc.captainadhocbackend.domain.Member;
 import com.auth0.jwt.JWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,7 +18,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static captainadhoc.captainadhocbackend.configuration.SecurityConstants.*;
+import static captainadhoc.captainadhocbackend.configuration.SecurityConstants.HEADER_STRING;
+import static captainadhoc.captainadhocbackend.configuration.SecurityConstants.TOKEN_PREFIX;
+import static captainadhoc.captainadhocbackend.configuration.SecurityConstants.SECRET;
+import static captainadhoc.captainadhocbackend.configuration.SecurityConstants.EXPIRATION_TIME;
+
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -36,14 +40,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             HttpServletResponse res) throws AuthenticationException {
 
         try {
-            Utilisateur utilisateur = new ObjectMapper().readValue(
+            Member user = new ObjectMapper().readValue(
                     req.getInputStream(),
-                    Utilisateur.class);
+                    Member.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            utilisateur.getNomUtilisateur(),
-                            utilisateur.getMotDePasse(),
+                            user.getUserName(),
+                            user.getPassword(),
                             new ArrayList<>())
             );
 

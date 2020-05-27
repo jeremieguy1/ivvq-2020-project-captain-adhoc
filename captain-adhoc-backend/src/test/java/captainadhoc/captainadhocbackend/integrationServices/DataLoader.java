@@ -1,13 +1,13 @@
 package captainadhoc.captainadhocbackend.integrationServices;
 
-import captainadhoc.captainadhocbackend.domain.Commande;
-import captainadhoc.captainadhocbackend.domain.CommandeProduit;
-import captainadhoc.captainadhocbackend.domain.Produit;
-import captainadhoc.captainadhocbackend.domain.Utilisateur;
-import captainadhoc.captainadhocbackend.services.interfaces.ICommandeProduitService;
-import captainadhoc.captainadhocbackend.services.interfaces.ICommandeService;
-import captainadhoc.captainadhocbackend.services.interfaces.IProduitService;
-import captainadhoc.captainadhocbackend.services.interfaces.IUtilisateurService;
+import captainadhoc.captainadhocbackend.domain.Purchase;
+import captainadhoc.captainadhocbackend.domain.PurchaseProduct;
+import captainadhoc.captainadhocbackend.domain.Product;
+import captainadhoc.captainadhocbackend.domain.Member;
+import captainadhoc.captainadhocbackend.services.interfaces.IPurchaseProductService;
+import captainadhoc.captainadhocbackend.services.interfaces.IPurchaseService;
+import captainadhoc.captainadhocbackend.services.interfaces.IProductService;
+import captainadhoc.captainadhocbackend.services.interfaces.IMemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,160 +23,161 @@ import java.util.List;
 public class DataLoader {
 
     @Autowired
-    private IProduitService produitService;
+    private IProductService productService;
 
     @Autowired
-    private IUtilisateurService utilisateurService;
+    private IMemberService memberService;
 
     @Autowired
-    private ICommandeService commandeService;
+    private IPurchaseService purchaseService;
 
     @Autowired
-    private ICommandeProduitService commandeProduitService;
+    private IPurchaseProductService purchaseProductService;
 
-    public void initProduit() {
+    public void initProducts() {
 
-        Utilisateur admin = Utilisateur.builder()
-                .nom("Kevin")
-                .prenom("Marchand")
-                .nomUtilisateur("marchand1")
-                .motDePasse("mdp")
+        Member admin = Member.builder()
+                .lastName("Kevin")
+                .firstName("Marchand")
+                .userName("marchand1")
+                .password("mdp")
                 .isAdmin(true)
                 .build();
 
-        Produit produit1 = Produit.builder()
-                .quantite_produit(15)
-                .nom_produit("PS5")
-                .description_produit("Encore une playstation de folie \\o/")
-                .image_produit("https://urlz.fr/cHLz")
-                .prix_produit(1)
+        Product product1 = Product.builder()
+                .productQuantity(15)
+                .productName("PS5")
+                .productDescription("Encore une playstation de folie \\o/")
+                .productPicture("https://urlz.fr/cHLz")
+                .productPrice(1)
                 .build();
 
-        Produit produit2 = Produit.builder()
-                .quantite_produit(16)
-                .nom_produit("CyberboX")
-                .description_produit("Non comptant d'avoir " +
+        Product product2 = Product.builder()
+                .productQuantity(16)
+                .productName("CyberboX")
+                .productDescription("Non comptant d'avoir " +
                         "les meilleures voitures au MONDE, " +
                         "Tesla propose la meilleure console " +
                         "de jeu grand public !")
-                .image_produit("https://urlz.fr/cHLH")
-                .prix_produit(100000)
+                .productPicture("https://urlz.fr/cHLH")
+                .productPrice(100000)
                 .build();
 
-        Produit produit3 = Produit.builder()
-                .quantite_produit(2)
-                .nom_produit("Mad box")
-                .description_produit("Cette console " +
+        Product product3 = Product.builder()
+                .productQuantity(2)
+                .productName("Mad box")
+                .productDescription("Cette console " +
                         "va révolutionner le du la de esport !")
-                .image_produit("https://urlz.fr/cHJp")
-                .prix_produit(666)
+                .productPicture("https://urlz.fr/cHJp")
+                .productPrice(666)
                 .build();
 
-        Produit produit4 = Produit.builder()
-                .quantite_produit(100)
-                .nom_produit("New retro +")
-                .description_produit("Elle fera tourner " +
+        Product product4 = Product.builder()
+                .productQuantity(100)
+                .productName("New retro +")
+                .productDescription("Elle fera tourner " +
                         "les jeux dernières générations " +
                         "tels que tetris et même Donkey kong 64 ! " +
                         "Et tout àa pour seulement 1399,99€")
-                .image_produit("https://urlz.fr/cHJz")
-                .prix_produit(10)
+                .productPicture("https://urlz.fr/cHJz")
+                .productPrice(10)
                 .build();
 
-        Produit produit5 = Produit.builder()
-                .quantite_produit(5)
-                .nom_produit("Xbox Serie X")
-                .description_produit("C'est partiiiii pour la console pc !")
-                .image_produit("https://urlz.fr/cHLM")
-                .prix_produit(200)
+        Product product5 = Product.builder()
+                .productQuantity(5)
+                .productName("Xbox Serie X")
+                .productDescription("C'est partiiiii pour la console pc !")
+                .productPicture("https://urlz.fr/cHLM")
+                .productPrice(200)
                 .build();
 
-        List<Produit> produitList = new ArrayList<>();
+        List<Product> productList = new ArrayList<>();
 
-        produitList.add(produit1);
-        produitList.add(produit2);
-        produitList.add(produit3);
-        produitList.add(produit4);
-        produitList.add(produit5);
+        productList.add(product1);
+        productList.add(product2);
+        productList.add(product3);
+        productList.add(product4);
+        productList.add(product5);
 
-        utilisateurService.saveUtilisateur(admin);
+        memberService.saveMember(admin);
 
-        produitService.saveProduit(produit1);
-        produitService.saveProduit(produit2);
-        produitService.saveProduit(produit3);
-        produitService.saveProduit(produit4);
-        produitService.saveProduit(produit5);
+        productService.saveProduct(product1);
+        productService.saveProduct(product2);
+        productService.saveProduct(product3);
+        productService.saveProduct(product4);
+        productService.saveProduct(product5);
     }
 
     public void run() {
-        initProduit();
-        initCommandes();
+        initProducts();
+        initPurchases();
     }
 
-    public void initCommandes() {
-        Commande commande1 = Commande.builder()
-                .date_commande(new Date())
+    public void initPurchases() {
+
+        Purchase purchase1 = Purchase.builder()
+                .purchaseDate(new Date())
                 .code("code")
                 .build();
 
-        Commande commande2 = Commande.builder()
-                .date_commande(new Date())
+        Purchase purchase2 = Purchase.builder()
+                .purchaseDate(new Date())
                 .code("code")
                 .build();
 
-        Commande commande3 = Commande.builder()
-                .date_commande(new Date())
+        Purchase purchase3 = Purchase.builder()
+                .purchaseDate(new Date())
                 .code("")
                 .build();
 
-        CommandeProduit commandeProduit = new CommandeProduit();
-        CommandeProduit commandeProduit2 = new CommandeProduit();
-        CommandeProduit commandeProduit3 = new CommandeProduit();
-        CommandeProduit commandeProduit4 = new CommandeProduit();
+        PurchaseProduct purchaseProduct = new PurchaseProduct();
+        PurchaseProduct purchaseProduct2 = new PurchaseProduct();
+        PurchaseProduct purchaseProduct3 = new PurchaseProduct();
+        PurchaseProduct purchaseProduct4 = new PurchaseProduct();
 
-        ArrayList<Produit> produitArrayList = produitService.findAllProduits();
+        ArrayList<Product> productArrayList = productService.findAllProducts();
 
-        commandeProduit.setProduit(produitArrayList.get(0));
-        commandeProduit2.setProduit(produitArrayList.get(0));
-        commandeProduit3.setProduit(produitArrayList.get(1));
-        commandeProduit4.setProduit(produitArrayList.get(1));
+        purchaseProduct.setProduct(productArrayList.get(0));
+        purchaseProduct2.setProduct(productArrayList.get(0));
+        purchaseProduct3.setProduct(productArrayList.get(1));
+        purchaseProduct4.setProduct(productArrayList.get(1));
 
-        commandeProduit.setQuantite_commande_produit(1);
-        commandeProduit2.setQuantite_commande_produit(2);
-        commandeProduit3.setQuantite_commande_produit(3);
-        commandeProduit4.setQuantite_commande_produit(4);
+        purchaseProduct.setPurchaseProductQuantity(1);
+        purchaseProduct2.setPurchaseProductQuantity(2);
+        purchaseProduct3.setPurchaseProductQuantity(3);
+        purchaseProduct4.setPurchaseProductQuantity(4);
 
-        commandeProduit.setCommande(commande1);
-        commandeProduit2.setCommande(commande2);
-        commandeProduit3.setCommande(commande2);
-        commandeProduit4.setCommande(commande3);
+        purchaseProduct.setPurchase(purchase1);
+        purchaseProduct2.setPurchase(purchase2);
+        purchaseProduct3.setPurchase(purchase2);
+        purchaseProduct4.setPurchase(purchase3);
 
-        List<CommandeProduit> commandeProduitList = new ArrayList<>();
-        commandeProduitList.add(commandeProduit);
+        List<PurchaseProduct> purchaseProductList = new ArrayList<>();
+        purchaseProductList.add(purchaseProduct);
 
-        List<CommandeProduit> commandeProduitList2 = new ArrayList<>();
-        commandeProduitList2.add(commandeProduit2);
-        commandeProduitList2.add(commandeProduit3);
+        List<PurchaseProduct> purchaseProductList2 = new ArrayList<>();
+        purchaseProductList2.add(purchaseProduct2);
+        purchaseProductList2.add(purchaseProduct3);
 
-        List<CommandeProduit> commandeProduitList3 = new ArrayList<>();
-        commandeProduitList3.add(commandeProduit4);
+        List<PurchaseProduct> purchaseProductList3 = new ArrayList<>();
+        purchaseProductList3.add(purchaseProduct4);
 
-        commande1.setCommandeProduitsList(commandeProduitList);
-        commande2.setCommandeProduitsList(commandeProduitList2);
-        commande3.setCommandeProduitsList(commandeProduitList3);
+        purchase1.setPurchaseProductList(purchaseProductList);
+        purchase2.setPurchaseProductList(purchaseProductList3);
+        purchase3.setPurchaseProductList(purchaseProductList3);
 
-        commandeService.saveCommande(commande1);
-        commandeService.saveCommande(commande2);
-        commandeService.saveCommande(commande3);
+        purchaseService.savePurchase(purchase1);
+        purchaseService.savePurchase(purchase2);
+        purchaseService.savePurchase(purchase3);
 
-        commandeProduit.setCommande(commande1);
-        commandeProduit2.setCommande(commande2);
-        commandeProduit3.setCommande(commande2);
-        commandeProduit4.setCommande(commande3);
+        purchaseProduct.setPurchase(purchase1);
+        purchaseProduct2.setPurchase(purchase2);
+        purchaseProduct3.setPurchase(purchase2);
+        purchaseProduct4.setPurchase(purchase3);
 
-        commandeProduitService.saveCommandeProduit(commandeProduit);
-        commandeProduitService.saveCommandeProduit(commandeProduit2);
-        commandeProduitService.saveCommandeProduit(commandeProduit3);
-        commandeProduitService.saveCommandeProduit(commandeProduit4);
+        purchaseProductService.savePurchaseProduct(purchaseProduct);
+        purchaseProductService.savePurchaseProduct(purchaseProduct2);
+        purchaseProductService.savePurchaseProduct(purchaseProduct3);
+        purchaseProductService.savePurchaseProduct(purchaseProduct4);
     }
 }

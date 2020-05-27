@@ -2,12 +2,12 @@ import UserManagment from '@/components/userManagment'
 import moxios from 'moxios'
 
 const user = [{
-  id: 1,
-  is_admin: false,
-  mot_de_passe: 'motDepasse2',
-  nom: "'mister'",
-  nom_utilisateur: 'Hmister',
-  prenom: 'citoyen'
+  idMember: 1,
+  isAdmin: false,
+  password: 'motDepasse2',
+  lastName: "'mister'",
+  userName: 'Hmister',
+  firstName: 'citoyen'
 }]
 
 describe('UserManagment.js', () => {

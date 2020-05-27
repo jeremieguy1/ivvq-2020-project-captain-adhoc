@@ -16,13 +16,13 @@ localVue.use(VueRouter)
 let store
 const commandsProductResponse1 = [
   {
-    description_produit: 'description',
-    id_produit: '1',
-    image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+    productDescription: 'description',
+    idProduct: '1',
+    productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
     marchand: {},
-    nom_produit: 'CyberboX',
-    prix_produit: 1,
-    quantite_produit: 1,
+    productName: 'CyberboX',
+    productPrice: 1,
+    productQuantity: 1,
     quantity: 1,
     display: true
   }
@@ -30,24 +30,24 @@ const commandsProductResponse1 = [
 
 const commandsProductResponse2 = [
   {
-    description_produit: 'description',
-    id_produit: '2',
-    image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+    productDescription: 'description',
+    idProduct: '2',
+    productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
     marchand: {},
-    nom_produit: 'PS5',
-    prix_produit: 1,
-    quantite_produit: 1,
+    productName: 'PS5',
+    productPrice: 1,
+    productQuantity: 1,
     quantity: 1,
     display: false
   },
   {
-    description_produit: 'description1',
-    id_produit: '1',
-    image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+    productDescription: 'description1',
+    idProduct: '1',
+    productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
     marchand: {},
-    nom_produit: 'CyberboX',
-    prix_produit: 5,
-    quantite_produit: 3,
+    productName: 'CyberboX',
+    productPrice: 5,
+    productQuantity: 3,
     quantity: 2,
     display: false
   }
@@ -65,7 +65,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/produits').then(spy)
+      axios.get('/products').then(spy)
       moxios.wait(() => {
         const spy = sinon.spy(Cart.methods, 'displayContentCart')
 
@@ -98,7 +98,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/produits').then(spy)
+      axios.get('/products').then(spy)
       moxios.wait(() => {
         const spy = sinon.spy(Cart.methods, 'displayContentCart')
 
@@ -132,7 +132,7 @@ describe('Cart.vue', () => {
   it('Should calculate good total for a product ', (done) => {
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/produits').then(spy)
+      axios.get('/products').then(spy)
       moxios.wait(() => {
         const spy = sinon.spy(Cart.methods, 'getTotalPrixProduct')
         let request = moxios.requests.mostRecent()
@@ -167,23 +167,23 @@ describe('Cart.vue', () => {
     // Given
     // commandsProductResponse2 = [
     //   {
-    //     description_produit: 'description',
-    //     id_produit: '2',
-    //     image_produit: 'image_url',
+    //     productDescription: 'description',
+    //     idProduct: '2',
+    //     productPicture: 'image_url',
     //     marchand: {},
-    //     nom_produit: 'PS5',
-    //     prix_produit: 1,
-    //     quantite_produit: 1,
+    //     productName: 'PS5',
+    //     productPrice: 1,
+    //     productQuantity: 1,
     //     quantity: 1
     //   },
     //   {
-    //     description_produit: 'description',
-    //     id_produit: '1',
-    //     image_produit: 'image_url',
+    //     productDescription: 'description',
+    //     idProduct: '1',
+    //     productPicture: 'image_url',
     //     marchand: {},
-    //     nom_produit: 'nom',
-    //     prix_produit: 5,
-    //     quantite_produit: 3,
+    //     productName: 'nom',
+    //     productPrice: 5,
+    //     productQuantity: 3,
     //     quantity: 2
     //   }
     // ]
@@ -200,7 +200,7 @@ describe('Cart.vue', () => {
     // Given
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.get('/produits').then(spy)
+      axios.get('/products').then(spy)
       moxios.wait(() => {
         const spy = sinon.spy(Cart.methods, 'getTotalCart')
         let request = moxios.requests.mostRecent()
@@ -234,23 +234,23 @@ describe('Cart.vue', () => {
   // Given
   // commandsProductResponse2 = [
   //   {
-  //     description_produit: 'description',
-  //     id_produit: '2',
-  //     image_produit: 'image_url',
+  //     productDescription: 'description',
+  //     idProduct: '2',
+  //     productPicture: 'image_url',
   //     marchand: {},
-  //     nom_produit: 'PS5',
-  //     prix_produit: 1,
-  //     quantite_produit: 1,
+  //     productName: 'PS5',
+  //     productPrice: 1,
+  //     productQuantity: 1,
   //     quantity: 1
   //   },
   //   {
-  //     description_produit: 'description',
-  //     id_produit: '1',
-  //     image_produit: 'image_url',
+  //     productDescription: 'description',
+  //     idProduct: '1',
+  //     productPicture: 'image_url',
   //     marchand: {},
-  //     nom_produit: 'nom',
-  //     prix_produit: 5,
-  //     quantite_produit: 3,
+  //     productName: 'nom',
+  //     productPrice: 5,
+  //     productQuantity: 3,
   //     quantity: 2
   //   }
   // ]
@@ -298,23 +298,23 @@ describe('Cart.vue', () => {
     // Given
     // commandsProductResponse2 = [
     //   {
-    //     description_produit: 'description',
-    //     id_produit: '2',
-    //     image_produit: 'image_url',
+    //     productDescription: 'description',
+    //     idProduct: '2',
+    //     productPicture: 'image_url',
     //     marchand: {},
-    //     nom_produit: 'PS5',
-    //     prix_produit: 1,
-    //     quantite_produit: 1,
+    //     productName: 'PS5',
+    //     productPrice: 1,
+    //     productQuantity: 1,
     //     quantity: 1
     //   },
     //   {
-    //     description_produit: 'description',
-    //     id_produit: '1',
-    //     image_produit: 'image_url',
+    //     productDescription: 'description',
+    //     idProduct: '1',
+    //     productPicture: 'image_url',
     //     marchand: {},
-    //     nom_produit: 'nom',
-    //     prix_produit: 5,
-    //     quantite_produit: 3,
+    //     productName: 'nom',
+    //     productPrice: 5,
+    //     productQuantity: 3,
     //     quantity: 2
     //   }
     // ]
@@ -428,13 +428,13 @@ describe('Cart.vue', () => {
         status: 200,
         response: {
           data: {
-            description_produit: 'description1',
-            id_produit: '1',
-            image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+            productDescription: 'description1',
+            idProduct: '1',
+            productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
             marchand: {},
-            nom_produit: 'CyberboX',
-            prix_produit: 5,
-            quantite_produit: 3,
+            productName: 'CyberboX',
+            productPrice: 5,
+            productQuantity: 3,
             quantity: 2,
             display: false
           }
@@ -468,13 +468,13 @@ describe('Cart.vue', () => {
         status: 200,
         response: {
           data: {
-            description_produit: 'description1',
-            id_produit: '1',
-            image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+            productDescription: 'description1',
+            idProduct: '1',
+            productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
             marchand: {},
-            nom_produit: 'CyberboX',
-            prix_produit: 5,
-            quantite_produit: 1,
+            productName: 'CyberboX',
+            productPrice: 5,
+            productQuantity: 1,
             quantity: 2,
             display: false
           }

@@ -15,95 +15,95 @@ localVue.use(Vuex)
 let store
 let respond = [
   {
-    id_commande: 4,
+    idPurchase: 4,
     display: false,
-    date_commande: '2020-05-21T13:12:09.918+0000',
+    purchaseDate: '2020-05-21T13:12:09.918+0000',
     code: 'code',
-    commandeProduitsList: [
+    purchaseProductList: [
       {
-        id_commandeProduit: 7,
-        produit: {
-          id_produit: 2,
-          quantite_produit: 25,
-          nom_produit: 'produit1',
-          description_produit: 'description1',
-          image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
-          prix_produit: 1,
+        idPurchaseProduct: 7,
+        product: {
+          idProduct: 2,
+          productQuantity: 25,
+          productName: 'produit1',
+          productDescription: 'description1',
+          productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+          productPrice: 1,
           marchand: {
             id_marchand: 1,
             identifiant_marchand: 'marchand1'
           }
         },
-        quantite_commande_produit: 15
+        purchaseProductQuantity: 15
       }
     ],
-    acheteur: null
+    member: null
   },
   {
-    id_commande: 5,
+    idPurchase: 5,
     display: true,
-    date_commande: '2020-05-22T13:12:09.918+0000',
+    purchaseDate: '2020-05-22T13:12:09.918+0000',
     code: 'code',
-    commandeProduitsList: [
+    purchaseProductList: [
       {
-        id_commandeProduit: 8,
-        produit: {
-          id_produit: 2,
-          quantite_produit: 20,
-          nom_produit: 'produit1',
-          description_produit: 'description1',
-          image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
-          prix_produit: 1,
+        idPurchaseProduct: 8,
+        product: {
+          idProduct: 2,
+          productQuantity: 20,
+          productName: 'produit1',
+          productDescription: 'description1',
+          productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+          productPrice: 1,
           marchand: {
             id_marchand: 1,
             identifiant_marchand: 'marchand1'
           }
         },
-        quantite_commande_produit: 15
+        purchaseProductQuantity: 15
       },
       {
-        id_commandeProduit: 9,
-        produit: {
-          id_produit: 3,
-          quantite_produit: 16,
-          nom_produit: 'produit2',
-          description_produit: 'description2',
-          image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
-          prix_produit: 2,
+        idPurchaseProduct: 9,
+        product: {
+          idProduct: 3,
+          productQuantity: 16,
+          productName: 'produit2',
+          productDescription: 'description2',
+          productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+          productPrice: 2,
           marchand: {
             id_marchand: 1,
             identifiant_marchand: 'marchand1'
           }
         },
-        quantite_commande_produit: 16
+        purchaseProductQuantity: 16
       }
     ],
-    acheteur: null
+    member: null
   },
   {
-    id_commande: 6,
+    idPurchase: 6,
     display: true,
-    date_commande: '2020-05-23T13:12:09.918+0000',
+    purchaseDate: '2020-05-23T13:12:09.918+0000',
     code: '',
-    commandeProduitsList: [
+    purchaseProductList: [
       {
-        id_commandeProduit: 10,
-        produit: {
-          id_produit: 3,
-          quantite_produit: 20,
-          nom_produit: 'produit2',
-          description_produit: 'description2',
-          image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
-          prix_produit: 2,
+        idPurchaseProduct: 10,
+        product: {
+          idProduct: 3,
+          productQuantity: 20,
+          productName: 'produit2',
+          productDescription: 'description2',
+          productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+          productPrice: 2,
           marchand: {
             id_marchand: 1,
             identifiant_marchand: 'marchand1'
           }
         },
-        quantite_commande_produit: 16
+        purchaseProductQuantity: 16
       }
     ],
-    acheteur: null
+    member: null
   }
 ]
 
@@ -139,9 +139,9 @@ describe('History.vue', () => {
 
             // When
             /*
-              Commande 1:
-                    quantite_commande_produit: 15,
-                    prix_produit: 1,
+              purchase 1:
+                    purchaseProductQuantity: 15,
+                    productPrice: 1,
                     total = 15 * 1 = 15
              */
             // Then
@@ -149,12 +149,12 @@ describe('History.vue', () => {
 
             // When
             /*
-              Commande 2:
-                    quantite_commande_produit: 15,
-                    prix_produit: 1,
+              purchase 2:
+                    purchaseProductQuantity: 15,
+                    productPrice: 1,
                     total1 = 15 * 1 = 15
-                    quantite_commande_produit: 16,
-                    prix_produit: 2,
+                    purchaseProductQuantity: 16,
+                    productPrice: 2,
                     total = 16 * 2 = 32
                     total = total1 + total2 = 15 + 32 = 47
              */
@@ -163,9 +163,9 @@ describe('History.vue', () => {
 
             // When
             /*
-                Commande 3:
-                   quantite_commande_produit: 16,
-                   prix_produit: 2,
+                purchase 3:
+                   purchaseProductQuantity: 16,
+                   productPrice: 2,
                    total = 16 * 2 = 32
             */
             // Then
@@ -179,25 +179,25 @@ describe('History.vue', () => {
   it('Should getTotalPrix calculate good total ', () => {
     // Given
     const spy = sinon.spy(History.methods, 'getTotalPrix')
-    let commande = {
-      commandeProduitsList: [
+    let purchase = {
+      purchaseProductList: [
         {
-          produit: {
-            prix_produit: 5
+          product: {
+            productPrice: 5
           },
-          quantite_commande_produit: 6
+          purchaseProductQuantity: 6
         },
         {
-          produit: {
-            prix_produit: 4
+          product: {
+            productPrice: 4
           },
-          quantite_commande_produit: 36
+          purchaseProductQuantity: 36
         }
       ]
     }
 
     // When
-    let total = History.methods.getTotalPrix(commande)
+    let total = History.methods.getTotalPrix(purchase)
 
     // Then
     chai.assert.strictEqual(total, 174)
@@ -224,20 +224,20 @@ describe('History.vue', () => {
               localVue
             })
             /*
-              Commande 1:
-                date_commande: '2020-05-21T13:12:09.918+0000',
+              purchase 1:
+                purchaseDate: '2020-05-21T13:12:09.918+0000',
              */
             chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(0).text(), '2020-05-21 13:12')
 
             /*
-              Commande 2:
-                date_commande: '2020-05-22T13:12:09.918+0000',
+              purchase 2:
+                purchaseDate: '2020-05-22T13:12:09.918+0000',
              */
             chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(1).text(), '2020-05-22 13:12')
 
             /*
-              Commande 3:
-                date_commande: '2020-05-23T13:12:09.918+0000',
+              purchase 3:
+                purchaseDate: '2020-05-23T13:12:09.918+0000',
             */
             chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(2).text(), '2020-05-23 13:12')
             done()
@@ -364,7 +364,7 @@ describe('History.vue', () => {
             })
 
             // When
-            // for commande 1 code: 'code'
+            // for purchase 1 code: 'code'
             wrapper.findAll('header').at(0).trigger('click')
 
             // Then

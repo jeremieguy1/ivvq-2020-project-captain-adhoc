@@ -18,36 +18,36 @@ localVue.use(Buefy)
 let store
 const productsResponse = [
   {
-    description_produit: 'description',
-    id_produit: '1',
-    image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+    productDescription: 'description',
+    idProduct: '1',
+    productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
     marchand: {},
-    nom_produit: 'nom',
-    prix_produit: 1,
-    quantite_produit: 1
+    productName: 'nom',
+    productPrice: 1,
+    productQuantity: 1
   }
 ]
 
 const product =
   {
-    description_produit: 'description',
-    id_produit: '1',
-    image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+    productDescription: 'description',
+    idProduct: '1',
+    productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
     marchand: {},
-    nom_produit: 'nom',
-    prix_produit: 1,
-    quantite_produit: 1
+    productName: 'nom',
+    productPrice: 1,
+    productQuantity: 1
   }
 
 const productDifferent =
   {
-    description_produit: 'description',
-    id_produit: '3',
-    image_produit: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+    productDescription: 'description',
+    idProduct: '3',
+    productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
     marchand: {},
-    nom_produit: 'OtherName',
-    prix_produit: 1,
-    quantite_produit: 1
+    productName: 'OtherName',
+    productPrice: 1,
+    productQuantity: 1
   }
 
 describe('Products.vue', () => {
@@ -63,7 +63,7 @@ describe('Products.vue', () => {
     // Given
     moxios.withMock(function () {
       const spy = sinon.spy()
-      axios.get('/produits').then(spy)
+      axios.get('/products').then(spy)
       moxios.wait(() => {
         let request = moxios.requests.mostRecent()
         request.respondWith({

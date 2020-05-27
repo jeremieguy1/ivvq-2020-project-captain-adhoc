@@ -2,25 +2,25 @@
   <div class="modal-card">
     <header class="modal-card-head">
       <div>
-        <p class="title has-text-centered">{{product.nom_produit}}</p>
+        <p class="title has-text-centered">{{product.productName}}</p>
       </div>
     </header>
     <section class="modal-card-body">
         <div class="columns">
             <div class="column image is-one-third">
                 <figure class="image is-3by2">
-                  <img :src="`${product.image_produit}`">
+                  <img :src="`${product.productPicture}`">
                 </figure>
             </div>
             <div class="column corps is-flex">
                 <div>
-                    <p>{{product.description_produit}}</p>
+                    <p>{{product.productDescription}}</p>
                 </div>
                 <div>
-                    <p>{{product.quantite_produit}} en stock</p>
+                    <p>{{product.productQuantity}} en stock</p>
                 </div>
                 <div>
-                    <p>{{product.prix_produit}}€</p>
+                    <p>{{product.productPrice}}€</p>
                 </div>
             </div>
         </div>

@@ -120,8 +120,8 @@ export default {
         // Invalid form
       } else {
         const body = {
-          nomUtilisateur: this.username,
-          motDePasse: this.password
+          userName: this.username,
+          password: this.password
         }
         axios
           .post('/login', body, configs)

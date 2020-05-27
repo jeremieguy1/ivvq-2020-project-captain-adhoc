@@ -5,9 +5,17 @@ import moxios from 'moxios'
 import axios from 'axios'
 import sinon from 'sinon'
 import chai from 'chai'
+import CircularCountDownTimer from 'vue-circular-count-down-timer'
+import Vue from 'vue'
+import Vuex from 'vuex'
+import Buefy from 'buefy'
 
+Vue.use(Vuex)
+Vue.use(Buefy)
+Vue.use(CircularCountDownTimer)
 const localVue = createLocalVue()
 localVue.use(Vuelidate)
+localVue.use(Buefy)
 
 describe('Payment.vue', () => {
   beforeEach(() => {
@@ -16,8 +24,8 @@ describe('Payment.vue', () => {
       code: 'CODE2020',
       products: [
         {
-          id_produit: 1,
-          nom_produit: 'PS5',
+          idProduct: 1,
+          productName: 'PS5',
           quantity: 5
         }
       ],
@@ -294,6 +302,74 @@ describe('Payment.vue', () => {
       let request = moxios.requests.mostRecent()
       request.respondWith({
         status: 200,
+        response: {
+          data: ''
+        }
+      }).then(() => {
+        // Then
+        chai.assert.strictEqual(wrapper.vm.$v.$invalid, false)
+        done()
+      })
+    })
+  })
+
+  it('Should catch 409 error', (done) => {
+    // Given
+    const wrapper = mount(Payment, {
+      localVue
+    })
+    // const spy = sinon.spy(wrapper.vm, 'submitPayment')
+    const paymentSection = wrapper.find('.button.to-pay')
+    wrapper.find('input#credit-card').setValue('4984421209470251')
+    wrapper.find('input#cvc').setValue('323')
+    wrapper.setData({
+      year: 2020,
+      month: 'Janvier'
+    })
+
+    // When
+    paymentSection.trigger('click')
+    wrapper.vm.$forceUpdate()
+
+    // Then
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 409,
+        response: {
+          data: ''
+        }
+      }).then(() => {
+        // Then
+        chai.assert.strictEqual(wrapper.vm.$v.$invalid, false)
+        done()
+      })
+    })
+  })
+
+  it('Should catch default error', (done) => {
+    // Given
+    const wrapper = mount(Payment, {
+      localVue
+    })
+    // const spy = sinon.spy(wrapper.vm, 'submitPayment')
+    const paymentSection = wrapper.find('.button.to-pay')
+    wrapper.find('input#credit-card').setValue('4984421209470251')
+    wrapper.find('input#cvc').setValue('323')
+    wrapper.setData({
+      year: 2020,
+      month: 'Janvier'
+    })
+
+    // When
+    paymentSection.trigger('click')
+    wrapper.vm.$forceUpdate()
+
+    // Then
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 400,
         response: {
           data: ''
         }
