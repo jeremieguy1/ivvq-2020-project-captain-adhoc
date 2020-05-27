@@ -43,6 +43,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .applyPermitDefaultValues();
             config.addExposedHeader("Authorization");
             config.addAllowedMethod(HttpMethod.POST);
+            config.addAllowedMethod(HttpMethod.PUT);
 
             return config;
         });

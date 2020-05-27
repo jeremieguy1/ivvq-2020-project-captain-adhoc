@@ -80,7 +80,6 @@ export default {
         .get('/products', configs)
         .then(response => {
           this.products = response.data
-          console.log(this.products)
           this.$store.commit('storeProducts', this.products)
         })
     },

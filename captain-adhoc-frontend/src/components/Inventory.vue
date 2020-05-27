@@ -125,7 +125,7 @@ export default {
     updateInventory () {
       for (var product in this.products) {
         axios
-          .put(`/products/modify/quantity/?quantity=${this.products[product].productQuantity}&idProduct=${this.products[product].idProduct}`, '', configs)
+          .put(`/products/modify/quantity?quantity=${this.products[product].productQuantity}&idProduct=${this.products[product].idProduct}`, '', configs)
       }
     }
   }
