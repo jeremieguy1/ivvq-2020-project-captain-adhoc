@@ -81,9 +81,9 @@ export default {
   },
   data: () => ({
     tableHead: {
-      productPicture: '',
-      product: 'Produit',
-      quantity: 'Quantité'
+      image_produit: '',
+      produit: 'Produit',
+      quantite: 'Quantité'
     }
   }),
   computed: mapState(['commandes']),
