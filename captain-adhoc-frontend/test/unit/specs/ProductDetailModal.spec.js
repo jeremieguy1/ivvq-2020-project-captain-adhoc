@@ -4,7 +4,7 @@ import { mount } from '@vue/test-utils'
 import sinon from 'sinon'
 import chai from 'chai'
 
-const productToAdd =  {
+const productToAdd = {
   productDescription: 'description',
   idProduct: '1',
   productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
