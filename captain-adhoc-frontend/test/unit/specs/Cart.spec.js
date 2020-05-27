@@ -19,7 +19,6 @@ const commandsProductResponse1 = [
     productDescription: 'description',
     idProduct: '1',
     productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
-    marchand: {},
     productName: 'CyberboX',
     productPrice: 1,
     productQuantity: 1,
@@ -33,7 +32,6 @@ const commandsProductResponse2 = [
     productDescription: 'description',
     idProduct: '2',
     productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
-    marchand: {},
     productName: 'PS5',
     productPrice: 1,
     productQuantity: 1,
@@ -44,7 +42,6 @@ const commandsProductResponse2 = [
     productDescription: 'description1',
     idProduct: '1',
     productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
-    marchand: {},
     productName: 'CyberboX',
     productPrice: 5,
     productQuantity: 3,
@@ -52,6 +49,18 @@ const commandsProductResponse2 = [
     display: false
   }
 ]
+
+const product =
+  {
+    productDescription: 'description',
+    idProduct: '1',
+    productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+    marchand: {},
+    productName: 'nom',
+    productPrice: 1,
+    productQuantity: 1
+  }
+
 describe('Cart.vue', () => {
   beforeEach(() => {
     moxios.install(axios)
@@ -231,34 +240,34 @@ describe('Cart.vue', () => {
   })
 
   it('Should getTotalCart calculate good total ', () => {
-  // Given
-  // commandsProductResponse2 = [
-  //   {
-  //     productDescription: 'description',
-  //     idProduct: '2',
-  //     productPicture: 'image_url',
-  //     marchand: {},
-  //     productName: 'PS5',
-  //     productPrice: 1,
-  //     productQuantity: 1,
-  //     quantity: 1
-  //   },
-  //   {
-  //     productDescription: 'description',
-  //     idProduct: '1',
-  //     productPicture: 'image_url',
-  //     marchand: {},
-  //     productName: 'nom',
-  //     productPrice: 5,
-  //     productQuantity: 3,
-  //     quantity: 2
-  //   }
-  // ]
+    // Given
+    // commandsProductResponse2 = [
+    //   {
+    //     productDescription: 'description',
+    //     idProduct: '2',
+    //     productPicture: 'image_url',
+    //     marchand: {},
+    //     productName: 'PS5',
+    //     productPrice: 1,
+    //     productQuantity: 1,
+    //     quantity: 1
+    //   },
+    //   {
+    //     productDescription: 'description',
+    //     idProduct: '1',
+    //     productPicture: 'image_url',
+    //     marchand: {},
+    //     productName: 'nom',
+    //     productPrice: 5,
+    //     productQuantity: 3,
+    //     quantity: 2
+    //   }
+    // ]
 
-  // When
-  // getTotalPrixProduct(..)
+    // When
+    // getTotalPrixProduct(..)
 
-  // Then
+    // Then
     chai.assert.strictEqual(Cart.methods.getTotalCart(commandsProductResponse2), 11)
   })
 
@@ -337,6 +346,21 @@ describe('Cart.vue', () => {
       router
     })
     wrapper.vm.payCart()
+    spy.restore()
+  })
+
+  it('Should update the quantity', () => {
+    // Given
+    const router = new VueRouter()
+    const spy = sinon.spy(Cart.methods, 'updateQuantity')
+    storeTest(commandsProductResponse2)
+    const wrapper = mount(Cart, {
+      store,
+      localVue,
+      router
+    })
+    wrapper.vm.updateQuantity(product)
+    chai.assert.strictEqual(spy.calledOnce, true)
     spy.restore()
   })
 
@@ -433,6 +457,175 @@ describe('Cart.vue', () => {
             productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
             marchand: {},
             productName: 'CyberboX',
+            productPrice: 5,
+            productQuantity: 3,
+            quantity: 2,
+            display: false
+          }
+        }
+      }).then(() => {
+        chai.assert.strictEqual(spy.calledOnce, true)
+        done()
+      })
+    })
+  })
+
+  it('Should getProductsCart and set localstorage commandsProduct when there is no product in localstorage', (done) => {
+    // Given
+    storeTest(commandsProductResponse1)
+    const wrapper = mount(Cart, {
+      store,
+      localVue
+    })
+
+    window.localStorage.setItem('commandsProduct', JSON.stringify([]))
+
+    const spy = sinon.spy(wrapper.vm, 'getProductsCart')
+
+    // When
+    wrapper.vm.getProductsCart()
+
+    // Then
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200,
+        response: {
+          data: {
+            productDescription: 'description1',
+            idProduct: '1',
+            productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+            marchand: {},
+            productName: 'CyberboX',
+            productPrice: 5,
+            productQuantity: 3,
+            quantity: 2,
+            display: false
+          }
+        }
+      }).then(() => {
+        chai.assert.strictEqual(spy.calledOnce, true)
+        done()
+      })
+    })
+  })
+
+  it('Should getProductsCart and don\'t  check when quantityProduct response is <= 0', (done) => {
+    // Given
+    storeTest(commandsProductResponse1)
+    const wrapper = mount(Cart, {
+      store,
+      localVue
+    })
+
+    window.localStorage.setItem('commandsProduct', JSON.stringify([]))
+
+    const spy = sinon.spy(wrapper.vm, 'getProductsCart')
+
+    // When
+    wrapper.vm.getProductsCart()
+
+    // Then
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200,
+        response: {
+          data: {
+            productDescription: 'description1',
+            idProduct: '1',
+            productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+            marchand: {},
+            productName: 'CyberboX',
+            productPrice: 5,
+            productQuantity: 0,
+            quantity: 2,
+            display: false
+          }
+        }
+      }).then(() => {
+        chai.assert.strictEqual(spy.calledOnce, true)
+        done()
+      })
+    })
+  })
+
+  it('Should getProductsCart and don\'t check when product quantity in localstorage response is <= 0', (done) => {
+    // Given
+    storeTest(commandsProductResponse1)
+    const wrapper = mount(Cart, {
+      store,
+      localVue
+    })
+
+    window.localStorage.setItem('commandsProduct', JSON.stringify([{
+      productDescription: 'description',
+      idProduct: '1',
+      productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+      productName: 'CyberboX',
+      productPrice: 1,
+      productQuantity: 1,
+      quantity: 0,
+      display: true
+    }]))
+
+    const spy = sinon.spy(wrapper.vm, 'getProductsCart')
+
+    // When
+    wrapper.vm.getProductsCart()
+
+    // Then
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200,
+        response: {
+          data: {
+            productDescription: 'description1',
+            idProduct: '1',
+            productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+            marchand: {},
+            productName: 'CyberboX',
+            productPrice: 5,
+            productQuantity: 3,
+            quantity: 2,
+            display: false
+          }
+        }
+      }).then(() => {
+        chai.assert.strictEqual(spy.calledOnce, true)
+        done()
+      })
+    })
+  })
+
+  it('Should getProductsCart and don\'t check when product name localstorage is not the same than a product name response', (done) => {
+    // Given
+    storeTest(commandsProductResponse1)
+    const wrapper = mount(Cart, {
+      store,
+      localVue
+    })
+
+    window.localStorage.setItem('commandsProduct', JSON.stringify(commandsProductResponse1))
+
+    const spy = sinon.spy(wrapper.vm, 'getProductsCart')
+
+    // When
+    wrapper.vm.getProductsCart()
+
+    // Then
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200,
+        response: {
+          data: {
+            productDescription: 'description1',
+            idProduct: '1',
+            productPicture: 'https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg',
+            marchand: {},
+            productName: 'MadBox',
             productPrice: 5,
             productQuantity: 3,
             quantity: 2,

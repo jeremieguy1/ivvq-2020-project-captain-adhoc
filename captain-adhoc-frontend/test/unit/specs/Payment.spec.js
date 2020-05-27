@@ -189,6 +189,34 @@ describe('Payment.vue', () => {
     })
   })
 
+  it('Should display expiration danger when valid form and invalid expiration date', (done) => {
+    const divTarget = document.createElement('p')
+    divTarget.setAttribute('id', 'expiration-date-alert')
+    document.body.appendChild(divTarget)
+
+    // Given
+    const wrapper = mount(Payment, {
+      attachTo: divTarget,
+      localVue
+    })
+    const spy = sinon.spy(wrapper.vm, 'submitPayment')
+    wrapper.find('input#credit-card').setValue('49844212094701')
+    wrapper.find('input#cvc').setValue('323')
+    wrapper.setData({
+      year: 2030,
+      month: 'Janvier'
+    })
+
+    // When
+    wrapper.vm.submitPayment()
+
+    // Then
+    moxios.wait(() => {
+      chai.assert.strictEqual(spy.calledOnce, true)
+      done()
+    })
+  })
+
   it('Should not do an axios call on invalid expiration date form', (done) => {
     // Given
     const wrapper = mount(Payment, {
