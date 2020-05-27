@@ -67,7 +67,7 @@ public class ProductControllerIntegrationTest {
         dataLoader.run();
     }
 
-    @WithMockUser("spring")
+    @WithMockUser("marchand1")
     @Test
     public void getAllProductsTest() throws Exception {
 
@@ -90,7 +90,7 @@ public class ProductControllerIntegrationTest {
         assertThat(jsonResult, containsString("Mad box"));
     }
 
-    @WithMockUser("spring")
+    @WithMockUser("marchand1")
     @Test
     public void modifyQuantityTest() throws Exception {
 
@@ -107,11 +107,11 @@ public class ProductControllerIntegrationTest {
         Long idProduct = product.getIdProduct();
 
         // when: l'utilisateur émet une requête pour obtenir la liste des produits
-        mockMvc.perform(put("/products/quantity?quantity=10&idProduct="+idProduct))
+        mockMvc.perform(put("/products/modify/quantity?quantity=10&idProduct="+idProduct))
                 // then: la réponse a le status 200(OK)
                 .andExpect(status().isOk());
 
-        //productService.getProductRepository().findById(idProduct);
+        //then la quantité du produit a été modifiée
         assertEquals(10, product.getProductQuantity());
     }
 }
