@@ -3,6 +3,7 @@ import { mount, createLocalVue } from '@vue/test-utils'
 import VueRouter from 'vue-router'
 import sinon from 'sinon'
 import chai from 'chai'
+
 import CircularCountDownTimer from 'vue-circular-count-down-timer'
 
 const localVue = createLocalVue()

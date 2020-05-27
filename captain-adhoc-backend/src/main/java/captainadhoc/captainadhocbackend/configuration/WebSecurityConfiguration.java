@@ -28,25 +28,23 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.cors().and().csrf().disable().authorizeRequests()
-        .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
-        .anyRequest().authenticated()
-        .and()
-        .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-        .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-        .sessionManagement()
+                .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                .antMatchers(HttpMethod.GET, "/").permitAll()
+                .antMatchers(HttpMethod.GET, "/static/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+                .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-        .cors().configurationSource(request -> {
-            CorsConfiguration config =  new CorsConfiguration()
-                    .applyPermitDefaultValues();
-            config.addExposedHeader("Authorization");
-            config.addAllowedMethod(HttpMethod.POST);
-            config.addAllowedMethod(HttpMethod.PUT);
-
-            return config;
-        });
+                .and()
+                .cors().configurationSource(request -> {
+                    CorsConfiguration config =  new CorsConfiguration()
+                            .applyPermitDefaultValues();
+                    config.addExposedHeader("Authorization");
+                    return config;
+                });
     }
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
