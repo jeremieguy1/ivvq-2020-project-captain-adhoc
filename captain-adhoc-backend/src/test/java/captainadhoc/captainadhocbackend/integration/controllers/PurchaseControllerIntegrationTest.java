@@ -9,7 +9,7 @@ import captainadhoc.captainadhocbackend.services.interfaces.IProductService;
 import captainadhoc.captainadhocbackend.services.interfaces.IPurchaseProductService;
 import captainadhoc.captainadhocbackend.services.interfaces.IPurchaseService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONArray;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +24,10 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @Transactional
@@ -57,8 +55,6 @@ public class PurchaseControllerIntegrationTest {
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype());
 
-    private String jsonResult;
-
     private DataLoader dataLoader;
 
     @BeforeEach
@@ -85,14 +81,8 @@ public class PurchaseControllerIntegrationTest {
                 .andExpect(status().isOk())
                 // then: la réponse est au format JSON
                 .andExpect(content().contentType(contentType))
-                .andDo(mvcResult -> {
-                    jsonResult = mvcResult.getResponse().getContentAsString();
-                });
-
-        JSONArray jsonArray = new JSONArray(jsonResult);
-
-        // then: le résultat obtenu contient 3 purchases
-        assertEquals(3, jsonArray.length());
+                // then: la réponse contient toutes les entités Purchase
+                .andExpect(jsonPath("$.length()", Matchers.is(3)));
 
     }
 
