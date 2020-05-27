@@ -38,37 +38,33 @@
           </a>
         </header>
         <div v-if="product.display" class="card-content">
-            <div class="columns">
-              <div class="column image is-one-third">
-                <figure class="image is-3by2">
-                  <img :src="`${product.productPicture}`">
-                </figure>
-              </div>
-              <div class="column corps">
-                <table class="table is-fullwidth">
-                  <tr >
-                    <div class="section quantite_produit has-text-centered">
-                      <p class="quantite_produit has-text-centered">Quantité : </p> <br>
-                      <p class="stock_quantite_produit">(Stock: {{product.productQuantity}}) </p>
-                      <div class="select">
-                        <select class="product-quantite">
-                          <option disabled selected>{{product.quantity}}</option>
-                          <option v-for="(value, index) in product.productQuantity + 1" :key="index" :id="`${product.productName}-${index}`">
-                            <div>{{ index }}</div>
-                          </option>
-                        </select>
-                      </div>
-                      &nbsp;{{product.productPrice}}€/u <br>
-                    </div>
-                  </tr>
-                  <tr >
-                    <div class="box-shadow updateQuantity has-text-centered">
-                      <button  v-on:click="updateQuantity(product)"  class="button has-text-centered">Confirmer la quantité</button>
-                    </div>
-                  </tr>
-                </table>
-              </div>
+          <div class="columns">
+            <div class="column image is-one-third">
+              <figure class="image is-3by2">
+                <img :src="`${product.productPicture}`">
+              </figure>
             </div>
+            <div class="column corps">
+              <table class="table is-fullwidth">
+                <tr >
+                  <div class="section quantite_produit has-text-centered">
+                    <p class="quantite_produit has-text-centered">Quantité : </p> <br>
+                    <p class="stock_quantite_produit">(Stock: {{product.productQuantity}}) </p>
+                    <div class="select">
+                      <select class="product-quantite"  @change="updateQuantity(product)" v-model="product.quantity" >
+                        <option disabled selected>{{product.quantity}}</option>
+                        <option v-for="(value, index) in product.productQuantity + 1"
+                                :key="index" :id="`${product.productName}-${index}`">
+                          <div>{{ index }}</div>
+                        </option>
+                      </select>
+                    </div>
+                    &nbsp;{{product.productPrice}}€/u <br>
+                  </div>
+                </tr>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -181,25 +177,15 @@ export default {
         totalProducts: this.getTotalProduct(this.products)
       }
       localStorage.setItem('commandToPay', JSON.stringify(commandToPAy))
-
       this.$router.push('payment')
     },
     displayContentCart (purchase) {
       this.$store.commit('displayContentCart', purchase)
     },
     updateQuantity (product) {
-      var select = document.getElementsByClassName('product-quantite')
-      var index = 0
-      for (var element in select) {
-        if (Number.isInteger(parseInt(element))) {
-          if (select[element].selectedOptions[0].id.includes(product.productName)) {
-            index = element
-          }
-        }
-      }
       var newQuantityProduct = {
         productName: product.productName,
-        quantity: parseInt(select[index].value)
+        quantity: product.quantity
       }
       this.$store.commit('updateQuantity', newQuantityProduct)
     },
