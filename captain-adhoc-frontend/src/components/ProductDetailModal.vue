@@ -9,7 +9,7 @@
         <div class="columns">
             <div class="column image is-one-third">
                 <figure class="image is-3by2">
-                  <img :src="`${product.productPicture}`">
+                  <img :src="`${product.productPicture}`" alt="">
                 </figure>
             </div>
             <div class="column corps is-flex">

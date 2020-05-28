@@ -45,7 +45,7 @@
             <tr v-for="prod in purchase.purchaseProductList" v-bind:key="prod.idPurchaseProduct" class="columns">
               <td class="column">
                 <figure class="image">
-                  <img :src="`${prod.product.productPicture}`">
+                  <img :src="`${prod.product.productPicture}`" alt="">
                 </figure>
               </td>
               <td class="column">

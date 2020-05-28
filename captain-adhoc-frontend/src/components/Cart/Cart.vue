@@ -41,7 +41,7 @@
           <div class="columns">
             <div class="column image is-one-third">
               <figure class="image is-3by2">
-                <img :src="`${product.productPicture}`">
+                <img :src="`${product.productPicture}`" alt="">
               </figure>
             </div>
             <div class="column corps">
@@ -119,7 +119,7 @@
     <section v-else class="info is-centered animated fadeIn">
       <div>
         <figure class="has-text-centered">
-          <img src="../../assets/rick_info.png" alt="image" width="600" height="400" >
+          <img src="../../assets/rick_info.png" alt="" width="600" height="400" >
         </figure>
       </div>
     </section>

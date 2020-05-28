@@ -5,10 +5,10 @@
         <div  class="columns" style="position:relative">
           <div class="column">
             <figure class="image is-4by5">
-              <img src="../assets/rickH.png"/>
+              <img src="../assets/rickH.png" alt=""/>
             </figure>
             <figure class="image is-128x128" style=" bottom: 2rem; margin-left: auto; display: none">
-              <img src="../assets/rickH.png"/>
+              <img src="../assets/rickH.png" alt=""/>
             </figure>
           </div>
           <div class="column is-half">
@@ -18,12 +18,12 @@
             <vueper-slides class="no-shadow" fade :touchable="false" autoplay arrows-inside bullets-outside transition-speed="250">
               <template v-slot:arrow-left>
                 <figure class="image is-32x32">
-                  <img src="../assets/LeftArrow.png"/>
+                  <img src="../assets/LeftArrow.png" alt=""/>
                 </figure>
               </template>
               <template v-slot:arrow-right>
                 <figure class="image is-32x32">
-                  <img src="../assets/RightArrow.png"/>
+                  <img src="../assets/RightArrow.png" alt=""/>
                 </figure>
               </template>
               <vueper-slide id="slidesInside"
@@ -35,7 +35,7 @@
             </vueper-slides>
             <div class="content is-medium">
               <div class="containjeuxExlu column is-narrow">
-                <div class="jeuxExlu column is-narrow has-text-centered ">
+                <div class="jeuxExlu is-narrow has-text-centered ">
                   <p>Le seul site où vous pouvez trouver des consoles de jeux exclusives !</p>
                 </div>
               </div>
@@ -43,10 +43,10 @@
           </div>
           <div class="column ">
             <figure class="image is-4by5">
-              <img src="../assets/Tom_Nook.png"/>
+              <img src="../assets/Tom_Nook.png" alt=""/>
             </figure>
             <figure class="image is-128x128" style=" bottom: 3rem; margin-right: auto; display: none">
-              <img src="../assets/Tom_Nook.png"/>
+              <img src="../assets/Tom_Nook.png" alt=""/>
             </figure>
           </div>
         </div>
@@ -76,12 +76,22 @@ export default {
       {
         title: '',
         content: '',
+        image: require('@/assets/atari2600_large.png')
+      },
+      {
+        title: '',
+        content: '',
         image: require('@/assets/ps5_large.png')
       },
       {
         title: '',
         content: '',
         image: require('@/assets/cyberbox_large.png')
+      },
+      {
+        title: '',
+        content: '',
+        image: require('@/assets/xbox_series_x_large.png')
       }
     ]
   }),
