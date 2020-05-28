@@ -258,7 +258,7 @@ export default {
       this.$v.$touch()
       let expirationElement = document.getElementsByClassName('expiration-date-alert')[0]
 
-      if (this.$v.$invalid) {
+      if (this.$v.$invalid || !this.validPayment(this.numberCart)) {
         // Invalid form
         if (this.month === null || this.year === null) {
           expirationElement.style.display = 'block'
