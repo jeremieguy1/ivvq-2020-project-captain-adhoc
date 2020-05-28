@@ -108,7 +108,7 @@ export default {
       str = new Date(str)
       return str.getFullYear() + '-' + ((str.getMonth() < 9) ? '0' : '') + (str.getMonth() + 1) + '-' +
         ((str.getDate() < 10) ? '0' : '') + str.getDate() + ' ' + str.getHours() + ':' + ((str.getMinutes() < 10) ? '0' : '') + str.getMinutes()
-  }
+    }
   }
 }
 </script>
