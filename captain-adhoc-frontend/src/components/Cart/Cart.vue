@@ -55,7 +55,7 @@
                         <option disabled selected>{{product.quantity}}</option>
                         <option v-for="(value, index) in product.productQuantity + 1"
                                 :key="index" :id="`${product.productName}-${index}`">
-                          <div>{{ index }}</div>
+                          <span>{{ index }}</span>
                         </option>
                       </select>
                     </div>

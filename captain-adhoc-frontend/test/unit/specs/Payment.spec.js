@@ -9,6 +9,7 @@ import CircularCountDownTimer from 'vue-circular-count-down-timer'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Buefy from 'buefy'
+import VueRouter from 'vue-router'
 
 Vue.use(Vuex)
 Vue.use(Buefy)
@@ -16,6 +17,7 @@ Vue.use(CircularCountDownTimer)
 const localVue = createLocalVue()
 localVue.use(Vuelidate)
 localVue.use(Buefy)
+localVue.use(VueRouter)
 
 describe('Payment.vue', () => {
   beforeEach(() => {
@@ -407,5 +409,21 @@ describe('Payment.vue', () => {
         done()
       })
     })
+  })
+
+  it('Should give range', () => {
+    // Given
+    const router = new VueRouter()
+    const wrapper = mount(Payment, {
+      localVue,
+      router
+    })
+    const spy = sinon.spy(wrapper.vm, 'backToProducts')
+
+    // When
+    wrapper.vm.backToProducts()
+
+    // Then
+    chai.assert.strictEqual(spy.calledOnce, true)
   })
 })
