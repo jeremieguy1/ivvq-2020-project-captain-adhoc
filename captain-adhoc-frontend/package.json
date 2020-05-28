@@ -1,7 +1,7 @@
 {
   "name": "captain-adhoc-frontend",
   "version": "1.0.0",
-  "description": "Captain Escroc website",
+  "description": "Captain Escroc Market",
   "author": "Jérémie <mine.guy09@gmail.com>",
   "private": true,
   "scripts": {
@@ -9,16 +9,14 @@
     "start": "npm run dev",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "unit:debug": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js",
-    "e2e": "node test/e2e/runner.js",
-    "test": "npm run unit && npm run e2e",
-    "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
-    "lint:fix": "eslint --ext .js,.vue src test/unit test/e2e/specs --fix",
-    "build": "node build/build.js",
-    "build:unit": "npm run unit && node build/build.js"
+    "test": "npm run unit",
+    "lint": "eslint --ext .js,.vue src test/unit",
+    "lint:fix": "eslint --ext .js,.vue src test/unit --fix",
+    "build": "node build/build.js"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint",
+      "pre-commit": "npm run lint:fix",
       "pre-push": "npm run unit && npm run build"
     }
   },
