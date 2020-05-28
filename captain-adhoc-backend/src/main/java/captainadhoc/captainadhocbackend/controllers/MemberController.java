@@ -5,6 +5,7 @@ import captainadhoc.captainadhocbackend.dto.UserRegistrationDto;
 import captainadhoc.captainadhocbackend.dto.UserDto;
 import captainadhoc.captainadhocbackend.exceptions.ExistingUserException;
 import captainadhoc.captainadhocbackend.services.implementations.MemberService;
+import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+@Setter
 @RestController
 public class MemberController {
 
