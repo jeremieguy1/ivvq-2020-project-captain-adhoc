@@ -1,0 +1,33 @@
+{
+    "src_folders" : ["test/e2e"],
+    "output_folder" : "target/reports",
+    "custom_assertions_path": ["test/e2e/custom-assertions"],
+    "globals_path" : "",
+    "test_workers": false,
+    "live_output": false,
+
+    "test_settings" : {
+      "default" : {
+        "launch_url" : "http://web:8080",
+        "selenium_host"  : "selenium-chrome",
+        "selenium_port"  : 4444,
+        "silent": true,
+        "screenshots" : {
+          "enabled" : true,
+          "on_failure": true,
+          "on_error": true,
+          "path" : "target/reports"
+        },
+        "desiredCapabilities": {
+          "browserName": "chrome",
+          "chromeOptions": {
+            "w3c": false
+          }
+        }
+      },
+
+      "local": {
+        "launch_url" : "http://localhost:8080"
+      }
+    }
+  }
