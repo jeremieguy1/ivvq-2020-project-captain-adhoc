@@ -9,12 +9,14 @@ import captainadhoc.captainadhocbackend.repositories.PurchaseProductRepository;
 import captainadhoc.captainadhocbackend.services.interfaces.IPurchaseProductService;
 import captainadhoc.captainadhocbackend.services.interfaces.IProductService;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Setter
 @Service
 public class PurchaseProductService implements IPurchaseProductService {
 
