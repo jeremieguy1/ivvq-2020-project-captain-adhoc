@@ -176,14 +176,16 @@
       <div class="columns">
         <div class="column cart title is-fourth-fifths">
           <div>
-            <p class="no-products">Veuillez ajouter une escroquerie avant de payer, les dons ne sont pas acceptés !</p>
+            <p class="no-products has-text-centered">Veuillez ajouter une escroquerie avant de payer, les dons ne sont pas acceptés !</p>
           </div>
-          <button @click="goToProducts" class="button">
-            <span class="fontawesome-icon">
-              <i class="fas fa-arrow-left"></i>
-            </span>
-            <span>Retour à la liste des escroqueries</span>
-          </button>
+          <div class="section">
+            <button @click="backToProducts" class="button">
+              <span class="fontawesome-icon">
+                <i class="fas fa-arrow-left"></i>
+              </span>
+              <span>Retour à la liste des escroqueries</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -322,6 +324,9 @@ export default {
         sommeAll += temp
       }
       return (sommeAll % 10) === 0
+    },
+    backToProducts () {
+      this.$router.push('products')
     }
   }
 }
