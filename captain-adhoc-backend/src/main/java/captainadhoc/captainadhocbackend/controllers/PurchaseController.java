@@ -6,6 +6,7 @@ import captainadhoc.captainadhocbackend.domain.Purchase;
 import captainadhoc.captainadhocbackend.exceptions.InsufficientQuantityException;
 import captainadhoc.captainadhocbackend.services.interfaces.IPurchaseService;
 import captainadhoc.captainadhocbackend.services.interfaces.IMemberService;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 
+@Setter
 @RestController
 @RequestMapping("/purchases")
 public class PurchaseController {
