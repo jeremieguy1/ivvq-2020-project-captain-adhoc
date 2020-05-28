@@ -10,6 +10,7 @@ import captainadhoc.captainadhocbackend.services.interfaces.IPurchaseProductServ
 import captainadhoc.captainadhocbackend.services.interfaces.IPurchaseService;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Setter
 @Service
 public class PurchaseService implements IPurchaseService {
 
@@ -34,9 +36,9 @@ public class PurchaseService implements IPurchaseService {
         Iterable<Purchase> purchaseIterable = purchaseRepository.findAll();
 
         if (purchaseIterable != null) {
-            purchaseIterable.forEach(comm -> {
-                purchaseArrayList.add(comm);
-            });
+            purchaseIterable.forEach(comm ->
+                purchaseArrayList.add(comm)
+            );
         }
 
         return purchaseArrayList;

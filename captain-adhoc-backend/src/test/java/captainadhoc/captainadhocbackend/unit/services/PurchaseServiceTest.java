@@ -8,12 +8,12 @@ import captainadhoc.captainadhocbackend.domain.PurchaseProduct;
 import captainadhoc.captainadhocbackend.domain.Product;
 import captainadhoc.captainadhocbackend.services.implementations.PurchaseService;
 import captainadhoc.captainadhocbackend.services.interfaces.IPurchaseProductService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import captainadhoc.captainadhocbackend.repositories.PurchaseRepository;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,14 +25,20 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class PurchaseServiceTest {
 
-    @Mock
+    @MockBean
     private PurchaseRepository purchaseRepository;
 
-    @Mock
+    @MockBean
     private IPurchaseProductService purchaseProductService;
 
-    @InjectMocks
     private PurchaseService purchaseService;
+
+    @BeforeEach
+    public void setupEach() {
+        purchaseService = new PurchaseService();
+        purchaseService.setPurchaseProductService(purchaseProductService);
+        purchaseService.setPurchaseRepository(purchaseRepository);
+    }
 
     @Test
     public void findAllPurchasesTest() {
@@ -45,13 +51,11 @@ class PurchaseServiceTest {
 
     @Test
     public void savePurchaseTest() {
-        //given une Purchase
+        //given un objet Purchase
         Purchase purchase = Purchase.builder()
                 .purchaseDate(new Date())
                 .code("code")
                 .build();
-
-        when(purchaseService.getPurchaseRepository().save(purchase)).thenReturn(purchase);
 
         // when: la méthode savePurchase est invoquée
         purchaseService.savePurchase(purchase);
@@ -63,6 +67,7 @@ class PurchaseServiceTest {
     @Test
     public void newPurchaseTest() {
 
+        // given : un objet Member
         Member member = Member.builder()
                 .lastName("Kevin")
                 .firstName("Marchand")
@@ -78,6 +83,7 @@ class PurchaseServiceTest {
         productPurchaseDtoList.add(productPurchaseDto1);
         productPurchaseDtoList.add(productPurchaseDto2);
 
+        // given : un objet PurchaseDto
         PurchaseDto purchaseDto = new PurchaseDto("CODE", productPurchaseDtoList);
 
         Purchase purchase = Purchase.builder()
@@ -85,7 +91,6 @@ class PurchaseServiceTest {
                 .code(purchaseDto.getCode())
                 .build();
 
-        //given un product
         Product product1 = Product.builder()
                 .idProduct(1L)
                 .productQuantity(15)
@@ -104,6 +109,7 @@ class PurchaseServiceTest {
                 .productPrice(2)
                 .build();
 
+        // given une liste d'objet PurchaseProduct
         List<PurchaseProduct> purchaseProducts = new ArrayList<>();
 
         PurchaseProduct purchaseProduct1 = new PurchaseProduct();
@@ -117,16 +123,17 @@ class PurchaseServiceTest {
         purchaseProducts.add(purchaseProduct1);
         purchaseProducts.add(purchaseProduct2);
 
-        when(purchaseService.getPurchaseProductService().createPurchaseProduct(Mockito.any(List.class), Mockito.any(Purchase.class))).thenReturn(purchaseProducts);
+        // when : la méthode createPurchaseProduct du PurchaseProductService renvoie une liste d'objet PurchaseProduct
+        when(purchaseProductService.createPurchaseProduct(Mockito.any(List.class), Mockito.any(Purchase.class))).thenReturn(purchaseProducts);
 
+        // when : la méthode newPurchase est invoqué
         purchaseService.newPurchase(purchaseDto, member);
 
         // then: la méthode createPurchaseProduct du PurchaseProductService associé est invoquée
-        verify(purchaseService.getPurchaseProductService()).createPurchaseProduct(Mockito.eq(productPurchaseDtoList), Mockito.any(Purchase.class));
+        verify(purchaseProductService).createPurchaseProduct(Mockito.eq(productPurchaseDtoList), Mockito.any(Purchase.class));
 
         // then: la méthode saveAllPurchaseProducts du PurchaseProductService associé est invoquée
-        verify(purchaseService.getPurchaseProductService()).saveAllPurchaseProducts(purchaseProducts);
-
+        verify(purchaseProductService).saveAllPurchaseProducts(purchaseProducts);
 
     }
 }
