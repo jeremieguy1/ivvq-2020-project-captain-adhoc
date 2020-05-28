@@ -1,4 +1,4 @@
-package captainadhoc.captainadhocbackend.services;
+package captainadhoc.captainadhocbackend.unit.services;
 
 import captainadhoc.captainadhocbackend.domain.Member;
 import captainadhoc.captainadhocbackend.dto.PurchaseDto;

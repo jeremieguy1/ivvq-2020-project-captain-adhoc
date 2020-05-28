@@ -2,6 +2,7 @@ package captainadhoc.captainadhocbackend.controllers;
 
 import captainadhoc.captainadhocbackend.domain.Product;
 import captainadhoc.captainadhocbackend.services.interfaces.IProductService;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 
+@Setter
 @RestController
 @RequestMapping("/products")
 public class ProductController {

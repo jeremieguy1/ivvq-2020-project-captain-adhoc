@@ -1,4 +1,4 @@
-package captainadhoc.captainadhocbackend.integrationServices;
+package captainadhoc.captainadhocbackend.integration;
 
 import captainadhoc.captainadhocbackend.domain.Purchase;
 import captainadhoc.captainadhocbackend.domain.PurchaseProduct;

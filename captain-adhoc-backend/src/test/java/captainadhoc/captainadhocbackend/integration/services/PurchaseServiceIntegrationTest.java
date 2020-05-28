@@ -1,4 +1,4 @@
-package captainadhoc.captainadhocbackend.integrationServices;
+package captainadhoc.captainadhocbackend.integration.services;
 
 import captainadhoc.captainadhocbackend.domain.Product;
 import captainadhoc.captainadhocbackend.dto.PurchaseDto;
@@ -6,6 +6,7 @@ import captainadhoc.captainadhocbackend.dto.ProductPurchaseDto;
 import captainadhoc.captainadhocbackend.domain.Purchase;
 import captainadhoc.captainadhocbackend.domain.PurchaseProduct;
 import captainadhoc.captainadhocbackend.exceptions.InsufficientQuantityException;
+import captainadhoc.captainadhocbackend.integration.DataLoader;
 import captainadhoc.captainadhocbackend.services.interfaces.IPurchaseProductService;
 import captainadhoc.captainadhocbackend.services.interfaces.IPurchaseService;
 import captainadhoc.captainadhocbackend.services.interfaces.IProductService;
@@ -34,8 +35,6 @@ public class PurchaseServiceIntegrationTest {
 
     private Purchase purchase;
 
-    private DataLoader dataLoader;
-
     @Autowired
     private IProductService productService;
 
@@ -53,7 +52,7 @@ public class PurchaseServiceIntegrationTest {
                 .code("code")
                 .build();
 
-        dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
+        DataLoader dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
 
         dataLoader.run();
     }
