@@ -1,5 +1,6 @@
 package captainadhoc.captainadhocbackend.integration.controllers;
 
+import captainadhoc.captainadhocbackend.domain.Member;
 import captainadhoc.captainadhocbackend.domain.Product;
 import captainadhoc.captainadhocbackend.integration.DataLoader;
 import captainadhoc.captainadhocbackend.services.implementations.ProductService;
@@ -117,5 +118,26 @@ public class ProductControllerIntegrationTest {
         mockMvc.perform(put("/products/modify/quantity?quantity="+negativeQuantity+"&idProduct=1"))
                 // then: la réponse a le status 400(BAD REQUEST)
                 .andExpect(status().isBadRequest());
+    }
+
+    @WithMockUser("Keke")
+    @Test
+    public void modifyQuantityTestNotAdmin() throws Exception {
+
+        // given : un Member non admin
+        Member member = Member.builder()
+                .lastName("User")
+                .firstName("Kev")
+                .userName("Keke")
+                .password("password31")
+                .isAdmin(false)
+                .build();
+
+        memberService.saveMember(member);
+
+        // when: l'utilisateur non admin émet une requête pour obtenir la liste des produits
+        mockMvc.perform(put("/products/modify/quantity?quantity=10&idProduct=1"))
+                // then: la réponse a le status 403(FORBIDDEN)
+                .andExpect(status().isForbidden());
     }
 }

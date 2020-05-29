@@ -100,8 +100,6 @@ public class PurchaseControllerTest {
                 .purchaseList(purchaseList)
                 .build();
 
-        memberService.saveMember(member);
-
         when(memberService.findByUserName(member.getUserName())).thenReturn(member);
 
         // when : getPurchases est appelé
@@ -137,7 +135,7 @@ public class PurchaseControllerTest {
 
         doThrow(new InsufficientQuantityException(new Product())).when(purchaseService).newPurchase(purchaseDto, member);
 
-        //then : la méthode postPurchase renvoie une exception
+        //then : la méthode postPurchase renvoie une exception ResponseStatusException
         assertThrows(ResponseStatusException.class, () ->
                 purchaseController.postPurchase(purchaseDto)
         );
