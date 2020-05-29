@@ -105,4 +105,17 @@ public class ProductControllerIntegrationTest {
         //then la quantité du produit a été modifiée
         assertEquals(10, product.getProductQuantity());
     }
+
+    @WithMockUser("marchand1")
+    @Test
+    public void modifyQuantityTestNegativeQuantity() throws Exception {
+
+        // given : un entier négatif
+        int negativeQuantity = -10;
+
+        // when: l'utilisateur émet une requête pour obtenir la liste des produits avec une quantité négative
+        mockMvc.perform(put("/products/modify/quantity?quantity="+negativeQuantity+"&idProduct=1"))
+                // then: la réponse a le status 400(BAD REQUEST)
+                .andExpect(status().isBadRequest());
+    }
 }
