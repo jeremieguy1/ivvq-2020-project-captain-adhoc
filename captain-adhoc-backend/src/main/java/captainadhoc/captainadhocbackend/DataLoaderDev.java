@@ -41,8 +41,8 @@ public class DataLoaderDev implements ApplicationRunner {
         Member admin = Member.builder()
                 .lastName("Kevin")
                 .firstName("Marchand")
-                .userName("marchand1")
-                .password("mdp")
+                .userName("xXkevindu31Xx")
+                .password("azeazeaze")
                 .isAdmin(true)
                 .build();
 
@@ -50,7 +50,7 @@ public class DataLoaderDev implements ApplicationRunner {
                 .productQuantity(15)
                 .productName("PS5")
                 .productDescription("Encore une playstation de folie \\o/")
-                .productPicture("https://urlz.fr/cHLz")
+                .productPicture("https://static.mensup.fr/photo_article/209383/105703/1200-L-ps5-actualits.jpg")
                 .productPrice(1)
                 .build();
 
@@ -61,7 +61,7 @@ public class DataLoaderDev implements ApplicationRunner {
                         "les meilleures voitures au MONDE, " +
                         "Tesla propose la meilleure console " +
                         "de jeu grand public !")
-                .productPicture("https://urlz.fr/cHLH")
+                .productPicture("https://cdn.dribbble.com/users/332589/screenshots/9955348/image.png")
                 .productPrice(100000)
                 .build();
 
@@ -69,8 +69,9 @@ public class DataLoaderDev implements ApplicationRunner {
                 .productQuantity(2)
                 .productName("Mad box")
                 .productDescription("Cette console " +
-                        "va révolutionner le du la de esport !")
-                .productPicture("https://urlz.fr/cHJp")
+                        "va révolutionner le du le esport !")
+                .productPicture("https://www.unsimpleclic.com/wp-content/uploads/2019/01/190124" +
+                        "-une-nouvelle-console-mad-box-pourrait-debarquer-sur-le-marche-01.jpg")
                 .productPrice(666)
                 .build();
 
@@ -80,17 +81,18 @@ public class DataLoaderDev implements ApplicationRunner {
                 .productDescription("Elle fera tourner " +
                         "les jeux dernières générations " +
                         "tels que tetris et même Donkey kong 64 ! " +
-                        "Et tout àa pour seulement 1399,99€")
-                .productPicture("https://urlz.fr/cHJz")
-                .productPrice(10)
+                        "Et tout ça pour seulement 1399€")
+                .productPicture("https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg")
+                .productPrice(1399)
                 .build();
 
         Product product5 = Product.builder()
                 .productQuantity(5)
                 .productName("Xbox Serie X")
                 .productDescription("C'est partiiiii pour la console pc !")
-                .productPicture("https://urlz.fr/cHLM")
-                .productPrice(200)
+                .productPicture("https://compass-ssl.xbox.com/assets/85/8b/858b94d4-0ca6-4e74-ac9f-" +
+                        "38565c49f2df.jpg?n=Xbox-Series-X_Image-0_1083x1400_02.jpg")
+                .productPrice(1200)
                 .build();
 
         List<Product> productList = new ArrayList<>();
