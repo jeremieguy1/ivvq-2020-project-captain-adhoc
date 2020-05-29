@@ -1,11 +1,10 @@
-    FROM node:9.9.0
+FROM node:13.0.0
 
-    WORKDIR /opt/test/e2e
+WORKDIR /opt/test/e2e
 
-    VOLUME ./target
+VOLUME ./target
 
-    COPY package.json nightwatch.json wait-for-it.sh ./
-    COPY test ./test
+COPY package.json nightwatch.json wait-for-it.sh ./
+COPY test ./test
 
-    RUN chmod +x wait-for-it.sh && npm install
-    
+RUN chmod +x wait-for-it.sh && npm install
