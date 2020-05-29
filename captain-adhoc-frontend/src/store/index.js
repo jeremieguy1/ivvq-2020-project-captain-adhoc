@@ -25,6 +25,13 @@ export const mutations = {
         response.data.forEach(commande => Vue.observable(commande.display = false))
         state.commandes = response.data
       })
+      .catch((e) => {
+        switch (e.response.status) {
+          default: {
+            this.submitStatus = `Erreur de soumission (${e.response.status})`
+          }
+        }
+      })
   },
   inventoryProducts (state, productsToManage) {
     state.inventoryProducts = productsToManage

@@ -216,6 +216,13 @@ export default {
           }
           this.$store.commit('cartProducts', this.products)
         })
+        .catch((e) => {
+          switch (e.response.status) {
+            default: {
+              this.submitStatus = `Erreur de soumission (${e.response.status})`
+            }
+          }
+        })
     }
   }
 }
