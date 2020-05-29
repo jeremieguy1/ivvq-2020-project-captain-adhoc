@@ -107,6 +107,7 @@ public class ProductServiceTest {
     @Test
     public void decrementQuantityTest() {
 
+        // given : un Product
         Product product = Product.builder()
                 .idProduct(1L)
                 .productQuantity(15)
