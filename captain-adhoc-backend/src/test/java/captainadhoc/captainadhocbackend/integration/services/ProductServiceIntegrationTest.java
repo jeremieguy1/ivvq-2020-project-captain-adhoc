@@ -41,6 +41,7 @@ public class ProductServiceIntegrationTest {
     @BeforeEach
     public void setup() {
 
+        // given : un Product
         product = Product.builder()
                 .productQuantity(15)
                 .productName("produit1")
@@ -49,6 +50,7 @@ public class ProductServiceIntegrationTest {
                 .productPrice(1)
                 .build();
 
+        // given: un DataLoader initialisant les données
         DataLoader dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
         dataLoader.run();
     }
@@ -56,16 +58,16 @@ public class ProductServiceIntegrationTest {
     @Test
     public void saveProductTest() {
 
-        // le produit n'a pas d'ID
+        // le Product n'a pas d'ID
         assertNull(product.getIdProduct());
 
-        // when: le produit est persistée
+        // when: le Product est persistée
         productService.saveProduct(product);
 
-        // then: le produit a un id
+        // then: le Product a un id
         assertNotNull(product.getIdProduct());
 
-        // then: le produit a bien été ajouté en base
+        // then: le Product a bien été ajouté en base
         assertEquals(6, productService.findAllProducts().size());
 
     }
@@ -73,19 +75,17 @@ public class ProductServiceIntegrationTest {
     @Test
     public void findAllProductsTest() {
 
-        // given: un DataLoader initialisant la base des produits
-
-        // when: la liste des produits est récupérée
+        // when: la liste des Product est récupérée
         ArrayList<Product> productList = productService.findAllProducts();
 
-        // then: on a récupérer l'ensemble des produits
+        // then: on a récupérer l'ensemble des Product
         assertEquals(5, productList.size());
     }
 
     @Test
     public void modifyQuantityTest() {
         
-        //given un produit
+        //given un Product
         Product product = productService.findAllProducts().get(0);
 
         assertEquals(15, product.getProductQuantity());
@@ -93,7 +93,7 @@ public class ProductServiceIntegrationTest {
         // when: la méthode modifyQuantity est invoquée
         productService.modifyQuantity(product.getIdProduct(),20);
 
-        //then: la quantite du produit a été modifiée en base
+        //then: la quantite du Product a été modifiée en base
         assertEquals(20, productService.findAllProducts().get(0).getProductQuantity());
     }
 
@@ -105,10 +105,10 @@ public class ProductServiceIntegrationTest {
         // when: la méthode decrementQuantity est invoquée
         Product product = productService.decrementQuantity(idProductToDecrement, 5);
 
-        //then: la quantite du produit a été modifiée en base
+        //then: la quantite du Product a été modifiée en base
         assertEquals(10, productService.getProductRepository().findById(idProductToDecrement).get().getProductQuantity());
 
-        //then: le produit modifié a été retourné
+        //then: le Product modifié a été retourné
         assertEquals(idProductToDecrement, product.getIdProduct());
         assertEquals(10, product.getProductQuantity());
     }
@@ -116,11 +116,11 @@ public class ProductServiceIntegrationTest {
     @Test
     public void DecrementQuantityTestException() {
 
-        //given un produit
+        //given un l'identifiant d'un Product
         Long idProductToDecrement = productService.findAllProducts().get(0).getIdProduct();
 
         // when: la méthode decrementQuantity est invoquée
-        // then: une exception est levé
+        // then: une exception InsufficientQuantityException est levé
         assertThrows(InsufficientQuantityException.class, () ->
                 productService.decrementQuantity(idProductToDecrement, 100)
         );

@@ -4,41 +4,42 @@ import captainadhoc.captainadhocbackend.dto.ProductPurchaseDto;
 import captainadhoc.captainadhocbackend.domain.Purchase;
 import captainadhoc.captainadhocbackend.domain.PurchaseProduct;
 import captainadhoc.captainadhocbackend.domain.Product;
+import captainadhoc.captainadhocbackend.exceptions.InsufficientQuantityException;
 import captainadhoc.captainadhocbackend.services.implementations.PurchaseProductService;
 import captainadhoc.captainadhocbackend.services.interfaces.IProductService;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import captainadhoc.captainadhocbackend.repositories.PurchaseProductRepository;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 
 @SpringBootTest
 public class PurchaseProductServiceTest {
 
-    @Mock
+    @MockBean
     private PurchaseProductRepository purchaseProductRepository;
 
-    @Mock
+    @MockBean
     private IProductService productService;
 
-    @InjectMocks
     private PurchaseProductService purchaseProductService;
 
     private static List<PurchaseProduct> purchaseProductList;
 
     private static List<ProductPurchaseDto> productPurchaseList;
 
-    private Purchase purchase;
+    private static Purchase purchase;
 
     @BeforeAll
     public static void setup() {
@@ -63,7 +64,7 @@ public class PurchaseProductServiceTest {
         productPurchaseList.add(productPurchase2);
         productPurchaseList.add(productPurchase3);
 
-        Purchase purchase = Purchase.builder()
+        purchase = Purchase.builder()
                 .purchaseDate(new Date())
                 .code("code")
                 .build();
@@ -82,36 +83,58 @@ public class PurchaseProductServiceTest {
         purchaseProductList.add(purchaseProduct3);
     }
 
-    @Test
-    public void savePurchaseProductTest(){
+    @BeforeEach
+    public void setupEach() {
+        purchaseProductService = new PurchaseProductService();
+        purchaseProductService.setProductService(productService);
+        purchaseProductService.setPurchaseProductRepository(purchaseProductRepository);
+    }
 
-        when(purchaseProductService.getPurchaseProductRepository().save(purchaseProductList.get(0)))
-                .thenReturn(purchaseProductList.get(0));
+    @Test
+    public void savePurchaseProductTest() {
 
         // when: la méthode savePurchaseProduct est invoquée
         purchaseProductService.savePurchaseProduct(purchaseProductList.get(0));
 
         // then: la méthode save du PurchaseProductRepository associé est invoquée
-        verify(purchaseProductService.getPurchaseProductRepository()).save(purchaseProductList.get(0));
+        verify(purchaseProductRepository).save(purchaseProductList.get(0));
     }
 
     @Test
-    public void createPurchaseProductTest(){
+    public void createPurchaseProductTest() {
 
+        // when: la méthode createPurchaseProduct est invoquée
         purchaseProductService.createPurchaseProduct(productPurchaseList, purchase);
 
-        verify(purchaseProductService.getProductService(), times(3))
+        // then : la méthode decrementQuantity est appelé 3 fois
+        // (1 fois pour chaque objet ProductPurchaseDto)
+        verify(productService, times(3))
                 .decrementQuantity(Mockito.any(Long.class), Mockito.any(int.class));
     }
 
     @Test
-    public void saveAllPurchaseProductTest(){
+    public void createPurchaseProductExceptionTest() {
+
+        // when : la méthode decrementQuantity du productService renvoie une exception
+        doThrow(new InsufficientQuantityException(new Product()))
+                .when(productService).decrementQuantity(Mockito.any(Long.class), Mockito.any(int.class));
+
+        // when: la méthode createPurchaseProduct est invoquée
+        // then : la méthode createPurchaseProduct renvoie une exception InsufficientQuantityException
+        assertThrows(InsufficientQuantityException.class, () ->
+                purchaseProductService.createPurchaseProduct(productPurchaseList, purchase)
+        );
+    }
+
+    @Test
+    public void saveAllPurchaseProductTest() {
 
         // when: la méthode saveAllPurchaseProduct est invoquée
         purchaseProductService.saveAllPurchaseProducts(purchaseProductList);
 
         // then: la méthode save du PurchaseProductRepository associé est invoquée 3 fois
-        verify(purchaseProductService.getPurchaseProductRepository(), times(3))
+        // (1 fois pour chaque objet PurchaseProduct)
+        verify(purchaseProductRepository, times(3))
                 .save(Mockito.any(PurchaseProduct.class));
 
     }

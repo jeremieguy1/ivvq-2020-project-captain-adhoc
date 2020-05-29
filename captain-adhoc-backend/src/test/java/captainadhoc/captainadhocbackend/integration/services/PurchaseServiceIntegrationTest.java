@@ -33,8 +33,6 @@ public class PurchaseServiceIntegrationTest {
     @Autowired
     private IPurchaseService purchaseService;
 
-    private Purchase purchase;
-
     @Autowired
     private IProductService productService;
 
@@ -45,13 +43,9 @@ public class PurchaseServiceIntegrationTest {
     private IPurchaseProductService purchaseProductService;
 
     @BeforeEach
-    public void setup() {
+    public void setupEach() {
 
-        purchase = Purchase.builder()
-                .purchaseDate(new Date())
-                .code("code")
-                .build();
-
+        // given: un DataLoader initialisant la base des purchases
         DataLoader dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
 
         dataLoader.run();
@@ -59,7 +53,6 @@ public class PurchaseServiceIntegrationTest {
 
     @Test
     void findAllPurchasesTest() {
-        // given: un DataLoader initialisant la base des purchases
 
         // when: la liste des purchases est récupérée
         ArrayList<Purchase> purchaseList = purchaseService.findAllPurchases();
@@ -70,6 +63,12 @@ public class PurchaseServiceIntegrationTest {
 
     @Test
     void savePurchaseTest() {
+
+        // given : un objet Purchase
+        Purchase purchase = Purchase.builder()
+                .purchaseDate(new Date())
+                .code("code")
+                .build();
 
         // purchase n'a pas d'ID
         assertNull(purchase.getIdPurchase());
@@ -98,8 +97,10 @@ public class PurchaseServiceIntegrationTest {
         productPurchaseList.add(productPurchase1);
         productPurchaseList.add(productPurchase2);
 
+        // given : un objet PurchaseDto
         PurchaseDto purchaseDto = new PurchaseDto("CODETEST", productPurchaseList);
 
+        // when : la méthode newPurchase du service correspondant en invoquée
         purchaseService.newPurchase(
                 purchaseDto,
                 memberService.findByUserName("Kevin"));
@@ -119,10 +120,11 @@ public class PurchaseServiceIntegrationTest {
         PurchaseProduct purchaseProduct1 = purchase.getPurchaseProductList().get(0);
         PurchaseProduct purchaseProduct2 = purchase.getPurchaseProductList().get(1);
 
-        //then : la bon produit avec la bonne quantité sont associés
+        //then : le bon produit avec la bonne quantité sont associés
         assertEquals(idPurchasedProduct1, purchaseProduct1.getProduct().getIdProduct());
         assertEquals(2, purchaseProduct1.getPurchaseProductQuantity());
 
+        //then : le bon produit avec la bonne quantité sont associés
         assertEquals(idPurchasedProduct2, purchaseProduct2.getProduct().getIdProduct());
         assertEquals(3, purchaseProduct2.getPurchaseProductQuantity());
 
@@ -142,6 +144,7 @@ public class PurchaseServiceIntegrationTest {
         productPurchaseList.add(productPurchase1);
         productPurchaseList.add(productPurchase2);
 
+        // given : un objet PurchaseDto
         PurchaseDto purchaseDto = new PurchaseDto("CODETEST", productPurchaseList);
 
 

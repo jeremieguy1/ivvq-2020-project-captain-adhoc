@@ -5,12 +5,14 @@ import captainadhoc.captainadhocbackend.exceptions.InsufficientQuantityException
 import captainadhoc.captainadhocbackend.repositories.ProductRepository;
 import captainadhoc.captainadhocbackend.services.interfaces.IProductService;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
+@Setter
 @Service
 public class ProductService implements IProductService {
 
@@ -24,9 +26,9 @@ public class ProductService implements IProductService {
         Iterable<Product> productIterable = productRepository.findAll();
 
         if (productIterable != null) {
-            productIterable.forEach(prod -> {
-                productList.add(prod);
-            });
+            productIterable.forEach(prod ->
+                productList.add(prod)
+            );
         }
 
         return productList;

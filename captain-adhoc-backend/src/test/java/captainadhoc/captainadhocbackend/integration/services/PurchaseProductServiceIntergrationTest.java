@@ -60,8 +60,15 @@ public class PurchaseProductServiceIntergrationTest {
     @BeforeEach
     public void setup() {
 
+        // given: un DataLoader initialisant les données
         DataLoader dataLoader = new DataLoader(productService, memberService, purchaseService, purchaseProductService);
         dataLoader.run();
+
+        // given : un Purchase
+        purchase = Purchase.builder()
+                .purchaseDate(new Date())
+                .code("code")
+                .build();
 
         Product product = Product.builder()
                 .productQuantity(15)
@@ -71,22 +78,22 @@ public class PurchaseProductServiceIntergrationTest {
                 .productPrice(300)
                 .build();
 
-        purchase = Purchase.builder()
-                .purchaseDate(new Date())
-                .code("code")
-                .build();
-
+        // given : un PurchaseProduct
         purchaseProduct = new PurchaseProduct();
         purchaseProduct.setProduct(product);
         purchaseProduct.setPurchaseProductQuantity(5);
         purchaseProduct.setPurchase(purchase);
 
         List<Product> productList = productService.findAllProducts();
+
+        // given : deux identifiant de Product
         idProduct1 = productList.get(0).getIdProduct();
         idProduct2 = productList.get(1).getIdProduct();
 
         ProductPurchaseDto productPurchase1 = new ProductPurchaseDto(idProduct1, 2);
         ProductPurchaseDto productPurchase2 = new ProductPurchaseDto(idProduct2, 5);
+
+        // given : une liste de ProductPurchaseDto
         productPurchaseList = new ArrayList<>();
         productPurchaseList.add(productPurchase1);
         productPurchaseList.add(productPurchase2);
@@ -140,16 +147,21 @@ public class PurchaseProductServiceIntergrationTest {
     @Test
     public void createPurchaseProductTest(){
 
+        // when : la méthode createPurchaseProduct du service PurchaseProductService est invoquée
         List<PurchaseProduct> purchaseProductList = purchaseProductService.createPurchaseProduct(productPurchaseList, purchase);
 
+        // then : On a bien deux objets PurchaseProduct qui ont été créé
         assertEquals(2, purchaseProductList.size());
 
+        // then : Les bons produits sont présents dans la liste
         assertEquals(idProduct1, purchaseProductList.get(0).getProduct().getIdProduct());
         assertEquals(idProduct2, purchaseProductList.get(1).getProduct().getIdProduct());
 
+        // then : les quantités des PurchaseProduct sont corrects
         assertEquals(2, purchaseProductList.get(0).getPurchaseProductQuantity());
         assertEquals(5, purchaseProductList.get(1).getPurchaseProductQuantity());
 
+        // then : les bons Purchase sont présents dans la liste
         assertEquals(purchase, purchaseProductList.get(0).getPurchase());
         assertEquals(purchase, purchaseProductList.get(1).getPurchase());
     }
@@ -157,15 +169,19 @@ public class PurchaseProductServiceIntergrationTest {
     @Test
     public void createPurchaseProductExceptionTest() {
 
+        // given : une liste de ProductPurchaseDto
         ProductPurchaseDto productPurchase = new ProductPurchaseDto(idProduct1, 200);
         List<ProductPurchaseDto> productPurchaseList = new ArrayList<>();
         productPurchaseList.add(productPurchase);
 
+        // given : un objet Purchase
         Purchase newPurchase = Purchase.builder()
                 .purchaseDate(new Date())
                 .code("code")
                 .build();
 
+        // when : la méthode createPurchaseProduct du service PurchaseProductService est invoquée
+        // then : une erreur InsufficientQuantityException est retournée
         assertThrows(InsufficientQuantityException.class, () ->
                 purchaseProductService.createPurchaseProduct(productPurchaseList, newPurchase)
         );
@@ -174,6 +190,7 @@ public class PurchaseProductServiceIntergrationTest {
     @Test
     public void saveAllPurchaseProductsTest(){
 
+        // given : une liste de PurchaseProducts
         initPurchaseProducts();
 
         // les purchaseProducts n'ont pas d'ID
