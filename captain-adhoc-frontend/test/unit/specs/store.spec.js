@@ -318,6 +318,26 @@ describe('Store.js', () => {
       })
     })
   })
+
+  it('Should axios be catch with default error code', (done) => {
+    // Given
+    storeTest(commandsProductResponse, user)
+    const { getData } = mutations
+
+    // When
+    getData({})
+
+    // Then
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 500,
+        response: commandsProductResponse
+      }).finally(() => {
+        done()
+      })
+    })
+  })
 })
 
 function storeTest (products, user) {

@@ -117,6 +117,39 @@ describe('Inventory.vue', () => {
     })
   })
 
+  it('Should call getProducts at the component creationShould axios be catch with default error code', (done) => {
+    // Given
+    moxios.withMock(function () {
+      let spy = sinon.spy()
+      axios.get('/products').then(spy)
+      moxios.wait(() => {
+        const spy = sinon.spy(Inventory.methods, 'getProducts')
+
+        let request = moxios.requests.mostRecent()
+        request.respondWith({
+          status: 500,
+          response: {
+            listProducts: listProductsResponse
+          }
+        }).then(
+          response => {
+            storeTest(response.data.listProducts)
+
+            // When
+            mount(Inventory, {
+              store,
+              localVue
+            })
+
+            // Then
+            chai.assert.strictEqual(spy.calledOnce, true)
+            spy.restore()
+            done()
+          })
+      })
+    })
+  })
+
   it('Should display products after click them', (done) => {
     // Given
     moxios.withMock(function () {
@@ -352,7 +385,7 @@ describe('Inventory.vue', () => {
     })
   })
 
-  it('Should axios be catch with error code', (done) => {
+  it('Should axios be catch with error code 400', (done) => {
     // Given
     const spy = sinon.spy(Inventory.methods, 'updateInventory')
     storeTest(listProductsResponse)
@@ -377,6 +410,122 @@ describe('Inventory.vue', () => {
           let request = moxios.requests.mostRecent()
           request.respondWith({
             status: 400,
+            response: {
+              data: ''
+            }
+          }).then(() => {
+            // Then
+            chai.assert.strictEqual(spy.calledOnce, true)
+            spy.restore()
+            done()
+          })
+        })
+      })
+    })
+  })
+
+  it('Should axios be catch with error code 403', (done) => {
+    // Given
+    const spy = sinon.spy(Inventory.methods, 'updateInventory')
+    storeTest(listProductsResponse)
+    const wrapper = mount(Inventory, {
+      store,
+      localVue
+    })
+
+    wrapper.vm.getProducts()
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200,
+        response: {
+          data: listProductsResponse
+        }
+      }).then(() => {
+        // Then
+        // When
+        wrapper.vm.updateInventory()
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent()
+          request.respondWith({
+            status: 403,
+            response: {
+              data: ''
+            }
+          }).then(() => {
+            // Then
+            chai.assert.strictEqual(spy.calledOnce, true)
+            spy.restore()
+            done()
+          })
+        })
+      })
+    })
+  })
+  it('Should axios be catch with error code 409', (done) => {
+    // Given
+    const spy = sinon.spy(Inventory.methods, 'updateInventory')
+    storeTest(listProductsResponse)
+    const wrapper = mount(Inventory, {
+      store,
+      localVue
+    })
+
+    wrapper.vm.getProducts()
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200,
+        response: {
+          data: listProductsResponse
+        }
+      }).then(() => {
+        // Then
+        // When
+        wrapper.vm.updateInventory()
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent()
+          request.respondWith({
+            status: 409,
+            response: {
+              data: ''
+            }
+          }).then(() => {
+            // Then
+            chai.assert.strictEqual(spy.calledOnce, true)
+            spy.restore()
+            done()
+          })
+        })
+      })
+    })
+  })
+
+  it('Should axios be catch with default error code', (done) => {
+    // Given
+    const spy = sinon.spy(Inventory.methods, 'updateInventory')
+    storeTest(listProductsResponse)
+    const wrapper = mount(Inventory, {
+      store,
+      localVue
+    })
+
+    wrapper.vm.getProducts()
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200,
+        response: {
+          data: listProductsResponse
+        }
+      }).then(() => {
+        // Then
+        // When
+        wrapper.vm.updateInventory()
+        moxios.wait(() => {
+          let request = moxios.requests.mostRecent()
+          request.respondWith({
+            status: 500,
             response: {
               data: ''
             }
