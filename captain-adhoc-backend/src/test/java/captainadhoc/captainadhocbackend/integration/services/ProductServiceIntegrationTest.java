@@ -98,6 +98,18 @@ public class ProductServiceIntegrationTest {
     }
 
     @Test
+    public void modifyQuantityExceptionTest() {
+
+        // when: la méthode modifyQuantity est invoquée
+        //       avec un idProduct ne correspondant à aucun produit en base
+        // then : la méthode renvoie une exception IllegalArgumentException
+        assertThrows(IllegalArgumentException.class, () ->
+                productService.modifyQuantity(99L,20)
+        );
+
+    }
+
+    @Test
     public void decrementQuantityTest() {
 
         Long idProductToDecrement = productService.findAllProducts().get(0).getIdProduct();

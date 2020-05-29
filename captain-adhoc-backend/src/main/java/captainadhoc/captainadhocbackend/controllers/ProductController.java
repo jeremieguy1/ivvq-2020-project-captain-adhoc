@@ -55,7 +55,13 @@ public class ProductController {
                 memberService.findByUserName(auth.getName());
 
         if (member.getIsAdmin()) {
-            productService.modifyQuantity(idProduct, productQuantity);
+
+            try {
+                productService.modifyQuantity(idProduct, productQuantity);
+            } catch (IllegalArgumentException e) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT);
+            }
+
         } else {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }

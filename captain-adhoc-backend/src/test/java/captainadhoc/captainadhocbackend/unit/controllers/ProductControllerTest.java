@@ -6,15 +6,16 @@ import captainadhoc.captainadhocbackend.services.implementations.MemberService;
 import captainadhoc.captainadhocbackend.services.interfaces.IProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.web.server.ResponseStatusException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 
 @SpringBootTest
@@ -47,7 +48,7 @@ public class ProductControllerTest {
 
     @Test
     @WithMockUser("marchand1")
-    public void modifyQuantity() {
+    public void modifyQuantityTest() {
 
         // given: un member qui a les droits d'admin
         Member member = Member.builder()
@@ -79,6 +80,33 @@ public class ProductControllerTest {
 
         //then : la méthode modifyQuantity n'est jamais appelé par le service correspondant
         verify(productService,times(0)).modifyQuantity(1L, 10);
+    }
+
+    @Test
+    @WithMockUser("marchand1")
+    public void modifyQuantityTestProductNotFound() {
+
+        // given: un member qui a les droits d'admin
+        Member member = Member.builder()
+                .lastName("Kevin")
+                .firstName("Marchand")
+                .userName("marchand1")
+                .password("mdp")
+                .isAdmin(true)
+                .build();
+
+        // when: findByUserName renvoie bien un objet Member
+        when(memberService.findByUserName(member.getUserName())).thenReturn(member);
+
+        // when: la méthode modifyQuantity du productService renvoie une exception IllegalArgumentException
+        doThrow(new IllegalArgumentException())
+                .when(productService).modifyQuantity(Mockito.any(Long.class), Mockito.any(int.class));
+
+        // when: la méthode modifyQuantity est invoquée
+        // then: modifyQuantity renvoie une exception ResponseStatusException
+        assertThrows(ResponseStatusException.class, () ->
+                productController.modifyQuantity(10, 1L)
+        );
     }
 
     @Test

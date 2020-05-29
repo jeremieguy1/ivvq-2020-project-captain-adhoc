@@ -41,7 +41,6 @@ public class MemberServiceTest {
                 .build();
     }
 
-
     @Test
     public void saveMemberTest() {
 

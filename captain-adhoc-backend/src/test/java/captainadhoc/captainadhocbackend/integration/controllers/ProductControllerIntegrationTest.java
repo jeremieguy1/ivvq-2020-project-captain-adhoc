@@ -120,6 +120,16 @@ public class ProductControllerIntegrationTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    @WithMockUser("marchand1")
+    public void modifyQuantityTestProductNotFound() throws Exception {
+
+        // when: l'utilisateur émet une requête pour obtenir la liste des produits
+        mockMvc.perform(put("/products/modify/quantity?quantity=10&idProduct=999"))
+                // then: la réponse a le status 409(CONFLICT)
+                .andExpect(status().isConflict());
+    }
+
     @WithMockUser("Keke")
     @Test
     public void modifyQuantityTestNotAdmin() throws Exception {

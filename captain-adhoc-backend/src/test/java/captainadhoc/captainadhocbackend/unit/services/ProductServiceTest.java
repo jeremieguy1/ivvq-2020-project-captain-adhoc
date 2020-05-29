@@ -11,12 +11,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import captainadhoc.captainadhocbackend.repositories.ProductRepository;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 
 @SpringBootTest
 public class ProductServiceTest {
@@ -94,14 +95,18 @@ public class ProductServiceTest {
         // when: la méthode findById du repository associé renvoie un objet Optional vide
         when(productRepository.findById(1L)).thenReturn(optionalProduct);
 
-        // when: la méthode modifyQuantity est invoquée
-        productService.modifyQuantity(1L, 20);
+        // when: la méthode modifyQuantity est invoquée avec un idProduct null
+        // then : la méthode renvoie une exception IllegalArgumentException
+        assertThrows(IllegalArgumentException.class, () ->
+                productService.modifyQuantity(1L, 20)
+        );
 
         // then: la méthode findById du ProductRepository associé est invoquée
         verify(productRepository).findById(1L);
 
         // then: la méthode save du ProductRepository associé n'est pas invoquée
         verify(productRepository, times(0)).save(Mockito.any(Product.class));
+
     }
 
     @Test
