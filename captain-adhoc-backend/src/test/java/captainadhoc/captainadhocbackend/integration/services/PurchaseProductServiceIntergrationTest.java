@@ -77,7 +77,7 @@ public class PurchaseProductServiceIntergrationTest {
                 .productPicture("https://urlz.fr/cHLz")
                 .productPrice(300)
                 .build();
-        
+
         // given : un PurchaseProduct
         purchaseProduct = new PurchaseProduct();
         purchaseProduct.setProduct(product);
