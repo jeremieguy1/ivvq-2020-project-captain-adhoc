@@ -45,7 +45,7 @@
             <tr v-for="prod in purchase.purchaseProductList" v-bind:key="prod.idPurchaseProduct" class="columns">
               <td class="column">
                 <figure class="image">
-                  <img :src="`${prod.product.productPicture}`">
+                  <img :src="`${prod.product.productPicture}`" alt="">
                 </figure>
               </td>
               <td class="column">
@@ -107,7 +107,7 @@ export default {
       }
       str = new Date(str)
       return str.getFullYear() + '-' + ((str.getMonth() < 9) ? '0' : '') + (str.getMonth() + 1) + '-' +
-        ((str.getDate() < 10) ? '0' : '') + str.getDate() + ' ' + str.getUTCHours() + ':' + str.getUTCMinutes()
+        ((str.getDate() < 10) ? '0' : '') + str.getDate() + ' ' + str.getHours() + ':' + ((str.getMinutes() < 10) ? '0' : '') + str.getMinutes()
     }
   }
 }

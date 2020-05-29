@@ -68,9 +68,13 @@ export const mutations = {
     })
   },
   updateQuantity (state, newQuantityProduct) {
-    state.cartProducts.forEach(com => {
+    state.cartProducts.forEach((com, i) => {
       if (com.productName === newQuantityProduct.productName) {
-        com.quantity = newQuantityProduct.quantity
+        if (newQuantityProduct.quantity === '0') {
+          state.cartProducts.splice(i, 1)
+        } else {
+          com.quantity = newQuantityProduct.quantity
+        }
       }
     })
     window.localStorage.setItem('commandsProduct', JSON.stringify(state.cartProducts))

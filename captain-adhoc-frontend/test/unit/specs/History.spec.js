@@ -17,7 +17,7 @@ let respond = [
   {
     idPurchase: 4,
     display: false,
-    purchaseDate: '2020-05-21T13:12:09.918+0000',
+    purchaseDate: '2020-10-05T05:10:00.000',
     code: 'code',
     purchaseProductList: [
       {
@@ -42,7 +42,7 @@ let respond = [
   {
     idPurchase: 5,
     display: true,
-    purchaseDate: '2020-05-22T13:12:09.918+0000',
+    purchaseDate: '2020-05-29T21:04:00.000',
     code: 'code',
     purchaseProductList: [
       {
@@ -83,7 +83,7 @@ let respond = [
   {
     idPurchase: 6,
     display: true,
-    purchaseDate: '2020-05-23T13:12:09.918+0000',
+    purchaseDate: '2020-05-30T21:04:00.000',
     code: '',
     purchaseProductList: [
       {
@@ -225,21 +225,21 @@ describe('History.vue', () => {
             })
             /*
               purchase 1:
-                purchaseDate: '2020-05-21T13:12:09.918+0000',
+                purchaseDate: '2020-05-21T13:09:09.918+0000',
              */
-            chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(0).text(), '2020-05-21 13:12')
+            chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(0).text(), '2020-10-05 5:10')
 
             /*
               purchase 2:
                 purchaseDate: '2020-05-22T13:12:09.918+0000',
              */
-            chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(1).text(), '2020-05-22 13:12')
+            chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(1).text(), '2020-05-29 21:04')
 
             /*
               purchase 3:
                 purchaseDate: '2020-05-23T13:12:09.918+0000',
             */
-            chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(2).text(), '2020-05-23 13:12')
+            chai.assert.strictEqual(wrapper.findAll('.card-header-title.date').at(2).text(), '2020-05-30 21:04')
             done()
           })
       })
@@ -430,11 +430,11 @@ describe('History.vue', () => {
       localVue
     })
     // When
-    const dateReturn = wrapper.vm.date('2020-10-09T13:12:20.918+0000')
+    const dateReturn = wrapper.vm.date('2020-10-05T05:10:00.000')
     wrapper.vm.$forceUpdate()
 
     // Then
-    chai.assert.strictEqual(dateReturn, '2020-10-09 13:12')
+    chai.assert.strictEqual(dateReturn, '2020-10-05 5:10')
   })
 })
 

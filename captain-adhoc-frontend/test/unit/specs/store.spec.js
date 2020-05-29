@@ -151,6 +151,11 @@ const quantityProduct = {
   quantity: 50
 }
 
+const quantityProduct0 = {
+  productName: 'CyberboX',
+  quantity: '0'
+}
+
 const user = [{
   idMember: 1,
   isAdmin: false,
@@ -247,6 +252,21 @@ describe('Store.js', () => {
 
     // Then
     chai.assert.equal(wrapper.vm.$store.state.cartProducts[1].quantity, quantityListProductsChange[1].quantity)
+  })
+
+  it('Should splice products with 0 quantity ', () => {
+    // Given
+    storeTest(quantityListProducts, user)
+    const wrapper = mount(stubComponent, {
+      store,
+      localVue
+    })
+
+    // When
+    wrapper.vm.$store.commit('updateQuantity', quantityProduct0)
+
+    // Then
+    chai.assert.equal(wrapper.vm.$store.state.cartProducts.length, 1)
   })
 
   it('Should get allProducts', () => {

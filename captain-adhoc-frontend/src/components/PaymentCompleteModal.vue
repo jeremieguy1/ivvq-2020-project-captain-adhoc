@@ -36,7 +36,7 @@
 export default {
   name: 'PaymentCompleteModal',
   methods: {
-    backToProducts (product) {
+    backToProducts () {
       localStorage.removeItem('commandsProduct')
       localStorage.removeItem('commandToPay')
       this.$router.push('products')
@@ -48,7 +48,7 @@ export default {
 
 <style scoped>
 .modal-card {
-  background: url('https://pbs.twimg.com/media/EROfX4-X0AAIUrk.jpg') no-repeat center center;
+  background: url('../assets/thanksTN.png') no-repeat center center;
   background-size: cover;
   border-radius: 25px;
 }

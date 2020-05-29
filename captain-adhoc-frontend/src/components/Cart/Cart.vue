@@ -41,7 +41,7 @@
           <div class="columns">
             <div class="column image is-one-third">
               <figure class="image is-3by2">
-                <img :src="`${product.productPicture}`">
+                <img :src="`${product.productPicture}`" alt="">
               </figure>
             </div>
             <div class="column corps">
@@ -55,7 +55,7 @@
                         <option disabled selected>{{product.quantity}}</option>
                         <option v-for="(value, index) in product.productQuantity + 1"
                                 :key="index" :id="`${product.productName}-${index}`">
-                          <div>{{ index }}</div>
+                          <span>{{ index }}</span>
                         </option>
                       </select>
                     </div>
@@ -116,10 +116,10 @@
         </div>
       </div>
     </section>
-    <section v-else class="section info is-centered animated fadeIn">
+    <section v-else class="info is-centered animated fadeIn">
       <div>
-        <figure class="image is-1">
-          <img src="../../assets/rick_info.png">
+        <figure class="has-text-centered">
+          <img src="../../assets/rick_info.png" alt="" width="600" height="400" >
         </figure>
       </div>
     </section>
