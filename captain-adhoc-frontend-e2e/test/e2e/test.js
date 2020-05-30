@@ -100,6 +100,34 @@ module.exports = {
       .waitForElementVisible('div.hero-like', 15000)
       .assert.urlEquals(`${browser.launch_url}/#/products`)
       .end()
-    }
+    },
+    'Test mercant -> step one: Login as mercant': function (browser) {
+      browser
+        .url(browser.launch_url)
+        .waitForElementVisible('#app', 5000)
+        .assert.elementPresent('a[href="#/log-in"]')
+        .click('a[href="#/log-in"]')
+
+        .setValue('#username', 'xXKevindu31Xx')
+        .setValue('#password', 'azeazeaze')
+        .click('button[type=submit]')
+        .waitForElementVisible('div.hero-like', 10000)
+        .assert.urlEquals(`${browser.launch_url}/#/products`)
+    },
+    'Test mercant -> step two: Navigate to mercant page': function (browser) {
+      browser
+        .assert.elementPresent('a[href="#/inventory"]')
+        .click('a[href="#/inventory"]')
+        .waitForElementVisible('div.showProducts', 10000)
+        .assert.urlEquals(`${browser.launch_url}/#/inventory`)
+    },
+    'Test mercant -> step three: See all the products': function (browser) {
+      browser
+        .assert.elementPresent('a[href="#/inventory"]')
+        .click('a[href="#/inventory"]')
+        .waitForElementVisible('div.showProducts', 10000)
+        .assert.urlEquals(`${browser.launch_url}/#/inventory`)
+        .end()
+    },
   }
   
