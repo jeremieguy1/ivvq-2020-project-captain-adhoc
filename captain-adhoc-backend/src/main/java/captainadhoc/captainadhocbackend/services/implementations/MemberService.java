@@ -15,17 +15,15 @@ import org.springframework.stereotype.Service;
 
 import static java.util.Collections.emptyList;
 
+@Getter
+@Setter
 @Service
 public class MemberService implements IMemberService, UserDetailsService {
 
     @Autowired
-    @Getter
-    @Setter
     private MemberRepository memberRepository;
 
     @Autowired
-    @Getter
-    @Setter
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override

@@ -19,14 +19,13 @@ import java.util.Date;
 import java.util.List;
 
 @Setter
+@Getter
 @Service
 public class PurchaseService implements IPurchaseService {
 
-    @Getter
     @Autowired
     private PurchaseRepository purchaseRepository;
 
-    @Getter
     @Autowired
     private IPurchaseProductService purchaseProductService;
 
