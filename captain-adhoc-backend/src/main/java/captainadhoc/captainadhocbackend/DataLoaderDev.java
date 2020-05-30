@@ -168,7 +168,7 @@ public class DataLoaderDev implements ApplicationRunner {
         purchaseProductList3.add(purchaseProduct4);
 
         purchase1.setPurchaseProductList(purchaseProductList);
-        purchase2.setPurchaseProductList(purchaseProductList3);
+        purchase2.setPurchaseProductList(purchaseProductList2);
         purchase3.setPurchaseProductList(purchaseProductList3);
 
         purchaseService.savePurchase(purchase1);
