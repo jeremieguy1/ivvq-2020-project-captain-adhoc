@@ -40,11 +40,6 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void deleteAllProducts() {
-        productRepository.deleteAll();
-    }
-
-    @Override
     public void modifyQuantity(Long idProduct, int quantity) {
         Optional<Product> product = productRepository.findById(idProduct);
 

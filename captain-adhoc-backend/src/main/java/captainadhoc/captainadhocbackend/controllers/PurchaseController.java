@@ -47,7 +47,7 @@ public class PurchaseController {
         }
     }
 
-    @PostMapping("/order")
+    @PostMapping
     public void postPurchase(@RequestBody PurchaseDto purchaseDto) {
 
         try {

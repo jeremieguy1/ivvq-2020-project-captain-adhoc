@@ -12,11 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @Setter
@@ -29,7 +25,7 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    @PostMapping("/register")
+    @PostMapping("/members")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> registerMemberAccount(
             @RequestBody UserRegistrationDto memberRegistrationDto) {
@@ -48,7 +44,7 @@ public class MemberController {
         return ResponseEntity.ok("Utilisateur enregistré.");
     }
 
-    @GetMapping("/current-member")
+    @GetMapping("/member")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<UserDto> getMember() {
 
