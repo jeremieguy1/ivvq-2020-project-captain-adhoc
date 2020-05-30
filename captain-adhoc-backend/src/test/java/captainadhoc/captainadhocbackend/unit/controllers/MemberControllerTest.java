@@ -63,7 +63,7 @@ public class MemberControllerTest {
         // then: la méthode saveMember du Service memberService est invoquée
         verify(memberService).saveMember(member);
 
-        assertEquals("Utilisateur enregistré.", responseEntity.getBody());
+        assertEquals("User created.", responseEntity.getBody());
 
     }
 

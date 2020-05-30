@@ -11,6 +11,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -85,7 +86,7 @@ public class MemberControllerIntegrationTest {
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(contentTypeText))
                 // then: le résultat obtenu contient le message "Utilisateur enregistré."
-                .andExpect(jsonPath("$", Matchers.is("Utilisateur enregistré.")));
+                .andExpect(jsonPath("$", Matchers.is("User created.")));
 
     }
 

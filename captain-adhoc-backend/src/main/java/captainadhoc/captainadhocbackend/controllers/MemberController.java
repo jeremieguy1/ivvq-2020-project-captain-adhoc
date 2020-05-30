@@ -15,6 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.net.URI;
+
 @Setter
 @RestController
 public class MemberController {
@@ -29,9 +31,9 @@ public class MemberController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> registerMemberAccount(
             @RequestBody UserRegistrationDto memberRegistrationDto) {
-
+        Member member = null;
         try {
-            Member member = modelMapper.map(
+            member = modelMapper.map(
                     memberRegistrationDto,
                     Member.class);
 
@@ -41,7 +43,9 @@ public class MemberController {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
 
-        return ResponseEntity.ok("Utilisateur enregistré.");
+        URI location = URI.create(String.format("/members/%s", member.getIdMember()));
+
+        return ResponseEntity.created(location).body("User created.");
     }
 
     @GetMapping("/member")
