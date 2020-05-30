@@ -5,3 +5,5 @@ target/
 .gitignore
 .travis.yml
 Procfile
+captain-adhoc-frontend-e2e/
+node_modules/

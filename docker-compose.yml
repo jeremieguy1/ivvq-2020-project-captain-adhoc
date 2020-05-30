@@ -17,4 +17,19 @@ services:
             - 8080:8080
         depends_on:
             - db
+    selenium-chrome:
+        image: selenium/standalone-chrome
+        ports:
+            - 4444:4444
+        volumes:
+            - /dev/shm:/dev/shm
+    e2e:
+        build: captain-adhoc-frontend-e2e/
+        volumes:
+            - ./target:/opt/tests/e2e/target
+        command: ./wait-for-it.sh -t 60 selenium-chrome:4444 -- ./wait-for-it.sh -t 60 web:8080 -- ./node_modules/.bin/nightwatch
+        depends_on:
+          - selenium-chrome
+          - web
+
 

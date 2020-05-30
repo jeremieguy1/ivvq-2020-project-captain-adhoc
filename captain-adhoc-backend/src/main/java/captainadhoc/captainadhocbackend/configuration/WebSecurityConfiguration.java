@@ -30,8 +30,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
-                .antMatchers(HttpMethod.GET, "/").permitAll()
-                .antMatchers(HttpMethod.GET, "/static/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/", "/static/**", "/v2/api-docs").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
@@ -46,6 +45,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     config.addAllowedMethod(HttpMethod.PUT);
                     return config;
                 });
+
     }
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
