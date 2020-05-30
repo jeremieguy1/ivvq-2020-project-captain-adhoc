@@ -108,7 +108,7 @@ module.exports = {
         .assert.elementPresent('a[href="#/log-in"]')
         .click('a[href="#/log-in"]')
 
-        .setValue('#username', 'xXKevindu31Xx')
+        .setValue('#username', 'xXkevindu31Xx')
         .setValue('#password', 'azeazeaze')
         .click('button[type=submit]')
         .waitForElementVisible('div.hero-like', 10000)
@@ -127,6 +127,20 @@ module.exports = {
         .click('a[href="#/inventory"]')
         .waitForElementVisible('div.showProducts', 10000)
         .assert.urlEquals(`${browser.launch_url}/#/inventory`)
+    },
+    'Test mercant -> step four: See all the products': function (browser) {
+      browser
+        .assert.elementPresent('div.showProducts')
+        .assert.elementCount('div.card', 5)
+        .useXpath()
+        .click('//button[text()="Validez vos modifications"]')
+        .assert.elementPresent('//p[text()="Vos modifications ont bien été prises en compte !"]')
+    },
+    'Test mercant -> step five (last): See all the commands': function (browser) {
+      browser
+      .useCss()
+      .assert.elementPresent('a[href="#/purchases-history"]')
+      .assert.elementCount('div.card', 5)
         .end()
     },
   }
