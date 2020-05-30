@@ -16,7 +16,7 @@ module.exports = {
         .assert.elementPresent('a[href="#/sign-up"]')
         .click('a[href="#/sign-up"]')
         .waitForElementVisible('form', 1000)
-        .assert.urlEquals(browser.launch_url + '/#/sign-up')
+        .assert.urlEquals(`${browser.launch_url}/#/sign-up`)
     },
   
     'step three: Fill fields correctly to signup and tick submit button': function (browser) {
@@ -28,7 +28,7 @@ module.exports = {
         .setValue('#repeatPassword', 'password')
         .click('button[type=submit]')
         .waitForElementVisible('form[id="login"]', 10000)
-        .assert.urlEquals(browser.launch_url + '/#/log-in')
+        .assert.urlEquals(`${browser.launch_url}/#/log-in`)
     },
     'step four: Fill fields correctly to login and tick submit button': function (browser) {
       browser
@@ -36,7 +36,7 @@ module.exports = {
         .setValue('#password', 'password')
         .click('button[type=submit]')
         .waitForElementVisible('div.hero-like', 10000)
-        .assert.urlEquals(browser.launch_url + '/#/products')
+        .assert.urlEquals(`${browser.launch_url}/#/products`)
         .assert.elementPresent('a[href="#/products"]')
         .assert.elementPresent('a[href="#/cart"]')
         .assert.elementPresent('a[href="#/purchases-history"]')
@@ -51,28 +51,55 @@ module.exports = {
         .assert.elementCount('footer', 1)
         .assert.elementPresent('button.is-success')
         .assert.containsText('button[name="Annuler"]', 'Annuler')
-        .click('button.is-success')
     },
     'step six: Navigate to user basket': function (browser) {
       browser
         .click('button.is-success')
-        .pause(500)
+        .pause(1000)
         .click('a[href="#/cart"]')
         .waitForElementVisible('div.cart', 10000)
-        .assert.urlEquals(browser.launch_url + '/#/cart')
+        .assert.urlEquals(`${browser.launch_url}/#/cart`)
     },
     'step seven: Unfold our product': function (browser) {
       browser
         .click('header.card-header')
         .assert.elementPresent('figure.image')
-        .assert.elementPresent('table')
+        .assert.elementPresent('table.table')
     },
-    'step heigh: Pay our basket': function (browser) {
+    'step height: Click on pay our basket': function (browser) {
       browser
         .useXpath()
         .click('//p[text()="Payez votre panier"]')
         .useCss()
-        .end()
+        .waitForElementVisible('input#credit-card')
+        .assert.urlEquals(`${browser.launch_url}/#/payment`)
+    },
+    'step nine: Fill the payment form': function (browser) {
+      browser
+        .assert.elementPresent('input[id="credit-card"]')
+        .assert.elementPresent('select[id="select-Month"]')
+        .assert.elementPresent('select[id="select-Year"]')
+        .assert.elementPresent('input[id="cvc"]')
+
+        .setValue('input[id="credit-card"]', '5279461390734033')
+        .setValue('input[id="cvc"]', '123')
+
+        .click('select[id="select-Month"] option[value="1"]')
+        .click('select[id="select-Year"] option[value="2030"]')
+        .useXpath()
+        .click('//button[text()="Payez votre panier"]')
+        .useCss()
+        .waitForElementVisible('div.modal-card', 2000)  
+    },
+    'step ten: Thanks modal open on valid infos': function (browser) {
+      browser
+        .assert.elementPresent('button[name="Retourner aux escroqueries"]')
+    },
+    'step eleven (last): Be redirect automatically after some seconds': function (browser) {
+      browser
+      .waitForElementVisible('div.hero-like', 15000)
+      .assert.urlEquals(`${browser.launch_url}/#/products`)
+      .end()
     }
   }
   

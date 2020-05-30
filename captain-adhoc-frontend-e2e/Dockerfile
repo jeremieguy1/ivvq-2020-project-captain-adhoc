@@ -1,4 +1,4 @@
-FROM node:13.0.0
+FROM node:12.0.0
 
 WORKDIR /opt/test/e2e
 
