@@ -75,7 +75,8 @@
         </div>
       </div>
     </div>
-    <section class="paybox">
+    <p :class="{ 'has-text-centered has-text-danger': !submitStatus.status, 'has-text-centered has-text-success': submitStatus.status}">{{submitStatus.message}}</p>
+    <section class="paybox section">
       <div class="container animated fadeIn">
         <div class="to-pay box-shadow has-text-centered">
           <button v-on:click="updateInventory()"  class="button has-text-centered">Validez vos modifications</button>
@@ -103,7 +104,11 @@ export default {
   },
   data () {
     return {
-      products: []
+      products: [],
+      submitStatus: [{
+        status: null,
+        message: ''
+      }]
     }
   },
   computed: mapState(['inventoryProducts']),
@@ -121,11 +126,58 @@ export default {
           this.products = response.data
           this.$store.commit('inventoryProducts', this.products)
         })
+        .catch((e) => {
+          switch (e.response.status) {
+            default: {
+              this.submitStatus = {
+                status: false,
+                message: `Erreur de soumission (${e.response.status})`
+              }
+            }
+          }
+        })
     },
     updateInventory () {
       for (var product in this.products) {
         axios
           .put(`/products/modify/quantity?quantity=${this.products[product].productQuantity}&idProduct=${this.products[product].idProduct}`, '', configs)
+          .then(response => {
+            this.submitStatus = {
+              status: true,
+              message: 'Vos modifications ont bien été prises en compte !'
+            }
+          })
+          .catch((e) => {
+            switch (e.response.status) {
+              case (409): {
+                this.submitStatus = {
+                  status: true,
+                  message: 'Le produit ne fait pas partie des produits proposés sur le site !'
+                }
+                break
+              }
+              case (403): {
+                this.submitStatus = {
+                  status: true,
+                  message: 'Vous n\'êtes pas reconnu en tant qu\'administrateur !'
+                }
+                break
+              }
+              case (400): {
+                this.submitStatus = {
+                  status: true,
+                  message: 'La quantité saisie est invalide !'
+                }
+                break
+              }
+              default: {
+                this.submitStatus = {
+                  status: false,
+                  message: `Erreur de soumission (${e.response.status})`
+                }
+              }
+            }
+          })
       }
     }
   }

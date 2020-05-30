@@ -161,7 +161,7 @@
                   </div>
                 </div>
               </table>
-              <p class="has-text-danger has-text-centered" v-if="submitStatus != ''">{{submitStatus}}</p>
+              <p :class="{ 'has-text-centered has-text-danger': !submitStatus.status, 'has-text-centered has-text-success': submitStatus.status}">{{submitStatus.message}}</p>
               <div class="section to-pay box-shadow has-text-centered">
                 <button v-on:click="submitPayment()"  class="button has-text-centered to-pay">Payez votre panier</button>
               </div>
@@ -230,7 +230,10 @@ export default {
       year: null,
       month: null,
       cvc: '',
-      submitStatus: '',
+      submitStatus: [{
+        status: null,
+        message: ''
+      }],
       numberCart: '',
       productsToPay: null
     }
@@ -280,11 +283,16 @@ export default {
             code: this.productsToPay.code,
             productPurchaseList: productToPay
           }
+
           axios
             .post('/purchases/order',
               pay
               , configs)
             .then(response => {
+              this.submitStatus = {
+                status: true,
+                message: 'La commande a bien été prise en compte'
+              }
               localStorage.removeItem('commandsProduct')
               localStorage.removeItem('commandToPay')
               this.$buefy.modal.open({
@@ -297,11 +305,17 @@ export default {
             .catch((e) => {
               switch (e.response.status) {
                 case (409): {
-                  this.submitStatus = 'Le produit n\'est plus en stock !'
+                  this.submitStatus = {
+                    status: false,
+                    message: 'Le produit n\'est plus en stock !'
+                  }
                   break
                 }
                 default: {
-                  this.submitStatus = `Erreur de soumission (${e.response.status})`
+                  this.submitStatus = {
+                    status: false,
+                    message: `Erreur de soumission (${e.response.status})`
+                  }
                 }
               }
             })

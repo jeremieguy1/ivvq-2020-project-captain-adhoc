@@ -8,5 +8,12 @@ export default {
       .then(response => {
         store.commit('setCurrentUser', response.data)
       })
+      .catch((e) => {
+        switch (e.response.status) {
+          default: {
+            this.submitStatus = `Erreur de soumission (${e.response.status})`
+          }
+        }
+      })
   }
 }

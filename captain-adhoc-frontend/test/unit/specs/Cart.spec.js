@@ -678,6 +678,36 @@ describe('Cart.vue', () => {
       })
     })
   })
+
+  it('Should getProductsCart axios be catch with default error', (done) => {
+    // Given
+    storeTest(commandsProductResponse1)
+    const wrapper = mount(Cart, {
+      store,
+      localVue
+    })
+
+    window.localStorage.setItem('commandsProduct', JSON.stringify(commandsProductResponse1))
+
+    const spy = sinon.spy(wrapper.vm, 'getProductsCart')
+
+    // When
+    wrapper.vm.getProductsCart()
+
+    // Then
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 500,
+        response: {
+          data: {}
+        }
+      }).then(() => {
+        chai.assert.strictEqual(spy.calledOnce, true)
+        done()
+      })
+    })
+  })
 })
 function storeTest (cartProducts) {
   store = new Vuex.Store({

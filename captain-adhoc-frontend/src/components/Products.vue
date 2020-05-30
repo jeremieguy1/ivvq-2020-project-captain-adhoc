@@ -15,9 +15,9 @@
           <div v-for="product in products" v-bind:key="product.idProduct" class="column is-one-third animated fadeIn">
             <div class="card">
               <div @click="openDetailsModal(product)"
-                @keydown.enter="openDetailsModal(product)"
-                class="card-image"
-                tabindex="0">
+                   @keydown.enter="openDetailsModal(product)"
+                   class="card-image"
+                   tabindex="0">
                 <figure class="image is-4by3">
                   <img :src="`${product.productPicture}`" alt="">
                 </figure>
@@ -82,6 +82,13 @@ export default {
           this.products = response.data
           this.$store.commit('storeProducts', this.products)
         })
+        .catch((e) => {
+          switch (e.response.status) {
+            default: {
+              this.submitStatus = `Erreur de soumission (${e.response.status})`
+            }
+          }
+        })
     },
     addToCart (product) {
       var listCommandProduct = JSON.parse(window.localStorage.getItem('commandsProduct'))
@@ -103,51 +110,51 @@ export default {
 
 <style scoped>
 
-div.card {
-  outline: solid 0 #eeeeee;
-  transition: outline 0.6s linear;
-  margin: 0.5rem;
-  cursor: pointer;
-}
-div .card:hover,
-div .card:focus {
-  outline-width: 0.825rem;
-}
+  div.card {
+    outline: solid 0 #eeeeee;
+    transition: outline 0.6s linear;
+    margin: 0.5rem;
+    cursor: pointer;
+  }
+  div .card:hover,
+  div .card:focus {
+    outline-width: 0.825rem;
+  }
 
-.infos {
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 0.525rem 0 0.525rem 0;
-}
+  .infos {
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0.525rem 0 0.525rem 0;
+  }
 
-.info {
-  flex-direction: column;
-  justify-content: space-evenly;
-}
+  .info {
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
 
-.fontawesome-icon {
-  font-size: 1.825rem;
-}
+  .fontawesome-icon {
+    font-size: 1.825rem;
+  }
 
-.title {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  transition: font-size 0.6s, margin-top 0.5s, margin-bottom 0.5s;
-}
-.margin >>> .title {
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 99%;
-}
+  .title {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    transition: font-size 0.6s, margin-top 0.5s, margin-bottom 0.5s;
+  }
+  .margin >>> .title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 99%;
+  }
 
-.background {
-  background: url('../assets/background.png') no-repeat center center;
-  background-size: cover;
-}
+  .background {
+    background: url('../assets/background.png') no-repeat center center;
+    background-size: cover;
+  }
 
-p.title {
-  color: white;
-}
+  p.title {
+    color: white;
+  }
 
 </style>

@@ -51,6 +51,8 @@ public class ProductService implements IProductService {
         if (product.isPresent()) {
             product.get().setProductQuantity(quantity);
             productRepository.save(product.get());
+        } else {
+            throw new IllegalArgumentException();
         }
     }
 

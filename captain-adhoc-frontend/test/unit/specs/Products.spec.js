@@ -89,6 +89,36 @@ describe('Products.vue', () => {
     })
   })
 
+  it('Should be in error on username field when invalid', (done) => {
+    // Given
+    moxios.withMock(function () {
+      const spy = sinon.spy()
+      axios.get('/products').then(spy)
+      moxios.wait(() => {
+        let request = moxios.requests.mostRecent()
+        request.respondWith({
+          status: 200,
+          response: {
+            products: productsResponse
+          }
+        }).then(
+          response => {
+            storeTest(response.data.products)
+
+            // When
+            mount(Products, {
+              store,
+              localVue
+            })
+
+            // Then
+            chai.assert.strictEqual(spy.calledOnce, true)
+            done()
+          })
+      })
+    })
+  })
+
   it('Should not shrink the header on scroll if scroll is not enough on bot', () => {
     // Given
     const wrapper = mount(Products, {
@@ -224,6 +254,33 @@ describe('Products.vue', () => {
       let request = moxios.requests.mostRecent()
       request.respondWith({
         status: 200,
+        response: {
+          data: productsResponse
+        }
+      }).then(() => {
+        chai.assert.strictEqual(spy.calledOnce, true)
+        done()
+      })
+    })
+  })
+
+  it('Should axios be catch with default error code', (done) => {
+    // Given
+    storeTest(productsResponse)
+    const wrapper = mount(Products, {
+      store,
+      localVue
+    })
+    const spy = sinon.spy(wrapper.vm, 'getProducts')
+
+    // When
+    wrapper.vm.getProducts()
+
+    // Then
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 500,
         response: {
           data: productsResponse
         }
