@@ -75,8 +75,7 @@
         </div>
       </div>
     </div>
-    <p class="has-text-danger has-text-centered" v-if="submitStatus.status === false">{{submitStatus.message}}</p>
-    <p class="has-text-success has-text-centered" v-if="submitStatus.status === true">{{submitStatus.message}}</p>
+    <p :class="{ 'has-text-centered has-text-danger': !submitStatus.status, 'has-text-centered has-text-success': submitStatus.status}">{{submitStatus.message}}</p>
     <section class="paybox section">
       <div class="container animated fadeIn">
         <div class="to-pay box-shadow has-text-centered">

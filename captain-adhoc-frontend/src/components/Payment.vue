@@ -161,8 +161,7 @@
                   </div>
                 </div>
               </table>
-              <p class="has-text-danger has-text-centered" v-if="submitStatus.status === false">{{submitStatus.message}}</p>
-              <p class="has-text-success has-text-centered" v-if="submitStatus.status === true">{{submitStatus.message}}</p>
+              <p :class="{ 'has-text-centered has-text-danger': !submitStatus.status, 'has-text-centered has-text-success': submitStatus.status}">{{submitStatus.message}}</p>
               <div class="section to-pay box-shadow has-text-centered">
                 <button v-on:click="submitPayment()"  class="button has-text-centered to-pay">Payez votre panier</button>
               </div>
