@@ -9,13 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -36,15 +30,10 @@ public class ProductController {
         return productService.findAllProducts();
     }
 
-    @PostMapping("/add")
-    public void addProduct(@RequestBody Product product) { }
 
-    @PutMapping("/modify/quantity")
-    public void modifyQuantity(
-            @RequestParam(value = "quantity") int productQuantity,
-            @RequestParam(value = "idProduct") Long idProduct) {
-
-        if (productQuantity < 0) {
+    @PutMapping("/{idProduct}")
+    public void modifyQuantity(@RequestParam int quantity, @PathVariable Long idProduct ) {
+        if (quantity < 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
@@ -57,7 +46,7 @@ public class ProductController {
         if (member.getIsAdmin()) {
 
             try {
-                productService.modifyQuantity(idProduct, productQuantity);
+                productService.modifyQuantity(idProduct, quantity);
             } catch (IllegalArgumentException e) {
                 throw new ResponseStatusException(HttpStatus.CONFLICT);
             }

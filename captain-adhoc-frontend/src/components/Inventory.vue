@@ -140,7 +140,7 @@ export default {
     updateInventory () {
       for (var product in this.products) {
         axios
-          .put(`/products/modify/quantity?quantity=${this.products[product].productQuantity}&idProduct=${this.products[product].idProduct}`, '', configs)
+          .put(`/products/${this.products[product].idProduct}?quantity=${this.products[product].productQuantity}`, '', configs)
           .then(response => {
             this.submitStatus = {
               status: true,

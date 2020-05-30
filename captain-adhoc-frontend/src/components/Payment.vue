@@ -285,7 +285,7 @@ export default {
           }
 
           axios
-            .post('/purchases/order',
+            .post('/purchases',
               pay
               , configs)
             .then(response => {

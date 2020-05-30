@@ -4,7 +4,7 @@ import { configs } from '../http-common'
 export default {
   getUser () {
     axios
-      .get('/current-member', configs)
+      .get('/member', configs)
       .then(response => {
         store.commit('setCurrentUser', response.data)
       })

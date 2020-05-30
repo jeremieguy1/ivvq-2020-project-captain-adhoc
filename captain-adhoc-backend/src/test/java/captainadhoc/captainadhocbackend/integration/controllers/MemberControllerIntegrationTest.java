@@ -11,6 +11,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -80,14 +81,14 @@ public class MemberControllerIntegrationTest {
         UserRegistrationDto userRegistrationDto = new UserRegistrationDto("Kev", "User", "Keke", "password31");
 
         // when: l'utilisateur émet une requête pour s'enregistrer
-        mockMvc.perform(post("/register")
+        mockMvc.perform(post("/members")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(userRegistrationDto)))
-                // then: la réponse a le status 200(OK)
-                .andExpect(status().isOk())
+                // then: la réponse a le status 201(OK)
+                .andExpect(status().isCreated())
                 .andExpect(content().contentType(contentTypeText))
                 // then: le résultat obtenu contient le message "Utilisateur enregistré."
-                .andExpect(jsonPath("$", Matchers.is("Utilisateur enregistré.")));
+                .andExpect(jsonPath("$", Matchers.is("User created.")));
 
     }
 
@@ -98,7 +99,7 @@ public class MemberControllerIntegrationTest {
                 new UserRegistrationDto("Kevin", "Marchand", "marchand1", "mdp");
 
         // when: l'utilisateur émet une requête pour s'enregistrer
-        mockMvc.perform(post("/register")
+        mockMvc.perform(post("/members")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(userRegistrationDto)))
                 // then: la réponse a le status 409(CONFLIT) car l'utilisateur existe déjà
@@ -111,7 +112,7 @@ public class MemberControllerIntegrationTest {
     public void getMember() throws Exception {
 
         // when:  une requête est émise pour récupérer les informations de l'utilisateur
-        mockMvc.perform(get("/current-member"))
+        mockMvc.perform(get("/member"))
                 // then: la réponse a le status 200(OK)
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentTypeJson))

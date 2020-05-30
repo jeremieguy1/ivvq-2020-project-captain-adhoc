@@ -10,8 +10,6 @@ public interface IProductService {
 
     void saveProduct(Product produit);
 
-    void deleteAllProducts();
-
     void modifyQuantity(Long idProduct, int quantity);
 
     Product decrementQuantity(Long idProduct, int produitQuantity);

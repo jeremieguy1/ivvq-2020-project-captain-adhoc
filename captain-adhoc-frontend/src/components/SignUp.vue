@@ -229,7 +229,7 @@ export default {
           password: this.password
         }
         axios
-          .post('/register', body, configs)
+          .post('/members', body, configs)
           .then(response => {
             this.$router.push('log-in')
           })

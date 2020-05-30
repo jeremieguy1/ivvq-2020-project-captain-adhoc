@@ -229,7 +229,7 @@ describe('SignUp.vue', () => {
     // When
     moxios.withMock(function () {
       let spy = sinon.spy()
-      axios.post('/register').then(spy)
+      axios.post('/members').then(spy)
       // Then
       moxios.wait(() => {
         let request = moxios.requests.mostRecent()

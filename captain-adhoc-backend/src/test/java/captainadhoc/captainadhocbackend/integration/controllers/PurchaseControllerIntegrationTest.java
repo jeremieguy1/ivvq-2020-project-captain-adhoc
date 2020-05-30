@@ -95,7 +95,7 @@ public class PurchaseControllerIntegrationTest {
         PurchaseDto purchaseDto = initPurchaseDto(false);
 
         // when: l'utilisateur émet une requête pour obtenir la liste des produits
-        mockMvc.perform(post("/purchases/order")
+        mockMvc.perform(post("/purchases")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(mapper.writeValueAsString(purchaseDto)))
                 // then: la réponse a le status 200(OK)
@@ -109,7 +109,7 @@ public class PurchaseControllerIntegrationTest {
 
         PurchaseDto purchaseDto = initPurchaseDto(true);
 
-        mockMvc.perform(post("/purchases/order")
+        mockMvc.perform(post("/purchases")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(mapper.writeValueAsString(purchaseDto)))
                 // then: la réponse a le status 409(CONFLIT)

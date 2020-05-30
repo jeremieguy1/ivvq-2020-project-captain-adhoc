@@ -97,11 +97,12 @@ public class ProductControllerIntegrationTest {
                 .build();
 
         productService.saveProduct(product);
+        System.out.println(product.getIdProduct());
 
         Long idProduct = product.getIdProduct();
 
         // when: l'utilisateur émet une requête pour obtenir la liste des produits
-        mockMvc.perform(put("/products/modify/quantity?quantity=10&idProduct="+idProduct))
+        mockMvc.perform(put("/products/" + idProduct + "?quantity=10"))
                 // then: la réponse a le status 200(OK)
                 .andExpect(status().isOk());
 
@@ -117,7 +118,7 @@ public class ProductControllerIntegrationTest {
         int negativeQuantity = -10;
 
         // when: l'utilisateur émet une requête pour obtenir la liste des produits avec une quantité négative
-        mockMvc.perform(put("/products/modify/quantity?quantity="+negativeQuantity+"&idProduct=1"))
+        mockMvc.perform(put("/products/1?quantity="+negativeQuantity))
                 // then: la réponse a le status 400(BAD REQUEST)
                 .andExpect(status().isBadRequest());
     }
@@ -127,7 +128,7 @@ public class ProductControllerIntegrationTest {
     public void modifyQuantityTestProductNotFound() throws Exception {
 
         // when: l'utilisateur émet une requête pour obtenir la liste des produits
-        mockMvc.perform(put("/products/modify/quantity?quantity=10&idProduct=999"))
+        mockMvc.perform(put("/products/999?quantity=10"))
                 // then: la réponse a le status 409(CONFLICT)
                 .andExpect(status().isConflict());
     }
@@ -148,7 +149,7 @@ public class ProductControllerIntegrationTest {
         memberService.saveMember(member);
 
         // when: l'utilisateur non admin émet une requête pour obtenir la liste des produits
-        mockMvc.perform(put("/products/modify/quantity?quantity=10&idProduct=1"))
+        mockMvc.perform(put("/products/1?quantity=10"))
                 // then: la réponse a le status 403(FORBIDDEN)
                 .andExpect(status().isForbidden());
     }
