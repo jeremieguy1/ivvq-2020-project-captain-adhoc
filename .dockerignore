@@ -1,0 +1,9 @@
+.idea
+.mvn
+target/
+.git
+.gitignore
+.travis.yml
+Procfile
+captain-adhoc-frontend-e2e/
+node_modules/
