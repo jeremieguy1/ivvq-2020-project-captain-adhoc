@@ -33,11 +33,11 @@ public class Member {
     private Long idMember;
 
     @NotEmpty
-    @Pattern(regexp = "^[A-Za-z]*$")
+    @Pattern(regexp = "^[A-Za-zÀ-ÿ]*$")
     private String firstName;
 
     @NotEmpty
-    @Pattern(regexp = "^[A-Za-z]*$")
+    @Pattern(regexp = "^[A-Za-zÀ-ÿ]*$")
     private String lastName;
 
     @NotEmpty
