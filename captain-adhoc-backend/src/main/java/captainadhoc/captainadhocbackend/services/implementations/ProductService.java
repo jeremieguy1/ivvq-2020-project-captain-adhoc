@@ -12,11 +12,12 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Optional;
 
+@Getter
 @Setter
 @Service
 public class ProductService implements IProductService {
 
-    @Getter
+
     @Autowired
     private ProductRepository productRepository;
 

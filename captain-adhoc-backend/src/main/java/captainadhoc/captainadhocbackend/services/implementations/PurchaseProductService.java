@@ -17,14 +17,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Setter
+@Getter
 @Service
 public class PurchaseProductService implements IPurchaseProductService {
 
-    @Getter
+
     @Autowired
     private PurchaseProductRepository purchaseProductRepository;
 
-    @Getter
     @Autowired
     private IProductService productService;
 

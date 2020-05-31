@@ -50,38 +50,43 @@ public class DataLoaderDev implements ApplicationRunner {
                 .productQuantity(15)
                 .productName("PS5")
                 .productDescription("Encore une playstation de folie \\o/")
-                .productPicture("https://static.mensup.fr/photo_article/209383/105703/1200-L-ps5-actualits.jpg")
+                .productPicture("https://static.mensup.fr"
+                        + "/photo_article/209383/105703"
+                        + "/1200-L-ps5-actualits.jpg")
                 .productPrice(1)
                 .build();
 
         Product product2 = Product.builder()
                 .productQuantity(16)
                 .productName("CyberboX")
-                .productDescription("Non content d'avoir " +
-                        "les meilleures voitures au MONDE, " +
-                        "Tesla propose la meilleure console " +
-                        "de jeu grand public !")
-                .productPicture("https://cdn.dribbble.com/users/332589/screenshots/9955348/image.png")
+                .productDescription("Non content d'avoir "
+                        + "les meilleures voitures au MONDE, "
+                        + "Tesla propose la meilleure console "
+                        + "de jeu grand public !")
+                .productPicture("https://cdn.dribbble.com/users/332589"
+                        + "/screenshots/9955348/image.png")
                 .productPrice(100000)
                 .build();
 
         Product product3 = Product.builder()
                 .productQuantity(2)
                 .productName("Mad box")
-                .productDescription("Cette console " +
-                        "va révolutionner le du le esport !")
-                .productPicture("https://www.unsimpleclic.com/wp-content/uploads/2019/01/190124" +
-                        "-une-nouvelle-console-mad-box-pourrait-debarquer-sur-le-marche-01.jpg")
+                .productDescription("Cette console "
+                        + "va révolutionner le du le esport !")
+                .productPicture("https://www.unsimpleclic.com"
+                        + "/wp-content/uploads/2019/01/190124"
+                        + "-une-nouvelle-console-mad-box"
+                        + "-pourrait-debarquer-sur-le-marche-01.jpg")
                 .productPrice(666)
                 .build();
 
         Product product4 = Product.builder()
                 .productQuantity(100)
                 .productName("New retro +")
-                .productDescription("Elle fera tourner " +
-                        "les jeux dernières générations " +
-                        "tels que tetris et même Donkey kong 64 ! " +
-                        "Et tout ça pour seulement 1399€")
+                .productDescription("Elle fera tourner "
+                        + "les jeux dernières générations "
+                        + "tels que tetris et même Donkey kong 64 ! "
+                        + "Et tout ça pour seulement 1399€")
                 .productPicture("https://i.pinimg.com/originals/d4/51/bd/d451bd6be0a4bdb720b8e3386c15a855.jpg")
                 .productPrice(1399)
                 .build();
@@ -90,8 +95,10 @@ public class DataLoaderDev implements ApplicationRunner {
                 .productQuantity(5)
                 .productName("Xbox Serie X")
                 .productDescription("C'est partiiiii pour la console pc !")
-                .productPicture("https://compass-ssl.xbox.com/assets/85/8b/858b94d4-0ca6-4e74-ac9f-" +
-                        "38565c49f2df.jpg?n=Xbox-Series-X_Image-0_1083x1400_02.jpg")
+                .productPicture("https://compass-ssl.xbox.com/assets"
+                        + "/85/8b/858b94d4-0ca6-4e74-ac9f-"
+                        + "38565c49f2df.jpg?n=Xbox-Series-X"
+                        + "_Image-0_1083x1400_02.jpg")
                 .productPrice(1200)
                 .build();
 
@@ -113,7 +120,7 @@ public class DataLoaderDev implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         initProducts();
         initPurchases();
     }
